@@ -71,8 +71,7 @@ public class Stats
      * @param xp the earned xp to be sieved over the stats
      * @return true if xp is sieved successfully, false otherwise
      */
-    public boolean sieveXp(final EquipmentEnum characterAttackStyle, final int xp)
-    {
+    public boolean sieveXp(final EquipmentEnum characterAttackStyle, final int xp) {
         double earnedXp;
         switch (characterAttackStyle) {
             case SWORD:
@@ -125,8 +124,7 @@ public class Stats
      *
      * @param hit the number which is getting subtracted
      */
-    public void bearHit(int hit)
-    {
+    public void bearHit(int hit) {
         this.setCurrentHitpoints(this.getCurrentHitpoints() - hit);
     }
 
@@ -138,8 +136,7 @@ public class Stats
      * @param earnedXp the amount of earned xp, for example from killing a monster
      * @return the newly calculated xp which is needed for the next level
      */
-    private double calcXpLeft(final double totalXp, final double currentXp, final double earnedXp)
-    {
+    private double calcXpLeft(final double totalXp, final double currentXp, final double earnedXp) {
         double calculatedXp = currentXp - earnedXp;
         if (currentXp <= earnedXp) {
             calculatedXp = LEVEL_MULTIPLIER * (BASE_XP + Math.sqrt(totalXp));
@@ -157,8 +154,7 @@ public class Stats
      * @param earnedXp the amount of earned xp, for example from killing a monster
      * @return the amount of XP remaining
      */
-    private double calcXpRemaining(final double currentXp, final double earnedXp)
-    {
+    private double calcXpRemaining(final double currentXp, final double earnedXp) {
         double remainingXp = 0;
         if (currentXp < earnedXp) {
             remainingXp = earnedXp - currentXp;
@@ -174,8 +170,9 @@ public class Stats
      * @param earnedXp the amount of earned xp, for example for killing a monster
      * @return true is level up, false otherwise
      */
-    private boolean isLevelUp(final double currentXp, final double earnedXp)
-    {
+    private boolean isLevelUp(final double currentXp, final double earnedXp) {
         return currentXp <= earnedXp;
     }
+
+    // TODO make sure accuracy can only have a max value of say 75
 }

@@ -19,19 +19,21 @@ import java.util.HashMap;
 @NoArgsConstructor
 public abstract class Character
 {
-    private String name;
+    protected String name;
 
-    private String description;
+    protected String description;
 
-    private HashMap<EquipmentEnum, Equipment> equipment;
+    protected HashMap<EquipmentEnum, Equipment> equipment;
 
-    private EquipmentEnum attackStyle;
+    protected EquipmentEnum attackStyle;
 
-    private ActionBehavior actionBehavior;
+    protected ActionBehavior actionBehavior;
 
-    private CharacterState currentState;
+    protected CharacterState currentState;
 
-    private Stats stats;
+    protected Stats stats;
+
+    protected final static int test = 10;
 
     /**
      * Mounts the Character with an Equipment Piece
@@ -55,8 +57,7 @@ public abstract class Character
      * @param equipmentType what kind of Equipment Piece
      * @param equipment an Equipment Object
      */
-    public void unMountEquipment(EquipmentEnum equipmentType, Equipment equipment)
-    {
+    public void unMountEquipment(EquipmentEnum equipmentType, Equipment equipment) {
         this.equipment.remove(equipmentType, equipment);
     }
 
@@ -65,8 +66,7 @@ public abstract class Character
      *
      * @param opponent the Character's Opponent
      */
-    public void performAction(Opponent opponent)
-    {
+    public void performAction(Opponent opponent) {
         // TODO
     }
 
@@ -74,8 +74,7 @@ public abstract class Character
      * Gets the Strength Level
      * @return the Strength Level
      */
-    public int getStrength()
-    {
+    public int getStrength() {
         return this.stats.getStrength();
     }
 
@@ -83,8 +82,7 @@ public abstract class Character
      * Gets the Magic Level
      * @return the Magic Level
      */
-    public int getMagic()
-    {
+    public int getMagic() {
         return this.stats.getMagic();
     }
 
@@ -92,8 +90,7 @@ public abstract class Character
      * Gets the Defense Level
      * @return the Defense Level
      */
-    public int getDefense()
-    {
+    public int getDefense() {
         return this.stats.getDefense();
     }
 
@@ -101,8 +98,7 @@ public abstract class Character
      * Gets the Archery Level
      * @return the Archery Level
      */
-    public int getArchery()
-    {
+    public int getArchery() {
         return this.stats.getArchery();
     }
 
@@ -110,8 +106,7 @@ public abstract class Character
      * Gets the Hitpoints amount
      * @return the Hitpoints amount
      */
-    public int getHitpoints()
-    {
+    public int getHitpoints() {
         return this.stats.getHitpoints();
     }
 
@@ -119,8 +114,7 @@ public abstract class Character
      * Gets the Current Hitpoints amount
      * @return the Current Hitpoints amount
      */
-    public int getCurrentHitpoints()
-    {
+    public int getCurrentHitpoints()  {
         return this.stats.getCurrentHitpoints();
     }
 
@@ -128,8 +122,7 @@ public abstract class Character
      * Gets an instance of PoweredState
      * @return an instance of PoweredState
      */
-    public CharacterState getPoweredState()
-    {
+    public CharacterState getPoweredState() {
         return new PoweredState();
     }
 
@@ -137,8 +130,7 @@ public abstract class Character
      * Gets an instance of NormalState
      * @return an instance of NormalState
      */
-    public CharacterState getNormalState()
-    {
+    public CharacterState getNormalState() {
         return new NormalState();
     }
 
@@ -146,16 +138,14 @@ public abstract class Character
      * Gets an instance of WeakenedState
      * @return an instance of WeakenedState
      */
-    public CharacterState getWeakenedState()
-    {
+    public CharacterState getWeakenedState() {
         return new WeakenedState();
     }
 
     /**
      * Sets the current Character State
      */
-    public void setState(CharacterState state)
-    {
+    public void setState(CharacterState state) {
         this.currentState = state;
     }
 
@@ -163,24 +153,45 @@ public abstract class Character
      * Determines if the Character is still alive
      * @return true if the Character is alive, false otherwise
      */
-    public boolean isAlive()
-    {
+    public boolean isAlive() {
         return this.stats.getCurrentHitpoints() > 0;
     }
 
     /**
      * Bears an incoming hit from an Opponent
      */
-    public void bearHit(int hit)
-    {
+    public void bearHit(int hit) {
         this.stats.bearHit(hit);
     }
 
     /**
      * Receive an incoming XP bounty
      */
-    public void receiveXp(int earnedXp)
-    {
+    public void receiveXp(int earnedXp) {
         this.stats.sieveXp(this.getAttackStyle(), earnedXp);
     }
+
+    /**
+     * Gets the current Strength Accuracy
+     * @return the current Strength Accuracy
+     */
+    public abstract int getStrengthAccuracy();
+
+    /**
+     * Gets the current Magic Accuracy
+     * @return the current Magic Accuracy
+     */
+    public abstract int getMagicAccuracy();
+
+    /**
+     * Gets the current Defense Accuracy
+     * @return the current Defense Accuracy
+     */
+    public abstract int getDefenseAccuracy();
+
+    /**
+     * Gets the current Archery Accuracy
+     * @return the current Archery Accuracy
+     */
+    public abstract int getArcheryAccuracy();
 }
