@@ -121,6 +121,16 @@ public class Stats
     }
 
     /**
+     * Subtracts the argument from the current Hitpoints
+     *
+     * @param hit the number which is getting subtracted
+     */
+    public void bearHit(int hit)
+    {
+        this.setCurrentHitpoints(this.getCurrentHitpoints() - hit);
+    }
+
+    /**
      * Calculates how much XP is left till the next level
      *
      * @param totalXp total xp needed for the next level

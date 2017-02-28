@@ -5,5 +5,5 @@ package nl.avans.ivh11.a2b.domain.util;
  */
 public enum EquipmentEnum
 {
-    HELMET, TORSO, LEGS, BOOTS, GLOVES, SWORD, STAFF, BOW
+    HELMET, TORSO, LEGS, BOOTS, GLOVES, WEAPON, SWORD, STAFF, BOW
 }
