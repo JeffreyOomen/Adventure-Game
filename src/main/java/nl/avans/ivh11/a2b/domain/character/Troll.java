@@ -12,9 +12,9 @@ import javax.persistence.Entity;
 public class Troll extends Character
 {
     private final static int STRENGTH_ACCURACY = 10;
-    private final static int MAGIC_ACCURACY = 10;
-    private final static int DEFENSE_ACCURACY = 10;
-    private final static int ARCHERY_ACCURACY = 10;
+    private final static int MAGIC_ACCURACY = 2;
+    private final static int DEFENSE_ACCURACY = 2;
+    private final static int ARCHERY_ACCURACY = 5;
 
     public Troll(String name, Stats stats) {
         super(name, stats);
