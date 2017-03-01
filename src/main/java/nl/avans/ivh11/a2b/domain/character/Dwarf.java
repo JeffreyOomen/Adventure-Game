@@ -1,8 +1,14 @@
 package nl.avans.ivh11.a2b.domain.character;
 
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Entity;
+
 /**
  * Represents a Character Race
  */
+@Entity
+@NoArgsConstructor
 public class Dwarf extends Character
 {
     private final static int STRENGTH_ACCURACY = 15;
@@ -10,8 +16,9 @@ public class Dwarf extends Character
     private final static int DEFENSE_ACCURACY = 5;
     private final static int ARCHERY_ACCURACY = 3;
 
-    public Dwarf(Stats stats) {
-        this.stats = stats;
+    public Dwarf(String name, Stats stats) {
+        super(name, stats);
+        this.description = "A dwarf";
     }
 
     @Override

@@ -1,8 +1,14 @@
 package nl.avans.ivh11.a2b.domain.character;
 
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Entity;
+
 /**
  * Represents a Character Race
  */
+@Entity
+@NoArgsConstructor
 public class Troll extends Character
 {
     private final static int STRENGTH_ACCURACY = 10;
@@ -10,8 +16,9 @@ public class Troll extends Character
     private final static int DEFENSE_ACCURACY = 10;
     private final static int ARCHERY_ACCURACY = 10;
 
-    public Troll(Stats stats) {
-        this.stats = stats;
+    public Troll(String name, Stats stats) {
+        super(name, stats);
+        this.description = "A Troll";
     }
 
     @Override

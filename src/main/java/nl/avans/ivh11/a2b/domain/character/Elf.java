@@ -1,8 +1,14 @@
 package nl.avans.ivh11.a2b.domain.character;
 
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Entity;
+
 /**
  * Represents a Character Race
  */
+@Entity
+@NoArgsConstructor
 public class Elf extends Character
 {
     private final static int STRENGTH_ACCURACY = 0;
@@ -10,8 +16,9 @@ public class Elf extends Character
     private final static int DEFENSE_ACCURACY = 1;
     private final static int ARCHERY_ACCURACY = 22;
 
-    public Elf(Stats stats)  {
-        this.stats = stats;
+    public Elf(String name, Stats stats)  {
+        super(name, stats);
+        this.description = "An Elf";
     }
 
     @Override

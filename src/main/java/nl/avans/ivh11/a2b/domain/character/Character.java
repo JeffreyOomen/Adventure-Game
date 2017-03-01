@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import nl.avans.ivh11.a2b.domain.battle.ActionBehavior;
+import nl.avans.ivh11.a2b.domain.usable.Inventory;
 import nl.avans.ivh11.a2b.domain.util.EquipmentEnum;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
 
@@ -17,13 +18,15 @@ import java.util.HashMap;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class Character
+public abstract class Character implements Opponent
 {
     protected String name;
 
     protected String description;
 
     protected HashMap<EquipmentEnum, Equipment> equipment;
+
+    protected Inventory inventory;
 
     protected EquipmentEnum attackStyle;
 
@@ -33,7 +36,15 @@ public abstract class Character
 
     protected Stats stats;
 
-    protected final static int test = 10;
+    /**
+     * Constructor
+     * @param name the name of the Character
+     * @param stats
+     */
+    public Character(String name, Stats stats) {
+        this.name = name;
+        this.stats = stats;
+    }
 
     /**
      * Mounts the Character with an Equipment Piece
@@ -170,6 +181,24 @@ public abstract class Character
     public void receiveXp(int earnedXp) {
         this.stats.sieveXp(this.getAttackStyle(), earnedXp);
     }
+
+    /**
+     * Adds a Usable item to the Character's Inventory
+     * @param usable an Object of Usable
+     * @return true if added successfully, false otherwise (e.g. when full)
+     */
+//    public boolean addToInventory(Usable usable) {
+//        return this.inventory.addUsable(usable);
+//    }
+
+    /**
+     * Removes the specified Usable from the Character's Inventory
+     * @param usable an Object of Usable
+     * @return true if dropped successfully, false otherwise
+     */
+//    public boolean dropFromInventory(Usable usable) {
+//        return this.inventory.drop();
+//    }
 
     /**
      * Gets the current Strength Accuracy
