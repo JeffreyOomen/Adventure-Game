@@ -1,6 +1,8 @@
-package nl.avans.ivh11.a2b.domain.character;
+package nl.avans.ivh11.a2b.domain.character.decoration;
 
 import lombok.NoArgsConstructor;
+import nl.avans.ivh11.a2b.domain.character.Character;
+import nl.avans.ivh11.a2b.domain.util.Stats;
 import nl.avans.ivh11.a2b.domain.util.EquipmentEnum;
 
 import javax.persistence.*;

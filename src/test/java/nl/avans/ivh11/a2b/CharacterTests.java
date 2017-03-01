@@ -1,8 +1,8 @@
 package nl.avans.ivh11.a2b;
 
 import nl.avans.ivh11.a2b.domain.character.Character;
-import nl.avans.ivh11.a2b.domain.character.Mage;
-import nl.avans.ivh11.a2b.domain.character.Stats;
+import nl.avans.ivh11.a2b.domain.character.decoration.Mage;
+import nl.avans.ivh11.a2b.domain.util.Stats;
 import nl.avans.ivh11.a2b.domain.character.Troll;
 import nl.avans.ivh11.a2b.domain.util.EquipmentEnum;
 import org.junit.Before;
@@ -22,6 +22,10 @@ public class CharacterTests
         this.character = new Troll("Mountain Troll", stats);
         this.character.setAttackStyle(EquipmentEnum.SWORD);
     }
+
+    // ############################################################################################################
+    // ######################################### Character Tests ##################################################
+    // ############################################################################################################
 
     /**
      * Tests whether making an Object of Character got the right
@@ -95,7 +99,7 @@ public class CharacterTests
     }
 
     // ############################################################################################################
-    // ###################################### Decorated Character Tests ######$$###################################
+    // ###################################### Decorated Character Tests ###########################################
     // ############################################################################################################
 
     @Test

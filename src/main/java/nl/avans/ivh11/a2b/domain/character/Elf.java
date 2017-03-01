@@ -1,6 +1,7 @@
 package nl.avans.ivh11.a2b.domain.character;
 
 import lombok.NoArgsConstructor;
+import nl.avans.ivh11.a2b.domain.util.Stats;
 
 import javax.persistence.Entity;
 

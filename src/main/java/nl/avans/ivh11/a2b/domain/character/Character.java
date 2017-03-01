@@ -4,9 +4,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import nl.avans.ivh11.a2b.domain.battle.ActionBehavior;
+import nl.avans.ivh11.a2b.domain.character.state.CharacterState;
+import nl.avans.ivh11.a2b.domain.character.state.NormalState;
+import nl.avans.ivh11.a2b.domain.character.state.PoweredState;
+import nl.avans.ivh11.a2b.domain.character.state.WeakenedState;
 import nl.avans.ivh11.a2b.domain.usable.Inventory;
+import nl.avans.ivh11.a2b.domain.util.Equipment;
 import nl.avans.ivh11.a2b.domain.util.EquipmentEnum;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
+import nl.avans.ivh11.a2b.domain.util.Stats;
 
 import javax.persistence.Entity;
 import java.util.HashMap;
@@ -154,7 +160,7 @@ public abstract class Character implements Opponent
     }
 
     /**
-     * Sets the current Character State
+     * Sets the current Character state
      */
     public void setState(CharacterState state) {
         this.currentState = state;
