@@ -14,10 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
-import java.util.Iterator;
 import java.util.Map;
 
 @Controller
@@ -37,10 +35,13 @@ public class CharacterManager
                             EquipmentRepository equipmentRepository) {
         this.characterRepository = characterRepository;
         this.equipmentRepository = equipmentRepository;
-        test();
+        this.example();
     }
 
-    public void test() {
+    /**
+     * Just for JPA Hibernate test purposes
+     */
+    public void example() {
         Equipment helmet = new Equipment("Bronze helm", EquipmentEnum.HELMET);
         Equipment torso = new Equipment("Bronze torso", EquipmentEnum.TORSO);
         Equipment legs = new Equipment("Silver legs", EquipmentEnum.LEGS);

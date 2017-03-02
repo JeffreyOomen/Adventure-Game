@@ -5,6 +5,7 @@ import nl.avans.ivh11.a2b.domain.util.Equipment;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 import nl.avans.ivh11.a2b.domain.character.Troll;
 import nl.avans.ivh11.a2b.domain.util.EquipmentEnum;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,6 +33,7 @@ public class CharacterTests
      */
     @Test
     public void testCharacterInstantiating() {
+        // Assert
         assertEquals(10, this.character.getStrengthAccuracy());
         assertEquals(2, this.character.getMagicAccuracy());
         assertEquals(2, this.character.getDefenseAccuracy());
@@ -47,7 +49,10 @@ public class CharacterTests
      */
     @Test
     public void testStatsReceiveXpNotLeveling() {
+        // Act
         this.character.receiveXp(180);
+
+        // Assert
         assertEquals(200, character.getStats().getStrengthTotalXp(), 0);
         assertEquals(92, character.getStats().getStrengthXpLeft(), 0);
         assertEquals(1, character.getStats().getStrength(), 0);
@@ -75,7 +80,10 @@ public class CharacterTests
      */
     @Test
     public void testStatsReceiveXpLeveling() {
+        // Act
         this.character.receiveXp(1200);
+
+        // Assert
         assertEquals(510, character.getStats().getStrengthTotalXp(), 0);
         assertEquals(312, character.getStats().getStrengthXpLeft(), 0);
         assertEquals(3, character.getStats().getStrength(), 0);
@@ -116,6 +124,7 @@ public class CharacterTests
         this.character.mountEquipment(EquipmentEnum.GLOVES, gloves);
         this.character.mountEquipment(EquipmentEnum.SWORD, sword);
 
+        // Assert
         assertEquals(6, this.character.getEquipment().size());
         assertEquals("Bronze Helmet", this.character.getEquipment().get(EquipmentEnum.HELMET).getName());
         assertEquals("Bronze Torso", this.character.getEquipment().get(EquipmentEnum.TORSO).getName());
@@ -130,6 +139,7 @@ public class CharacterTests
      */
     @Test
     public void testCharacterMountingEquipmentWhenExists() {
+        // Arrange
         Equipment helmet = new Equipment("Bronze Helmet", EquipmentEnum.HELMET);
         Equipment torso = new Equipment("Bronze Torso", EquipmentEnum.TORSO);
         Equipment legs = new Equipment("Silver Legs", EquipmentEnum.LEGS);
@@ -147,9 +157,11 @@ public class CharacterTests
         Equipment torso_2 = new Equipment("Golden Torso", EquipmentEnum.TORSO);
         Equipment bow = new Equipment("A Golden Bow", EquipmentEnum.BOW);
 
+        // Act
         this.character.mountEquipment(EquipmentEnum.TORSO, torso_2);
         this.character.mountEquipment(EquipmentEnum.STAFF, bow);
 
+        // Assert
         assertEquals(6, this.character.getEquipment().size());
         assertEquals("Bronze Helmet", this.character.getEquipment().get(EquipmentEnum.HELMET).getName());
         assertEquals("Golden Torso", this.character.getEquipment().get(EquipmentEnum.TORSO).getName());
@@ -164,6 +176,7 @@ public class CharacterTests
      */
     @Test
     public void testCharacterUnmountingEquipment() {
+        // Arrange
         Equipment helmet = new Equipment("Bronze Helmet", EquipmentEnum.HELMET);
         Equipment torso = new Equipment("Bronze Torso", EquipmentEnum.TORSO);
         Equipment legs = new Equipment("Silver Legs", EquipmentEnum.LEGS);
@@ -178,13 +191,22 @@ public class CharacterTests
         this.character.mountEquipment(EquipmentEnum.GLOVES, gloves);
         this.character.mountEquipment(EquipmentEnum.SWORD, sword);
 
+        // Act
         this.character.unMountEquipment(EquipmentEnum.BOOTS);
         this.character.unMountEquipment(EquipmentEnum.WEAPON);
 
+        // Assert
         assertEquals(4, this.character.getEquipment().size());
         assertEquals("Bronze Helmet", this.character.getEquipment().get(EquipmentEnum.HELMET).getName());
         assertEquals("Bronze Torso", this.character.getEquipment().get(EquipmentEnum.TORSO).getName());
         assertEquals("Silver Legs", this.character.getEquipment().get(EquipmentEnum.LEGS).getName());
         assertEquals("Bronze Gloves", this.character.getEquipment().get(EquipmentEnum.GLOVES).getName());
+    }
+
+    @After
+    public void tearDown() {
+        System.out.println("TEARDOWN CALLED");
+        this.character = null;
+        this.stats = null;
     }
 }

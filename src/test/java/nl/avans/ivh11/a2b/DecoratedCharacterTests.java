@@ -6,6 +6,7 @@ import nl.avans.ivh11.a2b.domain.character.decoration.Mage;
 import nl.avans.ivh11.a2b.domain.util.Equipment;
 import nl.avans.ivh11.a2b.domain.util.EquipmentEnum;
 import nl.avans.ivh11.a2b.domain.util.Stats;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,8 +30,10 @@ public class DecoratedCharacterTests
 
     @Test
     public void testDecoratedCharacterInstantiating() {
+        // Act
         Character decoratedCharacter = new Mage(this.character);
 
+        // Assert
         assertEquals(10, decoratedCharacter.getStrengthAccuracy());
         assertEquals(22, decoratedCharacter.getMagicAccuracy());
         assertEquals(12, decoratedCharacter.getDefenseAccuracy());
@@ -46,10 +49,14 @@ public class DecoratedCharacterTests
      */
     @Test
     public void testDecoratedStatsReceiveXpNotLeveling() {
+        // Arrange
         Character decoratedCharacter = new Mage(this.character);
         decoratedCharacter.setAttackStyle(EquipmentEnum.STAFF);
 
+        // Act
         decoratedCharacter.receiveXp(180);
+
+        // Assert
         assertEquals(200, decoratedCharacter.getStats().getStrengthTotalXp(), 0);
         assertEquals(200, decoratedCharacter.getStats().getStrengthXpLeft(), 0);
         assertEquals(1, decoratedCharacter.getStats().getStrength(), 0);
@@ -77,10 +84,14 @@ public class DecoratedCharacterTests
      */
     @Test
     public void testDecoratedStatsReceiveXpLeveling() {
+        // Arrange
         Character decoratedCharacter = new Mage(this.character);
         decoratedCharacter.setAttackStyle(EquipmentEnum.BOW);
 
+        // Act
         decoratedCharacter.receiveXp(1200);
+
+        // Assert
         assertEquals(200, decoratedCharacter.getStats().getStrengthTotalXp(), 0);
         assertEquals(200, decoratedCharacter.getStats().getStrengthXpLeft(), 0);
         assertEquals(1, decoratedCharacter.getStats().getStrength(), 0);
@@ -107,6 +118,7 @@ public class DecoratedCharacterTests
      */
     @Test
     public void testDecoratedCharacterMountingEquipment() {
+        // Arrange
         Character decoratedCharacter = new Mage(this.character);
         decoratedCharacter.setAttackStyle(EquipmentEnum.STAFF);
 
@@ -117,6 +129,7 @@ public class DecoratedCharacterTests
         Equipment gloves = new Equipment("Bronze Gloves", EquipmentEnum.GLOVES);
         Equipment sword = new Equipment("A Golden Sword", EquipmentEnum.SWORD);
 
+        // Act
         decoratedCharacter.mountEquipment(EquipmentEnum.HELMET, helmet);
         decoratedCharacter.mountEquipment(EquipmentEnum.TORSO, torso);
         decoratedCharacter.mountEquipment(EquipmentEnum.LEGS, legs);
@@ -124,6 +137,7 @@ public class DecoratedCharacterTests
         decoratedCharacter.mountEquipment(EquipmentEnum.GLOVES, gloves);
         decoratedCharacter.mountEquipment(EquipmentEnum.SWORD, sword);
 
+        // Assert
         assertEquals(6, decoratedCharacter.getEquipment().size());
         assertEquals("Bronze Helmet", decoratedCharacter.getEquipment().get(EquipmentEnum.HELMET).getName());
         assertEquals("Bronze Torso", decoratedCharacter.getEquipment().get(EquipmentEnum.TORSO).getName());
@@ -138,6 +152,7 @@ public class DecoratedCharacterTests
      */
     @Test
     public void testDecoratedCharacterMountingEquipmentWhenExists() {
+        // Arrange
         Character decoratedCharacter = new Mage(this.character);
         decoratedCharacter.setAttackStyle(EquipmentEnum.STAFF);
 
@@ -158,9 +173,11 @@ public class DecoratedCharacterTests
         Equipment torso_2 = new Equipment("Golden Torso", EquipmentEnum.TORSO);
         Equipment bow = new Equipment("A Golden Bow", EquipmentEnum.BOW);
 
+        // Act
         decoratedCharacter.mountEquipment(EquipmentEnum.TORSO, torso_2);
         decoratedCharacter.mountEquipment(EquipmentEnum.STAFF, bow);
 
+        // Assert
         assertEquals(6, decoratedCharacter.getEquipment().size());
         assertEquals("Bronze Helmet", decoratedCharacter.getEquipment().get(EquipmentEnum.HELMET).getName());
         assertEquals("Golden Torso", decoratedCharacter.getEquipment().get(EquipmentEnum.TORSO).getName());
@@ -175,6 +192,7 @@ public class DecoratedCharacterTests
      */
     @Test
     public void testDecoratedCharacterUnmountingEquipment() {
+        // Arrange
         Character decoratedCharacter = new Mage(this.character);
         decoratedCharacter.setAttackStyle(EquipmentEnum.STAFF);
 
@@ -192,14 +210,22 @@ public class DecoratedCharacterTests
         decoratedCharacter.mountEquipment(EquipmentEnum.GLOVES, gloves);
         decoratedCharacter.mountEquipment(EquipmentEnum.SWORD, sword);
 
+        // Act
         decoratedCharacter.unMountEquipment(EquipmentEnum.BOOTS);
         decoratedCharacter.unMountEquipment(EquipmentEnum.WEAPON);
 
+        // Assert
         assertEquals(4, decoratedCharacter.getEquipment().size());
         assertEquals("Bronze Helmet", decoratedCharacter.getEquipment().get(EquipmentEnum.HELMET).getName());
         assertEquals("Bronze Torso", decoratedCharacter.getEquipment().get(EquipmentEnum.TORSO).getName());
         assertEquals("Silver Legs", decoratedCharacter.getEquipment().get(EquipmentEnum.LEGS).getName());
         assertEquals("Bronze Gloves", decoratedCharacter.getEquipment().get(EquipmentEnum.GLOVES).getName());
+    }
 
+    @After
+    public void tearDown() {
+        System.out.println("TEARDOWN CALLED");
+        this.character = null;
+        this.stats = null;
     }
 }

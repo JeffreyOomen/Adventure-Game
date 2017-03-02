@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+/* TODO JUST A SIMPLE STUB FOR TEST PURPOSES */
 @Entity
 @NoArgsConstructor
 @Getter
@@ -26,7 +27,4 @@ public class Equipment
         this.name = name;
         this.type = type;
     }
-
-
-
 }
