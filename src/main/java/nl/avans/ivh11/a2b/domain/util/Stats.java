@@ -3,6 +3,7 @@ package nl.avans.ivh11.a2b.domain.util;
 import lombok.Getter;
 import lombok.Setter;
 import nl.avans.ivh11.a2b.domain.util.EquipmentEnum;
+import org.springframework.security.access.method.P;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -89,41 +90,33 @@ public class Stats
      * @param xp the earned xp to be sieved over the stats
      * @return true if xp is sieved successfully, false otherwise
      */
-    public boolean sieveXp(final EquipmentEnum characterAttackStyle, final int xp) {
+    public boolean processXp(final EquipmentEnum characterAttackStyle, final int xp) {
 
         switch (characterAttackStyle) {
             case SWORD:
-                this.gainStrengthXp(STRENGTH_MULTIPLIER * xp);
+                this.processStrengthXp(STRENGTH_MULTIPLIER * xp);
                 break;
             case STAFF:
-                this.gainMagicXp(MAGIC_MULTIPLIER * xp);
+                this.processMagicXp(MAGIC_MULTIPLIER * xp);
                 break;
             case BOW:
-               this.gainArcheryXp(ARCHERY_MULTIPLIER * xp);
+               this.processArcheryXp(ARCHERY_MULTIPLIER * xp);
                 break;
             default:
                 return false;
         }
 
-        this.gainDefenseXp(DEFENSE_MULTIPLIER * xp);
-        this.gainHitpointsXp(HITPOINTS_MULTIPLIER * xp);
+        this.processDefenseXp(DEFENSE_MULTIPLIER * xp);
+        this.processHitpointsXp(HITPOINTS_MULTIPLIER * xp);
 
         return true;
-    }
-
-    /**
-     * Subtracts the argument from the current Hitpoints
-     * @param hit the number which is getting subtracted
-     */
-    public void bearHit(final int hit) {
-        this.setCurrentHitpoints(this.getCurrentHitpoints() - hit);
     }
 
     /**
      * Handles gaining Strength XP, and possibly even levels
      * @param earnedXp the Strength XP gained
      */
-    private void gainStrengthXp(double earnedXp) {
+    private void processStrengthXp(double earnedXp) {
         while (earnedXp > 0) {
             if (earnedXp >= this.strengthXpLeft) {
                 earnedXp -= this.strengthXpLeft;
@@ -142,7 +135,7 @@ public class Stats
      * Handles gaining Magic XP, and possibly even levels
      * @param earnedXp the Magic XP gained
      */
-    private void gainMagicXp(double earnedXp) {
+    private void processMagicXp(double earnedXp) {
         while (earnedXp > 0) {
             if (earnedXp >= this.magicXpLeft) {
                 earnedXp -= this.magicXpLeft;
@@ -161,7 +154,7 @@ public class Stats
      * Handles gaining Defense XP, and possibly even levels
      * @param earnedXp the Defense XP gained
      */
-    private void gainDefenseXp(double earnedXp) {
+    private void processDefenseXp(double earnedXp) {
         while (earnedXp > 0) {
             if (earnedXp >= this.defenseXpLeft) {
                 earnedXp -= this.defenseXpLeft;
@@ -180,7 +173,7 @@ public class Stats
      * Handles gaining Archery XP, and possibly even levels
      * @param earnedXp the Archery XP gained
      */
-    private void gainArcheryXp(double earnedXp) {
+    private void processArcheryXp(double earnedXp) {
         while (earnedXp > 0) {
             if (earnedXp >= this.archeryXpLeft) {
                 earnedXp -= this.archeryXpLeft;
@@ -199,7 +192,7 @@ public class Stats
      * Handles gaining Hitpoints XP, and possibly even levels
      * @param earnedXp the Hitpoints XP gained
      */
-    private void gainHitpointsXp(double earnedXp) {
+    private void processHitpointsXp(double earnedXp) {
         while (earnedXp > 0) {
             if (earnedXp >= this.hitpointsXpLeft) {
                 earnedXp -= this.hitpointsXpLeft;
@@ -213,6 +206,4 @@ public class Stats
             }
         }
     }
-
-    // TODO make sure accuracy can only have a max value of say 75
 }

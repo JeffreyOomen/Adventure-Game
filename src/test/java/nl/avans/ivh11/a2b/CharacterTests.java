@@ -32,7 +32,7 @@ public class CharacterTests
      * beginner stats when being a Troll.
      */
     @Test
-    public void testCharacterInstantiating() {
+    public void statsWithoutEquipment() {
         // Assert
         assertEquals(10, this.character.getStrengthAccuracy());
         assertEquals(2, this.character.getMagicAccuracy());
@@ -44,11 +44,49 @@ public class CharacterTests
     }
 
     /**
+     * Tests whether the Stats are calculated the right way when
+     * the Character wear Equipment.
+     */
+    @Test
+    public void statsWithEquipment() {
+        // Arrange
+        Equipment torso = new Equipment("Bronze Torso", EquipmentEnum.TORSO);
+        Equipment legs = new Equipment("Silver Legs", EquipmentEnum.LEGS);
+        Equipment boots = new Equipment("Silver Boots", EquipmentEnum.BOOTS);
+
+        Stats torsoStats = new Stats();
+        torsoStats.setStrengthAccuracy(10);
+        torsoStats.setDefenseAccuracy(20);
+        torso.setStats(torsoStats);
+
+        Stats legsStats = new Stats();
+        legsStats.setMagicAccuracy(5);
+        legsStats.setDefenseAccuracy(1);
+        legs.setStats(legsStats);
+
+        Stats bootsStats = new Stats();
+        bootsStats.setArcheryAccuracy(15);
+        bootsStats.setDefenseAccuracy(3);
+        boots.setStats(bootsStats);
+
+        // Act
+        this.character.mountEquipment(EquipmentEnum.TORSO, torso);
+        this.character.mountEquipment(EquipmentEnum.LEGS, legs);
+        this.character.mountEquipment(EquipmentEnum.BOOTS, boots);
+
+        // Assert
+        assertEquals(20, this.character.getStrengthAccuracy());
+        assertEquals(7, this.character.getMagicAccuracy());
+        assertEquals(26, this.character.getDefenseAccuracy());
+        assertEquals(20, this.character.getArcheryAccuracy());
+    }
+
+    /**
      * Tests whether the right levels and XP's are calculated
      * when the XP is low, so that no level up's are present.
      */
     @Test
-    public void testStatsReceiveXpNotLeveling() {
+    public void statsProcessingLowXp() {
         // Act
         this.character.receiveXp(180);
 
@@ -79,7 +117,7 @@ public class CharacterTests
      * when the XP is high enough to level some skills.
      */
     @Test
-    public void testStatsReceiveXpLeveling() {
+    public void statsProcessingHighXp() {
         // Act
         this.character.receiveXp(1200);
 
@@ -109,7 +147,7 @@ public class CharacterTests
      * Tests whether Equipment can be worn
      */
     @Test
-    public void testCharacterMountingEquipment() {
+    public void mountingEquipment() {
         Equipment helmet = new Equipment("Bronze Helmet", EquipmentEnum.HELMET);
         Equipment torso = new Equipment("Bronze Torso", EquipmentEnum.TORSO);
         Equipment legs = new Equipment("Silver Legs", EquipmentEnum.LEGS);
@@ -138,7 +176,7 @@ public class CharacterTests
      * Tests whether only one Equipment piece per type is in the Equipment Map
      */
     @Test
-    public void testCharacterMountingEquipmentWhenExists() {
+    public void mountingMoreEquipment() {
         // Arrange
         Equipment helmet = new Equipment("Bronze Helmet", EquipmentEnum.HELMET);
         Equipment torso = new Equipment("Bronze Torso", EquipmentEnum.TORSO);
@@ -175,7 +213,7 @@ public class CharacterTests
      * Tests whether unmounting Equipment has the right behavior
      */
     @Test
-    public void testCharacterUnmountingEquipment() {
+    public void unmountingEquipment() {
         // Arrange
         Equipment helmet = new Equipment("Bronze Helmet", EquipmentEnum.HELMET);
         Equipment torso = new Equipment("Bronze Torso", EquipmentEnum.TORSO);
@@ -201,6 +239,29 @@ public class CharacterTests
         assertEquals("Bronze Torso", this.character.getEquipment().get(EquipmentEnum.TORSO).getName());
         assertEquals("Silver Legs", this.character.getEquipment().get(EquipmentEnum.LEGS).getName());
         assertEquals("Bronze Gloves", this.character.getEquipment().get(EquipmentEnum.GLOVES).getName());
+    }
+
+    /**
+     * Tests whether hitpoints are lowered with the right amount when
+     * the character gets hit.
+     */
+    @Test
+    public void gettingHit() {
+        // Act
+        this.character.bearHit(12);
+
+        // Assert
+        assertEquals(50, this.character.getHitpoints());
+        assertEquals(38, this.character.getCurrentHitpoints());
+    }
+
+    @Test
+    public void maxAccuracyConstraint() {
+        // Act
+        this.character.getStats().setStrengthAccuracy(300);
+
+        // Assert
+        assertEquals(310, this.character.getStrengthAccuracy());
     }
 
     @After

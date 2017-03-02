@@ -197,14 +197,14 @@ public abstract class Character implements Opponent
      * Bears an incoming hit from an Opponent
      */
     public void bearHit(int hit) {
-        this.stats.bearHit(hit);
+        this.stats.setCurrentHitpoints(this.getCurrentHitpoints() - hit);
     }
 
     /**
      * Receive an incoming XP bounty
      */
     public void receiveXp(int earnedXp) {
-        this.stats.sieveXp(this.getAttackStyle(), earnedXp);
+        this.stats.processXp(this.getAttackStyle(), earnedXp);
     }
 
     /**
@@ -237,23 +237,64 @@ public abstract class Character implements Opponent
      * Gets the current Strength Accuracy
      * @return the current Strength Accuracy
      */
-    public abstract int getStrengthAccuracy();
+    public int getStrengthAccuracy() {
+        int strengthAccuracy = this.stats.getStrengthAccuracy();
+
+        if (!this.equipment.isEmpty()) {
+            for (Map.Entry<EquipmentEnum, Equipment> entry : this.equipment.entrySet()) {
+                strengthAccuracy += entry.getValue().getStats().getStrengthAccuracy();
+            }
+        }
+
+        return strengthAccuracy;
+    }
 
     /**
      * Gets the current Magic Accuracy
      * @return the current Magic Accuracy
      */
-    public abstract int getMagicAccuracy();
+    public int getMagicAccuracy() {
+        int magicAccuracy = this.stats.getMagicAccuracy();
+
+        if (!this.equipment.isEmpty()) {
+            for (Map.Entry<EquipmentEnum, Equipment> entry : this.equipment.entrySet()) {
+                magicAccuracy += entry.getValue().getStats().getMagicAccuracy();
+            }
+        }
+
+        return magicAccuracy;
+
+    }
 
     /**
      * Gets the current Defense Accuracy
      * @return the current Defense Accuracy
      */
-    public abstract int getDefenseAccuracy();
+    public int getDefenseAccuracy() {
+        int defenseAccuracy = this.stats.getDefenseAccuracy();
+
+        if (!this.equipment.isEmpty()) {
+            for (Map.Entry<EquipmentEnum, Equipment> entry : this.equipment.entrySet()) {
+                defenseAccuracy += entry.getValue().getStats().getDefenseAccuracy();
+            }
+        }
+
+        return defenseAccuracy;
+    }
 
     /**
      * Gets the current Archery Accuracy
      * @return the current Archery Accuracy
      */
-    public abstract int getArcheryAccuracy();
+    public int getArcheryAccuracy() {
+        int archeryAccuracy = this.stats.getArcheryAccuracy();
+
+        if (!this.equipment.isEmpty()) {
+            for (Map.Entry<EquipmentEnum, Equipment> entry : this.equipment.entrySet()) {
+                archeryAccuracy += entry.getValue().getStats().getArcheryAccuracy();
+            }
+        }
+
+        return archeryAccuracy;
+    }
 }
