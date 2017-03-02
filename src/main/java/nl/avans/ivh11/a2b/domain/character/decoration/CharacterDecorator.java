@@ -2,10 +2,12 @@ package nl.avans.ivh11.a2b.domain.character.decoration;
 
 import lombok.NoArgsConstructor;
 import nl.avans.ivh11.a2b.domain.character.Character;
+import nl.avans.ivh11.a2b.domain.util.Equipment;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 import nl.avans.ivh11.a2b.domain.util.EquipmentEnum;
 
 import javax.persistence.*;
+import java.util.Map;
 
 /**
  * With this class hierarchy, a Character can be decorated
@@ -13,11 +15,10 @@ import javax.persistence.*;
  */
 @Entity
 @NoArgsConstructor
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class CharacterDecorator extends Character
 {
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "CHARACTER_ID")
+    @JoinColumn(name = "DECORATED_CHARACTER_ID")
     Character character; // this object will be decorated
 
     /**
@@ -26,6 +27,23 @@ public abstract class CharacterDecorator extends Character
      */
     public CharacterDecorator(Character character) {
         this.character = character;
+    }
+
+    /**
+     * Mounts the Character with an EquipmentRepository Piece
+     * @param equipmentType what kind of EquipmentRepository Piece
+     * @param equipment an EquipmentRepository Object
+     */
+    public void mountEquipment(EquipmentEnum equipmentType, Equipment equipment) {
+        this.character.mountEquipment(equipmentType, equipment);
+    }
+
+    /**
+     * Unmounts the Character with the specified EquipmentRepository Piece
+     * @param equipmentType what kind of EquipmentRepository Piece
+     */
+    public void unMountEquipment(EquipmentEnum equipmentType) {
+        this.character.unMountEquipment(equipmentType);
     }
 
     /**
@@ -65,5 +83,21 @@ public abstract class CharacterDecorator extends Character
      */
     public Stats getStats() {
         return this.character.getStats();
+    }
+
+    /**
+     * Gets the composed Character
+     * @return the composer Character
+     */
+    public Character getCharacter() {
+        return this.character;
+    }
+
+    /**
+     * Gets the Map with Character Equipment
+     * @return the Character Equipment
+     */
+    public Map<EquipmentEnum, Equipment> getEquipment() {
+        return this.character.getEquipment();
     }
 }

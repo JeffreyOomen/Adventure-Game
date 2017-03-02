@@ -14,32 +14,54 @@ import nl.avans.ivh11.a2b.domain.util.EquipmentEnum;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Represents a Player of the game.
  */
 @Entity
+@Table(name = "BASE_CHARACTER")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "CHARACTER_TYPE")
 @Getter
 @Setter
 @NoArgsConstructor
 public abstract class Character implements Opponent
 {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "CHARACTER_ID")
+    protected Long id;
+
     protected String name;
 
     protected String description;
 
-    protected HashMap<EquipmentEnum, Equipment> equipment;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "CHARACTER_EQUIPMENT", joinColumns = @JoinColumn(name = "CHARACTER_ID"))
+    @MapKeyColumn(name = "EQUIPMENT_ENUM")
+    @Column(name = "EQUIPMENT")
+    protected Map<EquipmentEnum, Equipment> equipment;
 
+    //@OneToOne
+    @Transient
     protected Inventory inventory;
 
+    @Transient
     protected EquipmentEnum attackStyle;
 
+    //@OneToOne
+    @Transient
     protected ActionBehavior actionBehavior;
 
+    //@OneToOne
+    @Transient
     protected CharacterState currentState;
 
+    //@OneToOne
+    @Transient
     protected Stats stats;
 
     /**
@@ -50,13 +72,13 @@ public abstract class Character implements Opponent
     public Character(String name, Stats stats) {
         this.name = name;
         this.stats = stats;
+        this.equipment = new HashMap<>();
     }
 
     /**
-     * Mounts the Character with an Equipment Piece
-     *
-     * @param equipmentType what kind of Equipment Piece
-     * @param equipment an Equipment Object
+     * Mounts the Character with an EquipmentRepository Piece
+     * @param equipmentType what kind of EquipmentRepository Piece
+     * @param equipment an EquipmentRepository Object
      */
     public void mountEquipment(EquipmentEnum equipmentType, Equipment equipment) {
         // Make sure only one weapon can be equipped
@@ -69,22 +91,19 @@ public abstract class Character implements Opponent
     }
 
     /**
-     * Unmounts the Character with the specified Equipment Piece
-     *
-     * @param equipmentType what kind of Equipment Piece
-     * @param equipment an Equipment Object
+     * Unmounts the Character with the specified EquipmentRepository Piece
+     * @param equipmentType what kind of EquipmentRepository Piece
      */
-    public void unMountEquipment(EquipmentEnum equipmentType, Equipment equipment) {
-        this.equipment.remove(equipmentType, equipment);
+    public void unMountEquipment(EquipmentEnum equipmentType) {
+        this.equipment.remove(equipmentType);
     }
 
     /**
      * Performs an action against the Opponent
-     *
      * @param opponent the Character's Opponent
      */
     public void performAction(Opponent opponent) {
-        // TODO
+        // CharacterRepository
     }
 
     /**
@@ -205,6 +224,14 @@ public abstract class Character implements Opponent
 //    public boolean dropFromInventory(Usable usable) {
 //        return this.inventory.drop();
 //    }
+
+    /**
+     * Gets the Map with Character Equipment
+     * @return the Character Equipment
+     */
+    public Map<EquipmentEnum, Equipment> getEquipment() {
+        return this.equipment;
+    }
 
     /**
      * Gets the current Strength Accuracy

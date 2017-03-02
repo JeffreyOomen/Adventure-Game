@@ -214,5 +214,5 @@ public class Stats
         }
     }
 
-    // TODO make sure accuracy can only have a max value of say 75
+    // CharacterRepository make sure accuracy can only have a max value of say 75
 }

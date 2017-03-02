@@ -1,7 +1,7 @@
 package nl.avans.ivh11.a2b;
 
 import nl.avans.ivh11.a2b.domain.character.Character;
-import nl.avans.ivh11.a2b.domain.character.decoration.Mage;
+import nl.avans.ivh11.a2b.domain.util.Equipment;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 import nl.avans.ivh11.a2b.domain.character.Troll;
 import nl.avans.ivh11.a2b.domain.util.EquipmentEnum;
@@ -10,6 +10,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
+// ############################################################################################################
+// ######################################### Character Tests ##################################################
+// ############################################################################################################
 public class CharacterTests
 {
     private Character character;
@@ -22,10 +25,6 @@ public class CharacterTests
         this.character = new Troll("Mountain Troll", stats);
         this.character.setAttackStyle(EquipmentEnum.SWORD);
     }
-
-    // ############################################################################################################
-    // ######################################### Character Tests ##################################################
-    // ############################################################################################################
 
     /**
      * Tests whether making an Object of Character got the right
@@ -98,82 +97,94 @@ public class CharacterTests
         assertEquals(55, character.getStats().getHitpoints(), 0);
     }
 
-    // ############################################################################################################
-    // ###################################### Decorated Character Tests ###########################################
-    // ############################################################################################################
-
+    /**
+     * Tests whether Equipment can be worn
+     */
     @Test
-    public void testDecoratedCharacterInstantiating() {
-        Character decoratedCharacter = new Mage(this.character);
+    public void testCharacterMountingEquipment() {
+        Equipment helmet = new Equipment("Bronze Helmet", EquipmentEnum.HELMET);
+        Equipment torso = new Equipment("Bronze Torso", EquipmentEnum.TORSO);
+        Equipment legs = new Equipment("Silver Legs", EquipmentEnum.LEGS);
+        Equipment boots = new Equipment("Silver Boots", EquipmentEnum.BOOTS);
+        Equipment gloves = new Equipment("Bronze Gloves", EquipmentEnum.GLOVES);
+        Equipment sword = new Equipment("A Golden Sword", EquipmentEnum.SWORD);
 
-        assertEquals(10, decoratedCharacter.getStrengthAccuracy());
-        assertEquals(22, decoratedCharacter.getMagicAccuracy());
-        assertEquals(12, decoratedCharacter.getDefenseAccuracy());
-        assertEquals(5, decoratedCharacter.getArcheryAccuracy());
-        assertEquals(50, decoratedCharacter.getHitpoints());
-        assertEquals(50, decoratedCharacter.getCurrentHitpoints());
-        assertEquals("A Troll specialized in Magic", decoratedCharacter.getDescription());
+        this.character.mountEquipment(EquipmentEnum.HELMET, helmet);
+        this.character.mountEquipment(EquipmentEnum.TORSO, torso);
+        this.character.mountEquipment(EquipmentEnum.LEGS, legs);
+        this.character.mountEquipment(EquipmentEnum.BOOTS, boots);
+        this.character.mountEquipment(EquipmentEnum.GLOVES, gloves);
+        this.character.mountEquipment(EquipmentEnum.SWORD, sword);
+
+        assertEquals(6, this.character.getEquipment().size());
+        assertEquals("Bronze Helmet", this.character.getEquipment().get(EquipmentEnum.HELMET).getName());
+        assertEquals("Bronze Torso", this.character.getEquipment().get(EquipmentEnum.TORSO).getName());
+        assertEquals("Silver Legs", this.character.getEquipment().get(EquipmentEnum.LEGS).getName());
+        assertEquals("Silver Boots", this.character.getEquipment().get(EquipmentEnum.BOOTS).getName());
+        assertEquals("Bronze Gloves", this.character.getEquipment().get(EquipmentEnum.GLOVES).getName());
+        assertEquals("A Golden Sword", this.character.getEquipment().get(EquipmentEnum.WEAPON).getName());
     }
 
     /**
-     * Tests whether a decorated Character still gets the right levels
-     * and XP's when receiving some XP, too low for leveling.
+     * Tests whether only one Equipment piece per type is in the Equipment Map
      */
     @Test
-    public void testDecoratedStatsReceiveXpNotLeveling() {
-        Character decoratedCharacter = new Mage(this.character);
-        decoratedCharacter.setAttackStyle(EquipmentEnum.STAFF);
+    public void testCharacterMountingEquipmentWhenExists() {
+        Equipment helmet = new Equipment("Bronze Helmet", EquipmentEnum.HELMET);
+        Equipment torso = new Equipment("Bronze Torso", EquipmentEnum.TORSO);
+        Equipment legs = new Equipment("Silver Legs", EquipmentEnum.LEGS);
+        Equipment boots = new Equipment("Silver Boots", EquipmentEnum.BOOTS);
+        Equipment gloves = new Equipment("Bronze Gloves", EquipmentEnum.GLOVES);
+        Equipment sword = new Equipment("A Golden Sword", EquipmentEnum.SWORD);
 
-        decoratedCharacter.receiveXp(180);
-        assertEquals(200, decoratedCharacter.getStats().getStrengthTotalXp(), 0);
-        assertEquals(200, decoratedCharacter.getStats().getStrengthXpLeft(), 0);
-        assertEquals(1, decoratedCharacter.getStats().getStrength(), 0);
+        this.character.mountEquipment(EquipmentEnum.HELMET, helmet);
+        this.character.mountEquipment(EquipmentEnum.TORSO, torso);
+        this.character.mountEquipment(EquipmentEnum.LEGS, legs);
+        this.character.mountEquipment(EquipmentEnum.BOOTS, boots);
+        this.character.mountEquipment(EquipmentEnum.GLOVES, gloves);
+        this.character.mountEquipment(EquipmentEnum.SWORD, sword);
 
-        assertEquals(200, decoratedCharacter.getStats().getMagicTotalXp(), 0);
-        assertEquals(92, decoratedCharacter.getStats().getMagicXpLeft(), 0);
-        assertEquals(1, decoratedCharacter.getStats().getMagic(), 0);
+        Equipment torso_2 = new Equipment("Golden Torso", EquipmentEnum.TORSO);
+        Equipment bow = new Equipment("A Golden Bow", EquipmentEnum.BOW);
 
-        assertEquals(200, decoratedCharacter.getStats().getDefenseTotalXp(), 0);
-        assertEquals(164, decoratedCharacter.getStats().getDefenseXpLeft(), 0);
-        assertEquals(1, decoratedCharacter.getStats().getDefense(), 0);
+        this.character.mountEquipment(EquipmentEnum.TORSO, torso_2);
+        this.character.mountEquipment(EquipmentEnum.STAFF, bow);
 
-        assertEquals(200, decoratedCharacter.getStats().getArcheryTotalXp(), 0);
-        assertEquals(200, decoratedCharacter.getStats().getArcheryXpLeft(), 0);
-        assertEquals(1, decoratedCharacter.getStats().getArchery(), 0);
-
-        assertEquals(200, decoratedCharacter.getStats().getHitpointsTotalXp(), 0);
-        assertEquals(164, decoratedCharacter.getStats().getHitpointsXpLeft(), 0);
-        assertEquals(50, decoratedCharacter.getStats().getHitpoints(), 0);
+        assertEquals(6, this.character.getEquipment().size());
+        assertEquals("Bronze Helmet", this.character.getEquipment().get(EquipmentEnum.HELMET).getName());
+        assertEquals("Golden Torso", this.character.getEquipment().get(EquipmentEnum.TORSO).getName());
+        assertEquals("Silver Legs", this.character.getEquipment().get(EquipmentEnum.LEGS).getName());
+        assertEquals("Silver Boots", this.character.getEquipment().get(EquipmentEnum.BOOTS).getName());
+        assertEquals("Bronze Gloves", this.character.getEquipment().get(EquipmentEnum.GLOVES).getName());
+        assertEquals("A Golden Bow", this.character.getEquipment().get(EquipmentEnum.WEAPON).getName());
     }
 
     /**
-     * Tests whether a decorated Character still gets the right levels and XP's
-     * when receiving a high amount of XP causing multiple levels to go up.
+     * Tests whether unmounting Equipment has the right behavior
      */
     @Test
-    public void testDecoratedStatsReceiveXpLeveling() {
-        Character decoratedCharacter = new Mage(this.character);
-        decoratedCharacter.setAttackStyle(EquipmentEnum.BOW);
+    public void testCharacterUnmountingEquipment() {
+        Equipment helmet = new Equipment("Bronze Helmet", EquipmentEnum.HELMET);
+        Equipment torso = new Equipment("Bronze Torso", EquipmentEnum.TORSO);
+        Equipment legs = new Equipment("Silver Legs", EquipmentEnum.LEGS);
+        Equipment boots = new Equipment("Silver Boots", EquipmentEnum.BOOTS);
+        Equipment gloves = new Equipment("Bronze Gloves", EquipmentEnum.GLOVES);
+        Equipment sword = new Equipment("A Golden Sword", EquipmentEnum.SWORD);
 
-        this.character.receiveXp(1200);
-        assertEquals(200, decoratedCharacter.getStats().getStrengthTotalXp(), 0);
-        assertEquals(200, decoratedCharacter.getStats().getStrengthXpLeft(), 0);
-        assertEquals(1, decoratedCharacter.getStats().getStrength(), 0);
+        this.character.mountEquipment(EquipmentEnum.HELMET, helmet);
+        this.character.mountEquipment(EquipmentEnum.TORSO, torso);
+        this.character.mountEquipment(EquipmentEnum.LEGS, legs);
+        this.character.mountEquipment(EquipmentEnum.BOOTS, boots);
+        this.character.mountEquipment(EquipmentEnum.GLOVES, gloves);
+        this.character.mountEquipment(EquipmentEnum.SWORD, sword);
 
-        assertEquals(200, decoratedCharacter.getStats().getMagicTotalXp(), 0);
-        assertEquals(200, decoratedCharacter.getStats().getMagicXpLeft(), 0);
-        assertEquals(1, decoratedCharacter.getStats().getMagic(), 0);
+        this.character.unMountEquipment(EquipmentEnum.BOOTS);
+        this.character.unMountEquipment(EquipmentEnum.WEAPON);
 
-        assertEquals(322, decoratedCharacter.getStats().getDefenseTotalXp(), 0);
-        assertEquals(282, decoratedCharacter.getStats().getDefenseXpLeft(), 0);
-        assertEquals(2, decoratedCharacter.getStats().getDefense(), 0);
-
-        assertEquals(510, decoratedCharacter.getStats().getArcheryTotalXp(), 0);
-        assertEquals(312, decoratedCharacter.getStats().getArcheryXpLeft(), 0);
-        assertEquals(3, decoratedCharacter.getStats().getArchery(), 0);
-
-        assertEquals(322, decoratedCharacter.getStats().getHitpointsTotalXp(), 0);
-        assertEquals(282, decoratedCharacter.getStats().getHitpointsXpLeft(), 0);
-        assertEquals(55, decoratedCharacter.getStats().getHitpoints(), 0);
+        assertEquals(4, this.character.getEquipment().size());
+        assertEquals("Bronze Helmet", this.character.getEquipment().get(EquipmentEnum.HELMET).getName());
+        assertEquals("Bronze Torso", this.character.getEquipment().get(EquipmentEnum.TORSO).getName());
+        assertEquals("Silver Legs", this.character.getEquipment().get(EquipmentEnum.LEGS).getName());
+        assertEquals("Bronze Gloves", this.character.getEquipment().get(EquipmentEnum.GLOVES).getName());
     }
 }
