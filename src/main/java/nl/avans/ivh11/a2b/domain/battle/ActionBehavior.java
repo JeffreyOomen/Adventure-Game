@@ -1,6 +1,8 @@
 package nl.avans.ivh11.a2b.domain.battle;
 
-public class ActionBehavior
+import nl.avans.ivh11.a2b.domain.util.Opponent;
+
+public interface ActionBehavior
 {
-    // TODO
+    public void action(Opponent opponent);
 }

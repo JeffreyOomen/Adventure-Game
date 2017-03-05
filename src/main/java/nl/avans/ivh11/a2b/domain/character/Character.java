@@ -103,7 +103,7 @@ public abstract class Character implements Opponent
      * @param opponent the Character's Opponent
      */
     public void performAction(Opponent opponent) {
-        // TODO
+        this.actionBehavior.action(opponent);
     }
 
     /**
@@ -152,6 +152,14 @@ public abstract class Character implements Opponent
      */
     public int getCurrentHitpoints()  {
         return this.stats.getCurrentHitpoints();
+    }
+
+    /**
+     * Set the current ActionBehavior
+     * @param actionBehavior ActionBehavior to set
+     */
+    public void setActionBehavior(ActionBehavior actionBehavior) {
+        this.actionBehavior = actionBehavior;
     }
 
     /**
