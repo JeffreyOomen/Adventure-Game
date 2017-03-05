@@ -12,5 +12,4 @@ public class ProftaakApplicationTests {
 	@Test
 	public void contextLoads() {
 	}
-
 }
