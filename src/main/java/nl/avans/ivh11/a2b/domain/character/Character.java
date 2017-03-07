@@ -60,8 +60,8 @@ public abstract class Character implements Opponent
     @JoinColumn(name = "STATE_ID")
     protected CharacterState currentState;
 
-    //@OneToOne
-    @Transient
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "STATS_ID")
     protected Stats stats;
 
     /**

@@ -1,5 +1,14 @@
 package nl.avans.ivh11.a2b.domain.character.state;
 
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Entity;
+
+/**
+ * Represents the Powered State
+ */
+@Entity
+@NoArgsConstructor
 public class PoweredState extends CharacterState
 {
     private final static int STRENGTH_LEVEL = 10;
