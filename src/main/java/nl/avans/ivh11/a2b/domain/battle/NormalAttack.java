@@ -8,6 +8,6 @@ import nl.avans.ivh11.a2b.domain.util.Opponent;
 public class NormalAttack implements ActionBehavior {
     @Override
     public void action(Opponent opponent) {
-
+        opponent.takeDamage(10); //TODO Get from Random
     }
 }

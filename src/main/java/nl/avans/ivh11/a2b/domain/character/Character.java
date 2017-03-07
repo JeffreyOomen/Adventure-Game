@@ -52,8 +52,7 @@ public abstract class Character implements Opponent
     @Transient
     protected EquipmentEnum attackStyle;
 
-    //@OneToOne
-    @Transient
+    @Lob
     protected ActionBehavior actionBehavior;
 
     //@OneToOne
@@ -214,7 +213,12 @@ public abstract class Character implements Opponent
      * @param hitPoints int
      */
     public void heal(int hitPoints) {
-        this.stats.setCurrentHitpoints(this.getCurrentHitpoints() + hitPoints);
+        int newHitpoints = this.getCurrentHitpoints() + hitPoints;
+        if(newHitpoints <= this.getHitpoints()) {
+            this.stats.setCurrentHitpoints(newHitpoints);
+        } else {
+            this.stats.setCurrentHitpoints(this.stats.getHitpoints());
+        }
     }
 
     /**

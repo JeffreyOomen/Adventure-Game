@@ -8,6 +8,6 @@ import nl.avans.ivh11.a2b.domain.util.Opponent;
 public class Heal implements ActionBehavior {
     @Override
     public void action(Opponent opponent) {
-
+        opponent.heal(10);
     }
 }

@@ -259,7 +259,7 @@ public class DecoratedCharacterTests
     @Test
     public void gettingHit() {
         // Act
-        this.decoratedCharacter.bearHit(12);
+        this.decoratedCharacter.takeDamage(12);
 
         // Assert
         assertEquals(50, this.decoratedCharacter.getHitpoints());
