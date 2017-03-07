@@ -202,10 +202,19 @@ public abstract class Character implements Opponent
     }
 
     /**
-     * Bears an incoming hit from an Opponent
+     * Take damage as result van an enemy attack
+     * @param hit int damage to take
      */
-    public void bearHit(int hit) {
+    public void takeDamage(int hit) {
         this.stats.setCurrentHitpoints(this.getCurrentHitpoints() - hit);
+    }
+
+    /**
+     * Heal character
+     * @param hitPoints int
+     */
+    public void heal(int hitPoints) {
+        this.stats.setCurrentHitpoints(this.getCurrentHitpoints() + hitPoints);
     }
 
     /**

@@ -6,7 +6,9 @@ public interface Opponent
 
     public boolean isAlive();
 
-    public void bearHit(int hit);
+    public void takeDamage(int hit);
+
+    public void heal(int hitPoints);
 
     public void receiveXp(int xp);
 }
