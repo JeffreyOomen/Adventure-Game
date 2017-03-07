@@ -56,8 +56,8 @@ public abstract class Character implements Opponent
     @Transient
     protected ActionBehavior actionBehavior;
 
-    //@OneToOne
-    @Transient
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "STATE_ID")
     protected CharacterState currentState;
 
     //@OneToOne
@@ -159,7 +159,7 @@ public abstract class Character implements Opponent
      * @return an instance of PoweredState
      */
     public CharacterState getPoweredState() {
-        return new PoweredState();
+        return PoweredState.getInstance();
     }
 
     /**
@@ -167,7 +167,7 @@ public abstract class Character implements Opponent
      * @return an instance of NormalState
      */
     public CharacterState getNormalState() {
-        return new NormalState();
+        return NormalState.getInstance();
     }
 
     /**
@@ -175,7 +175,7 @@ public abstract class Character implements Opponent
      * @return an instance of WeakenedState
      */
     public CharacterState getWeakenedState() {
-        return new WeakenedState();
+        return WeakenedState.getInstance();
     }
 
     /**
