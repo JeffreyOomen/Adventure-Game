@@ -10,4 +10,10 @@ public interface Observable
     public void detach(Observer observer);
 
     public void notifyObservers();
+
+    /**
+     * Get Observable state
+     * @return String
+     */
+    public String getState();
 }

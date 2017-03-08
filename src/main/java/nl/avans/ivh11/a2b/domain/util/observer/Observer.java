@@ -5,5 +5,5 @@ package nl.avans.ivh11.a2b.domain.util.observer;
  */
 public interface Observer
 {
-    public void update(Observable subject);
+    public void update();
 }

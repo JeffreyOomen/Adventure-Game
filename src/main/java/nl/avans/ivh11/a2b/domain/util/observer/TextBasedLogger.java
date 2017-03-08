@@ -5,8 +5,15 @@ package nl.avans.ivh11.a2b.domain.util.observer;
  */
 public class TextBasedLogger implements Observer
 {
-    @Override
-    public void update(Observable subject) {
+    private Observable observable;
 
+    public TextBasedLogger(Observable observable) {
+        this.observable = observable;
+        observable.attach(this);
+    }
+
+    @Override
+    public void update() {
+        System.out.println("New state: " + observable.getState());
     }
 }

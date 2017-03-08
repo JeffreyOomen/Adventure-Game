@@ -203,6 +203,7 @@ public abstract class Character implements Opponent
      */
     public void bearHit(int hit) {
         this.stats.setCurrentHitpoints(this.getCurrentHitpoints() - hit);
+        notifyObservers();
     }
 
     /**
@@ -303,6 +304,14 @@ public abstract class Character implements Opponent
         return archeryAccuracy;
     }
 
+    /**
+     * Get current character state
+     * @return String
+     */
+    public String getState() {
+        return Integer.toString(stats.getCurrentHitpoints());
+    }
+
     @Override
     public void attach(Observer observer) {
         this.observers.add(observer);
@@ -318,7 +327,7 @@ public abstract class Character implements Opponent
     @Override
     public void notifyObservers() {
         for (Observer observer : this.observers) {
-            observer.update(this);
+            observer.update();
         }
     }
 }
