@@ -26,10 +26,28 @@ public class Random {
         return randomNumber;
     }
 
-    public int randomHP (double strength, int defense) {
-        strength = strength * ((strength * 1.5) / defense);
-        min = strength * 0.5;
-        max = strength;
+    public int randomDamage (double strength, double strengthAccuracy, double defense, int defenseAccuracy) {
+        double strDouble = Math.random() * 100;
+        double defDouble = Math.random() * 100;
+        defense = defense * 0.25;
+        int maxDefense;
+        if (defenseAccuracy >= defDouble) {
+            maxDefense = (int) (Math.random() * defense + defense);
+        } else {
+            maxDefense = (int) (Math.random() * defense);
+        }
+        if (strength - 1 < maxDefense) {
+             strength = 1;
+        } else {
+            strength -= maxDefense;
+        }
+        if (strengthAccuracy >= strDouble) {
+            min = strength * 0.5;
+            max = strength;
+        } else {
+            min = 1;
+            max = strength * 0.5;
+        }
         int rnd = getRandom();
         return rnd;
     }
