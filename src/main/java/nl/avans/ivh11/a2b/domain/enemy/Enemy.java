@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Represents an Enemy
  * Created by matthijs on 8-3-17.
  */
 public class Enemy implements Opponent {

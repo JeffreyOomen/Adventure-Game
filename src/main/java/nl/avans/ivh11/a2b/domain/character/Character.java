@@ -305,7 +305,7 @@ public abstract class Character implements Opponent
     }
 
     /**
-     * Get current character state
+     * Get the Observable's state
      * @return String
      */
     public String getState() {

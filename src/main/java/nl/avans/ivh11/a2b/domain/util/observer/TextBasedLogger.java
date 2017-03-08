@@ -12,6 +12,9 @@ public class TextBasedLogger implements Observer
         observable.attach(this);
     }
 
+    /**
+     * Notify observer of subject state change
+     */
     @Override
     public void update() {
         System.out.println("New state: " + observable.getState());
