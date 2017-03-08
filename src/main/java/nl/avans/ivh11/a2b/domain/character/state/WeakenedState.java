@@ -16,7 +16,7 @@ public class WeakenedState extends CharacterState
     private final static int DEFENSE_LEVEL = -15;
     private final static int ARCHERY_LEVEL = -10;
 
-    private static WeakenedState uniqueInstance;
+    private volatile static WeakenedState uniqueInstance;
 
     /**
      * Creates a Singleton instance to prevent multiple objects

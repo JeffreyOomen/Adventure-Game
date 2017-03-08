@@ -16,7 +16,7 @@ public class PoweredState extends CharacterState
     private final static int DEFENSE_LEVEL = 15;
     private final static int ARCHERY_LEVEL = 10;
 
-    private static PoweredState uniqueInstance;
+    private volatile static PoweredState uniqueInstance;
 
     /**
      * Creates a Singleton instance to prevent multiple objects

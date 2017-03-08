@@ -16,7 +16,7 @@ public class NormalState extends CharacterState
     private final static int DEFENSE_LEVEL = 0;
     private final static int ARCHERY_LEVEL = 0;
 
-    private static NormalState uniqueInstance;
+    private volatile static NormalState uniqueInstance;
 
     /**
      * Creates a Singleton instance to prevent multiple objects
