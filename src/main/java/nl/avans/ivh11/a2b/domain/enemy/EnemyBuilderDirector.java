@@ -17,12 +17,11 @@ public class EnemyBuilderDirector {
         this.builder = builder;
     }
 
-    public Enemy createEnemy(String name, String description, ActionBehavior actionBehavior, int level, Stats stats, List<Usable> loot) {
+    public Enemy createEnemy(String name, String description, ActionBehavior actionBehavior, Stats stats, List<Usable> loot) {
         this.builder.setName(name);
         this.builder.setDescription(description);
         this.builder.setActionBehaviour(actionBehavior);
-        this.builder.setLevel(level);
-        this.builder.setLevel(level);
+        this.builder.setStats(stats);
         this.builder.setLoot(loot);
         return this.builder.buildEnemy();
     }

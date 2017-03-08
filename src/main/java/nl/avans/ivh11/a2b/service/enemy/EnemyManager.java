@@ -4,6 +4,7 @@ package nl.avans.ivh11.a2b.service.enemy;
 import nl.avans.ivh11.a2b.datastorage.character.EquipmentRepository;
 import nl.avans.ivh11.a2b.datastorage.enemy.EnemyRepository;
 import nl.avans.ivh11.a2b.domain.battle.ActionBehavior;
+import nl.avans.ivh11.a2b.domain.battle.SpecialAttack;
 import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.domain.character.Dwarf;
 import nl.avans.ivh11.a2b.domain.character.Elf;
@@ -35,11 +36,11 @@ public class EnemyManager
     @Autowired
     private EnemyRepository enemyRepository;
 
-    @Autowired
-    private EquipmentRepository equipmentRepository;
+//    @Autowired
+//    private EquipmentRepository equipmentRepository;
 
-    public EnemyManager(EquipmentRepository equipmentRepository) {
-        this.equipmentRepository = equipmentRepository;
+    public EnemyManager(EnemyRepository enemyRepository) {
+        this.enemyRepository = enemyRepository;
         this.runDemo();
     }
 
@@ -50,8 +51,10 @@ public class EnemyManager
         EnemyBuilder enemyBuilder = new EnemyBuilder();
         EnemyBuilderDirector enemyDirector = new EnemyBuilderDirector(enemyBuilder);
         Stats stats = new Stats();
+        stats.setHitpoints(100);
+        stats.setArchery(999);
         ArrayList<Usable> lootList = new ArrayList<>();
-        Enemy enemy = enemyDirector.createEnemy("Bram", "End boss", new ActionBehavior(), 999, stats, lootList);
+        Enemy enemy = enemyDirector.createEnemy("Bram", "End boss", new SpecialAttack(), stats, lootList);
 
         enemy = enemyRepository.save(enemy);
 
@@ -59,8 +62,7 @@ public class EnemyManager
         System.out.println("=================================================================");
         System.out.println("====================="+ "New enemy added" + "===================");
         System.out.println("======= NAME: " + enemy.getName() + "======= DESCRIPTION: " + enemy.getDescription());
-        System.out.println("======= LEVEL: " + enemy.getLevel() + "======= ACTIONBEHAVIOUR: " + enemy.getActionBehavior().toString());
-        System.out.println("======= LOOT: " + enemy.getLoot().toString() + "=======" );
+        System.out.println("======= LOOT: " + enemy.getLoot().toString()  + "======= ACTIONBEHAVIOUR: " + enemy.getActionBehavior().toString());
         System.out.println("=================================================================");
     }
 }

@@ -38,11 +38,6 @@ public class EnemyBuilder implements Builder {
     }
 
     @Override
-    public void setLevel(int level) {
-        this.enemy.setLevel(level);
-    }
-
-    @Override
     public void setStats(Stats stats) {
         this.enemy.setStats(stats);
     }

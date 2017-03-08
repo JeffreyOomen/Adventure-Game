@@ -8,9 +8,7 @@ import nl.avans.ivh11.a2b.domain.usable.Usable;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,14 +22,15 @@ public class Enemy {
     private long id;
     private String name;
     private String description;
-    private int level;
+    @OneToOne(cascade = CascadeType.ALL)
     private Stats stats;
     private ActionBehavior actionBehavior;
-    private List<Usable> loot; // TODO: use usable as List<Type>
+    @OneToMany()
+    private List<Usable> loot;
 
     public boolean performAction(Opponent opponent) {
-        // TODO: toevoegen
-        return true;
+        this.actionBehavior.action(opponent);
+        return true; // TODO: currently action returns void so this is a temporary fix.
     }
 
     /**
@@ -63,8 +62,13 @@ public class Enemy {
         return  new ArrayList<>(); // TODO: bepalen hoe drops teruggeven.
     }
 
-//    public Exception receiveXp() {
-//
-//    }
+    /**
+     * receiveXp
+     * currently based on enemy hitpoints
+     * @return int
+     */
+    public int receiveXp() {
+        return this.getStats().getHitpoints();
+    }
 
 }

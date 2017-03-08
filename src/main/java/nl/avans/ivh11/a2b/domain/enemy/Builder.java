@@ -14,7 +14,6 @@ public interface Builder {
     void setDescription(String description);
     void setActionBehaviour(ActionBehavior actionBehaviour);
     void setLoot(List<Usable> loot);
-    void setLevel(int level);
     void setStats(Stats stats);
     Enemy buildEnemy();
 }
