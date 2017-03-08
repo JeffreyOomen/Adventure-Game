@@ -17,7 +17,8 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by matthijs on 8-3-17.
  */
-public class ActionBehaviorTests {
+public class ActionBehaviorTests
+{
 
     private Character character;
     private Stats stats;

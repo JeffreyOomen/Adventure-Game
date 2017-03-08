@@ -209,7 +209,7 @@ public abstract class Character implements Opponent
     }
 
     /**
-     * Heal character
+     * Adds the given hitpoints to the currentHitpoints
      * @param hitPoints int
      */
     public void heal(int hitPoints) {

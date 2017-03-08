@@ -6,5 +6,9 @@ import java.io.Serializable;
 
 public interface ActionBehavior extends Serializable
 {
+    /**
+     * Perform an action on the given Opponent
+     * @param opponent Opponent
+     */
     public void action(Opponent opponent);
 }
