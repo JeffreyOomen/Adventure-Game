@@ -14,6 +14,6 @@ public class Heal implements ActionBehavior
      */
     @Override
     public void action(Opponent opponent) {
-        opponent.heal(10);
+        opponent.heal(10); //TODO get from potion
     }
 }
