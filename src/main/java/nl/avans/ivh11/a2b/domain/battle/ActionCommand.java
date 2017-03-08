@@ -15,6 +15,6 @@ public class ActionCommand implements Command {
     }
 
     public void execute () {
-//        attacker.performAction(defender);
+        attacker.performAction(defender);
     }
 }

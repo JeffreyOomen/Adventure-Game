@@ -1,6 +1,5 @@
 package nl.avans.ivh11.a2b;
 
-import nl.avans.ivh11.a2b.domain.util.Random;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
