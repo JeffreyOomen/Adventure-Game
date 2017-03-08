@@ -108,6 +108,7 @@ public abstract class Character implements Opponent
      */
     public void performAction(Opponent opponent) {
         // TODO
+        notifyObservers();
     }
 
     /**
