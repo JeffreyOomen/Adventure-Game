@@ -9,17 +9,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
+@Getter
+@Setter
 public abstract class Usable {
 
     @Id
     @GeneratedValue
     protected Long id;
-
-    @Getter
-    @Setter
     protected String name;
-    @Getter
-    @Setter
     protected String description;
 
     public abstract void use(Character character);
