@@ -14,11 +14,13 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 public class HealPotion extends Usable {
+    private int level;
 
-    public HealPotion(UsableType type, String name, String description) {
+    //TODO: via level kunnen we hier misschien een percentage van je health omhoog gooien
+    public HealPotion(UsableType type, int level) {
         this.type = type;
-        this.name = name;
-        this.description = description;
+        this.name = "Heal potion";
+        this.description = "Increases hitpoints";
     }
 
     @Override

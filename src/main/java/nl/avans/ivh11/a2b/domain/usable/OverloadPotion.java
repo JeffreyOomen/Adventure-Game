@@ -15,10 +15,11 @@ import javax.persistence.Entity;
 @Setter
 public class OverloadPotion extends Usable {
 
-    public OverloadPotion(UsableType type, String name, String description) {
+    //TODO: via level kunnen we hier stats omhoog gooien van character ofzo
+    public OverloadPotion(UsableType type, int level) {
         this.type = type;
-        this.name = name;
-        this.description = description;
+        this.name = "Overload potion";
+        this.description = "Gives super power";
     }
 
     @Override
