@@ -1,19 +1,31 @@
 package nl.avans.ivh11.a2b.domain.usable;
 
-import nl.avans.ivh11.a2b.domain.character.CharacterStats;
+import nl.avans.ivh11.a2b.domain.util.Stats;
 
-public class UsableFactory {
+/**
+ * UsableFactory 'contract' that every Factory need to implement.
+ */
+public interface UsableFactory {
 
-    public  Usable createUsable(String type) {
-        Usable usable = null;
+    /**
+     * createUsable
+     * used to create a potion
+     * @param type
+     * @param name
+     * @param description
+     * @return
+     */
+    Usable createUsable(UsableType type, String name, String description);
 
-        switch(type) {
-            case"EQUIPMENT_BODY":
-                usable = new Equipment(UsableType.EQUIPMENT_BODY, new CharacterStats());
-                break;
-        }
-
-        return usable;
-    }
+    /**
+     * createUsable
+     * used to create an equipment
+     * @param type
+     * @param name
+     * @param description
+     * @param stats necessary to give the item stats
+     * @return
+     */
+    Usable createUsable(UsableType type, String name, String description, Stats stats);
 
 }

@@ -13,9 +13,9 @@ import javax.persistence.Id;
 @Setter
 public class HealPotion extends Usable {
 
-    public HealPotion() {
-        name = "Heal Potion";
-        description = "Increases hp!";
+    public HealPotion(String name, String description) {
+        this.name = name;
+        this.description = description;
     }
 
     @Override

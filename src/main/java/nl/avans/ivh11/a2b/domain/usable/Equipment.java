@@ -3,31 +3,32 @@ package nl.avans.ivh11.a2b.domain.usable;
 import lombok.Getter;
 import lombok.Setter;
 import nl.avans.ivh11.a2b.domain.character.Character;
-import nl.avans.ivh11.a2b.domain.character.CharacterStats;
+import nl.avans.ivh11.a2b.domain.util.Stats;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@DiscriminatorValue("Equipment")
 @Getter
 @Setter
 public class Equipment extends Usable {
 
-//    @Id
-//    @GeneratedValue
-//    protected long id;
     protected UsableType type;
-    protected CharacterStats stats;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "STATS_ID")
+    protected Stats stats;
 
-    public Equipment(UsableType type, CharacterStats stats) {
+    public Equipment(String name, String description, UsableType type, Stats stats) {
+        super();
+        this.name = name;
+        this.description = description;
         this.type = type;
         this.stats = stats;
     }
 
     @Override
     public void use(Character character) {
-//        character.setState(character.mountEquipment(this)); // TODO: implementeren
+//        character.setState(character.mountEquipment(this.type, this);); // TODO: implementeren
     }
 
 }

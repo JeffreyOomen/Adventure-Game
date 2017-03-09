@@ -7,9 +7,9 @@ import javax.persistence.Entity;
 @Entity
 public class OverloadPotion extends Usable {
 
-    public OverloadPotion() {
-        name = "Overload Potion";
-        description = "Increases current specialization!";
+    public OverloadPotion(String name, String description) {
+        name = name;
+        description = description;
     }
 
     @Override
