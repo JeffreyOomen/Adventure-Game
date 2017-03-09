@@ -1,6 +1,10 @@
 package nl.avans.ivh11.a2b;
 
+import nl.avans.ivh11.a2b.domain.battle.Heal;
+import nl.avans.ivh11.a2b.domain.battle.NormalAttack;
+import nl.avans.ivh11.a2b.domain.battle.SpecialAttack;
 import nl.avans.ivh11.a2b.domain.character.Character;
+import nl.avans.ivh11.a2b.domain.character.Elf;
 import nl.avans.ivh11.a2b.domain.util.Equipment;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 import nl.avans.ivh11.a2b.domain.character.Troll;
@@ -248,7 +252,7 @@ public class CharacterTests
     @Test
     public void gettingHit() {
         // Act
-        this.character.bearHit(12);
+        this.character.takeDamage(12);
 
         // Assert
         assertEquals(50, this.character.getHitpoints());
@@ -262,12 +266,5 @@ public class CharacterTests
 
         // Assert
         assertEquals(310, this.character.getStrengthAccuracy());
-    }
-
-    @After
-    public void tearDown() {
-        System.out.println("TEARDOWN CALLED");
-        this.character = null;
-        this.stats = null;
     }
 }

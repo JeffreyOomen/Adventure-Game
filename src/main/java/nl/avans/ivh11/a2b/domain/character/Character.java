@@ -52,8 +52,7 @@ public abstract class Character implements Opponent
     @Transient
     protected EquipmentEnum attackStyle;
 
-    //@OneToOne
-    @Transient
+    @Lob
     protected ActionBehavior actionBehavior;
 
     //@OneToOne
@@ -103,7 +102,7 @@ public abstract class Character implements Opponent
      * @param opponent the Character's Opponent
      */
     public void performAction(Opponent opponent) {
-        // TODO
+        this.actionBehavior.action(opponent);
     }
 
     /**
@@ -155,6 +154,14 @@ public abstract class Character implements Opponent
     }
 
     /**
+     * Set the current ActionBehavior
+     * @param actionBehavior ActionBehavior to set
+     */
+    public void setActionBehavior(ActionBehavior actionBehavior) {
+        this.actionBehavior = actionBehavior;
+    }
+
+    /**
      * Gets an instance of PoweredState
      * @return an instance of PoweredState
      */
@@ -194,10 +201,24 @@ public abstract class Character implements Opponent
     }
 
     /**
-     * Bears an incoming hit from an Opponent
+     * Take damage as result van an enemy attack
+     * @param hit int damage to take
      */
-    public void bearHit(int hit) {
+    public void takeDamage(int hit) {
         this.stats.setCurrentHitpoints(this.getCurrentHitpoints() - hit);
+    }
+
+    /**
+     * Adds the given hitpoints to the currentHitpoints
+     * @param hitPoints int
+     */
+    public void heal(int hitPoints) {
+        int newHitpoints = this.getCurrentHitpoints() + hitPoints;
+        if(newHitpoints <= this.getHitpoints()) {
+            this.stats.setCurrentHitpoints(newHitpoints);
+        } else {
+            this.stats.setCurrentHitpoints(this.stats.getHitpoints());
+        }
     }
 
     /**
