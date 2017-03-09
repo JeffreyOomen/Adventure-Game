@@ -3,6 +3,10 @@ package nl.avans.ivh11.a2b.domain.usable;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.Random;
+
+import static nl.avans.ivh11.a2b.domain.usable.UsableType.EQUIPMENT_BODY;
+
 /**
  * EquipmentFactory concrete implementation of the UsableFactory
  * can create equipment items.
@@ -13,36 +17,46 @@ public class EquipmentFactory implements UsableFactory {
      * createUsable
      * creates a potions object (not implemented in this factory)
      * @param type
-     * @param name
-     * @param description
-     * @return NotImplementedException exception
-     */
-    @Override
-    public Usable createUsable(UsableType type, String name, String description) {
-        throw new NotImplementedException();
-    }
-
-    /**
-     * createUsable
-     * creates an Equipment object
-     * @param type
-     * @param name
-     * @param description
-     * @param stats necessary to give the item stats
      * @return
      */
     @Override
-    public Usable createUsable(UsableType type, String name, String description, Stats stats) {
+    public Usable createUsable(UsableType type, int level) {
         Usable usable = null;
+        String equipmentSetName = getRandomEquipmentCollectionName();
+        equipmentSetName = "Saradomin";
 
-        // Validate given type exists in UsableType
-        for(UsableType usableType : UsableType.values()) {
-            if(usableType.equals(type)) {
-                // type exists in UsableType - create new Equipment
-                usable = new Equipment(name, description, type, stats);
-            }
+        switch(equipmentSetName) {
+            case "Armadyl":
+                usable = new BandosEquipment(type, getEquipmentCollectionLevel(level));
+                break;
+            case "Bandos":
+                usable = new BandosEquipment(type, getEquipmentCollectionLevel(level));
+                break;
+            case "Saradomin":
+                usable = new BandosEquipment(type, getEquipmentCollectionLevel(level));
+                break;
+            case "Zamorak":
+                usable = new BandosEquipment(type, getEquipmentCollectionLevel(level));
+                break;
         }
         return usable;
+    }
+
+    private String getRandomEquipmentCollectionName() {
+        String[] possibleDropNames = new String[] {"Saradomin", "Zamorak", "Bandos", "Armadyl"};
+        return possibleDropNames[new Random().nextInt(possibleDropNames.length)];
+    }
+
+    private int getEquipmentCollectionLevel(int enemyLevel) {
+        int equipmentCollectionLevel = 5;
+        if(enemyLevel > 5 && enemyLevel <= 10) {
+            equipmentCollectionLevel = 10;
+        } else if(enemyLevel > 10 && enemyLevel <= 15) {
+            equipmentCollectionLevel = 15;
+        } else {
+            equipmentCollectionLevel = 20;
+        }
+        return equipmentCollectionLevel;
     }
 
 }
