@@ -16,12 +16,12 @@ public class SpecialAttack implements ActionBehavior
      * @param enemy the Character's enemy
      */
     public void action(Character character, Opponent enemy) {
-        int damage = Random.getInstance().randomDamage(
+        Double damage = Random.getInstance().randomDamage(
                 character.getStrength(),
                 character.getStrengthAccuracy(),
                 character.getDefense(),
                 character.getDefenseAccuracy()
-        );
-        enemy.takeDamage(damage);
+        ) * 0.20;
+        enemy.takeDamage(damage.intValue());
     }
 }
