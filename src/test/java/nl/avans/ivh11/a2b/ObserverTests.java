@@ -38,7 +38,7 @@ public class ObserverTests {
         int currentHitpoints = character.getCurrentHitpoints();
 
         //Act
-        character.bearHit(10);
+        character.takeDamage(10);
 
         //Assert
         assertEquals("New state: " + Integer.toString(currentHitpoints - 10) + "\n", outContent.toString());
