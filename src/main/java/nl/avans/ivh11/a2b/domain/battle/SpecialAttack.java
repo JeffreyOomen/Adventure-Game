@@ -1,5 +1,7 @@
 package nl.avans.ivh11.a2b.domain.battle;
 
+import nl.avans.ivh11.a2b.domain.character.Character;
+import nl.avans.ivh11.a2b.domain.enemy.Enemy;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
 
 /**
@@ -8,11 +10,11 @@ import nl.avans.ivh11.a2b.domain.util.Opponent;
 public class SpecialAttack implements ActionBehavior
 {
     /**
-     * Attack the given Opponent with a special attack
-     * @param opponent Opponent
+     * Attack the enemy with a special attack
+     * @param character the current Character
+     * @param enemy the Character's enemy
      */
-    @Override
-    public void action(Opponent opponent) {
-        opponent.takeDamage(20); //TODO Get from Random
+    public void action(Character character, Enemy enemy) {
+        enemy.takeDamage(20); //TODO Get from Random
     }
 }

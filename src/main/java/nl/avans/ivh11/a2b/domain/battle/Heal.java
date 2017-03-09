@@ -1,5 +1,7 @@
 package nl.avans.ivh11.a2b.domain.battle;
 
+import nl.avans.ivh11.a2b.domain.character.Character;
+import nl.avans.ivh11.a2b.domain.enemy.Enemy;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
 
 /**
@@ -8,12 +10,11 @@ import nl.avans.ivh11.a2b.domain.util.Opponent;
 public class Heal implements ActionBehavior
 {
     /**
-     * Heal the given Opponent.
-     * This would typically be the current user
-     * @param opponent Opponent
+     * Heal Character
+     * @param character the current Character
+     * @param enemy the Character's enemy
      */
-    @Override
-    public void action(Opponent opponent) {
-        opponent.heal(10); //TODO get from potion
+    public void action(Character character, Enemy enemy) {
+        character.heal(10); //TODO get from potion
     }
 }
