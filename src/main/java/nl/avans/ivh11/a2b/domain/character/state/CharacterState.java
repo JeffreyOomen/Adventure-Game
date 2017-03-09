@@ -15,7 +15,6 @@ import javax.persistence.*;
 @DiscriminatorColumn(name = "CHARACTER_STATE_TYPE")
 @Getter
 @Setter
-@NoArgsConstructor
 public abstract class CharacterState
 {
     @Id
