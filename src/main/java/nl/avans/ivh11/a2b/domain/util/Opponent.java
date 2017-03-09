@@ -1,6 +1,8 @@
 package nl.avans.ivh11.a2b.domain.util;
 
-public interface Opponent
+import nl.avans.ivh11.a2b.domain.util.observer.Observable;
+
+public interface Opponent extends Observable
 {
     // TODO
 }

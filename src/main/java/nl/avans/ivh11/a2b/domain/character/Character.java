@@ -9,13 +9,13 @@ import nl.avans.ivh11.a2b.domain.character.state.NormalState;
 import nl.avans.ivh11.a2b.domain.character.state.PoweredState;
 import nl.avans.ivh11.a2b.domain.character.state.WeakenedState;
 import nl.avans.ivh11.a2b.domain.usable.Inventory;
-import nl.avans.ivh11.a2b.domain.util.Equipment;
-import nl.avans.ivh11.a2b.domain.util.EquipmentEnum;
-import nl.avans.ivh11.a2b.domain.util.Opponent;
-import nl.avans.ivh11.a2b.domain.util.Stats;
+import nl.avans.ivh11.a2b.domain.util.*;
+import nl.avans.ivh11.a2b.domain.util.observer.Observer;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -64,6 +64,9 @@ public abstract class Character implements Opponent
     @Transient
     protected Stats stats;
 
+    @Transient
+    private List<Observer> observers;
+
     /**
      * Constructor
      * @param name the name of the Character
@@ -73,6 +76,7 @@ public abstract class Character implements Opponent
         this.name = name;
         this.stats = stats;
         this.equipment = new HashMap<>();
+        this.observers = new ArrayList<>();
     }
 
     /**
@@ -104,6 +108,7 @@ public abstract class Character implements Opponent
      */
     public void performAction(Opponent opponent) {
         // TODO
+        notifyObservers();
     }
 
     /**
@@ -198,6 +203,7 @@ public abstract class Character implements Opponent
      */
     public void bearHit(int hit) {
         this.stats.setCurrentHitpoints(this.getCurrentHitpoints() - hit);
+        notifyObservers();
     }
 
     /**
@@ -296,5 +302,32 @@ public abstract class Character implements Opponent
         }
 
         return archeryAccuracy;
+    }
+
+    /**
+     * Get the Observable's state
+     * @return String
+     */
+    public String getState() {
+        return Integer.toString(stats.getCurrentHitpoints());
+    }
+
+    @Override
+    public void attach(Observer observer) {
+        this.observers.add(observer);
+    }
+
+    @Override
+    public void detach(Observer observer) {
+        if(this.observers.contains(observer)) {
+            this.observers.remove(observer);
+        }
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer observer : this.observers) {
+            observer.update();
+        }
     }
 }
