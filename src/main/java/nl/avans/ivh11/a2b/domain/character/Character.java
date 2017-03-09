@@ -9,6 +9,7 @@ import nl.avans.ivh11.a2b.domain.character.state.NormalState;
 import nl.avans.ivh11.a2b.domain.character.state.PoweredState;
 import nl.avans.ivh11.a2b.domain.character.state.WeakenedState;
 import nl.avans.ivh11.a2b.domain.usable.Inventory;
+import nl.avans.ivh11.a2b.domain.usable.Usable;
 import nl.avans.ivh11.a2b.domain.util.*;
 import nl.avans.ivh11.a2b.domain.util.observer.Observer;
 
@@ -261,9 +262,17 @@ public abstract class Character implements Opponent {
      * @param usable an Object of Usable
      * @return true if dropped successfully, false otherwise
      */
-//    public boolean dropFromInventory(Usable usable) {
-//        return this.inventory.drop();
-//    }
+    public boolean dropFromInventory(Usable usable) {
+        return this.inventory.drop(usable);
+    }
+
+    /**
+     * Get the Character's Inventory
+     * @return Inventory
+     */
+    public Inventory getInventory() {
+        return this.inventory;
+    }
 
     /**
      * Gets the Map with Character Equipment
