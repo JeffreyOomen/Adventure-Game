@@ -3,9 +3,10 @@ package nl.avans.ivh11.a2b.domain.battle;
 import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.domain.enemy.Enemy;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
+import nl.avans.ivh11.a2b.domain.util.Random;
 
 /**
- * Created by matthijs on 5-3-17.
+ * Attack the Opponent with a special attack
  */
 public class SpecialAttack implements ActionBehavior
 {
@@ -14,7 +15,13 @@ public class SpecialAttack implements ActionBehavior
      * @param character the current Character
      * @param enemy the Character's enemy
      */
-    public void action(Character character, Enemy enemy) {
-        enemy.takeDamage(20); //TODO Get from Random
+    public void action(Character character, Opponent enemy) {
+        int damage = Random.getInstance().randomDamage(
+                character.getStrength(),
+                character.getStrengthAccuracy(),
+                character.getDefense(),
+                character.getDefenseAccuracy()
+        );
+        enemy.takeDamage(damage);
     }
 }

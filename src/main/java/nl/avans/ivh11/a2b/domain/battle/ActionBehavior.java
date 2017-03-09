@@ -6,6 +6,9 @@ import nl.avans.ivh11.a2b.domain.util.Opponent;
 
 import java.io.Serializable;
 
+/**
+ * Represents an action which can be performed by an Opponent
+ */
 public interface ActionBehavior extends Serializable
 {
     /**
@@ -13,5 +16,5 @@ public interface ActionBehavior extends Serializable
      * @param character the current Character
      * @param enemy the Character's enemy
      */
-    public void action(Character character, Enemy enemy);
+    public void action(Character character, Opponent enemy);
 }
