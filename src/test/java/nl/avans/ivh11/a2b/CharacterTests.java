@@ -264,6 +264,42 @@ public class CharacterTests
         assertEquals(310, this.character.getStrengthAccuracy());
     }
 
+    @Test
+    public void normalCharacterState() {
+        // Arrange
+        this.character.setState(this.character.getNormalState());
+
+        // Assert
+        assertEquals(1, this.character.getStrength());
+        assertEquals(1, this.character.getMagic());
+        assertEquals(1, this.character.getDefense());
+        assertEquals(1, this.character.getArchery());
+    }
+
+    @Test
+    public void weakenedCharacterState() {
+        // Arrange
+        this.character.setState(this.character.getWeakenedState());
+
+        // Assert
+        assertEquals(-9, this.character.getStrength());
+        assertEquals(-9, this.character.getMagic());
+        assertEquals(-14, this.character.getDefense());
+        assertEquals(-9, this.character.getArchery());
+    }
+
+    @Test
+    public void poweredCharacterState() {
+        // Arrange
+        this.character.setState(this.character.getPoweredState());
+
+        // Assert
+        assertEquals(11, this.character.getStrength());
+        assertEquals(11, this.character.getMagic());
+        assertEquals(16, this.character.getDefense());
+        assertEquals(11, this.character.getArchery());
+    }
+
     @After
     public void tearDown() {
         System.out.println("TEARDOWN CALLED");

@@ -275,6 +275,42 @@ public class DecoratedCharacterTests
         assertEquals(310, this.decoratedCharacter.getStrengthAccuracy());
     }
 
+    @Test
+    public void normalCharacterState() {
+        // Arrange
+        this.decoratedCharacter.setState(this.decoratedCharacter.getNormalState());
+
+        // Assert
+        assertEquals(1, this.decoratedCharacter.getStrength());
+        assertEquals(1, this.decoratedCharacter.getMagic());
+        assertEquals(1, this.decoratedCharacter.getDefense());
+        assertEquals(1, this.decoratedCharacter.getArchery());
+    }
+
+    @Test
+    public void weakenedCharacterState() {
+        // Arrange
+        this.decoratedCharacter.setState(this.decoratedCharacter.getWeakenedState());
+
+        // Assert
+        assertEquals(-9, this.decoratedCharacter.getStrength());
+        assertEquals(-9, this.decoratedCharacter.getMagic());
+        assertEquals(-14, this.decoratedCharacter.getDefense());
+        assertEquals(-9, this.decoratedCharacter.getArchery());
+    }
+
+    @Test
+    public void poweredCharacterState() {
+        // Arrange
+        this.decoratedCharacter.setState(this.decoratedCharacter.getPoweredState());
+
+        // Assert
+        assertEquals(11, this.decoratedCharacter.getStrength());
+        assertEquals(11, this.decoratedCharacter.getMagic());
+        assertEquals(16, this.decoratedCharacter.getDefense());
+        assertEquals(11, this.decoratedCharacter.getArchery());
+    }
+
     @After
     public void tearDown() {
         System.out.println("TEARDOWN CALLED");
