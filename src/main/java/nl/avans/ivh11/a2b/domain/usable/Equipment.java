@@ -28,7 +28,7 @@ public class Equipment extends Usable {
 
     @Override
     public void use(Character character) {
-//        character.setState(character.mountEquipment(this.type, this);); // TODO: implementeren
+//        character.setState(character.mountEquipment(this.type, this)); // TODO: change later, because mountEquipment currently contains another Enum type and not UsableType.
     }
 
 }

@@ -1,5 +1,9 @@
 package nl.avans.ivh11.a2b.domain.usable;
 
+/**
+ * UsableType
+ * contains all the possible equipment and potions
+ */
 public enum UsableType {
     EQUIPMENT_BODY,
     EQUIPMENT_HELMET,

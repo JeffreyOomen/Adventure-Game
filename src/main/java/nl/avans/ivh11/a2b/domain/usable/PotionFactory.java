@@ -3,15 +3,17 @@ package nl.avans.ivh11.a2b.domain.usable;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import static nl.avans.ivh11.a2b.domain.usable.UsableType.POTION_HEAL;
+
 /**
  * EquipmentFactory concrete implementation of the UsableFactory
- * can create equipment items.
+ * can create potion items.
  */
-public class EquipmentFactory implements UsableFactory {
+public class PotionFactory implements UsableFactory {
 
     /**
      * createUsable
-     * creates a potions object (not implemented in this factory)
+     * creates a potions object
      * @param type
      * @param name
      * @param description
@@ -19,30 +21,31 @@ public class EquipmentFactory implements UsableFactory {
      */
     @Override
     public Usable createUsable(UsableType type, String name, String description) {
-        throw new NotImplementedException();
+        Usable usable = null;
+
+        switch(type) {
+            case POTION_HEAL:
+                usable = new HealPotion(type, name, description);
+            break;
+            case POTION_OVERLOAD:
+                usable = new OverloadPotion(type, name, description);
+        }
+        return usable;
+
     }
 
     /**
      * createUsable
-     * creates an Equipment object
+     * creates an Equipment object (not implemented in this factory)
      * @param type
      * @param name
      * @param description
-     * @param stats necessary to give the item stats
-     * @return
+     * @return NotImplementedException exception
+
      */
     @Override
     public Usable createUsable(UsableType type, String name, String description, Stats stats) {
-        Usable usable = null;
-
-        // Validate given type exists in UsableType
-        for(UsableType usableType : UsableType.values()) {
-            if(usableType.equals(type)) {
-                // type exists in UsableType - create new Equipment
-                usable = new Equipment(name, description, type, stats);
-            }
-        }
-        return usable;
+        throw new NotImplementedException();
     }
 
 }
