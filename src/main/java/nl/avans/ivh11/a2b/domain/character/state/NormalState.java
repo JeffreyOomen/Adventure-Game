@@ -1,14 +1,11 @@
 package nl.avans.ivh11.a2b.domain.character.state;
 
-import lombok.NoArgsConstructor;
-
 import javax.persistence.Entity;
 
 /**
  * Represents the Normal State
  */
 @Entity
-@NoArgsConstructor
 public class NormalState extends CharacterState
 {
     private final static int STRENGTH_LEVEL = 0;
@@ -17,6 +14,9 @@ public class NormalState extends CharacterState
     private final static int ARCHERY_LEVEL = 0;
 
     private volatile static NormalState uniqueInstance;
+
+    // prevent instantiating through constructor
+    private NormalState() {}
 
     /**
      * Creates a Singleton instance to prevent multiple objects

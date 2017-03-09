@@ -1,14 +1,11 @@
 package nl.avans.ivh11.a2b.domain.character.state;
 
-import lombok.NoArgsConstructor;
-
 import javax.persistence.Entity;
 
 /**
  * Represents the Weak State
  */
 @Entity
-@NoArgsConstructor
 public class WeakenedState extends CharacterState
 {
     private final static int STRENGTH_LEVEL = -10;
@@ -17,6 +14,9 @@ public class WeakenedState extends CharacterState
     private final static int ARCHERY_LEVEL = -10;
 
     private volatile static WeakenedState uniqueInstance;
+
+    // prevent instantiating through constructor
+    private WeakenedState() {}
 
     /**
      * Creates a Singleton instance to prevent multiple objects
