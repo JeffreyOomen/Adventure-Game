@@ -18,47 +18,32 @@ public class EnemyBuilder implements Builder {
     }
 
     @Override
-    public Builder setName(String name) {
-        enemy.setName(name);
-        return this;
+    public void setName(String name) {
+        this.enemy.setName(name);
     }
 
     @Override
-    public Builder setDescription(String description) {
-        enemy.setDescription(description);
-        return this;
+    public void setDescription(String description) {
+        this.enemy.setDescription(description);
     }
 
     @Override
-    public Builder setActionBehaviour(ActionBehavior actionBehaviour) {
-        enemy.setActionBehavior(actionBehaviour);
-        return this;
-    }
-
-    /**
-     * setLoot
-     * set an enemy drop. When loot is null a random drop is created
-     * @param loot
-     * @return
-     */
-    @Override
-    public Builder setLoot(Usable loot) {
-      if(loot != null) {
-          enemy.setLoot(loot);
-      } else {
-//          enemy.setLoot(enemy.randomDrop());
-      }
-        return this;
+    public void setActionBehaviour(ActionBehavior actionBehaviour) {
+        this.enemy.setActionBehavior(actionBehaviour);
     }
 
     @Override
-    public Builder setStats(Stats stats) {
-        enemy.setStats(stats);
-        return this;
+    public void setLoot(List<Usable> loot) {
+        this.enemy.setLoot(loot);
+    }
+
+    @Override
+    public void setStats(Stats stats) {
+        this.enemy.setStats(stats);
     }
 
     @Override
     public Enemy buildEnemy() {
-       return enemy;
+        return this.enemy;
     }
 }

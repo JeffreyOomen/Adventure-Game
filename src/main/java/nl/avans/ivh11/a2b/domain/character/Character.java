@@ -28,7 +28,8 @@ import java.util.Map;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class Character implements Opponent {
+public abstract class Character implements Opponent
+{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "CHARACTER_ID")
@@ -64,8 +65,7 @@ public abstract class Character implements Opponent {
 
     /**
      * Constructor
-     *
-     * @param name  the name of the Character
+     * @param name the name of the Character
      * @param stats
      */
     public Character(String name, Stats stats) {
@@ -76,9 +76,8 @@ public abstract class Character implements Opponent {
 
     /**
      * Mounts the Character with an EquipmentRepository Piece
-     *
      * @param equipmentType what kind of EquipmentRepository Piece
-     * @param equipment     an EquipmentRepository Object
+     * @param equipment an EquipmentRepository Object
      */
     public void mountEquipment(EquipmentEnum equipmentType, Equipment equipment) {
         // Make sure only one weapon can be equipped
@@ -92,7 +91,6 @@ public abstract class Character implements Opponent {
 
     /**
      * Unmounts the Character with the specified EquipmentRepository Piece
-     *
      * @param equipmentType what kind of EquipmentRepository Piece
      */
     public void unMountEquipment(EquipmentEnum equipmentType) {
@@ -101,7 +99,6 @@ public abstract class Character implements Opponent {
 
     /**
      * Performs an action against the Opponent
-     *
      * @param opponent the Character's Opponent
      */
     public void performAction(Opponent opponent) {
@@ -110,7 +107,6 @@ public abstract class Character implements Opponent {
 
     /**
      * Gets the Strength Level
-     *
      * @return the Strength Level
      */
     public int getStrength() {
@@ -119,7 +115,6 @@ public abstract class Character implements Opponent {
 
     /**
      * Gets the Magic Level
-     *
      * @return the Magic Level
      */
     public int getMagic() {
@@ -128,7 +123,6 @@ public abstract class Character implements Opponent {
 
     /**
      * Gets the Defense Level
-     *
      * @return the Defense Level
      */
     public int getDefense() {
@@ -137,7 +131,6 @@ public abstract class Character implements Opponent {
 
     /**
      * Gets the Archery Level
-     *
      * @return the Archery Level
      */
     public int getArchery() {
@@ -146,7 +139,6 @@ public abstract class Character implements Opponent {
 
     /**
      * Gets the Hitpoints amount
-     *
      * @return the Hitpoints amount
      */
     public int getHitpoints() {
@@ -155,10 +147,9 @@ public abstract class Character implements Opponent {
 
     /**
      * Gets the Current Hitpoints amount
-     *
      * @return the Current Hitpoints amount
      */
-    public int getCurrentHitpoints() {
+    public int getCurrentHitpoints()  {
         return this.stats.getCurrentHitpoints();
     }
 
@@ -172,7 +163,6 @@ public abstract class Character implements Opponent {
 
     /**
      * Gets an instance of PoweredState
-     *
      * @return an instance of PoweredState
      */
     public CharacterState getPoweredState() {
@@ -181,7 +171,6 @@ public abstract class Character implements Opponent {
 
     /**
      * Gets an instance of NormalState
-     *
      * @return an instance of NormalState
      */
     public CharacterState getNormalState() {
@@ -190,7 +179,6 @@ public abstract class Character implements Opponent {
 
     /**
      * Gets an instance of WeakenedState
-     *
      * @return an instance of WeakenedState
      */
     public CharacterState getWeakenedState() {
@@ -206,7 +194,6 @@ public abstract class Character implements Opponent {
 
     /**
      * Determines if the Character is still alive
-     *
      * @return true if the Character is alive, false otherwise
      */
     public boolean isAlive() {
@@ -261,7 +248,6 @@ public abstract class Character implements Opponent {
 
     /**
      * Gets the Map with Character Equipment
-     *
      * @return the Character Equipment
      */
     public Map<EquipmentEnum, Equipment> getEquipment() {
@@ -270,7 +256,6 @@ public abstract class Character implements Opponent {
 
     /**
      * Gets the current Strength Accuracy
-     *
      * @return the current Strength Accuracy
      */
     public int getStrengthAccuracy() {
@@ -287,7 +272,6 @@ public abstract class Character implements Opponent {
 
     /**
      * Gets the current Magic Accuracy
-     *
      * @return the current Magic Accuracy
      */
     public int getMagicAccuracy() {
@@ -305,7 +289,6 @@ public abstract class Character implements Opponent {
 
     /**
      * Gets the current Defense Accuracy
-     *
      * @return the current Defense Accuracy
      */
     public int getDefenseAccuracy() {
@@ -322,7 +305,6 @@ public abstract class Character implements Opponent {
 
     /**
      * Gets the current Archery Accuracy
-     *
      * @return the current Archery Accuracy
      */
     public int getArcheryAccuracy() {

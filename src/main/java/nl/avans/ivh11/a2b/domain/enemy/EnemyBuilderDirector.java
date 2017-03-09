@@ -17,31 +17,13 @@ public class EnemyBuilderDirector {
         this.builder = builder;
     }
 
-    /**
-     * createEnemy
-     * build a new enemy where loot need to be set manually
-     * @param name
-     * @param description
-     * @param actionBehavior
-     * @param stats
-     * @param loot
-     * @return Enemy object
-     */
-    public Enemy createEnemy(String name, String description, ActionBehavior actionBehavior, Stats stats, Usable loot) {
-        return builder.setName(name).setDescription(description).setActionBehaviour(actionBehavior).setStats(stats).setLoot(loot).buildEnemy();
-    }
-
-    /**
-     * createEnemy
-     * build a new enemy with a random drop
-     * @param name
-     * @param description
-     * @param actionBehavior
-     * @param stats
-     * @return Enemy object
-     */
-    public Enemy createEnemy(String name, String description, ActionBehavior actionBehavior, Stats stats) {
-        return builder.setName(name).setDescription(description).setActionBehaviour(actionBehavior).setStats(stats).setLoot(null).buildEnemy();
+    public Enemy createEnemy(String name, String description, ActionBehavior actionBehavior, Stats stats, List<Usable> loot) {
+        this.builder.setName(name);
+        this.builder.setDescription(description);
+        this.builder.setActionBehaviour(actionBehavior);
+        this.builder.setStats(stats);
+        this.builder.setLoot(loot);
+        return this.builder.buildEnemy();
     }
 
 }

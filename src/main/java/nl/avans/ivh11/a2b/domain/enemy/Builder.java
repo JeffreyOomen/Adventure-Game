@@ -10,10 +10,10 @@ import java.util.List;
  * EnemyBuilder 'contract'.
  */
 public interface Builder {
-    Builder setName(String name);
-    Builder setDescription(String description);
-    Builder setActionBehaviour(ActionBehavior actionBehaviour);
-    Builder setLoot(Usable loot);
-    Builder setStats(Stats stats);
+    void setName(String name);
+    void setDescription(String description);
+    void setActionBehaviour(ActionBehavior actionBehaviour);
+    void setLoot(List<Usable> loot);
+    void setStats(Stats stats);
     Enemy buildEnemy();
 }
