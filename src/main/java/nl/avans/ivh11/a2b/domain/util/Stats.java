@@ -1,10 +1,12 @@
 package nl.avans.ivh11.a2b.domain.util;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import nl.avans.ivh11.a2b.domain.util.EquipmentEnum;
 import org.springframework.security.access.method.P;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -19,6 +21,7 @@ public class Stats
 {
     @Id
     @GeneratedValue
+    @Column(name = "STATS_ID")
     private Long id;
 
     private int strength = 1;

@@ -56,12 +56,12 @@ public abstract class Character implements Opponent
     @Transient
     protected ActionBehavior actionBehavior;
 
-    //@OneToOne
-    @Transient
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "STATE_ID")
     protected CharacterState currentState;
 
-    //@OneToOne
-    @Transient
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "STATS_ID")
     protected Stats stats;
 
     @Transient
@@ -116,7 +116,8 @@ public abstract class Character implements Opponent
      * @return the Strength Level
      */
     public int getStrength() {
-        return this.stats.getStrength();
+        int strength = this.currentState.getStrength();
+        return strength + this.stats.getStrength();
     }
 
     /**
@@ -124,7 +125,8 @@ public abstract class Character implements Opponent
      * @return the Magic Level
      */
     public int getMagic() {
-        return this.stats.getMagic();
+        int magic = this.currentState.getMagic();
+        return magic + this.stats.getMagic();
     }
 
     /**
@@ -132,7 +134,8 @@ public abstract class Character implements Opponent
      * @return the Defense Level
      */
     public int getDefense() {
-        return this.stats.getDefense();
+        int defense = this.currentState.getDefense();
+        return defense + this.stats.getDefense();
     }
 
     /**
@@ -140,7 +143,8 @@ public abstract class Character implements Opponent
      * @return the Archery Level
      */
     public int getArchery() {
-        return this.stats.getArchery();
+        int archery = this.currentState.getArchery();
+        return archery + this.stats.getArchery();
     }
 
     /**
@@ -164,7 +168,7 @@ public abstract class Character implements Opponent
      * @return an instance of PoweredState
      */
     public CharacterState getPoweredState() {
-        return new PoweredState();
+        return PoweredState.getInstance();
     }
 
     /**
@@ -172,7 +176,7 @@ public abstract class Character implements Opponent
      * @return an instance of NormalState
      */
     public CharacterState getNormalState() {
-        return new NormalState();
+        return NormalState.getInstance();
     }
 
     /**
@@ -180,7 +184,7 @@ public abstract class Character implements Opponent
      * @return an instance of WeakenedState
      */
     public CharacterState getWeakenedState() {
-        return new WeakenedState();
+        return WeakenedState.getInstance();
     }
 
     /**
