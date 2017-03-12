@@ -79,14 +79,14 @@ public abstract class Equipment extends Usable {
     }
 
     /**
-     * setEnchantedStats
-     * improves or decreases accuracy of this equipment.
+     * setEquipmentAccuracies
+     * necessary to set the accuracies of an equipment item. Is used to set these accuracies in Stats for a Character.
      * @param strength
      * @param defense
      * @param archery
      * @param magic
      */
-    protected void setEnchantedStats(double strength, double defense, double archery, double magic) {
+    protected void setEquipmentAccuracies(double strength, double defense, double archery, double magic) {
 
         // Multiple character level with given amounts (can be positive or negative)
         int enchantedStrength = (int) Math.round(this.level * strength);

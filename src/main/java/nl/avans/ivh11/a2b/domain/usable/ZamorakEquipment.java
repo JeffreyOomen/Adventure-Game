@@ -11,7 +11,7 @@ public class ZamorakEquipment extends Equipment {
         super(type, level);
         setName("Zamorak " + getEquipmentType(type));
         setDescription("Item from the Zamorak collection. Very useful as a warrior.");
-        setEnchantedStats(0, -0.8, 0, 6);
+        setEquipmentAccuracies(0, -0.8, 0, 6);
     }
 
 }

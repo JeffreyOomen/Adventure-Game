@@ -10,7 +10,7 @@ public class BandosEquipment extends Equipment {
         super(type, level);
         setName("Bandos " + getEquipmentType(type));
         setDescription("Item from the Bandos collection. Very useful as a warrior.");
-        setEnchantedStats(1.5, 1.2, 1, 1);
+        setEquipmentAccuracies(1.5, 1.2, 1, 1);
     }
 
 }

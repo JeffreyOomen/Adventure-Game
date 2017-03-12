@@ -11,7 +11,7 @@ public class SaradominEquipment extends Equipment {
         super(type, level);
         setName("Saradomin " + getEquipmentType(type));
         setDescription("Item from the Saradomin collection. Very useful as a warrior.");
-        setEnchantedStats(0, 0.4, 0, 3);
+        setEquipmentAccuracies(0, 0.4, 0, 3);
     }
 
 }

@@ -10,7 +10,7 @@ public class ArmadylEquipment extends Equipment {
         super(type, level);
         setName("Armadyl " + getEquipmentType(type));
         setDescription("Item from the Armadyl collection. Very useful as a warrior.");
-        setEnchantedStats(0.4, 1.2, 4, 0);
+        setEquipmentAccuracies(0.4, 1.2, 4, 0);
     }
 
 }
