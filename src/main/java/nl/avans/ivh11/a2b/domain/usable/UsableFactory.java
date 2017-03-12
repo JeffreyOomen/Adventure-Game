@@ -13,15 +13,4 @@ public interface UsableFactory {
      */
     Usable createUsable(UsableType type, int level);
 
-//    /**
-//     * createUsable
-//     * used to create an equipment
-//     * @param type
-//     * @param name
-//     * @param description
-//     * @param stats necessary to give the item stats
-//     * @return
-//     */
-//    Usable createUsable(UsableType type, String name, String description, Stats stats);
-
 }
