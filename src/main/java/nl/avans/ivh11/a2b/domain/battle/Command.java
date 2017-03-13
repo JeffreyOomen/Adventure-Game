@@ -1,8 +1,11 @@
 package nl.avans.ivh11.a2b.domain.battle;
 
 /**
- * Created by isazu on 6-3-2017.
+ * Interface class to execute battle command
  */
 public interface Command {
+    /**
+     * Execute battle command
+     */
     void execute();
 }
