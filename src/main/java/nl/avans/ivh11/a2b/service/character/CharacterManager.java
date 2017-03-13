@@ -2,6 +2,8 @@ package nl.avans.ivh11.a2b.service.character;
 
 import nl.avans.ivh11.a2b.datastorage.character.CharacterRepository;
 import nl.avans.ivh11.a2b.datastorage.character.EquipmentRepository;
+import nl.avans.ivh11.a2b.domain.battle.NormalAttack;
+import nl.avans.ivh11.a2b.domain.battle.SpecialAttack;
 import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.domain.character.Dwarf;
 import nl.avans.ivh11.a2b.domain.character.Elf;
@@ -64,6 +66,7 @@ public class CharacterManager
 
         // Make a normal character:
         Character ch = new Dwarf("Jeffrey Oomen", new Stats());
+        ch.setActionBehavior(new NormalAttack());
         characterRepository.save(ch);
 
         // Make a decorator character with equipment:
