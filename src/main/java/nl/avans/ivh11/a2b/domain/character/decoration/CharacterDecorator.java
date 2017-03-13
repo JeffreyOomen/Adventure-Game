@@ -1,6 +1,7 @@
 package nl.avans.ivh11.a2b.domain.character.decoration;
 
 import lombok.NoArgsConstructor;
+import nl.avans.ivh11.a2b.domain.battle.ActionBehavior;
 import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.domain.character.state.CharacterState;
 import nl.avans.ivh11.a2b.domain.character.state.NormalState;
@@ -208,5 +209,9 @@ public abstract class CharacterDecorator extends Character
      */
     public Character getCharacter() {
         return this.character;
+    }
+
+    public void setActionBehavior(ActionBehavior actionBehavior) {
+        this.character.setActionBehavior(actionBehavior);
     }
 }

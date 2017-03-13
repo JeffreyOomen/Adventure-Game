@@ -1,6 +1,8 @@
 package nl.avans.ivh11.a2b.presentation.controller.battle;
 
 import nl.avans.ivh11.a2b.datastorage.character.CharacterRepository;
+import nl.avans.ivh11.a2b.domain.battle.ActionCommand;
+import nl.avans.ivh11.a2b.domain.battle.Battle;
 import nl.avans.ivh11.a2b.domain.battle.NormalAttack;
 import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.domain.enemy.Enemy;
@@ -23,10 +25,11 @@ public class BattleController {
 
     @GetMapping
     public String battleAction() {
-        Character character = characterRepository.findOne(1L);
+        Character character = characterRepository.findOne(3L);
         character.setActionBehavior(new NormalAttack());
         Enemy enemy = new Enemy(new Stats());
-
+        Battle battle = new Battle(character, enemy);
+        battle.playTurn(new ActionCommand(character, enemy));
 
         return "battle";
     }

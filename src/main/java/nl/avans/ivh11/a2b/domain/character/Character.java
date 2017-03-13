@@ -77,6 +77,7 @@ public abstract class Character implements Opponent {
         this.stats = stats;
         this.equipment = new HashMap<>();
         this.observers = new ArrayList<>();
+        this.currentState = new NormalState();
     }
 
     /**
@@ -111,6 +112,7 @@ public abstract class Character implements Opponent {
      */
     public void performAction(Opponent opponent) {
         this.actionBehavior.action(this, opponent);
+        System.out.println("Hallo?");
         notifyObservers();
     }
 

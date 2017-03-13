@@ -10,8 +10,8 @@ public class ActionCommand implements Command {
     private Opponent defender;
 
     public ActionCommand (Opponent attacker, Opponent defender) {
-        attacker = this.attacker;
-        defender = this.defender;
+        this.attacker = attacker;
+        this.defender = defender;
     }
 
     public void execute () {
