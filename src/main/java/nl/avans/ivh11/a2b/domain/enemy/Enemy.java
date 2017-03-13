@@ -4,18 +4,37 @@ import nl.avans.ivh11.a2b.domain.util.Opponent;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 import nl.avans.ivh11.a2b.domain.util.observer.Observer;
 
-import javax.persistence.Transient;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import nl.avans.ivh11.a2b.domain.battle.ActionBehavior;
+import nl.avans.ivh11.a2b.domain.usable.Usable;
+import nl.avans.ivh11.a2b.domain.util.Opponent;
+import nl.avans.ivh11.a2b.domain.util.Stats;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * Represents an Enemy
- * Created by matthijs on 8-3-17.
  */
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class Enemy implements Opponent {
-
-    @Transient
+    @Id
+    @GeneratedValue
+    private long id;
+    private String name;
+    private String description;
+    @OneToOne(cascade = CascadeType.ALL)
     private Stats stats;
+    private ActionBehavior actionBehavior;
+    @OneToMany()
+    private List<Usable> loot;
 
     @Transient
     private List<Observer> observers;
@@ -33,42 +52,45 @@ public class Enemy implements Opponent {
         return Integer.toString(stats.getCurrentHitpoints());
     }
 
+    public void performAction(Opponent opponent) {
+        this.actionBehavior.action((nl.avans.ivh11.a2b.domain.character.Character) opponent, this);
+    }
+
     /**
-     * Determines if the Enemy is still alive
-     *
-     * @return true if the Character is alive, false otherwise
+     * isAlive
+     * Determines enemy is alive.
+     * @return boolean
      */
     public boolean isAlive() {
-        return this.stats.getCurrentHitpoints() > 0;
+        return this.stats.getHitpoints() > 0? true : false;
     }
 
     /**
-     * Take damage as result van an enemy attack
-     * @param hit int damage to take
+     * takeDamage
+     * takes damage done by enemy.
+     * Collect a hit.
+     * @param hit
+     * @return boolean
      */
-    public void takeDamage(int hit) {
-        this.stats.setCurrentHitpoints(this.stats.getCurrentHitpoints() - hit);
-        notifyObservers();
-    }
-
-    /**
-     * Adds the given hitpoints to the currentHitpoints
-     * @param hitPoints int
-     */
-    public void heal(int hitPoints) {
-        int newHitpoints = this.stats.getCurrentHitpoints() + hitPoints;
-        if(newHitpoints <= this.stats.getHitpoints()) {
-            this.stats.setCurrentHitpoints(newHitpoints);
-        } else {
-            this.stats.setCurrentHitpoints(this.stats.getHitpoints());
+    public void takeDamage (int hit) {
+        boolean damageDone = false;
+        if(hit > 0) {
+            stats.setHitpoints(stats.getHitpoints() - hit);
         }
     }
 
-    /**
-     * Receive an incoming XP bounty
-     */
-    public void receiveXp(int earnedXp) {
+    public List<Object> randomDrop() {
+        return  new ArrayList<>(); // TODO: bepalen hoe drops teruggeven.
+    }
 
+    /**
+     * receiveXp
+     * currently based on enemy hitpoints
+     * @return int
+     */
+    public void receiveXp(int xp) {
+        //TODO xp verhogen
+//        this.getStats(). this.getStats().getHitpoints();
     }
 
     @Override
@@ -90,8 +112,17 @@ public class Enemy implements Opponent {
         }
     }
 
-    @Override
-    public void performAction(Opponent opponent) {
 
+    /**
+     * Adds the given hitpoints to the currentHitpoints
+     * @param hitPoints int
+     */
+    public void heal(int hitPoints) {
+        int newHitpoints = this.stats.getCurrentHitpoints() + hitPoints;
+        if(newHitpoints <= this.stats.getHitpoints()) {
+            this.stats.setCurrentHitpoints(newHitpoints);
+        } else {
+            this.stats.setCurrentHitpoints(this.stats.getHitpoints());
+        }
     }
 }
