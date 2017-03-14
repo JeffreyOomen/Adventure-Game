@@ -1,14 +1,16 @@
 package nl.avans.ivh11.a2b.domain.util;
 
 /**
- * Created by isazu on 6-3-2017.
+ * Singleton class which returns a random number based on the attributes and which method is called
  */
 public class Random {
     private double min, max;
     private static volatile Random instance = null;
 
-    private Random() {}
-
+    /**
+     * Check if class is already instantiated and create if not
+     * @return instance of class Random
+     */
     public static Random getInstance() {
         if (instance == null) {
             synchronized (Random.class) {
@@ -20,12 +22,23 @@ public class Random {
         return instance;
     }
 
-    public int getRandom() {
+    /**
+     * Create random number based on the min and max set in the random methods
+     * @return int random number
+     */
+    public int getRandomNumber() {
         double range = max - min + 1;
-        int randomNumber = (int)((Math.random() * range) + min);
-        return randomNumber;
+        return (int)((Math.random() * range) + min);
     }
 
+    /**
+     * Gives random number of how much damage has been taken
+     * @param strength attacking power of attacker
+     * @param strengthAccuracy attackingrate of attacker
+     * @param defense defensive power of defender
+     * @param defenseAccuracy defenserate of defender
+     * @return int random number
+     */
     public int randomDamage (double strength, double strengthAccuracy, double defense, int defenseAccuracy) {
         double strDouble = Math.random() * 100;
         double defDouble = Math.random() * 100;
@@ -48,21 +61,28 @@ public class Random {
             min = 1;
             max = strength * 0.5;
         }
-        int rnd = getRandom();
-        return rnd;
+        return getRandomNumber();
     }
 
+    /**
+     * Gives random number based on the player's level
+     * @param level player's level
+     * @return int random number
+     */
     public int randomLevel (int level) {
         min = level * 0.75;
         max = level * 1.15;
-        int rnd = getRandom();
-        return rnd;
+        return getRandomNumber();
     }
 
+    /**
+     * Gives random number based on the number of possible enemies
+     * @param enemies length of list with enemies
+     * @return int random number
+     */
     public int randomEnemy (int enemies) {
         min = 0;
         max = enemies;
-        int rnd = getRandom();
-        return rnd;
+        return getRandomNumber();
     }
 }
