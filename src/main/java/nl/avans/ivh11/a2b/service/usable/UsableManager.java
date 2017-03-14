@@ -54,9 +54,9 @@ public class UsableManager {
         }
 
 
-//        PotionFactory pf = new PotionFactory();
-//        Usable healPotion = pf.createUsable(UsableType.POTION_HEAL, "Heal berry", "Tasteful");
-//        usableRepository.save(healPotion);
+        PotionFactory pf = new PotionFactory();
+        Usable healPotion = pf.createUsable(UsableType.POTION_HEAL, 10);
+        usableRepository.save(healPotion);
 
         System.out.println("=================================================================");
         System.out.println("====================="+ "NEW USABLE CREATED" + "===================");

@@ -8,7 +8,7 @@ public class Inventory
 {
     public ArrayList<HealPotion> getHealPotions() {
         ArrayList<HealPotion> healPotions = new ArrayList<HealPotion>();
-        healPotions.add(new HealPotion(POTION_HEAL, "Heal Potion", "Heal Character"));
+        healPotions.add(new HealPotion(POTION_HEAL, 10));
         return healPotions;
     }
 

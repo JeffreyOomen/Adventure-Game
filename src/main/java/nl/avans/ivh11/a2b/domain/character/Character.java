@@ -8,9 +8,9 @@ import nl.avans.ivh11.a2b.domain.character.state.CharacterState;
 import nl.avans.ivh11.a2b.domain.character.state.NormalState;
 import nl.avans.ivh11.a2b.domain.character.state.PoweredState;
 import nl.avans.ivh11.a2b.domain.character.state.WeakenedState;
-import nl.avans.ivh11.a2b.domain.usable.Inventory;
-import nl.avans.ivh11.a2b.domain.usable.Usable;
+import nl.avans.ivh11.a2b.domain.usable.*;
 import nl.avans.ivh11.a2b.domain.util.*;
+import nl.avans.ivh11.a2b.domain.usable.Equipment;
 import nl.avans.ivh11.a2b.domain.util.observer.Observer;
 
 import javax.persistence.*;
@@ -44,14 +44,14 @@ public abstract class Character implements Opponent
     @CollectionTable(name = "CHARACTER_EQUIPMENT", joinColumns = @JoinColumn(name = "CHARACTER_ID"))
     @MapKeyColumn(name = "EQUIPMENT_ENUM")
     @Column(name = "EQUIPMENT")
-    protected Map<EquipmentEnum, Equipment> equipment;
+    protected Map<UsableType, Equipment> equipment;
 
     //@OneToOne
     @Transient
     protected Inventory inventory;
 
     @Transient
-    protected EquipmentEnum attackStyle;
+    protected UsableType attackStyle;
 
     @Lob
     protected ActionBehavior actionBehavior;
@@ -81,16 +81,16 @@ public abstract class Character implements Opponent
 
     /**
      * Mounts the Character with an EquipmentRepository Piece
-     * @param equipmentType what kind of EquipmentRepository Piece
+     * @param usableType what kind of EquipmentRepository Piece
      * @param equipment an EquipmentRepository Object
      */
-    public void mountEquipment(EquipmentEnum equipmentType, Equipment equipment) {
+    public void mountEquipment(UsableType usableType, Equipment equipment) {
         // Make sure only one weapon can be equipped
-        if (equipmentType == EquipmentEnum.SWORD || equipmentType == EquipmentEnum.STAFF || equipmentType == EquipmentEnum.BOW) {
-            this.equipment.put(EquipmentEnum.WEAPON, equipment);
-            this.attackStyle = equipmentType;
+        if (usableType == UsableType.EQUIPMENT_WEAPON_SWORD || usableType == UsableType.EQUIPMENT_WEAPON_STAFF || usableType == UsableType.EQUIPMENT_WEAPON_BOW) {
+            this.equipment.put(UsableType.EQUIPMENT_WEAPON, equipment);
+            this.attackStyle = usableType;
         } else {
-            this.equipment.put(equipmentType, equipment);
+            this.equipment.put(usableType, equipment);
         }
     }
 
@@ -98,7 +98,7 @@ public abstract class Character implements Opponent
      * Unmounts the Character with the specified EquipmentRepository Piece
      * @param equipmentType what kind of EquipmentRepository Piece
      */
-    public void unMountEquipment(EquipmentEnum equipmentType) {
+    public void unMountEquipment(UsableType equipmentType) {
         this.equipment.remove(equipmentType);
     }
 
@@ -239,6 +239,7 @@ public abstract class Character implements Opponent
         this.stats.processXp(this.getAttackStyle(), earnedXp);
     }
 
+
     /**
      * Adds a Usable item to the Character's Inventory
      * @param usable an Object of Usable
@@ -269,7 +270,7 @@ public abstract class Character implements Opponent
      * Gets the Map with Character Equipment
      * @return the Character Equipment
      */
-    public Map<EquipmentEnum, Equipment> getEquipment() {
+    public Map<UsableType, Equipment> getEquipment() {
         return this.equipment;
     }
 
@@ -281,8 +282,8 @@ public abstract class Character implements Opponent
         int strengthAccuracy = this.stats.getStrengthAccuracy();
 
         if (!this.equipment.isEmpty()) {
-            for (Map.Entry<EquipmentEnum, Equipment> entry : this.equipment.entrySet()) {
-                strengthAccuracy += entry.getValue().getStats().getStrengthAccuracy();
+            for (Map.Entry<UsableType, Equipment> entry : this.equipment.entrySet()) {
+                strengthAccuracy += entry.getValue().getStrengthAccuracy();
             }
         }
 
@@ -297,8 +298,8 @@ public abstract class Character implements Opponent
         int magicAccuracy = this.stats.getMagicAccuracy();
 
         if (!this.equipment.isEmpty()) {
-            for (Map.Entry<EquipmentEnum, Equipment> entry : this.equipment.entrySet()) {
-                magicAccuracy += entry.getValue().getStats().getMagicAccuracy();
+            for (Map.Entry<UsableType, Equipment> entry : this.equipment.entrySet()) {
+                magicAccuracy += entry.getValue().getMagicAccuracy();
             }
         }
 
@@ -314,8 +315,8 @@ public abstract class Character implements Opponent
         int defenseAccuracy = this.stats.getDefenseAccuracy();
 
         if (!this.equipment.isEmpty()) {
-            for (Map.Entry<EquipmentEnum, Equipment> entry : this.equipment.entrySet()) {
-                defenseAccuracy += entry.getValue().getStats().getDefenseAccuracy();
+            for (Map.Entry<UsableType, Equipment> entry : this.equipment.entrySet()) {
+                defenseAccuracy += entry.getValue().getDefenseAccuracy();
             }
         }
 
@@ -330,8 +331,8 @@ public abstract class Character implements Opponent
         int archeryAccuracy = this.stats.getArcheryAccuracy();
 
         if (!this.equipment.isEmpty()) {
-            for (Map.Entry<EquipmentEnum, Equipment> entry : this.equipment.entrySet()) {
-                archeryAccuracy += entry.getValue().getStats().getArcheryAccuracy();
+            for (Map.Entry<UsableType, Equipment> entry : this.equipment.entrySet()) {
+                archeryAccuracy += entry.getValue().getArcheryAccuracy();
             }
         }
 

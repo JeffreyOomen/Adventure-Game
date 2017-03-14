@@ -9,8 +9,8 @@ import nl.avans.ivh11.a2b.domain.character.Dwarf;
 import nl.avans.ivh11.a2b.domain.character.Elf;
 import nl.avans.ivh11.a2b.domain.character.decoration.CharacterDecorator;
 import nl.avans.ivh11.a2b.domain.character.decoration.Mage;
-import nl.avans.ivh11.a2b.domain.util.Equipment;
-import nl.avans.ivh11.a2b.domain.util.EquipmentEnum;
+import nl.avans.ivh11.a2b.domain.usable.UsableType;
+import nl.avans.ivh11.a2b.domain.usable.Equipment;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,25 +44,25 @@ public class CharacterManager
      * Just for JPA Hibernate test purposes
      */
     public void example() {
-        Equipment helmet = new Equipment("Bronze helm", EquipmentEnum.HELMET);
-        Equipment torso = new Equipment("Bronze torso", EquipmentEnum.TORSO);
-        Equipment legs = new Equipment("Silver legs", EquipmentEnum.LEGS);
-        Equipment boots = new Equipment("Silver boots", EquipmentEnum.BOOTS);
-        Equipment gloves = new Equipment("Bronze gloves", EquipmentEnum.GLOVES);
-        Equipment sword = new Equipment("A Golden Sword", EquipmentEnum.SWORD);
-        equipmentRepository.save(helmet);
-        equipmentRepository.save(torso);
-        equipmentRepository.save(legs);
-        equipmentRepository.save(boots);
-        equipmentRepository.save(gloves);
-        equipmentRepository.save(sword);
-
-        Equipment helm1 = equipmentRepository.findOne(1L);
-        Equipment torso1 = equipmentRepository.findOne(2L);
-        Equipment legs1 = equipmentRepository.findOne(3L);
-        Equipment boots1 = equipmentRepository.findOne(4L);
-        Equipment gloves1 = equipmentRepository.findOne(5L);
-        Equipment sword1 = equipmentRepository.findOne(6L);
+//        Equipment helmet = new Equipment("Bronze helm", EquipmentEnum.HELMET);
+//        Equipment torso = new Equipment("Bronze torso", EquipmentEnum.TORSO);
+//        Equipment legs = new Equipment("Silver legs", EquipmentEnum.LEGS);
+//        Equipment boots = new Equipment("Silver boots", EquipmentEnum.BOOTS);
+//        Equipment gloves = new Equipment("Bronze gloves", EquipmentEnum.GLOVES);
+//        Equipment sword = new Equipment("A Golden Sword", EquipmentEnum.SWORD);
+//        equipmentRepository.save(helmet);
+//        equipmentRepository.save(torso);
+//        equipmentRepository.save(legs);
+//        equipmentRepository.save(boots);
+//        equipmentRepository.save(gloves);
+//        equipmentRepository.save(sword);
+//
+//        Equipment helm1 = equipmentRepository.findOne(1L);
+//        Equipment torso1 = equipmentRepository.findOne(2L);
+//        Equipment legs1 = equipmentRepository.findOne(3L);
+//        Equipment boots1 = equipmentRepository.findOne(4L);
+//        Equipment gloves1 = equipmentRepository.findOne(5L);
+//        Equipment sword1 = equipmentRepository.findOne(6L);
 
         // Make a normal character:
         Character ch = new Dwarf("Jeffrey Oomen", new Stats());
@@ -71,12 +71,12 @@ public class CharacterManager
 
         // Make a decorator character with equipment:
         Character ch2 = new Mage(new Elf("Matthijs Toverboom", new Stats()));
-        ch2.mountEquipment(EquipmentEnum.HELMET, helm1);
-        ch2.mountEquipment(EquipmentEnum.TORSO, torso1);
-        ch2.mountEquipment(EquipmentEnum.LEGS, legs1);
-        ch2.mountEquipment(EquipmentEnum.BOOTS, boots1);
-        ch2.mountEquipment(EquipmentEnum.GLOVES, gloves1);
-        ch2.mountEquipment(EquipmentEnum.SWORD, sword1);
+//        ch2.mountEquipment(EquipmentEnum.HELMET, helm1);
+//        ch2.mountEquipment(EquipmentEnum.TORSO, torso1);
+//        ch2.mountEquipment(EquipmentEnum.LEGS, legs1);
+//        ch2.mountEquipment(EquipmentEnum.BOOTS, boots1);
+//        ch2.mountEquipment(EquipmentEnum.GLOVES, gloves1);
+//        ch2.mountEquipment(EquipmentEnum.SWORD, sword1);
         characterRepository.save(ch2);
 
         // Find the decorator character
@@ -91,7 +91,7 @@ public class CharacterManager
         // print the equipment:
         System.out.println("=================================================================");
         System.out.println("====================="+ "Character's Equipment" + "===================");
-        for (Map.Entry<EquipmentEnum, Equipment> entry : decoratedCharacter.getEquipment().entrySet()) {
+        for (Map.Entry<UsableType, Equipment> entry : decoratedCharacter.getEquipment().entrySet()) {
             System.out.println("======= TYPE: " + entry.getKey() + "======= NAME: " + entry.getValue().getName());
         }
         System.out.println("=================================================================");

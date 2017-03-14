@@ -6,10 +6,10 @@ import nl.avans.ivh11.a2b.domain.character.state.CharacterState;
 import nl.avans.ivh11.a2b.domain.character.state.NormalState;
 import nl.avans.ivh11.a2b.domain.character.state.PoweredState;
 import nl.avans.ivh11.a2b.domain.character.state.WeakenedState;
-import nl.avans.ivh11.a2b.domain.util.Equipment;
+import nl.avans.ivh11.a2b.domain.usable.UsableType;
+import nl.avans.ivh11.a2b.domain.usable.Equipment;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
 import nl.avans.ivh11.a2b.domain.util.Stats;
-import nl.avans.ivh11.a2b.domain.util.EquipmentEnum;
 
 import javax.persistence.*;
 import java.util.Map;
@@ -39,7 +39,7 @@ public abstract class CharacterDecorator extends Character
      * @param equipmentType what kind of EquipmentRepository Piece
      * @param equipment an EquipmentRepository Object
      */
-    public void mountEquipment(EquipmentEnum equipmentType, Equipment equipment) {
+    public void mountEquipment(UsableType equipmentType, Equipment equipment) {
         this.character.mountEquipment(equipmentType, equipment);
     }
 
@@ -47,7 +47,7 @@ public abstract class CharacterDecorator extends Character
      * Unmounts the Character with the specified EquipmentRepository Piece
      * @param equipmentType what kind of EquipmentRepository Piece
      */
-    public void unMountEquipment(EquipmentEnum equipmentType) {
+    public void unMountEquipment(UsableType equipmentType) {
         this.character.unMountEquipment(equipmentType);
     }
 
@@ -182,7 +182,7 @@ public abstract class CharacterDecorator extends Character
      * Gets the Map with Character Equipment
      * @return the Character Equipment
      */
-    public Map<EquipmentEnum, Equipment> getEquipment() {
+    public Map<UsableType, Equipment> getEquipment() {
         return this.character.getEquipment();
     }
 
@@ -190,7 +190,7 @@ public abstract class CharacterDecorator extends Character
      * Sets the Attack Style
      * @param attackStyle the Attack Style to be used by the character
      */
-    public void setAttackStyle(EquipmentEnum attackStyle) {
+    public void setAttackStyle(UsableType attackStyle) {
         this.character.setAttackStyle(attackStyle);
     }
 

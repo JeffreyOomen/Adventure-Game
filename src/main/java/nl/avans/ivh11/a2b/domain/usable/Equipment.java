@@ -2,8 +2,7 @@ package nl.avans.ivh11.a2b.domain.usable;
 
 import lombok.Getter;
 import lombok.Setter;
-//import nl.avans.ivh11.a2b.domain.character.Character;
-import nl.avans.ivh11.a2b.domain.character.CharacterStub; // TODO: stub used temporary
+import nl.avans.ivh11.a2b.domain.character.Character;
 
 import javax.persistence.*;
 
@@ -42,8 +41,8 @@ public abstract class Equipment extends Usable {
      * @param character
      */
     @Override
-    public void use(CharacterStub character) {
-        character.mountEquipment2(this.type, this); // TODO: change CharacterStub for normal Character (Stub contains new used UsableType enum instead of old)
+    public void use(Character character) {
+        character.mountEquipment(this.type, this); // TODO: change CharacterStub for normal Character (Stub contains new used UsableType enum instead of old)
     }
 
     /**
