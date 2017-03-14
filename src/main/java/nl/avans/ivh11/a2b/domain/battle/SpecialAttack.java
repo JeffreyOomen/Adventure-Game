@@ -24,6 +24,6 @@ public class SpecialAttack implements ActionBehavior
                 character.getDefenseAccuracy()
         ) * 1.20;
         enemy.takeDamage(damage.intValue());
-        return "Attacked enemy with " + damage + " damage";
+        return character.getName() + " attacked enemy with " + damage + " damage";
     }
 }

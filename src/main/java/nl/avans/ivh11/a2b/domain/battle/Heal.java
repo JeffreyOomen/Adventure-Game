@@ -19,10 +19,11 @@ public class Heal implements ActionBehavior
     public String action(Character character, Opponent enemy) {
         String message = "No Heal potions";
         if(character.getInventory().getHealPotions().size() > 0) {
-            character.heal(10);
+            int hitPoints = 10;
+            character.heal(hitPoints);
             Usable potion = character.getInventory().getHealPotions().get(0);
             character.getInventory().drop(potion);
-            message = "Character new HP: " + character.getCurrentHitpoints();
+            message = character.getName() + " healed with " + hitPoints + " hp";
         }
         return message;
     }

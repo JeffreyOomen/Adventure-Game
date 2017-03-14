@@ -24,6 +24,6 @@ public class NormalAttack implements ActionBehavior
                 character.getDefenseAccuracy()
         );
         enemy.takeDamage(damage);
-        return "Attacked enemy with " + damage + " damage";
+        return character.getName() + " attacked enemy with " + damage + " damage";
     }
 }
