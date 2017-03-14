@@ -1,9 +1,8 @@
 package nl.avans.ivh11.a2b.domain.battle;
 
 import nl.avans.ivh11.a2b.domain.character.Character;
-import nl.avans.ivh11.a2b.domain.enemy.Enemy;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
-import nl.avans.ivh11.a2b.domain.util.Random;
+import nl.avans.ivh11.a2b.domain.util.CustomRandom;
 
 /**
  * Attack the Opponent with a special attack
@@ -16,7 +15,7 @@ public class SpecialAttack implements ActionBehavior
      * @param enemy the Character's enemy
      */
     public void action(Character character, Opponent enemy) {
-        Double damage = Random.getInstance().randomDamage(
+        Double damage = CustomRandom.getInstance().randomDamage(
                 character.getStrength(),
                 character.getStrengthAccuracy(),
                 character.getDefense(),
