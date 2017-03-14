@@ -14,8 +14,9 @@ public class SpecialAttack implements ActionBehavior
      * Attack the enemy with a special attack
      * @param character the current Character
      * @param enemy the Character's enemy
+     * @return The action result
      */
-    public void action(Character character, Opponent enemy) {
+    public String action(Character character, Opponent enemy) {
         Double damage = Random.getInstance().randomDamage(
                 character.getStrength(),
                 character.getStrengthAccuracy(),
@@ -23,5 +24,6 @@ public class SpecialAttack implements ActionBehavior
                 character.getDefenseAccuracy()
         ) * 1.20;
         enemy.takeDamage(damage.intValue());
+        return "Attacked enemy with " + damage + " damage";
     }
 }

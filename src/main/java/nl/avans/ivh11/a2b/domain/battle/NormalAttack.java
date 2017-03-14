@@ -14,8 +14,9 @@ public class NormalAttack implements ActionBehavior
      * Attack the enemy with a normal attack
      * @param character the current Character
      * @param enemy the Character's enemy
+     * @return The action result
      */
-    public void action(Character character, Opponent enemy) {
+    public String action(Character character, Opponent enemy) {
         int damage = Random.getInstance().randomDamage(
                 character.getStrength(),
                 character.getStrengthAccuracy(),
@@ -23,5 +24,6 @@ public class NormalAttack implements ActionBehavior
                 character.getDefenseAccuracy()
         );
         enemy.takeDamage(damage);
+        return "Attacked enemy with " + damage + " damage";
     }
 }
