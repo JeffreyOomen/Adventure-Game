@@ -1,9 +1,15 @@
 package nl.avans.ivh11.a2b.domain.usable;
 
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Entity;
+
 /**
  * BandosEquipment implementation of Equipment
  * BandosEquipment is great equipment for a 'Warrior' and improves strength and defense. It decreases archery and magic.
  */
+@Entity
+@NoArgsConstructor
 public class BandosEquipment extends Equipment {
 
     public BandosEquipment(UsableType type, int level) {

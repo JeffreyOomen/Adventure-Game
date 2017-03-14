@@ -1,6 +1,7 @@
 package nl.avans.ivh11.a2b.domain.usable;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import nl.avans.ivh11.a2b.domain.character.Character;
 
@@ -13,6 +14,7 @@ import javax.persistence.*;
 @DiscriminatorValue("Equipment")
 @Getter
 @Setter
+@NoArgsConstructor
 public abstract class Equipment extends Usable {
 
     protected UsableType type;
