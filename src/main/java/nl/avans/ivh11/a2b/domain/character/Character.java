@@ -65,7 +65,7 @@ public abstract class Character implements Opponent
     protected Stats stats;
 
     @Transient
-    private List<Observer> observers;
+    private List<Observer> observers = new ArrayList<>();
 
     /**
      * Constructor
@@ -76,7 +76,6 @@ public abstract class Character implements Opponent
         this.name = name;
         this.stats = stats;
         this.equipment = new HashMap<>();
-        this.observers = new ArrayList<>();
         this.currentState = new NormalState();
     }
 
@@ -109,7 +108,6 @@ public abstract class Character implements Opponent
      */
     public void performAction(Opponent opponent) {
         this.actionBehavior.action(this, opponent);
-        System.out.println("Hallo?");
         notifyObservers();
     }
 

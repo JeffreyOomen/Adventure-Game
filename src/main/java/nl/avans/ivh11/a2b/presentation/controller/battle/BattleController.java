@@ -28,9 +28,11 @@ public class BattleController {
         Character character = characterRepository.findOne(3L);
         character.setActionBehavior(new NormalAttack());
         Enemy enemy = new Enemy(new Stats());
-        Battle battle = new Battle(character, enemy);
+        System.out.printf("Enemy hp: " + enemy.getStats().getCurrentHitpoints());
+        Battle battle = new Battle();
         battle.playTurn(new ActionCommand(character, enemy));
 
+        System.out.printf("Enemy hp after turn: " + enemy.getStats().getCurrentHitpoints());
         return "battle";
     }
 }
