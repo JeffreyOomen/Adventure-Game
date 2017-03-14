@@ -3,6 +3,7 @@ package nl.avans.ivh11.a2b.domain.util;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import nl.avans.ivh11.a2b.domain.usable.UsableType;
 import nl.avans.ivh11.a2b.domain.util.EquipmentEnum;
 import org.springframework.security.access.method.P;
 
@@ -93,16 +94,16 @@ public class Stats
      * @param xp the earned xp to be sieved over the stats
      * @return true if xp is sieved successfully, false otherwise
      */
-    public boolean processXp(final EquipmentEnum characterAttackStyle, final int xp) {
+    public boolean processXp(final UsableType characterAttackStyle, final int xp) {
 
         switch (characterAttackStyle) {
-            case SWORD:
+            case EQUIPMENT_WEAPON_SWORD:
                 this.processStrengthXp(STRENGTH_MULTIPLIER * xp);
                 break;
-            case STAFF:
+            case EQUIPMENT_WEAPON_STAFF:
                 this.processMagicXp(MAGIC_MULTIPLIER * xp);
                 break;
-            case BOW:
+            case EQUIPMENT_WEAPON_BOW:
                this.processArcheryXp(ARCHERY_MULTIPLIER * xp);
                 break;
             default:

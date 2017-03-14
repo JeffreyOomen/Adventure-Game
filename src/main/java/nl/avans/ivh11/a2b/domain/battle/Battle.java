@@ -1,15 +1,14 @@
 package nl.avans.ivh11.a2b.domain.battle;
 
-import nl.avans.ivh11.a2b.domain.character.Character;
-import nl.avans.ivh11.a2b.domain.enemy.Enemy;
-
 /**
- * Created by isazu on 6-3-2017.
+ * Class to command actions every turn
  */
 public class Battle {
-    public Battle (Character ch, Enemy en) {
-    }
 
+    /**
+     * Call execute function on the assigned command
+     * @param command implementation of command interface
+     */
     public void playTurn(Command command) {
         command.execute();
     }

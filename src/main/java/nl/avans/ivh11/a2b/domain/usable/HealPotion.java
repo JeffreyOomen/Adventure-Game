@@ -5,6 +5,7 @@ import lombok.Setter;
 import nl.avans.ivh11.a2b.domain.character.Character;
 
 import javax.persistence.Entity;
+import java.util.Random;
 
 /**
  * HealPotion
@@ -14,16 +15,33 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 public class HealPotion extends Usable {
-
-    public HealPotion(UsableType type, String name, String description) {
+    private int level;
+    public HealPotion(UsableType type, int level) {
         this.type = type;
-        this.name = name;
-        this.description = description;
+        this.level = level;
+        this.name = "Heal potion";
+        this.description = "Increases hitpoints";
     }
 
+    /**
+     * use
+     * heal potion is used, current HP is randomly increased. See also setHealAmount()
+     * @param character
+     */
     @Override
     public void use(Character character) {
-        character.setState(character.getPoweredState());
+        character.getStats().setHitpoints(character.getStats().getHitpoints() + setHealAmount(character.getCurrentHitpoints()));
+    }
+
+    /**
+     * setHealAmount
+     * randomly increases current HP minus level
+     * @param maxHp
+     * @return int
+     */
+    private int setHealAmount(int maxHp) {
+        // e.g. hp 50, lvl 20: max heal = 30;
+        return new Random().nextInt(maxHp - level);
     }
 
 }

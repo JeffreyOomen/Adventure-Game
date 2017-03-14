@@ -7,6 +7,7 @@ import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.domain.character.Elf;
 import nl.avans.ivh11.a2b.domain.character.Troll;
 import nl.avans.ivh11.a2b.domain.usable.Inventory;
+import nl.avans.ivh11.a2b.domain.usable.UsableType;
 import nl.avans.ivh11.a2b.domain.util.EquipmentEnum;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 import org.junit.After;
@@ -29,7 +30,7 @@ public class ActionBehaviorTests
         this.stats = new Stats();
         this.character = new Troll("Mountain Troll", stats);
         this.character.setInventory(new Inventory());
-        this.character.setAttackStyle(EquipmentEnum.SWORD);
+        this.character.setAttackStyle(UsableType.EQUIPMENT_WEAPON_SWORD);
     }
 
     /**

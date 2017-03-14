@@ -7,7 +7,7 @@ import nl.avans.ivh11.a2b.domain.character.Character;
 import javax.persistence.Entity;
 
 /**
- * HealPotion
+ * OverloadPotion
  * is a usable that can be created by the UsableFactory.
  */
 @Entity
@@ -15,12 +15,17 @@ import javax.persistence.Entity;
 @Setter
 public class OverloadPotion extends Usable {
 
-    public OverloadPotion(UsableType type, String name, String description) {
+    public OverloadPotion(UsableType type, int level) {
         this.type = type;
-        this.name = name;
-        this.description = description;
+        this.name = "Overload potion";
+        this.description = "Gives super power";
     }
 
+    /**
+     * use
+     * when this item is used the character is in a powered state.
+     * @param character
+     */
     @Override
     public void use(Character character) {
         character.setState(character.getPoweredState());
