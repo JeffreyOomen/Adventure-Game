@@ -41,7 +41,7 @@ public class Battle implements Observer
      * @return String
      */
     public String getNextMessage() {
-        return messages.peek();
+        return messages.poll();
     }
 }
 

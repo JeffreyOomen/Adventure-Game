@@ -57,10 +57,19 @@ public class BattleController {
         character.setActionBehavior(new NormalAttack());
         String msg = battleService.battleAction();
 
+        String battleResponse = battleService.getBattle().getNextMessage();
+
         // Prepare view model
-        BattleModel battleModel = new BattleModel(character.getStats(), enemy.getStats());
+        BattleModel battleModel = new BattleModel(
+                character.isAlive(),
+                enemy.isAlive(),
+                character.getStats(),
+                enemy.getStats(),
+                battleResponse
+        );
 
         // Return view model as JSON
         return battleModel;
     }
+
 }

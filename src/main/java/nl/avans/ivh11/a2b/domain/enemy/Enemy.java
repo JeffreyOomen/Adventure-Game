@@ -68,6 +68,7 @@ public class Enemy implements Opponent {
      */
     public boolean isAlive() {
         return this.stats.getCurrentHitpoints() > 0;
+
     }
 
     /**
@@ -90,7 +91,12 @@ public class Enemy implements Opponent {
             } else {
                 stats.setCurrentHitpoints(stats.getCurrentHitpoints() - hit);
             }
-            notifyObservers(this.name + " took " + hit + " damage");
+
+            // Validate Enemy is alive or not
+            if(!isAlive()) {
+                notifyObservers(this.getName() + " has been killed!");
+            }
+
         }
     }
 

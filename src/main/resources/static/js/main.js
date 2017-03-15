@@ -12,9 +12,23 @@ $(document).ready(function () {
                 attackType: attackType,
             },
             function (data, status) {
+
+
+                var charCurrentHp = data.characterStats.currentHitpoints;
+                $('#charCurrentHp').html(charCurrentHp);
+
+                var ememyCurrentHp = data.enemyStats.currentHitpoints;
+                $('#enemyCurrentHp').html(ememyCurrentHp);
+
+                var message = data.message;
+                var newMessageDiv = $('<p "message">' + message + '</p>')
+
+                $('.messages').append(newMessageDiv);
+
+
+
                 console.log(data);
             });
 
-        
     });
 });

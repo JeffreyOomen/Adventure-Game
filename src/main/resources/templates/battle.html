@@ -1,112 +1,128 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<title>Proftaak</title>
-		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
-		<!--<link rel="stylesheet" type="text/css" href="../static/css/main.css" />-->
-		<link rel="stylesheet" th:href="@{/css/main.css}" />
-	</head>
-	<body>
-		<div class="container">
-			<div class="column">
-				<div class="contender">
-					<div class="stats">
-						Level: <span th:text="${character.getStats().getLevel()}"></span><br/>
-						HP: <span th:text="${character.getStats().getCurrentHitpoints()}"></span>/<span th:text="${character.getStats().getHitpoints()}"></span><br/>
-					</div>
-					<div class="battler">
-						<img style="max-height: 350px; width: 80%" th:src="@{/images/rpg-warrior.png}" />
-						<!--<img th:src="@{/resources/images/Picture.png}" />-->
-					</div>
-					<input type="submit" value="Attack" class="inputbutton" />
-					<input type="submit" value="Special Attack" class="inputbutton" />
-					<input type="submit" value="Heal" class="inputbutton" />
-				</div>
-			</div>
-			<div class="column text-right">
-				<div class="contender">
-					<div class="stats">
-						Level: 17<br/>
-						HP: 178/210<br/>
-					</div>
-					<div class="battler" style="background-image: url('../images/rpg-wolf.png');">
-					</div>
-				</div>
-			</div>
-			<div class="column">
-				<div class="inventory">
-					<h1>Inventory</h1>
-					<div class="row">
-						<h2 style="padding-left: 15px;">Equipment</h2>
-						<div class="equipment">
-							<div class="column">
-								<div class="item-container">
-									<div class="item">
-										<div class="item-image" style="background-image: url('../images/rpg-sword.png');">
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="column">
-								<div class="item-container">
-									<div class="item">
-										<div class="item-image" style="background-image: url('../images/rpg-sword.png');">
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="column">
-								<div class="item-container">
-									<div class="item">
-										<div class="item-image" style="background-image: url('../images/rpg-sword.png');">
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="column">
-								<div class="item-container">
-									<div class="item">
-										<div class="item-image" style="background-image: url('../images/rpg-sword.png');">
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="potions">
-							<h2 style="padding-left: 15px;">Potions</h2>
-							<div class="column">
-								<div class="item-container">
-									<div class="item">
-										<div class="item-image" style="background-image: url('../images/rpg-potion.png');">
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="column">
-								<div class="item-container">
-									<div class="item">
-										<div class="item-image" style="background-image: url('../images/rpg-potion.png');">
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="column">
-								<div class="item-container">
-									<div class="item">
-										<div class="item-image" style="background-image: url('../images/rpg-potion.png');">
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-		<script src="../../js/main.js"></script>
-	</body>
+<head>
+    <title>Proftaak</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>
+    <!--<link rel="stylesheet" type="text/css" href="../static/css/main.css" />-->
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+<body>
+<div class="container">
+
+    <!--<div th:if="${isEnemyAlive} == false">-->
+    <!--<div class="column flight-end">-->
+    <!--<h1>The winner is ...</h1>-->
+    <!--</div>-->
+    <!--&lt;!&ndash;</div>&ndash;&gt;and ${isEnemyAlive} == true-->
+
+    <!--th:if="${isCharacterAlive} == true and  ${isEnemyAlive} == true"-->
+
+    <div class="column fight-view">
+        <div class="contender">
+            <div class="stats">
+                Level: <span id="charLvl" th:text="${character.getStats().getLevel()}"></span><br/>
+                HP: <span id="charCurrentHp" th:text="${character.getStats().getCurrentHitpoints()}"></span>/<span
+                    id="charHp" th:text="${character.getStats().getHitpoints()}"></span><br/>
+            </div>
+            <div class="battler">
+                <img style="max-height: 350px; width: 80%" th:src="@{/images/rpg-warrior.png}"/>
+                <!--<img th:src="@{/resources/images/Picture.png}" />-->
+            </div>
+            <input type="submit" value="Attack" class="inputbutton"/>
+            <input type="submit" value="Special Attack" class="inputbutton"/>
+            <input type="submit" value="Heal" class="inputbutton"/>
+        </div>
+    </div>
+    <div class="column text-right">
+        <div class="contender">
+            <div class="stats">
+                Level: <span id="enemyLvl" th:text="${enemy.getStats().getLevel()}"></span><br/>
+                HP: <span id="enemyCurrentHp" th:text="${enemy.getStats().getCurrentHitpoints()}"></span>/<span
+                    id="charHp" th:text="${enemy.getStats().getHitpoints()}"></span><br/>
+            </div>
+            <div class="battler" style="background-image: url('../images/rpg-wolf.png');">
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="inventory">
+            <h1>Inventory</h1>
+            <div class="row">
+                <h2 style="padding-left: 15px;">Equipment</h2>
+                <div class="equipment">
+                    <div class="column">
+                        <div class="item-container">
+                            <div class="item">
+                                <div class="item-image" style="background-image: url('../images/rpg-sword.png');">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="item-container">
+                            <div class="item">
+                                <div class="item-image" style="background-image: url('../images/rpg-sword.png');">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="item-container">
+                            <div class="item">
+                                <div class="item-image" style="background-image: url('../images/rpg-sword.png');">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="item-container">
+                            <div class="item">
+                                <div class="item-image" style="background-image: url('../images/rpg-sword.png');">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="potions">
+                    <h2 style="padding-left: 15px;">Potions</h2>
+                    <div class="column">
+                        <div class="item-container">
+                            <div class="item">
+                                <div class="item-image" style="background-image: url('../images/rpg-potion.png');">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="item-container">
+                            <div class="item">
+                                <div class="item-image" style="background-image: url('../images/rpg-potion.png');">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="item-container">
+                            <div class="item">
+                                <div class="item-image" style="background-image: url('../images/rpg-potion.png');">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="messages-container">
+        <h2>Game information</h2>
+        <div class="messages"></div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="../../js/main.js"></script>
+</body>
 </html>
 

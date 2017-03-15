@@ -230,7 +230,11 @@ public abstract class Character implements Opponent
                 stats.setCurrentHitpoints(stats.getCurrentHitpoints() - hit);
             }
         }
-        notifyObservers(this.name + " took " + hit + " damage");
+
+        // Validate Enemy is alive or not
+        if(!isAlive()) {
+            notifyObservers(this.getName() + "has been killed!");
+        }
     }
 
     /**

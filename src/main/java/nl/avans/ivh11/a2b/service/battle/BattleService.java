@@ -95,8 +95,8 @@ public class BattleService {
         turnCounter++;
 
         // Update character and enemy
-
-        return battle.getNextMessage();
+        return "test";
+//        return battle.getNextMessage();
     }
 
     public Character saveCharacter(Character c) {
@@ -105,6 +105,10 @@ public class BattleService {
 
     public Enemy saveEnemy(Enemy e) {
         return enemyRepository.save(e);
+    }
+
+    public Battle getBattle() {
+        return this.battle;
     }
 
 }
