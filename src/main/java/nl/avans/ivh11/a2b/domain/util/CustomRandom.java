@@ -1,21 +1,23 @@
 package nl.avans.ivh11.a2b.domain.util;
 
+import java.util.Random;
+
 /**
  * Singleton class which returns a random number based on the attributes and which method is called
  */
-public class Random {
+public class CustomRandom {
     private double min, max;
-    private static volatile Random instance = null;
+    private static volatile CustomRandom instance = null;
 
     /**
      * Check if class is already instantiated and create if not
-     * @return instance of class Random
+     * @return instance of class CustomRandom
      */
-    public static Random getInstance() {
+    public static CustomRandom getInstance() {
         if (instance == null) {
-            synchronized (Random.class) {
+            synchronized (CustomRandom.class) {
                 if (instance == null) {
-                    instance = new Random();
+                    instance = new CustomRandom();
                 }
             }
         }
@@ -84,5 +86,9 @@ public class Random {
         min = 0;
         max = enemies;
         return getRandomNumber();
+    }
+
+    public int randomBetweenZeroAnd(int max) {
+        return new Random().nextInt(max);
     }
 }

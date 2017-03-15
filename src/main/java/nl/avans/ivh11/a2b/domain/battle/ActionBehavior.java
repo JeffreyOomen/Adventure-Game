@@ -16,5 +16,5 @@ public interface ActionBehavior extends Serializable
      * @param attacker
      * @param defender
      */
-    public void action(Opponent attacker, Opponent defender);
+    public String action(Opponent attacker, Opponent defender);
 }

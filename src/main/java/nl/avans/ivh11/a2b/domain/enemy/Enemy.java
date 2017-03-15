@@ -1,19 +1,19 @@
 package nl.avans.ivh11.a2b.domain.enemy;
 
-import nl.avans.ivh11.a2b.domain.util.Opponent;
-import nl.avans.ivh11.a2b.domain.util.Stats;
+import nl.avans.ivh11.a2b.domain.usable.*;
+import nl.avans.ivh11.a2b.domain.util.*;
 import nl.avans.ivh11.a2b.domain.util.observer.Observer;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import nl.avans.ivh11.a2b.domain.battle.ActionBehavior;
-import nl.avans.ivh11.a2b.domain.usable.Usable;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -46,6 +46,7 @@ public class Enemy implements Opponent {
 
     /**
      * Get the Observable's state
+     *
      * @return String
      */
     public String getState() {
@@ -53,53 +54,101 @@ public class Enemy implements Opponent {
     }
 
     public void performAction(Opponent opponent) {
-        this.actionBehavior.action(opponent, this);
+        String message = this.actionBehavior.action((nl.avans.ivh11.a2b.domain.character.Character) opponent, this);
+        notifyObservers(message);
     }
 
     /**
      * isAlive
      * Determines enemy is alive.
+     *
      * @return boolean
      */
     public boolean isAlive() {
-        return this.stats.getCurrentHitpoints() > 0 ;
+        return this.stats.getCurrentHitpoints() > 0;
     }
 
     /**
      * takeDamage
      * takes damage done by enemy.
      * Collect a hit.
+     *
      * @param hit
      * @return int damage done
      */
-    public int takeDamage (int hit) {
+    public void takeDamage(int hit) {
         int damage = hit;
 
         // Hit greater then 0 and defender is alive
-        if(hit > 0 && isAlive()) {
-            if(hit > stats.getCurrentHitpoints()) {
+        if (hit > 0 && isAlive()) {
+            if (hit > stats.getCurrentHitpoints()) {
                 damage = stats.getCurrentHitpoints();
                 // Enemy is dead - set current hp 0
                 stats.setCurrentHitpoints(0);
             } else {
                 stats.setCurrentHitpoints(stats.getCurrentHitpoints() - hit);
             }
+            notifyObservers(this.name + " took " + hit + " damage");
         }
-        return damage;
     }
 
-    public List<Object> randomDrop() {
-        return  new ArrayList<>(); // TODO: bepalen hoe drops teruggeven.
+    /**
+     * randomDrop
+     * receiver a random drop from a chosen factory.
+     *
+     * @return usable
+     */
+    public Usable randomDrop() {
+        UsableFactory usableFactory = null;
+        Usable usable = null;
+
+        // Based on random change give a potion or equipment as drop
+        // 70% change of a potion drop 30% change of equipment drop.
+        int determineDropChange = new CustomRandom().randomBetweenZeroAnd(100);
+
+        if (determineDropChange < 70) {
+            usableFactory = new PotionFactory();
+            UsableType usableType = getRandomDropUsableType("potion");
+            usable = usableFactory.createUsable(usableType, this.stats.getLevel());
+        } else {
+            // 30% drop change - create equipment
+            usableFactory = new EquipmentFactory();
+            UsableType usableType = getRandomDropUsableType("equipment");
+            usable = usableFactory.createUsable(usableType, this.stats.getLevel());
+        }
+        return usable;
+    }
+
+    /**
+     * pickRandomUsableType
+     * used to randomly get a UsableType based on given subtype (equipment or potion). This method is used in @randomDrop to generate a usable.
+     *
+     * @param type potion or equipment : String
+     * @return
+     */
+    private UsableType getRandomDropUsableType(String type) {
+        UsableType chosenDrop = null;
+        List<UsableType> possibleDrops = Arrays.asList(UsableType.values());
+        int size = UsableType.values().length;
+        CustomRandom customRandom = new CustomRandom();
+
+        while (chosenDrop == null) {
+            UsableType randomType = possibleDrops.get(customRandom.randomBetweenZeroAnd(size));
+            if (randomType.toString().toLowerCase().contains(type)) {
+                chosenDrop = randomType;
+            }
+        }
+        return chosenDrop;
     }
 
     /**
      * receiveXp
      * currently based on enemy hitpoints
+     *
      * @return int
      */
     public void receiveXp(int xp) {
-        //TODO xp verhogen
-//        this.getStats(). this.getStats().getHitpoints();
+//        this.getStats().getHitpoints(); // TODO: bepalen hoe we dit doen
     }
 
     @Override
@@ -109,26 +158,27 @@ public class Enemy implements Opponent {
 
     @Override
     public void detach(Observer observer) {
-        if(this.observers.contains(observer)) {
+        if (this.observers.contains(observer)) {
             this.observers.remove(observer);
         }
     }
 
     @Override
-    public void notifyObservers() {
+    public void notifyObservers(String message) {
         for (Observer observer : this.observers) {
-            observer.update();
+            observer.update(message);
         }
     }
 
 
     /**
      * Adds the given hitpoints to the currentHitpoints
+     *
      * @param hitPoints int
      */
     public void heal(int hitPoints) {
         int newHitpoints = this.stats.getCurrentHitpoints() + hitPoints;
-        if(newHitpoints <= this.stats.getHitpoints()) {
+        if (newHitpoints <= this.stats.getHitpoints()) {
             this.stats.setCurrentHitpoints(newHitpoints);
         } else {
             this.stats.setCurrentHitpoints(this.stats.getHitpoints());

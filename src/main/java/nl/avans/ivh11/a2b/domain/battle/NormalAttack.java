@@ -1,9 +1,8 @@
 package nl.avans.ivh11.a2b.domain.battle;
 
 import nl.avans.ivh11.a2b.domain.character.Character;
-import nl.avans.ivh11.a2b.domain.enemy.Enemy;
+import nl.avans.ivh11.a2b.domain.util.CustomRandom;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
-import nl.avans.ivh11.a2b.domain.util.Random;
 
 /**
  * Attack the Opponent with a normal attack
@@ -15,8 +14,9 @@ public class NormalAttack implements ActionBehavior
      * @param attacker
      * @param defender
      */
-    public void action(Opponent attacker, Opponent defender) {
-        int damage = Random.getInstance().randomDamage(
+    public String action(Opponent attacker, Opponent defender) {
+
+        int damage = CustomRandom.getInstance().randomDamage(
                 // Attacker determine strength
                 attacker.getStats().getStrength(),
                 attacker.getStats().getStrengthAccuracy(),
@@ -24,7 +24,7 @@ public class NormalAttack implements ActionBehavior
                 defender.getStats().getDefense(),
                 defender.getStats().getDefenseAccuracy()
         );
-        System.out.println("\nDamage normall attack: " + damage);
-        defender.takeDamage(damage);
+            defender.takeDamage(damage);
+        return attacker.getName() + " attacked enemy with " + damage + " damage";
     }
 }
