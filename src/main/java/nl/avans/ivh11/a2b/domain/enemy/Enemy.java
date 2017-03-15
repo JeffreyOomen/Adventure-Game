@@ -87,7 +87,6 @@ public class Enemy implements Opponent {
     public Usable randomDrop() {
         UsableFactory usableFactory = null;
         Usable usable = null;
-        Stats stats = new Stats();
 
         // Based on random change give a potion or equipment as drop
         // 70% change of a potion drop 30% change of equipment drop.
@@ -96,12 +95,12 @@ public class Enemy implements Opponent {
         if (determineDropChange < 70) {
             usableFactory = new PotionFactory();
             UsableType usableType = getRandomDropUsableType("potion");
-            usable = usableFactory.createUsable(usableType, stats.getLevel());
+            usable = usableFactory.createUsable(usableType, this.stats.getLevel());
         } else {
             // 30% drop change - create equipment
             usableFactory = new EquipmentFactory();
             UsableType usableType = getRandomDropUsableType("equipment");
-            usable = usableFactory.createUsable(usableType, stats.getLevel());
+            usable = usableFactory.createUsable(usableType, this.stats.getLevel());
         }
         return usable;
     }
