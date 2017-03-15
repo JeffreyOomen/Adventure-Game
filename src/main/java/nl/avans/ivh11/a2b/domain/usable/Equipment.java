@@ -66,8 +66,17 @@ public abstract class Equipment extends Usable {
             case EQUIPMENT_HELMET:
                 equipmentType = "helmet";
                 break;
-            case EQUIPMENT_WEAPON:
+            case EQUIPMENT_WEAPON: // do not use this directly for setting a weapon
                 equipmentType = "weapon";
+                break;
+            case EQUIPMENT_WEAPON_SWORD:
+                equipmentType = "sword";
+                break;
+            case EQUIPMENT_WEAPON_BOW:
+                equipmentType = "bow";
+                break;
+            case EQUIPMENT_WEAPON_STAFF:
+                equipmentType = "staff";
                 break;
             case EQUIPMENT_LEGS:
                 equipmentType = "legs";
@@ -99,7 +108,5 @@ public abstract class Equipment extends Usable {
         this.setDefenseAccuracy(enchantedDefense);
         this.setMagicAccuracy(enchantedArchery);
         this.setArcheryAccuracy(enchantedMagic);
-
     }
-
 }

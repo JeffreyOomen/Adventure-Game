@@ -77,8 +77,9 @@ public class Enemy implements Opponent {
         boolean damageDone = false;
         if(hit > 0) {
             stats.setHitpoints(stats.getHitpoints() - hit);
-            notifyObservers(this.name + " took " + hit + " damage");
+            //notifyObservers(this.name + " took " + hit + " damage");
         }
+        System.out.println("all goooood");
     }
 
     /**
@@ -171,5 +172,13 @@ public class Enemy implements Opponent {
         } else {
             this.stats.setCurrentHitpoints(this.stats.getHitpoints());
         }
+    }
+
+    /**
+     * Gets the Current Hitpoints amount
+     * @return the Current Hitpoints amount
+     */
+    public int getCurrentHitpoints() {
+        return this.stats.getCurrentHitpoints();
     }
 }
