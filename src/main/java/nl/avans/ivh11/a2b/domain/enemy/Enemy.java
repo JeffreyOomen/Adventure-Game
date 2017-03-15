@@ -62,7 +62,7 @@ public class Enemy implements Opponent {
      * @return boolean
      */
     public boolean isAlive() {
-        return this.stats.getHitpoints() > 0 ;
+        return this.stats.getCurrentHitpoints() > 0 ;
     }
 
     /**
@@ -75,7 +75,13 @@ public class Enemy implements Opponent {
     public void takeDamage (int hit) {
         boolean damageDone = false;
         if(hit > 0) {
-            stats.setCurrentHitpoints(stats.getHitpoints() - hit);
+            // Validate enemy is dead
+            if(hit > stats.getCurrentHitpoints()) {
+                // Dead - set current hp 0
+                stats.setCurrentHitpoints(0);
+            } else {
+                stats.setCurrentHitpoints(stats.getHitpoints() - hit);
+            }
         }
     }
 

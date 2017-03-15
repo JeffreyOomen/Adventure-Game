@@ -214,4 +214,8 @@ public abstract class CharacterDecorator extends Character
     public void setActionBehavior(ActionBehavior actionBehavior) {
         this.character.setActionBehavior(actionBehavior);
     }
+
+    public String getName() {
+        return this.character.getName();
+    }
 }

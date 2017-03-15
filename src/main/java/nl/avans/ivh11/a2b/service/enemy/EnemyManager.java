@@ -45,6 +45,8 @@ public class EnemyManager
         Stats stats = new Stats();
         stats.setHitpoints(100);
         stats.setArchery(999);
+        stats.setDefense(5);
+        stats.setDefenseAccuracy(10);
         ArrayList<Usable> lootList = new ArrayList<>();
         Enemy enemy = enemyDirector.createEnemy("Bram", "End boss", new SpecialAttack(), stats, lootList);
 

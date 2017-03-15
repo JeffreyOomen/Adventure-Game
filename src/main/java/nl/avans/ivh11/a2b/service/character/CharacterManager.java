@@ -62,34 +62,36 @@ public class CharacterManager
 
         // Make a normal character:
         Character ch = new Dwarf("Jeffrey Oomen", new Stats());
+        ch.getStats().setStrength(100);
+        ch.getStats().setStrengthAccuracy(100);
         ch.setActionBehavior(new NormalAttack());
         characterRepository.save(ch);
 
         // Make a decorator character with equipment:
-        Character ch2 = new Mage(new Elf("Matthijs Toverboom", new Stats()));
-        ch.mountEquipment(UsableType.EQUIPMENT_HELMET, equipmentRepository.findOne(1L));
-        ch.mountEquipment(UsableType.EQUIPMENT_BODY, equipmentRepository.findOne(2L));
-        ch.mountEquipment(UsableType.EQUIPMENT_LEGS, equipmentRepository.findOne(3L));
-        ch.mountEquipment(UsableType.EQUIPMENT_BOOTS, equipmentRepository.findOne(4L));
-        ch.mountEquipment(UsableType.EQUIPMENT_GLOVES, equipmentRepository.findOne(5L));
-        ch.mountEquipment(UsableType.EQUIPMENT_WEAPON_SWORD, equipmentRepository.findOne(6L));
-        characterRepository.save(ch2);
+//        Character ch2 = new Mage(new Elf("Matthijs Toverboom", new Stats()));
+//        ch.mountEquipment(UsableType.EQUIPMENT_HELMET, equipmentRepository.findOne(1L));
+//        ch.mountEquipment(UsableType.EQUIPMENT_BODY, equipmentRepository.findOne(2L));
+//        ch.mountEquipment(UsableType.EQUIPMENT_LEGS, equipmentRepository.findOne(3L));
+//        ch.mountEquipment(UsableType.EQUIPMENT_BOOTS, equipmentRepository.findOne(4L));
+//        ch.mountEquipment(UsableType.EQUIPMENT_GLOVES, equipmentRepository.findOne(5L));
+//        ch.mountEquipment(UsableType.EQUIPMENT_WEAPON_SWORD, equipmentRepository.findOne(6L));
+//        characterRepository.save(ch2);
 
         // Find the decorator character
-        CharacterDecorator decoratedCharacter = (CharacterDecorator) characterRepository.findOne(3L);
-
-        // print the name:
-        System.out.println("=================================================================");
-        System.out.println("====================="+ "Character's Name" + "===================");
-        System.out.println("==============" + decoratedCharacter.getCharacter().getName() + "==============");
-        System.out.println("=================================================================");
-
-        // print the equipment:
-        System.out.println("=================================================================");
-        System.out.println("====================="+ "Character's Equipment" + "===================");
-        for (Map.Entry<UsableType, Equipment> entry : decoratedCharacter.getEquipment().entrySet()) {
-            System.out.println("======= TYPE: " + entry.getKey() + "======= NAME: " + entry.getValue().getName());
-        }
-        System.out.println("=================================================================");
+//        CharacterDecorator decoratedCharacter = (CharacterDecorator) characterRepository.findOne(3L);
+//
+//        // print the name:
+//        System.out.println("=================================================================");
+//        System.out.println("====================="+ "Character's Name" + "===================");
+//        System.out.println("==============" + decoratedCharacter.getCharacter().getName() + "==============");
+//        System.out.println("=================================================================");
+//
+//        // print the equipment:
+//        System.out.println("=================================================================");
+//        System.out.println("====================="+ "Character's Equipment" + "===================");
+//        for (Map.Entry<UsableType, Equipment> entry : decoratedCharacter.getEquipment().entrySet()) {
+//            System.out.println("======= TYPE: " + entry.getKey() + "======= NAME: " + entry.getValue().getName());
+//        }
+//        System.out.println("=================================================================");
     }
 }

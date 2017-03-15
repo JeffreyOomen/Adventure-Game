@@ -53,3 +53,5 @@ overridedb.*
 .factorypath
 dump.rdb
 transaction-logs
+
+src/main/java/nl/avans/ivh11/a2b/ProftaakApplication.java
