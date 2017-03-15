@@ -55,8 +55,6 @@ public class BattleService {
     public String battleAction() {
         String message = "";
 
-        character.setActionBehavior(new NormalAttack());
-
         int oldHp = 0;
         int newHp = 0;
         int damage = 0;
@@ -74,7 +72,7 @@ public class BattleService {
 
             newHp = enemy.getStats().getCurrentHitpoints();
 
-            saveEnemy(enemy);
+            //saveEnemy(enemy);
 
         } else {
             attacker = enemy.getName();
@@ -86,7 +84,7 @@ public class BattleService {
 
             newHp = character.getStats().getCurrentHitpoints();
 
-            saveCharacter(character);
+            //saveCharacter(character);
         }
 
         damage = oldHp - newHp;
@@ -99,16 +97,36 @@ public class BattleService {
 //        return battle.getNextMessage();
     }
 
-    public Character saveCharacter(Character c) {
-        return characterRepository.save(c);
+    private void battleCharacterMove() {
+        this.battle.playTurn(new ActionCommand(character, enemy));
     }
 
-    public Enemy saveEnemy(Enemy e) {
-        return enemyRepository.save(e);
+    private void battleEnemyMove() {
+        this.battle.playTurn(new ActionCommand(enemy, character));
+    }
+
+    public void battleMove() {
+        // let the character attack
+        this.battleCharacterMove();
+
+        // let the enemy attack
+        this.battleEnemyMove();
+
+        // save the battle state
+        this.saveBattleState();
+    }
+
+    /**
+     * Saves the state of the Character and the Enemy caused
+     * by the Battle.
+     */
+    @Transactional
+    public void saveBattleState() {
+        this.characterRepository.save(this.character);
+        this.enemyRepository.save(this.enemy);
     }
 
     public Battle getBattle() {
         return this.battle;
     }
-
 }

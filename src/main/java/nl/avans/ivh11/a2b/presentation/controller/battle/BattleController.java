@@ -27,7 +27,7 @@ public class BattleController {
     private Character character;
     private Enemy enemy;
 
-        public BattleController(CharacterRepository characterRepository) {
+    public BattleController(CharacterRepository characterRepository) {
         this.characterRepository = characterRepository;
     }
 
@@ -47,6 +47,7 @@ public class BattleController {
         System.out.println("battle started");
 
         System.out.println("Battle is started between: " + character.getName() + " and " + enemy.getName());
+
         // Return view
         return "battle";
     }
@@ -54,22 +55,21 @@ public class BattleController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public BattleModel battleAction() {
-        character.setActionBehavior(new NormalAttack());
-        String msg = battleService.battleAction();
+        // do action
+        battleService.battleMove();
 
-        String battleResponse = battleService.getBattle().getNextMessage();
+        String battleReport = "";
+        battleReport += battleService.getBattle().getNextMessage();
+        battleReport += "<br/><br/>";
+        battleReport += battleService.getBattle().getNextMessage();
 
-        // Prepare view model
-        BattleModel battleModel = new BattleModel(
+        // Return view model as JSON
+        return new BattleModel(
                 character.isAlive(),
                 enemy.isAlive(),
                 character.getStats(),
                 enemy.getStats(),
-                battleResponse
+                battleReport
         );
-
-        // Return view model as JSON
-        return battleModel;
     }
-
 }

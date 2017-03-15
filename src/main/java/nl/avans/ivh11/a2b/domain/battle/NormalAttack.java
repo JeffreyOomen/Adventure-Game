@@ -16,15 +16,24 @@ public class NormalAttack implements ActionBehavior
      */
     public String action(Opponent attacker, Opponent defender) {
 
-        int damage = CustomRandom.getInstance().randomDamage(
-                // Attacker determine strength
-                attacker.getStats().getStrength(),
-                attacker.getStats().getStrengthAccuracy(),
-                // Defender determine defense
-                defender.getStats().getDefense(),
-                defender.getStats().getDefenseAccuracy()
-        );
+        if (attacker.isAlive() && defender.isAlive()) {
+            int damage = CustomRandom.getInstance().randomDamage(
+                    // Attacker determine strength
+                    attacker.getStats().getStrength(),
+                    attacker.getStats().getStrengthAccuracy(),
+                    // Defender determine defense
+                    defender.getStats().getDefense(),
+                    defender.getStats().getDefenseAccuracy()
+            );
             defender.takeDamage(damage);
-        return attacker.getName() + " attacked " + defender.getName() + " with " + damage + " damage!";
+
+            if (!defender.isAlive()) {
+                return "You have WON, " + attacker.getName() + " !!!";
+            } else {
+                return attacker.getName() + " attacked " + defender.getName() + " with " + damage + " damage!";
+            }
+        }
+
+        return "Your opponent " + defender.getName() + " already died...";
     }
 }

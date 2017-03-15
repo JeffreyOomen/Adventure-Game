@@ -56,7 +56,7 @@ public class Enemy implements Opponent {
     }
 
     public void performAction(Opponent opponent) {
-        String message = this.actionBehavior.action((nl.avans.ivh11.a2b.domain.character.Character) opponent, this);
+        String message = this.actionBehavior.action(this, (nl.avans.ivh11.a2b.domain.character.Character) opponent);
         notifyObservers(message);
     }
 
@@ -80,23 +80,13 @@ public class Enemy implements Opponent {
      * @return int damage done
      */
     public void takeDamage(int hit) {
-        int damage = hit;
-
-        // Hit greater then 0 and defender is alive
-        if (hit > 0 && isAlive()) {
-            if (hit > stats.getCurrentHitpoints()) {
-                damage = stats.getCurrentHitpoints();
-                // Enemy is dead - set current hp 0
-                stats.setCurrentHitpoints(0);
-            } else {
-                stats.setCurrentHitpoints(stats.getCurrentHitpoints() - hit);
-            }
-
-            // Validate Enemy is alive or not
-            if(!isAlive()) {
+        if (this.isAlive()) {
+            if (hit >= this.stats.getCurrentHitpoints()) {
+                this.stats.setCurrentHitpoints(0);
                 notifyObservers(this.getName() + " has been killed!");
+            } else {
+                this.stats.setCurrentHitpoints(this.stats.getCurrentHitpoints() - hit);
             }
-
         }
     }
 

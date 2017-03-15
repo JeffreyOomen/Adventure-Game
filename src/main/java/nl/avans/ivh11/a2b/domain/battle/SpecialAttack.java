@@ -16,15 +16,20 @@ public class SpecialAttack implements ActionBehavior {
      */
     public String action(Opponent attacker, Opponent defender) {
 
-        int damage = (int) (CustomRandom.getInstance().randomDamage(
-                        // Attacker determine strength
-                        attacker.getStats().getStrength(),
-                        attacker.getStats().getStrengthAccuracy(),
-                        // Defender determine defense
-                        defender.getStats().getDefense(),
-                        defender.getStats().getDefenseAccuracy()
-                ) * 1.20);
-        defender.takeDamage(damage);
-        return attacker.getName() + " attacked enemy with " + damage + " damage";
+        if (attacker.isAlive() && defender.isAlive()) {
+            System.out.println("DEFENDER STILL ALIVE??!?!?!?!" + defender.getStats().getCurrentHitpoints());
+            int damage = (int) (CustomRandom.getInstance().randomDamage(
+                    // Attacker determine strength
+                    attacker.getStats().getStrength(),
+                    attacker.getStats().getStrengthAccuracy(),
+                    // Defender determine defense
+                    defender.getStats().getDefense(),
+                    defender.getStats().getDefenseAccuracy()
+            ) * 1.20);
+            defender.takeDamage(damage);
+            return attacker.getName() + " attacked " + defender.getName() + " with " + damage + " damage";
+        }
+
+        return "Your opponent " + defender.getName() + " already died...";
     }
 }

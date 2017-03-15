@@ -43,7 +43,8 @@ public class EnemyManager
         EnemyBuilder enemyBuilder = new EnemyBuilder();
         EnemyBuilderDirector enemyDirector = new EnemyBuilderDirector(enemyBuilder);
         Stats stats = new Stats();
-        stats.setHitpoints(100);
+        stats.setHitpoints(1000);
+        stats.setCurrentHitpoints(1000);
         stats.setArchery(999);
         stats.setDefense(5);
         stats.setDefenseAccuracy(10);

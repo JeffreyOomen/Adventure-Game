@@ -23,11 +23,9 @@ $(document).ready(function () {
                 var message = data.message;
                 var newMessageDiv = $('<p "message">' + message + '</p>')
 
-                $('.messages').append(newMessageDiv);
-
-
-
-                console.log(data);
+                var messageContainer = $('.messages');
+                messageContainer.append(newMessageDiv);
+                messageContainer.scrollTop(messageContainer.prop("scrollHeight"));
             });
 
     });
