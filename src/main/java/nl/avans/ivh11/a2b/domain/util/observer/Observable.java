@@ -1,7 +1,7 @@
 package nl.avans.ivh11.a2b.domain.util.observer;
 
 /**
- * Created by matthijs on 5-3-17.
+ * Observable interface
  */
 public interface Observable
 {
@@ -20,11 +20,5 @@ public interface Observable
     /**
      * Notify all observers
      */
-    public void notifyObservers();
-
-    /**
-     * Get the Observable's state
-     * @return String
-     */
-    public String getState();
+    public void notifyObservers(String message);
 }

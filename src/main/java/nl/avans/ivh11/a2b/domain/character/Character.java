@@ -107,8 +107,8 @@ public abstract class Character implements Opponent
      * @param opponent the Character's Opponent
      */
     public void performAction(Opponent opponent) {
-        this.actionBehavior.action(this, opponent);
-        notifyObservers();
+        String message = this.actionBehavior.action(this, opponent);
+        notifyObservers(message);
     }
 
     /**
@@ -216,7 +216,7 @@ public abstract class Character implements Opponent
      */
     public void takeDamage(int hit) {
         this.stats.setCurrentHitpoints(this.getCurrentHitpoints() - hit);
-        notifyObservers();
+        notifyObservers(this.name + " took " + hit + " damage");
     }
 
     /**
@@ -347,11 +347,19 @@ public abstract class Character implements Opponent
         return Integer.toString(stats.getCurrentHitpoints());
     }
 
+    /**
+     * Attach an Observer
+     * @param observer
+     */
     @Override
     public void attach(Observer observer) {
         this.observers.add(observer);
     }
 
+    /**
+     * Detach an Observer
+     * @param observer
+     */
     @Override
     public void detach(Observer observer) {
         if(this.observers.contains(observer)) {
@@ -359,10 +367,15 @@ public abstract class Character implements Opponent
         }
     }
 
+    /**
+     * Notify all attached Observers and
+     * push message
+     * @param message
+     */
     @Override
-    public void notifyObservers() {
+    public void notifyObservers(String message) {
         for (Observer observer : this.observers) {
-            observer.update();
+            observer.update(message);
         }
     }
 }

@@ -53,7 +53,8 @@ public class Enemy implements Opponent {
     }
 
     public void performAction(Opponent opponent) {
-        this.actionBehavior.action((nl.avans.ivh11.a2b.domain.character.Character) opponent, this);
+        String message = this.actionBehavior.action((nl.avans.ivh11.a2b.domain.character.Character) opponent, this);
+        notifyObservers(message);
     }
 
     /**
@@ -62,7 +63,7 @@ public class Enemy implements Opponent {
      * @return boolean
      */
     public boolean isAlive() {
-        return this.stats.getHitpoints() > 0? true : false;
+        return this.stats.getHitpoints() > 0;
     }
 
     /**
@@ -76,6 +77,7 @@ public class Enemy implements Opponent {
         boolean damageDone = false;
         if(hit > 0) {
             stats.setHitpoints(stats.getHitpoints() - hit);
+            notifyObservers(this.name + " took " + hit + " damage");
         }
     }
 
@@ -150,9 +152,9 @@ public class Enemy implements Opponent {
     }
 
     @Override
-    public void notifyObservers() {
+    public void notifyObservers(String message) {
         for (Observer observer : this.observers) {
-            observer.update();
+            observer.update(message);
         }
     }
 
