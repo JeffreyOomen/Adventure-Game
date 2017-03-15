@@ -31,7 +31,17 @@ public class Battle implements Observer
      */
     @Override
     public void update(String message) {
+        System.out.println("Battle message: " + message);
         this.messages.add(message);
+    }
+
+    /**
+     * getNextMessage
+     * get next message from Queue
+     * @return String
+     */
+    public String getNextMessage() {
+        return messages.peek();
     }
 }
 

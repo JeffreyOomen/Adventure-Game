@@ -11,8 +11,8 @@
 			<div class="column">
 				<div class="contender">
 					<div class="stats">
-						Level: 17<br/>
-						HP: 178/210<br/>
+						Level: <span th:text="${character.getStats().getLevel()}"></span><br/>
+						HP: <span th:text="${character.getStats().getCurrentHitpoints()}"></span>/<span th:text="${character.getStats().getHitpoints()}"></span><br/>
 					</div>
 					<div class="battler">
 						<img style="max-height: 350px; width: 80%" th:src="@{/images/rpg-warrior.png}" />
@@ -105,6 +105,8 @@
 				</div>
 			</div>
 		</div>
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+		<script src="../../js/main.js"></script>
 	</body>
 </html>
 

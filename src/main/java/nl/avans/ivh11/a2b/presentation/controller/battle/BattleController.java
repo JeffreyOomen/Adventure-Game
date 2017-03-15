@@ -7,11 +7,12 @@ import nl.avans.ivh11.a2b.domain.battle.NormalAttack;
 import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.domain.enemy.Enemy;
 import nl.avans.ivh11.a2b.domain.util.Stats;
+import nl.avans.ivh11.a2b.presentation.model.BattleModel;
 import nl.avans.ivh11.a2b.service.battle.BattleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/battle")
@@ -30,30 +31,36 @@ public class BattleController {
         this.characterRepository = characterRepository;
     }
 
-    @RequestMapping("/start")
-    public String startBattle() {
+    @RequestMapping(method = RequestMethod.GET)
+    public String startBattle(Model uiModel) {
 
         // Initialize and assign character and enemy
         character = battleService.findCharacter(1L);
         enemy = battleService.findEnemy(1L);
 
         // Start new battle
-        battleService.startBattle();
+        battleService.startBattle(character, enemy);
+
+        uiModel.addAttribute("character", character);
+        uiModel.addAttribute("enemy", enemy);
 
         System.out.println("battle started");
 
         System.out.println("Battle is started between: " + character.getName() + " and " + enemy.getName());
+        // Return view
         return "battle";
-//        return "Battle is started between: " + character.getName() + " and " + enemy.getName();
-
     }
 
-    @RequestMapping("/fight")
-    public String battleAction() {
+    @RequestMapping(method = RequestMethod.POST)
+    @ResponseBody
+    public BattleModel battleAction() {
         character.setActionBehavior(new NormalAttack());
-        String msg = battleService.battleAction(character, enemy);
-        System.out.println(msg);
-        // return view
-        return "battle";
+        String msg = battleService.battleAction();
+
+        // Prepare view model
+        BattleModel battleModel = new BattleModel(character.getStats(), enemy.getStats());
+
+        // Return view model as JSON
+        return battleModel;
     }
 }

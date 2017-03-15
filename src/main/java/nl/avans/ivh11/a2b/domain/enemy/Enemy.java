@@ -1,5 +1,7 @@
 package nl.avans.ivh11.a2b.domain.enemy;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import nl.avans.ivh11.a2b.domain.usable.*;
 import nl.avans.ivh11.a2b.domain.util.*;
 import nl.avans.ivh11.a2b.domain.util.observer.Observer;
@@ -24,6 +26,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
 public class Enemy implements Opponent {
     @Id
     @GeneratedValue
@@ -37,11 +40,10 @@ public class Enemy implements Opponent {
     private List<Usable> loot;
 
     @Transient
-    private List<Observer> observers;
+    private List<Observer> observers = new ArrayList<>();
 
     public Enemy(Stats stats) {
         this.stats = stats;
-        this.observers = new ArrayList<>();
     }
 
     /**

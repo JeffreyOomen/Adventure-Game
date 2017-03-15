@@ -24,14 +24,24 @@ public class BattleService {
     private Battle battle;
     private int turnCounter = 0;
 
+    private Character character;
+    private Enemy enemy;
+
     @Autowired
     public BattleService(CharacterRepository characterRepo, EnemyRepository enemyRepo) {
         this.characterRepository = characterRepo;
         this.enemyRepository = enemyRepo;
     }
 
-    public void startBattle() {
+    public void startBattle(Character c, Enemy e) {
         battle = new Battle();
+
+        this.character = c;
+        this.enemy = e;
+
+        // Attach observers to subject
+        this.character.attach(battle);
+        this.enemy.attach(battle);
     }
 
     public Character findCharacter(long id) {
@@ -42,7 +52,7 @@ public class BattleService {
         return enemyRepository.findOne(id);
     }
 
-    public String battleAction(Character character, Enemy enemy) {
+    public String battleAction() {
         String message = "";
 
         character.setActionBehavior(new NormalAttack());
@@ -79,14 +89,14 @@ public class BattleService {
             saveCharacter(character);
         }
 
-//        damage = oldHp - newHp;
+        damage = oldHp - newHp;
         message = attacker +  " hits " + damage + " on " + defender;
 
         turnCounter++;
 
         // Update character and enemy
 
-        return message;
+        return battle.getNextMessage();
     }
 
     public Character saveCharacter(Character c) {
