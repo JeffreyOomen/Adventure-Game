@@ -12,16 +12,19 @@ public class SpecialAttack implements ActionBehavior
 {
     /**
      * Attack the enemy with a special attack
-     * @param character the current Character
-     * @param enemy the Character's enemy
+     * @param attacker
+     * @param defender
      */
-    public void action(Character character, Opponent enemy) {
+    public void action(Opponent attacker, Opponent defender) {
+
         Double damage = Random.getInstance().randomDamage(
-                character.getStrength(),
-                character.getStrengthAccuracy(),
-                character.getDefense(),
-                character.getDefenseAccuracy()
+                // Attacker determine strength
+                attacker.getStats().getStrength(),
+                attacker.getStats().getStrengthAccuracy(),
+                // Defender determine defense
+                defender.getStats().getDefense(),
+                defender.getStats().getDefenseAccuracy()
         ) * 1.20;
-        enemy.takeDamage(damage.intValue());
+        defender.takeDamage(damage.intValue());
     }
 }

@@ -53,7 +53,7 @@ public class Enemy implements Opponent {
     }
 
     public void performAction(Opponent opponent) {
-        this.actionBehavior.action((nl.avans.ivh11.a2b.domain.character.Character) opponent, this);
+        this.actionBehavior.action(opponent, this);
     }
 
     /**
@@ -70,19 +70,22 @@ public class Enemy implements Opponent {
      * takes damage done by enemy.
      * Collect a hit.
      * @param hit
-     * @return boolean
+     * @return int damage done
      */
-    public void takeDamage (int hit) {
-        boolean damageDone = false;
-        if(hit > 0) {
-            // Validate enemy is dead
+    public int takeDamage (int hit) {
+        int damage = hit;
+
+        // Hit greater then 0 and defender is alive
+        if(hit > 0 && isAlive()) {
             if(hit > stats.getCurrentHitpoints()) {
-                // Dead - set current hp 0
+                damage = stats.getCurrentHitpoints();
+                // Enemy is dead - set current hp 0
                 stats.setCurrentHitpoints(0);
             } else {
-                stats.setCurrentHitpoints(stats.getHitpoints() - hit);
+                stats.setCurrentHitpoints(stats.getCurrentHitpoints() - hit);
             }
         }
+        return damage;
     }
 
     public List<Object> randomDrop() {

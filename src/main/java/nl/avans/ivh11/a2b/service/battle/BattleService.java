@@ -22,6 +22,7 @@ public class BattleService {
     private CharacterRepository characterRepository;
     private EnemyRepository enemyRepository;
     private Battle battle;
+    private int turnCounter = 0;
 
     @Autowired
     public BattleService(CharacterRepository characterRepo, EnemyRepository enemyRepo) {
@@ -42,12 +43,9 @@ public class BattleService {
     }
 
     public String battleAction(Character character, Enemy enemy) {
-        int turnCounter = 0;
         String message = "";
 
         character.setActionBehavior(new NormalAttack());
-
-        System.out.printf("Enemy hp: " + enemy.getStats().getCurrentHitpoints());
 
         int oldHp = 0;
         int newHp = 0;
@@ -81,10 +79,7 @@ public class BattleService {
             saveCharacter(character);
         }
 
-        damage = oldHp - newHp;
-        System.out.println("oldHP: " + oldHp + "\n");
-        System.out.println("newHP: " + newHp + "\n");
-        System.out.println("damage: " + damage + "\n");
+//        damage = oldHp - newHp;
         message = attacker +  " hits " + damage + " on " + defender;
 
         turnCounter++;

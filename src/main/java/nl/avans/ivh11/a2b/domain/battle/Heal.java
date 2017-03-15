@@ -15,11 +15,15 @@ public class Heal implements ActionBehavior
      * @param character the current Character
      * @param enemy the Character's enemy
      */
-    public void action(Character character, Opponent enemy) {
-        if(character.getInventory().getHealPotions().size() > 0) {
+    public void action(Opponent character, Opponent enemy) {
+
+        // Cast
+        Character c = ((Character) character);
+
+        if(c.getInventory().getHealPotions().size() > 0) {
             character.heal(10);
-            Usable potion = character.getInventory().getHealPotions().get(0);
-            character.getInventory().drop(potion);
+            Usable potion = c.getInventory().getHealPotions().get(0);
+            c.getInventory().drop(potion);
         }
     }
 }

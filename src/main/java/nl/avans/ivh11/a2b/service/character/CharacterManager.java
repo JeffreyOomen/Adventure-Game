@@ -62,7 +62,7 @@ public class CharacterManager
 
         // Make a normal character:
         Character ch = new Dwarf("Jeffrey Oomen", new Stats());
-        ch.getStats().setStrength(100);
+        ch.getStats().setStrength(40);
         ch.getStats().setStrengthAccuracy(100);
         ch.setActionBehavior(new NormalAttack());
         characterRepository.save(ch);

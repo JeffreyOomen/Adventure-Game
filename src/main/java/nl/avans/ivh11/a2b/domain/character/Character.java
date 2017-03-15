@@ -214,9 +214,21 @@ public abstract class Character implements Opponent
      * Take damage as result van an enemy attack
      * @param hit int damage to take
      */
-    public void takeDamage(int hit) {
-        this.stats.setCurrentHitpoints(this.getCurrentHitpoints() - hit);
+    public int takeDamage(int hit) {
+        int damage = hit;
+
+        if(hit > 0 && isAlive()) {
+            // Validate Character is dead
+            if(hit > stats.getCurrentHitpoints()) {
+                damage = stats.getCurrentHitpoints();
+                // Dead - set current hp 0
+                stats.setCurrentHitpoints(0);
+            } else {
+                stats.setCurrentHitpoints(stats.getCurrentHitpoints() - hit);
+            }
+        }
         notifyObservers();
+        return damage;
     }
 
     /**

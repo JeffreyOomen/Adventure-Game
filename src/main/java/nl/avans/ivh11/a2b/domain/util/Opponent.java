@@ -20,7 +20,7 @@ public interface Opponent extends Observable
      * Take damage as result van an enemy attack
      * @param hit int damage to take
      */
-    public void takeDamage(int hit);
+    public int takeDamage(int hit);
 
     /**
      * Adds the given hitpoints to the currentHitpoints
@@ -32,4 +32,6 @@ public interface Opponent extends Observable
      * Receive an incoming XP bounty
      */
     public void receiveXp(int xp);
+
+    public Stats getStats();
 }

@@ -12,16 +12,19 @@ public class NormalAttack implements ActionBehavior
 {
     /**
      * Attack the enemy with a normal attack
-     * @param character the current Character
-     * @param enemy the Character's enemy
+     * @param attacker
+     * @param defender
      */
-    public void action(Character character, Opponent enemy) {
+    public void action(Opponent attacker, Opponent defender) {
         int damage = Random.getInstance().randomDamage(
-                character.getStrength(),
-                character.getStrengthAccuracy(),
-                character.getDefense(),
-                character.getDefenseAccuracy()
+                // Attacker determine strength
+                attacker.getStats().getStrength(),
+                attacker.getStats().getStrengthAccuracy(),
+                // Defender determine defense
+                defender.getStats().getDefense(),
+                defender.getStats().getDefenseAccuracy()
         );
-        enemy.takeDamage(damage);
+        System.out.println("\nDamage normall attack: " + damage);
+        defender.takeDamage(damage);
     }
 }
