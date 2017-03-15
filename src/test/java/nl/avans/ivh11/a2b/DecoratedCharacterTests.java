@@ -6,7 +6,6 @@ import nl.avans.ivh11.a2b.domain.character.decoration.Mage;
 import nl.avans.ivh11.a2b.domain.usable.BandosEquipment;
 import nl.avans.ivh11.a2b.domain.usable.Equipment;
 import nl.avans.ivh11.a2b.domain.usable.UsableType;
-import nl.avans.ivh11.a2b.domain.util.EquipmentEnum;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 import org.junit.After;
 import org.junit.Before;

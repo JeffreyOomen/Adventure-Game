@@ -1,13 +1,10 @@
 package nl.avans.ivh11.a2b;
 
-import nl.avans.ivh11.a2b.domain.battle.Heal;
 import nl.avans.ivh11.a2b.domain.battle.SpecialAttack;
-import nl.avans.ivh11.a2b.domain.character.Troll;
 import nl.avans.ivh11.a2b.domain.enemy.Enemy;
 import nl.avans.ivh11.a2b.domain.enemy.EnemyBuilder;
 import nl.avans.ivh11.a2b.domain.enemy.EnemyBuilderDirector;
 import nl.avans.ivh11.a2b.domain.usable.Usable;
-import nl.avans.ivh11.a2b.domain.util.EquipmentEnum;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 import org.junit.Before;
 import org.junit.Test;
