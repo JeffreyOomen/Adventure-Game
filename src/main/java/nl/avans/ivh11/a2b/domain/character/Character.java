@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import nl.avans.ivh11.a2b.domain.battle.ActionBehavior;
 import nl.avans.ivh11.a2b.domain.character.state.CharacterState;
 import nl.avans.ivh11.a2b.domain.character.state.NormalState;
 import nl.avans.ivh11.a2b.domain.character.state.PoweredState;
@@ -13,12 +12,9 @@ import nl.avans.ivh11.a2b.domain.character.state.WeakenedState;
 import nl.avans.ivh11.a2b.domain.usable.*;
 import nl.avans.ivh11.a2b.domain.util.*;
 import nl.avans.ivh11.a2b.domain.usable.Equipment;
-import nl.avans.ivh11.a2b.domain.util.observer.Observer;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,6 +32,7 @@ public abstract class Character extends Opponent
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "CHARACTER_ID" )
     protected Long id;
 
     @ElementCollection(fetch = FetchType.EAGER)

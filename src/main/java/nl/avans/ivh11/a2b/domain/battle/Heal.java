@@ -12,19 +12,19 @@ public class Heal implements ActionBehavior
 {
     /**
      * Heal Character
-     * @param character the current Character
-     * @param enemy the Character's enemy
+     * @param attacker the current Character
+     * @param defender the Character's enemy
      * @return The action result
      */
-    public String action(Opponent character, Opponent enemy) {
+    public String action(Opponent attacker, Opponent defender) {
 
-        if (character.isAlive() && enemy.isAlive()) {
-            Character c = ((Character) character);
+        if (attacker.isAlive() && defender.isAlive()) {
+            Character c = ((Character) attacker);
 
             String message = "No Heal potions";
             if(c.getInventory().getHealPotions().size() > 0) {
                 int hitPoints = 10;
-                character.heal(hitPoints);
+                attacker.heal(hitPoints);
                 Usable potion = c.getInventory().getHealPotions().get(0);
                 c.getInventory().drop(potion);
                 message = c.getName() + " healed with " + hitPoints + " hp";
@@ -32,7 +32,7 @@ public class Heal implements ActionBehavior
             return message;
         }
 
-        return "Your opponent " + enemy.getName() + " already died...";
+        return "Your opponent " + defender.getName() + " already died...";
     }
 
 }

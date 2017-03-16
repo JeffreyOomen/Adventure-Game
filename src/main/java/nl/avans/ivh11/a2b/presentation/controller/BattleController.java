@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class BattleController
 {
@@ -32,14 +34,27 @@ public class BattleController
         // Initialize and assign character and enemy
         this.character = opponentService.findCharacterById(1L);
         this.enemy = opponentService.findEnemyById(1L);
-
+        
         // Start new battle
-        battleService.startBattle(character, enemy);
+        battleService.startBattle(this.character, this.enemy);
 
-        uiModel.addAttribute("character", character);
-        uiModel.addAttribute("enemy", enemy);
+        uiModel.addAttribute("character", this.character);
+        uiModel.addAttribute("enemy", this.enemy);
 
         return "battle";
+    }
+
+    /**
+     * Ends a battle between a Character and an Enemy
+     * @param uiModel the model which contains battle information
+     * @return A view
+     */
+    @RequestMapping(value = "/battle/end", method = RequestMethod.GET)
+    public String endBattle(Model uiModel) {
+        uiModel.addAttribute("character", this.character);
+        uiModel.addAttribute("enemy", this.enemy);
+
+        return "home";
     }
 
     /**
@@ -48,7 +63,6 @@ public class BattleController
     @RequestMapping(value = "/battle/normal_attack", method = RequestMethod.POST)
     @ResponseBody
     public BattleModel attack() {
-        System.out.println("Controller attack method called");
         this.battleService.attack();
         return this.battleReport();
     }
