@@ -27,15 +27,11 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
-public class Enemy implements Opponent {
+public class Enemy extends Opponent {
     @Id
     @GeneratedValue
     private long id;
-    private String name;
-    private String description;
-    @OneToOne(cascade = CascadeType.ALL)
-    private Stats stats;
-    private ActionBehavior actionBehavior;
+
     @OneToMany()
     private List<Usable> loot;
 
@@ -55,39 +51,14 @@ public class Enemy implements Opponent {
         return Integer.toString(stats.getCurrentHitpoints());
     }
 
+
+    /**
+     * Performs an action against the Opponent
+     * @param opponent the Enemy's Opponent
+     */
     public void performAction(Opponent opponent) {
         String message = this.actionBehavior.action(this, (nl.avans.ivh11.a2b.domain.character.Character) opponent);
         notifyObservers(message);
-    }
-
-    /**
-     * isAlive
-     * Determines enemy is alive.
-     *
-     * @return boolean
-     */
-    public boolean isAlive() {
-        return this.stats.getCurrentHitpoints() > 0;
-
-    }
-
-    /**
-     * takeDamage
-     * takes damage done by enemy.
-     * Collect a hit.
-     *
-     * @param hit
-     * @return int damage done
-     */
-    public void takeDamage(int hit) {
-        if (this.isAlive()) {
-            if (hit >= this.stats.getCurrentHitpoints()) {
-                this.stats.setCurrentHitpoints(0);
-                notifyObservers(this.getName() + " has been killed!");
-            } else {
-                this.stats.setCurrentHitpoints(this.stats.getCurrentHitpoints() - hit);
-            }
-        }
     }
 
     /**

@@ -32,16 +32,12 @@ import java.util.Map;
 @Setter
 @NoArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
-public abstract class Character implements Opponent
+public abstract class Character extends Opponent
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "CHARACTER_ID")
     protected Long id;
-
-    protected String name;
-
-    protected String description;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "CHARACTER_EQUIPMENT", joinColumns = @JoinColumn(name = "CHARACTER_ID"))
@@ -56,16 +52,9 @@ public abstract class Character implements Opponent
     @Transient
     protected UsableType attackStyle;
 
-    @Lob
-    protected ActionBehavior actionBehavior;
-
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "STATE_ID")
     protected CharacterState currentState;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "STATS_ID")
-    protected Stats stats;
 
     @Transient
     private List<Observer> observers = new ArrayList<>();
@@ -203,29 +192,6 @@ public abstract class Character implements Opponent
      */
     public void setState(CharacterState state) {
         this.currentState = state;
-    }
-
-    /**
-     * Determines if the Character is still alive
-     * @return true if the Character is alive, false otherwise
-     */
-    public boolean isAlive() {
-        return this.stats.getCurrentHitpoints() > 0;
-    }
-
-    /**
-     * Take damage as result van an enemy attack
-     * @param hit int damage to take
-     */
-    public void takeDamage(int hit) {
-        if (this.isAlive()) {
-            if (hit >= this.stats.getCurrentHitpoints()) {
-                this.stats.setCurrentHitpoints(0);
-                notifyObservers(this.getName() + " has been killed!");
-            } else {
-                this.stats.setCurrentHitpoints(this.stats.getCurrentHitpoints() - hit);
-            }
-        }
     }
 
     /**

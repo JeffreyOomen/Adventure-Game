@@ -15,8 +15,6 @@ public class NormalAttack implements ActionBehavior
      * @param defender
      */
     public String action(Opponent attacker, Opponent defender) {
-        System.out.println("All goood");
-
         if (attacker.isAlive() && defender.isAlive()) {
             int damage = CustomRandom.getInstance().randomDamage(
                     // Attacker determine strength
