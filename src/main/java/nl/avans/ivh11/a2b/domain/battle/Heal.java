@@ -21,15 +21,16 @@ public class Heal implements ActionBehavior
         if (character.isAlive() && enemy.isAlive()) {
             Character c = ((Character) character);
 
-            String message = "No Heal potions";
-            if(c.getInventory().getHealPotions().size() > 0) {
-                int hitPoints = 10;
-                character.heal(hitPoints);
-                Usable potion = c.getInventory().getHealPotions().get(0);
-                c.getInventory().drop(potion);
-                message = c.getName() + " healed with " + hitPoints + " hp";
-            }
-            return message;
+//            String message = "No Heal potions";
+//            if(c.getInventory().getHealPotions().size() > 0) {
+//                int hitPoints = 10;
+//                character.heal(hitPoints);
+//                Usable potion = c.getInventory().getHealPotions().get(0);
+//                c.getInventory().drop(potion);
+//                message = c.getName() + " healed with " + hitPoints + " hp";
+//            }
+//            return message;
+//        }
         }
 
         return "Your opponent " + enemy.getName() + " already died...";

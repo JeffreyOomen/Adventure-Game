@@ -27,10 +27,11 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
-public class Enemy extends Opponent {
+public class Enemy extends Opponent
+{
     @Id
-    @GeneratedValue
-    private long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    protected Long id;
 
     @OneToMany()
     private List<Usable> loot;
@@ -41,16 +42,6 @@ public class Enemy extends Opponent {
     public Enemy(Stats stats) {
         this.stats = stats;
     }
-
-    /**
-     * Get the Observable's state
-     *
-     * @return String
-     */
-    public String getState() {
-        return Integer.toString(stats.getCurrentHitpoints());
-    }
-
 
     /**
      * Performs an action against the Opponent
@@ -119,26 +110,6 @@ public class Enemy extends Opponent {
     public void receiveXp(int xp) {
 //        this.getStats().getHitpoints(); // TODO: bepalen hoe we dit doen
     }
-
-    @Override
-    public void attach(Observer observer) {
-        this.observers.add(observer);
-    }
-
-    @Override
-    public void detach(Observer observer) {
-        if (this.observers.contains(observer)) {
-            this.observers.remove(observer);
-        }
-    }
-
-    @Override
-    public void notifyObservers(String message) {
-        for (Observer observer : this.observers) {
-            observer.update(message);
-        }
-    }
-
 
     /**
      * Adds the given hitpoints to the currentHitpoints

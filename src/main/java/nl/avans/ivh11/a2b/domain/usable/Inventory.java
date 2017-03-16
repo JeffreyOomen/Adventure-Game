@@ -1,19 +1,40 @@
 package nl.avans.ivh11.a2b.domain.usable;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
-import static nl.avans.ivh11.a2b.domain.usable.UsableType.POTION_HEAL;
+@Entity
+@Getter
+@Setter
+public class Inventory {
 
-public class Inventory
-{
-    public ArrayList<HealPotion> getHealPotions() {
-        ArrayList<HealPotion> healPotions = new ArrayList<HealPotion>();
-        healPotions.add(new HealPotion(POTION_HEAL, 10));
-        return healPotions;
+    @Id
+    @GeneratedValue()
+    @Column(name = "inventory_id")
+    protected Long id;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Usable> inventory;
+
+    public Inventory() {
+        inventory = new ArrayList<>();
     }
 
-    public boolean drop(Usable usable) {
-        //TODO implement
-        return true;
+    public boolean addUsable(Usable usable) {
+        return this.inventory.add(usable);
     }
+
+    public boolean dropUsable(Usable usable) {
+       return this.inventory.remove(usable);
+    }
+
+    public Usable getUsable(int index) {
+        return this.inventory.get(index);
+    }
+
 }

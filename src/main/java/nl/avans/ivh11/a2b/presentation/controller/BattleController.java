@@ -4,6 +4,7 @@ import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.domain.enemy.Enemy;
 import nl.avans.ivh11.a2b.presentation.model.BattleModel;
 import nl.avans.ivh11.a2b.service.BattleService;
+import nl.avans.ivh11.a2b.service.CharacterService;
 import nl.avans.ivh11.a2b.service.OpponentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,9 @@ public class BattleController
     @Autowired
     private OpponentService opponentService;
 
+    @Autowired
+    private CharacterService characterService;
+
     private Character character;
     private Enemy enemy;
 
@@ -30,7 +34,7 @@ public class BattleController
     @RequestMapping(value = "/battle", method = RequestMethod.GET)
     public String startBattle(Model uiModel) {
         // Initialize and assign character and enemy
-        this.character = opponentService.findCharacterById(1L);
+        this.character = characterService.findById(2L);
         this.enemy = opponentService.findEnemyById(1L);
 
         // Start new battle

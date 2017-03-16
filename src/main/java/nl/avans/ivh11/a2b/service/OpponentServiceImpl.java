@@ -10,10 +10,7 @@ import nl.avans.ivh11.a2b.domain.character.Dwarf;
 import nl.avans.ivh11.a2b.domain.enemy.Enemy;
 import nl.avans.ivh11.a2b.domain.enemy.EnemyBuilder;
 import nl.avans.ivh11.a2b.domain.enemy.EnemyBuilderDirector;
-import nl.avans.ivh11.a2b.domain.usable.Equipment;
-import nl.avans.ivh11.a2b.domain.usable.EquipmentFactory;
-import nl.avans.ivh11.a2b.domain.usable.Usable;
-import nl.avans.ivh11.a2b.domain.usable.UsableType;
+import nl.avans.ivh11.a2b.domain.usable.*;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -64,6 +61,16 @@ public class OpponentServiceImpl implements OpponentService
         ch.getStats().setStrengthAccuracy(100);
         ch.setActionBehavior(new NormalAttack());
         characterRepository.save(ch);
+
+        Inventory inv = ch.getInventory();
+
+
+
+        ch.getInventory().addUsable(equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_HELMET, 10)));
+
+        inv =  ch.getInventory();
+
+        // Add some items to inventory
 
         // Setup Enemy
         EnemyBuilder enemyBuilder = new EnemyBuilder();
