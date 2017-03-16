@@ -52,7 +52,6 @@ public class BattleServiceImpl implements BattleService
      */
     @Override
     public void attack() {
-        System.out.println("All goood");
         this.character.setActionBehavior(new NormalAttack());
         this.doAction();
     }

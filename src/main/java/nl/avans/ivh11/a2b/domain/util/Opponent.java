@@ -4,16 +4,22 @@ import lombok.Getter;
 import lombok.Setter;
 import nl.avans.ivh11.a2b.domain.battle.ActionBehavior;
 import nl.avans.ivh11.a2b.domain.util.observer.Observable;
+import nl.avans.ivh11.a2b.domain.util.observer.Observer;
 
-import javax.persistence.CascadeType;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Getter
 @Setter
 public abstract class Opponent implements Observable
 {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    protected Long id;
+
     protected String name;
 
     protected String description;
@@ -24,6 +30,9 @@ public abstract class Opponent implements Observable
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "STATS_ID")
     protected Stats stats;
+
+    @Transient
+    private List<Observer> observers = new ArrayList<>();
 
     /**
      * Performs an action against the Opponent
@@ -63,5 +72,37 @@ public abstract class Opponent implements Observable
      */
     public boolean isAlive() {
         return this.stats.getCurrentHitpoints() > 0;
+    }
+
+    /**
+     * Attach an Observer
+     * @param observer
+     */
+    @Override
+    public void attach(Observer observer) {
+        this.observers.add(observer);
+    }
+
+    /**
+     * Detach an Observer
+     * @param observer
+     */
+    @Override
+    public void detach(Observer observer) {
+        if(this.observers.contains(observer)) {
+            this.observers.remove(observer);
+        }
+    }
+
+    /**
+     * Notify all attached Observers and
+     * push message
+     * @param message
+     */
+    @Override
+    public void notifyObservers(String message) {
+        for (Observer observer : this.observers) {
+            observer.update(message);
+        }
     }
 }

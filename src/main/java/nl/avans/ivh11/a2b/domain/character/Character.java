@@ -34,11 +34,6 @@ import java.util.Map;
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
 public abstract class Character extends Opponent
 {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "CHARACTER_ID")
-    protected Long id;
-
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "CHARACTER_EQUIPMENT", joinColumns = @JoinColumn(name = "CHARACTER_ID"))
     @MapKeyColumn(name = "EQUIPMENT_ENUM")
@@ -55,9 +50,6 @@ public abstract class Character extends Opponent
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "STATE_ID")
     protected CharacterState currentState;
-
-    @Transient
-    private List<Observer> observers = new ArrayList<>();
 
     /**
      * Constructor
@@ -156,14 +148,6 @@ public abstract class Character extends Opponent
     }
 
     /**
-     * Set the current ActionBehavior
-     * @param actionBehavior ActionBehavior to set
-     */
-    public void setActionBehavior(ActionBehavior actionBehavior) {
-        this.actionBehavior = actionBehavior;
-    }
-
-    /**
      * Gets an instance of PoweredState
      * @return an instance of PoweredState
      */
@@ -185,13 +169,6 @@ public abstract class Character extends Opponent
      */
     public CharacterState getWeakenedState() {
         return WeakenedState.getInstance();
-    }
-
-    /**
-     * Sets the current Character state
-     */
-    public void setState(CharacterState state) {
-        this.currentState = state;
     }
 
     /**
@@ -315,42 +292,10 @@ public abstract class Character extends Opponent
     }
 
     /**
-     * Get the Observable's state
-     * @return String
+     * Sets the Character's State
+     * @param state the new Character's State
      */
-    public String getState() {
-        return Integer.toString(stats.getCurrentHitpoints());
-    }
-
-    /**
-     * Attach an Observer
-     * @param observer
-     */
-    @Override
-    public void attach(Observer observer) {
-        this.observers.add(observer);
-    }
-
-    /**
-     * Detach an Observer
-     * @param observer
-     */
-    @Override
-    public void detach(Observer observer) {
-        if(this.observers.contains(observer)) {
-            this.observers.remove(observer);
-        }
-    }
-
-    /**
-     * Notify all attached Observers and
-     * push message
-     * @param message
-     */
-    @Override
-    public void notifyObservers(String message) {
-        for (Observer observer : this.observers) {
-            observer.update(message);
-        }
+    public void setState(CharacterState state) {
+        this.currentState = state;
     }
 }
