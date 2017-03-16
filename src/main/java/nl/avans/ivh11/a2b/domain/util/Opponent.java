@@ -5,21 +5,18 @@ import lombok.Setter;
 import nl.avans.ivh11.a2b.domain.battle.ActionBehavior;
 import nl.avans.ivh11.a2b.domain.util.observer.Observable;
 import nl.avans.ivh11.a2b.domain.util.observer.Observer;
+import org.hibernate.annotations.Polymorphism;
+import org.hibernate.annotations.PolymorphismType;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@MappedSuperclass
 @Getter
 @Setter
 public abstract class Opponent implements Observable
 {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    protected Long id;
-
     protected String name;
 
     protected String description;

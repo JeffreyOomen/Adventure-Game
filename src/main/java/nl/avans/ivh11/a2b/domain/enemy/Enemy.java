@@ -29,6 +29,10 @@ import java.util.List;
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
 public class Enemy extends Opponent
 {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    protected Long id;
+
     @OneToMany()
     private List<Usable> loot;
 

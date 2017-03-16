@@ -34,6 +34,10 @@ import java.util.Map;
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
 public abstract class Character extends Opponent
 {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    protected Long id;
+
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "CHARACTER_EQUIPMENT", joinColumns = @JoinColumn(name = "CHARACTER_ID"))
     @MapKeyColumn(name = "EQUIPMENT_ENUM")
