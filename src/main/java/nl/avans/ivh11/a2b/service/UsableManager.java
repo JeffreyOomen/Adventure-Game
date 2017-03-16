@@ -1,4 +1,4 @@
-package nl.avans.ivh11.a2b.service.usable;
+package nl.avans.ivh11.a2b.service;
 
 import nl.avans.ivh11.a2b.datastorage.usable.UsableRepository;
 import nl.avans.ivh11.a2b.domain.usable.*;

@@ -1,32 +1,39 @@
 $(document).ready(function () {
     console.log("ready!");
 
-    $(".inputbutton").click(function () {
-
-
-        var attackType = $(this).val();
-        console.log(attackType);
-
-        $.post("/battle",
-            {
-                attackType: attackType,
-            },
-            function (data, status) {
-
-
-                var charCurrentHp = data.characterStats.currentHitpoints;
-                $('#charCurrentHp').html(charCurrentHp);
-
-                var ememyCurrentHp = data.enemyStats.currentHitpoints;
-                $('#enemyCurrentHp').html(ememyCurrentHp);
-
-                var message = data.message;
-                var newMessageDiv = $('<p "message">' + message + '</p>')
-
-                var messageContainer = $('.messages');
-                messageContainer.append(newMessageDiv);
-                messageContainer.scrollTop(messageContainer.prop("scrollHeight"));
-            });
-
+    /* handle normal attack */
+    $("#normal_attack").click(function() {
+        console.log("Normal attack clicked");
+        $.post("/battle/normal_attack", function(data) {
+            showBattlereport(data);
+        });
     });
+
+    /* handle special attack */
+    $("#special_attack").click(function() {
+        $.post("/battle/special_attack", function(data) {
+            showBattlereport(data);
+        });
+    });
+
+    /* handle heal */
+    $("#heal").click(function() {
+        $.post("/battle/heal", function(data) {
+            showBattlereport(data);
+        });
+    });
+
+    /**
+     * Show battle report the the client
+     * @param data
+     */
+    var showBattlereport = function(data) {
+        $('#charCurrentHp').html(data.characterStats.currentHitpoints);
+        $('#enemyCurrentHp').html(data.enemyStats.currentHitpoints);
+
+        // show battle messages
+        var messageContainer = $('.messages');
+        messageContainer.append($('<p "message">' + data.message + '</p>'));
+        messageContainer.scrollTop(messageContainer.prop("scrollHeight"));
+    };
 });
