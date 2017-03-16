@@ -34,7 +34,7 @@ public class BattleController
         // Initialize and assign character and enemy
         this.character = opponentService.findCharacterById(1L);
         this.enemy = opponentService.findEnemyById(1L);
-        
+
         // Start new battle
         battleService.startBattle(this.character, this.enemy);
 
@@ -60,7 +60,7 @@ public class BattleController
     /**
      * Executes a battle event with a normal attack for the Character
      */
-    @RequestMapping(value = "/battle/normal_attack", method = RequestMethod.POST)
+    @RequestMapping(value = "/battle/normalAttack", method = RequestMethod.POST)
     @ResponseBody
     public BattleModel attack() {
         this.battleService.attack();
@@ -70,7 +70,7 @@ public class BattleController
     /**
      * Executes a battle event with a special attack for the Character
      */
-    @RequestMapping(value = "/battle/special_attack", method = RequestMethod.POST)
+    @RequestMapping(value = "/battle/specialAttack", method = RequestMethod.POST)
     @ResponseBody
     public BattleModel specialAttack() {
         this.battleService.specialAttack();

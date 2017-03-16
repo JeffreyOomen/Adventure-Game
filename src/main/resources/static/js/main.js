@@ -8,14 +8,14 @@ $(document).ready(function () {
 
     /* handle normal attack */
     $("#normal_attack").click(function() {
-        $.post("/battle/normal_attack", function(data) {
+        $.post("/battle/normalAttack", function(data) {
             showBattlereport(data);
         });
     });
 
     /* handle special attack */
     $("#special_attack").click(function() {
-        $.post("/battle/special_attack", function(data) {
+        $.post("/battle/specialAttack", function(data) {
             showBattlereport(data);
         });
     });
@@ -32,7 +32,6 @@ $(document).ready(function () {
      * @param data
      */
     var showBattlereport = function(data) {
-        console.log(data);
         $('#charCurrentHp').html(data.characterStats.currentHitpoints);
         $('#enemyCurrentHp').html(data.enemyStats.currentHitpoints);
 
