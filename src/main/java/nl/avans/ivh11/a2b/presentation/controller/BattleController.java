@@ -2,6 +2,7 @@ package nl.avans.ivh11.a2b.presentation.controller;
 
 import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.domain.enemy.Enemy;
+import nl.avans.ivh11.a2b.domain.usable.Usable;
 import nl.avans.ivh11.a2b.presentation.model.BattleModel;
 import nl.avans.ivh11.a2b.service.BattleService;
 import nl.avans.ivh11.a2b.service.CharacterService;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @Controller
 public class BattleController
@@ -90,6 +93,7 @@ public class BattleController
 
         // Return view model as JSON
         return new BattleModel(
+                (ArrayList<Usable>) character.getInventory().getInventory(),
                 character.isAlive(),
                 enemy.isAlive(),
                 character.getStats(),

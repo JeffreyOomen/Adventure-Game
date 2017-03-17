@@ -45,17 +45,6 @@ public class CharacterServiceImpl implements CharacterService
     @Transactional
     private void demoCharacter() {
         System.out.println("character service impl aangeroepen");
-        // Setup Equipment
-        EquipmentFactory equipmentFactory = new EquipmentFactory();
-        Usable usable1 =  equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_HELMET, 10));
-        equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_BODY, 10));
-        equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_LEGS, 10));
-        equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_BOOTS, 10));
-        equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_GLOVES, 10));
-        equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_WEAPON_SWORD, 10));
-
-
-
 
         // Setup non-decorated Character
         Character c = new Troll("Bramboo", new Stats());
@@ -64,27 +53,35 @@ public class CharacterServiceImpl implements CharacterService
         c.setActionBehavior(new NormalAttack());
         characterRepository.save(c);
 
-        Inventory inventory = this.getInventory(c);
 
-        characterRepository.save(c);
+        // Setup Equipment
+        EquipmentFactory equipmentFactory = new EquipmentFactory();
+        PotionFactory potionFactory = new PotionFactory();
+        // Necessary to save equipment item for id
+        Usable usable1 =  equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_HELMET, 10));
+        Usable usable2 =  equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_BODY, 10));
+        Usable usable3 =  equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_WEAPON_SWORD, 10));
+        Usable usable4 =  equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_WEAPON_SWORD, 10));
+        Usable usable5 =  equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_WEAPON_SWORD, 10));
+        Usable usable6 =  equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_WEAPON_SWORD, 10));
 
         this.addInventoryItem(c, usable1);
+        this.addInventoryItem(c, usable2);
+        this.addInventoryItem(c, usable3);
+        this.addInventoryItem(c, usable4);
+        this.addInventoryItem(c, usable5);
+        this.addInventoryItem(c, usable6);
 
-        // Testing inventory
-//        addInventoryItem(ch, usable1);
-
-
+        characterRepository.save(c);
 
     }
 
     @Override
-    @Transactional
     public Character findById(long id) {
         return this.characterRepository.findOne(id);
     }
 
     @Override
-    @Transactional
     public Character save(Character character) {
         return this.characterRepository.save(character);
     }
@@ -95,7 +92,6 @@ public class CharacterServiceImpl implements CharacterService
     }
 
     @Override
-    @Transactional
     public boolean dropInventoryItem(Character character, int index) {
         Inventory inventory = character.getInventory();
         Usable usable = inventory.getUsable(index);
@@ -103,7 +99,6 @@ public class CharacterServiceImpl implements CharacterService
     }
 
     @Override
-    @Transactional
     public void useInventoryItem(Character character, int index) {
         Inventory inventory = character.getInventory();
         Usable usable = inventory.getUsable(index);
@@ -111,13 +106,8 @@ public class CharacterServiceImpl implements CharacterService
     }
 
     @Override
-    @Transactional
     public boolean addInventoryItem(Character character, Usable usable) {
-        boolean isSaved =  character.getInventory().addUsable(usable);
-        // TODO: probleem het werkt alleen nu als ik explciet de save aanroep
-        this.characterRepository.save(character);
-        return isSaved;
+        return character.getInventory().addUsable(usable);
     }
-
 
 }

@@ -28,6 +28,7 @@ $(document).ready(function () {
      * @param data
      */
     var showBattlereport = function(data) {
+        console.log(data);
         $('#charCurrentHp').html(data.characterStats.currentHitpoints);
         $('#enemyCurrentHp').html(data.enemyStats.currentHitpoints);
 
