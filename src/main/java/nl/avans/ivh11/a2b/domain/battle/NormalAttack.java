@@ -16,12 +16,15 @@ public class NormalAttack implements ActionBehavior
      * @return The action result
      */
     public String action(Character character, Opponent enemy) {
+        character.getStrength();
+
         int damage = CustomRandom.getInstance().randomDamage(
                 character.getStrength(),
                 character.getStrengthAccuracy(),
                 character.getDefense(),
                 character.getDefenseAccuracy()
         );
+
         enemy.takeDamage(damage);
         return character.getName() + " attacked enemy with " + damage + " damage";
     }
