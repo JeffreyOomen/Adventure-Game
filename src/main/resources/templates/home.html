@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
 <head>
 	<title>Proftaak</title>
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>
@@ -8,17 +8,17 @@
 </head>
 <body>
 	<div class="home-text-left">
-		<h1>Welcome Warrior!</h1>
+		<h1 th:text="#{home.welcome}"></h1>
 
-		<button id="start_battle">Find an opponent</button><br/>
-		<button>Inventory</button>
+		<button id="start_battle" th:text="#{battle.start}"></button><br/>
+		<button th:text="#{character.inventory}"></button>
 	</div>
 	<div class="home-text-right">
 		Level: <span id="charLvl" th:text="${character.getStats().getLevel()}"></span><br/>
 		HP: <span id="charCurrentHp" th:text="${character.getStats().getCurrentHitpoints()}"></span>/<span
 			id="charHp" th:text="${character.getStats().getHitpoints()}"></span><br/>
 		XP: 1083/1200<br/>
-		<img style="height: 350px;" src="../images/rpg-warrior.png"/>
+		<img style="height: 350px;" th:src="@{/images/rpg-warrior.png}"/>
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"

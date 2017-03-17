@@ -1,6 +1,5 @@
 package nl.avans.ivh11.a2b.domain.battle;
 
-import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.domain.util.CustomRandom;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
 

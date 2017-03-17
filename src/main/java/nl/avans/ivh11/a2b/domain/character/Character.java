@@ -93,8 +93,7 @@ public abstract class Character extends Opponent
      */
     public void performAction(Opponent opponent) {
         String message = this.actionBehavior.action(this, opponent);
-
-        //notifyObservers(message);
+        notifyObservers(message);
     }
 
     /**
