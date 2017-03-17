@@ -11,18 +11,29 @@ public class SpecialAttack implements ActionBehavior
 {
     /**
      * Attack the enemy with a special attack
-     * @param character the current Character
-     * @param enemy the Character's enemy
-     * @return The action result
+     * @param attacker the Opponent which attacks the other Opponent
+     * @param defender the Opponent which is being attacked by the other Opponent
      */
-    public String action(Character character, Opponent enemy) {
-        Double damage = CustomRandom.getInstance().randomDamage(
-                character.getStrength(),
-                character.getStrengthAccuracy(),
-                character.getDefense(),
-                character.getDefenseAccuracy()
-        ) * 1.20;
-        enemy.takeDamage(damage.intValue());
-        return character.getName() + " attacked enemy with " + damage + " damage";
+    public String action(Opponent attacker, Opponent defender) {
+
+        if (attacker.isAlive() && defender.isAlive()) {
+            int damage = (int) (CustomRandom.getInstance().randomDamage(
+                    // Attacker determine strength
+                    attacker.getStats().getStrength(),
+                    attacker.getStats().getStrengthAccuracy(),
+                    // Defender determine defense
+                    defender.getStats().getDefense(),
+                    defender.getStats().getDefenseAccuracy()
+            ) * 1.20);
+            defender.takeDamage(damage);
+
+            if (!defender.isAlive()) {
+                return "You have WON, " + attacker.getName() + " !!!";
+            } else {
+                return attacker.getName() + " did a special attack on " + defender.getName() + " with " + damage + " damage!";
+            }
+        }
+
+        return "Your opponent " + defender.getName() + " already died...";
     }
 }

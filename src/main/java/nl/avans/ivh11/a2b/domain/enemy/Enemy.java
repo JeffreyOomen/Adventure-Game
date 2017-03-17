@@ -1,5 +1,7 @@
 package nl.avans.ivh11.a2b.domain.enemy;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import nl.avans.ivh11.a2b.domain.usable.*;
 import nl.avans.ivh11.a2b.domain.util.*;
 import nl.avans.ivh11.a2b.domain.util.observer.Observer;
@@ -24,73 +26,41 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Enemy implements Opponent {
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
+public class Enemy extends Opponent
+{
     @Id
-    @GeneratedValue
-    private long id;
-    private String name;
-    private String description;
-    @OneToOne(cascade = CascadeType.ALL)
-    private Stats stats;
-    private ActionBehavior actionBehavior;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    protected Long id;
+
     @OneToMany()
     private List<Usable> loot;
 
     @Transient
-    private List<Observer> observers;
+    private List<Observer> observers = new ArrayList<>();
 
     public Enemy(Stats stats) {
         this.stats = stats;
-        this.observers = new ArrayList<>();
     }
 
     /**
-     * Get the Observable's state
-     * @return String
+     * Performs an action against the Opponent
+     * @param opponent the Enemy's Opponent
      */
-    public String getState() {
-        return Integer.toString(stats.getCurrentHitpoints());
-    }
-
     public void performAction(Opponent opponent) {
-        String message = this.actionBehavior.action((nl.avans.ivh11.a2b.domain.character.Character) opponent, this);
+        String message = this.actionBehavior.action(this, (nl.avans.ivh11.a2b.domain.character.Character) opponent);
         notifyObservers(message);
-    }
-
-    /**
-     * isAlive
-     * Determines enemy is alive.
-     * @return boolean
-     */
-    public boolean isAlive() {
-        return this.stats.getHitpoints() > 0;
-    }
-
-    /**
-     * takeDamage
-     * takes damage done by enemy.
-     * Collect a hit.
-     * @param hit
-     * @return boolean
-     */
-    public void takeDamage (int hit) {
-        boolean damageDone = false;
-        if(hit > 0) {
-            stats.setHitpoints(stats.getHitpoints() - hit);
-            //notifyObservers(this.name + " took " + hit + " damage");
-        }
-        System.out.println("all goooood");
     }
 
     /**
      * randomDrop
      * receiver a random drop from a chosen factory.
+     *
      * @return usable
      */
     public Usable randomDrop() {
         UsableFactory usableFactory = null;
         Usable usable = null;
-        Stats stats = new Stats();
 
         // Based on random change give a potion or equipment as drop
         // 70% change of a potion drop 30% change of equipment drop.
@@ -99,12 +69,12 @@ public class Enemy implements Opponent {
         if (determineDropChange < 70) {
             usableFactory = new PotionFactory();
             UsableType usableType = getRandomDropUsableType("potion");
-            usable = usableFactory.createUsable(usableType, stats.getLevel());
+            usable = usableFactory.createUsable(usableType, this.stats.getLevel());
         } else {
             // 30% drop change - create equipment
             usableFactory = new EquipmentFactory();
             UsableType usableType = getRandomDropUsableType("equipment");
-            usable = usableFactory.createUsable(usableType, stats.getLevel());
+            usable = usableFactory.createUsable(usableType, this.stats.getLevel());
         }
         return usable;
     }
@@ -141,33 +111,14 @@ public class Enemy implements Opponent {
 //        this.getStats().getHitpoints(); // TODO: bepalen hoe we dit doen
     }
 
-    @Override
-    public void attach(Observer observer) {
-        this.observers.add(observer);
-    }
-
-    @Override
-    public void detach(Observer observer) {
-        if(this.observers.contains(observer)) {
-            this.observers.remove(observer);
-        }
-    }
-
-    @Override
-    public void notifyObservers(String message) {
-        for (Observer observer : this.observers) {
-            observer.update(message);
-        }
-    }
-
-
     /**
      * Adds the given hitpoints to the currentHitpoints
+     *
      * @param hitPoints int
      */
     public void heal(int hitPoints) {
         int newHitpoints = this.stats.getCurrentHitpoints() + hitPoints;
-        if(newHitpoints <= this.stats.getHitpoints()) {
+        if (newHitpoints <= this.stats.getHitpoints()) {
             this.stats.setCurrentHitpoints(newHitpoints);
         } else {
             this.stats.setCurrentHitpoints(this.stats.getHitpoints());

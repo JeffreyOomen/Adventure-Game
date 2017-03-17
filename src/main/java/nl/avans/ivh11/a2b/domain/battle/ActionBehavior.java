@@ -13,9 +13,8 @@ public interface ActionBehavior extends Serializable
 {
     /**
      * Perform an action on the given Opponent
-     * @param character the current Character
-     * @param enemy the Character's enemy
-     * @return The action result
+     * @param attacker
+     * @param defender
      */
-    public String action(Character character, Opponent enemy);
+    public String action(Opponent attacker, Opponent defender);
 }

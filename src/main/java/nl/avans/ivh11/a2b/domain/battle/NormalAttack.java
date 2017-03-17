@@ -11,21 +11,28 @@ public class NormalAttack implements ActionBehavior
 {
     /**
      * Attack the enemy with a normal attack
-     * @param character the current Character
-     * @param enemy the Character's enemy
-     * @return The action result
+     * @param attacker
+     * @param defender
      */
-    public String action(Character character, Opponent enemy) {
-        character.getStrength();
+    public String action(Opponent attacker, Opponent defender) {
+        if (attacker.isAlive() && defender.isAlive()) {
+            int damage = CustomRandom.getInstance().randomDamage(
+                    // Attacker determine strength
+                    attacker.getStats().getStrength(),
+                    attacker.getStats().getStrengthAccuracy(),
+                    // Defender determine defense
+                    defender.getStats().getDefense(),
+                    defender.getStats().getDefenseAccuracy()
+            );
+            defender.takeDamage(damage);
 
-        int damage = CustomRandom.getInstance().randomDamage(
-                character.getStrength(),
-                character.getStrengthAccuracy(),
-                character.getDefense(),
-                character.getDefenseAccuracy()
-        );
+            if (!defender.isAlive()) {
+                return "You have WON, " + attacker.getName() + " !!!";
+            } else {
+                return attacker.getName() + " attacked " + defender.getName() + " with " + damage + " damage!";
+            }
+        }
 
-        enemy.takeDamage(damage);
-        return character.getName() + " attacked enemy with " + damage + " damage";
+        return "Your opponent " + defender.getName() + " already died...";
     }
 }

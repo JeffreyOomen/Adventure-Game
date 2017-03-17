@@ -1,9 +1,10 @@
 package nl.avans.ivh11.a2b.domain.character;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import nl.avans.ivh11.a2b.domain.battle.ActionBehavior;
 import nl.avans.ivh11.a2b.domain.character.state.CharacterState;
 import nl.avans.ivh11.a2b.domain.character.state.NormalState;
 import nl.avans.ivh11.a2b.domain.character.state.PoweredState;
@@ -11,12 +12,9 @@ import nl.avans.ivh11.a2b.domain.character.state.WeakenedState;
 import nl.avans.ivh11.a2b.domain.usable.*;
 import nl.avans.ivh11.a2b.domain.util.*;
 import nl.avans.ivh11.a2b.domain.usable.Equipment;
-import nl.avans.ivh11.a2b.domain.util.observer.Observer;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,16 +27,13 @@ import java.util.Map;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class Character implements Opponent
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
+public abstract class Character extends Opponent
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "CHARACTER_ID")
+    @Column(name = "CHARACTER_ID" )
     protected Long id;
-
-    protected String name;
-
-    protected String description;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "CHARACTER_EQUIPMENT", joinColumns = @JoinColumn(name = "CHARACTER_ID"))
@@ -53,19 +48,9 @@ public abstract class Character implements Opponent
     @Transient
     protected UsableType attackStyle;
 
-    @Lob
-    protected ActionBehavior actionBehavior;
-
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "STATE_ID")
     protected CharacterState currentState;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "STATS_ID")
-    protected Stats stats;
-
-    @Transient
-    private List<Observer> observers;
 
     /**
      * Constructor
@@ -76,7 +61,6 @@ public abstract class Character implements Opponent
         this.name = name;
         this.stats = stats;
         this.equipment = new HashMap<>();
-        this.observers = new ArrayList<>();
         this.currentState = NormalState.getInstance();
     }
 
@@ -166,14 +150,6 @@ public abstract class Character implements Opponent
     }
 
     /**
-     * Set the current ActionBehavior
-     * @param actionBehavior ActionBehavior to set
-     */
-    public void setActionBehavior(ActionBehavior actionBehavior) {
-        this.actionBehavior = actionBehavior;
-    }
-
-    /**
      * Gets an instance of PoweredState
      * @return an instance of PoweredState
      */
@@ -195,30 +171,6 @@ public abstract class Character implements Opponent
      */
     public CharacterState getWeakenedState() {
         return WeakenedState.getInstance();
-    }
-
-    /**
-     * Sets the current Character state
-     */
-    public void setState(CharacterState state) {
-        this.currentState = state;
-    }
-
-    /**
-     * Determines if the Character is still alive
-     * @return true if the Character is alive, false otherwise
-     */
-    public boolean isAlive() {
-        return this.stats.getCurrentHitpoints() > 0;
-    }
-
-    /**
-     * Take damage as result van an enemy attack
-     * @param hit int damage to take
-     */
-    public void takeDamage(int hit) {
-        this.stats.setCurrentHitpoints(this.getCurrentHitpoints() - hit);
-        notifyObservers(this.name + " took " + hit + " damage");
     }
 
     /**
@@ -342,42 +294,10 @@ public abstract class Character implements Opponent
     }
 
     /**
-     * Get the Observable's state
-     * @return String
+     * Sets the Character's State
+     * @param state the new Character's State
      */
-    public String getState() {
-        return Integer.toString(stats.getCurrentHitpoints());
-    }
-
-    /**
-     * Attach an Observer
-     * @param observer
-     */
-    @Override
-    public void attach(Observer observer) {
-        this.observers.add(observer);
-    }
-
-    /**
-     * Detach an Observer
-     * @param observer
-     */
-    @Override
-    public void detach(Observer observer) {
-        if(this.observers.contains(observer)) {
-            this.observers.remove(observer);
-        }
-    }
-
-    /**
-     * Notify all attached Observers and
-     * push message
-     * @param message
-     */
-    @Override
-    public void notifyObservers(String message) {
-        for (Observer observer : this.observers) {
-            observer.update(message);
-        }
+    public void setState(CharacterState state) {
+        this.currentState = state;
     }
 }

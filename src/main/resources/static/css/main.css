@@ -1,0 +1,142 @@
+body {
+	background: url('../images/rpg-wallpaper.jpg') no-repeat center center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+    background-size: cover;
+	color: #fff;
+    width:100%;
+    margin: 0;
+    padding: 0;
+	font-family: 'Roboto', sans-serif;
+    height: 100%
+}
+
+.text {
+	text-align: center;
+    background: rgb(54, 25, 25);
+    background: rgba(0, 0, 0, .5);
+    padding: 40px;
+}
+
+input {
+	margin-bottom: 20px;
+	text-align: center;
+	font-size: 20px
+}
+
+.battler {
+    display: table-cell;
+    vertical-align: bottom;
+    height: 350px;
+    width: 500px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom;
+}
+
+button {
+	margin-bottom: 20px;
+	padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    font-size: 16px;
+    border-radius: 10px;
+    background-color: #fff;
+    border: 2px solid black;
+}
+.home-text-left {
+    background: rgba(0, 0, 0, .5);
+    padding: 40px;
+    width: 40%;
+    height: 400px;
+    float: left;
+}
+.home-text-right {
+    background: rgba(0, 0, 0, .5);
+    padding: 40px;
+    width: 40%; 
+    height: 400px;
+    float: left;
+    text-align: right;
+}
+.text-right {
+    text-align: right;
+    /*border-right: 2px solid black; */
+}
+.contender {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.column {
+    position: relative;
+    min-height: 1px;
+    float: left;
+    width: 33.33333333%;
+}
+.inventory {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.container {
+    background: rgba(0, 0, 0, .5);
+    margin: 50px;
+}
+.text-right > .contender {
+    border-right: 2px solid black;
+}
+.stats {
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+h1, h2 {
+    margin: 0;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+.item-container {
+    height: 75px;
+    padding: 5px;
+}
+.item {
+    height: 65px;
+    padding: 5px;
+    background-color: white;
+}
+.item-image {
+   background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 60px; 
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.row {
+  margin-right: -15px;
+  margin-left: -15px;
+}
+.inputbutton {
+    text-align: center;
+    font-size: inherit;
+    font-size: 12px;
+    margin-right: 20px;
+}
+
+.messages-container {
+    border-top: 1px solid white;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-height: 200px;
+    margin: 20px;
+}
+.messages-container .messages {
+    overflow-y: scroll;
+}
+
+.messages-container .messages p.message {
+    margin: 5px 0;
+    padding: 0;
+}
