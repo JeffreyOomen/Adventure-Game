@@ -19,22 +19,22 @@ public class Inventory {
     protected Long id;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Usable> inventory;
+    private List<Usable> usables;
 
     public Inventory() {
-        inventory = new ArrayList<>();
+        usables = new ArrayList<>();
     }
 
     public boolean addUsable(Usable usable) {
-        return this.inventory.add(usable);
+        return this.usables.add(usable);
     }
 
     public boolean dropUsable(Usable usable) {
-       return this.inventory.remove(usable);
+       return this.usables.remove(usable);
     }
 
     public Usable getUsable(int index) {
-        return this.inventory.get(index);
+        return this.usables.get(index);
     }
 
 }

@@ -93,7 +93,7 @@ public class BattleController
 
         // Return view model as JSON
         return new BattleModel(
-                character.getInventory().getInventory(),
+                character.getInventory().getUsables(),
                 character.isAlive(),
                 enemy.isAlive(),
                 character.getStats(),

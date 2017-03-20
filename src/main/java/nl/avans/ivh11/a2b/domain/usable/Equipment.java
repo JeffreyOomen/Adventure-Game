@@ -66,6 +66,15 @@ public abstract class Equipment extends Usable {
             case EQUIPMENT_HELMET:
                 equipmentType = "helmet";
                 break;
+            case EQUIPMENT_WEAPON_BOW:
+                equipmentType = "sword";
+                break;
+            case EQUIPMENT_WEAPON_SWORD:
+                equipmentType = "sword";
+                break;
+            case EQUIPMENT_WEAPON_STAFF:
+                equipmentType = "staff";
+                break;
             case EQUIPMENT_WEAPON:
                 equipmentType = "weapon";
                 break;

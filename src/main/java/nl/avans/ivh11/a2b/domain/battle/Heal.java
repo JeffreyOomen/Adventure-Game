@@ -22,15 +22,19 @@ public class Heal implements ActionBehavior
      */
     public String action(Opponent character, Opponent enemy) {
 
+        Character c = (Character) character;
+
         if (character.isAlive() && enemy.isAlive()) {
-            Character c = ((Character) character);
 
             Inventory inventory = c.getInventory();
 
-            String message = "No Heal potions";
-            if(inventory.getInventory().size() > 0) {
+            int healed = 0;
 
-                List<Usable> usables =  c.getInventory().getInventory();
+            String message = "No heal potion available...";
+            if(inventory.getUsables().size() > 0) {
+                int oldHp = c.getCurrentHitpoints();
+
+                List<Usable> usables =  c.getInventory().getUsables();
 
                 Usable usableToRemove = null;
                 for(Usable u : usables) {
@@ -38,6 +42,9 @@ public class Heal implements ActionBehavior
                         // heal potion found in inventory - use usable on character
                         u.use((Character) character);
                         message = c.getName() + " healed!";
+
+                        // Determine heal amount
+                        healed = c.getCurrentHitpoints() - oldHp;
                         usableToRemove = u;
                     }
                 }
@@ -45,7 +52,7 @@ public class Heal implements ActionBehavior
                 if(usableToRemove != null) {
                     // Remove item from inventory
                     inventory.dropUsable(usableToRemove);
-                    message = c.getName() + " has been healed! Removed potion from inventory.";
+                    message = c.getName() + " healed with " + healed + " hp. </br>Removed used potion from inventory.";
                 }
             }
             return message;

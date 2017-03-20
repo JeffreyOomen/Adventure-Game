@@ -17,6 +17,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service("characterService")
 @Repository
 @Transactional
@@ -72,21 +75,31 @@ public class CharacterServiceImpl implements CharacterService
         characterRepository.save(c);
 
 
-        // Setup Equipment
+        // Initialize factories
         EquipmentFactory equipmentFactory = new EquipmentFactory();
         PotionFactory potionFactory = new PotionFactory();
+
+        List<Usable> usableList = new ArrayList<>();
+
         // Necessary to save equipment item for id
-        Usable usable1 =  usableRepository.save(equipmentFactory.createUsable(UsableType.EQUIPMENT_HELMET, 10));
-        Usable usable2 =  usableRepository.save(equipmentFactory.createUsable(UsableType.EQUIPMENT_BODY, 10));
-        Usable usable3 =  usableRepository.save(equipmentFactory.createUsable(UsableType.EQUIPMENT_WEAPON_SWORD, 10));
+        usableList.add(usableRepository.save(equipmentFactory.createUsable(UsableType.EQUIPMENT_HELMET, 10)));
+        usableList.add(usableRepository.save(equipmentFactory.createUsable(UsableType.EQUIPMENT_BODY, 20)));
+        usableList.add(usableRepository.save(equipmentFactory.createUsable(UsableType.EQUIPMENT_LEGS, 30)));
+        usableList.add(usableRepository.save(equipmentFactory.createUsable(UsableType.EQUIPMENT_LEGS, 20)));
+        usableList.add(usableRepository.save(equipmentFactory.createUsable(UsableType.EQUIPMENT_WEAPON_STAFF, 10)));
 
-        Usable usable4 = usableRepository.save(potionFactory.createUsable(UsableType.POTION_HEAL, 10));
+        usableList.add(usableRepository.save(potionFactory.createUsable(UsableType.POTION_HEAL, 10)));
+        usableList.add(usableRepository.save(potionFactory.createUsable(UsableType.POTION_HEAL, 10)));
+        usableList.add(usableRepository.save(potionFactory.createUsable(UsableType.POTION_HEAL, 10)));
+        usableList.add(usableRepository.save(potionFactory.createUsable(UsableType.POTION_HEAL, 10)));
+        usableList.add(usableRepository.save(potionFactory.createUsable(UsableType.POTION_OVERLOAD, 10)));
+        usableList.add(usableRepository.save(potionFactory.createUsable(UsableType.POTION_OVERLOAD, 10)));
 
-        // Add usables to inventory
-        this.addInventoryItem(c, usable1);
-        this.addInventoryItem(c, usable2);
-        this.addInventoryItem(c, usable3);
-        this.addInventoryItem(c, usable4);
+
+        // Assign created usable to inventory character
+        for(Usable u : usableList) {
+            c.getInventory().addUsable(u);
+        }
 
         characterRepository.save(c);
 

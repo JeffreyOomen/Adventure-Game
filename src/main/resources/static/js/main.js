@@ -20,6 +20,10 @@ $(document).ready(function () {
     $("#heal").click(function() {
         $.post("/battle/heal", function(data) {
             showBattlereport(data);
+
+            // Get first available heal potion and remove
+            $('.inventory li.POTION_HEAL:first').remove();
+
         });
     });
 
