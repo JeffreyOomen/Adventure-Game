@@ -9,14 +9,6 @@
 <body>
 <div class="container">
 
-    <!--<div th:if="${isEnemyAlive} == false">-->
-    <!--<div class="column flight-end">-->
-    <!--<h1>The winner is ...</h1>-->
-    <!--</div>-->
-    <!--&lt;!&ndash;</div>&ndash;&gt;and ${isEnemyAlive} == true-->
-
-    <!--th:if="${isCharacterAlive} == true and  ${isEnemyAlive} == true"-->
-
     <div class="column fight-view">
         <div class="contender">
             <div class="stats">
@@ -49,7 +41,7 @@
         <div class="inventory">
             <h1>Inventory</h1>
             <ul th:each="usable : ${character.getInventory().getUsables()}">
-                <li th:class="'u' + ${usable.getType()}" th:text="${usable.getName()}">Name</li>
+                <li th:class="${usable.getType()}" th:text="${usable.getName()}">Name</li>
             </ul>
         </div>
     </div>
