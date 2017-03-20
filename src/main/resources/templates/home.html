@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
-<head>
-	<title>Proftaak</title>
-	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>
-	<!--<link rel="stylesheet" type="text/css" href="../static/css/main.css" />-->
-	<link rel="stylesheet" th:href="@{/css/main.css}"/>
+<head th:replace="fragments/head :: head">
 </head>
 <body>
+<div class="container">
 	<div class="home-text-left">
 		<h1 th:text="#{home.welcome}"></h1>
 
@@ -14,15 +11,9 @@
 		<button th:text="#{character.inventory}"></button>
 	</div>
 	<div class="home-text-right">
-		Level: <span id="charLvl" th:text="${character.getStats().getLevel()}"></span><br/>
-		HP: <span id="charCurrentHp" th:text="${character.getStats().getCurrentHitpoints()}"></span>/<span
-			id="charHp" th:text="${character.getStats().getHitpoints()}"></span><br/>
-		XP: 1083/1200<br/>
-		<img style="height: 350px;" th:src="@{/images/rpg-warrior.png}"/>
+		<div th:replace="fragments/character :: character"></div>
 	</div>
-
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"
-			integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-	<script src="../../js/main.js"></script>
+	<div th:replace="fragments/script :: script"></div>
+</div>
 </body>
 </html>

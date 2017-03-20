@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Proftaak</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>
-    <!--<link rel="stylesheet" type="text/css" href="../static/css/main.css" />-->
-    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+<head th:replace="fragments/head :: head">
 </head>
 <body>
 <div class="container">
@@ -17,34 +13,9 @@
 
     <!--th:if="${isCharacterAlive} == true and  ${isEnemyAlive} == true"-->
 
-    <div class="column fight-view">
-        <div class="contender">
-            <div class="stats">
-                <span th:text="#{character.level}"></span> <span id="charLvl" th:text="${character.getStats().getLevel()}"></span><br/>
-                <span th:text="#{character.hp}"></span> <span id="charCurrentHp" th:text="${character.getStats().getCurrentHitpoints()}"></span>/<span
-                    id="charHp" th:text="${character.getStats().getHitpoints()}"></span><br/>
-            </div>
-            <div class="battler">
-                <img style="max-height: 350px; width: 80%" th:src="@{/images/rpg-warrior.png}"/>
-                <!--<img th:src="@{/resources/images/Picture.png}" />-->
-            </div>
-            <input type="submit" th:value="#{battle.attack}" id="normal_attack"/>
-            <input type="submit" th:value="#{battle.special_attack}" id="special_attack"/>
-            <input type="submit" th:value="#{battle.heal}" id="heal"/>
-        </div>
+    <div th:replace="fragments/fight :: fight">
     </div>
-    <div class="column text-right">
-        <div class="contender">
-            <div class="stats">
-                <span th:text="#{character.level}"></span> <span id="enemyLvl" th:text="${enemy.getStats().getLevel()}"></span><br/>
-                <span th:text="#{character.hp}"></span> <span id="enemyCurrentHp" th:text="${enemy.getStats().getCurrentHitpoints()}"></span>/<span
-                    id="charHp" th:text="${enemy.getStats().getHitpoints()}"></span><br/>
-            </div>
-            <div class="battler" style="background-image: url('../images/rpg-wolf.png');">
-            </div>
-        </div>
-    </div>
-    <div class="column">
+    <div class="column" th:replace="fragments/inventory :: inventory">
         <div class="inventory">
             <h1 th:text="#{character.inventory}"></h1>
             <div class="row">
@@ -115,14 +86,9 @@
             </div>
         </div>
     </div>
-    <div class="messages-container">
-        <h2 th:text="#{battle.report}"></h2>
-        <div class="messages"></div>
-    </div>
+    <div th:replace="fragments/game_information :: info"></div>
 </div>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"
-        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-<script src="../../js/main.js"></script>
+<div th:replace="fragments/script :: script"></div>
 </body>
 </html>
 

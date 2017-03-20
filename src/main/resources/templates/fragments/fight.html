@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
+<head>
+    ...
+</head>
+<body>
+<div th:fragment="fight">
+    <div class="column fight-view">
+        <div class="contender">
+            <div class="stats">
+                <span th:text="#{character.level}"></span> <span id="charLvl" th:text="${character.getStats().getLevel()}"></span><br/>
+                <span th:text="#{character.hp}"></span> <span id="charCurrentHp" th:text="${character.getStats().getCurrentHitpoints()}"></span>/<span
+                    id="charHp" th:text="${character.getStats().getHitpoints()}"></span><br/>
+            </div>
+            <div class="battler" style="background-image: url('../images/rpg-warrior.png');">
+            </div>
+            <input type="submit" th:value="#{battle.attack}" id="normal_attack"/>
+            <input type="submit" th:value="#{battle.special_attack}" id="special_attack"/>
+            <input type="submit" th:value="#{battle.heal}" id="heal"/>
+        </div>
+    </div>
+    <div class="column text-right">
+        <div class="contender">
+            <div class="stats">
+                <span th:text="#{character.level}"></span> <span id="enemyLvl" th:text="${enemy.getStats().getLevel()}"></span><br/>
+                <span th:text="#{character.hp}"></span> <span id="enemyCurrentHp" th:text="${enemy.getStats().getCurrentHitpoints()}"></span>/<span
+                    id="charHp" th:text="${enemy.getStats().getHitpoints()}"></span><br/>
+            </div>
+            <div class="battler" style="background-image: url('../images/rpg-giant.png');">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
