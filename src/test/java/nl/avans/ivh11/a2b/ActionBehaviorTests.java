@@ -6,7 +6,14 @@ import nl.avans.ivh11.a2b.domain.battle.SpecialAttack;
 import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.domain.character.Elf;
 import nl.avans.ivh11.a2b.domain.character.Troll;
+import nl.avans.ivh11.a2b.domain.character.state.NormalState;
+import nl.avans.ivh11.a2b.domain.enemy.Builder;
+import nl.avans.ivh11.a2b.domain.enemy.Enemy;
+import nl.avans.ivh11.a2b.domain.enemy.EnemyBuilder;
+import nl.avans.ivh11.a2b.domain.enemy.EnemyBuilderDirector;
+import nl.avans.ivh11.a2b.domain.usable.EquipmentFactory;
 import nl.avans.ivh11.a2b.domain.usable.Inventory;
+import nl.avans.ivh11.a2b.domain.usable.Usable;
 import nl.avans.ivh11.a2b.domain.usable.UsableType;
 import nl.avans.ivh11.a2b.domain.util.EquipmentEnum;
 import nl.avans.ivh11.a2b.domain.util.Media;
@@ -14,6 +21,9 @@ import nl.avans.ivh11.a2b.domain.util.Stats;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -76,15 +86,23 @@ public class ActionBehaviorTests
 //    @Test
 //    public void performNormalAttack() {
 //        //Arrange
-//        Character elf = new Elf("Elf Opponent", new Stats());
-//        character.setActionBehavior(new NormalAttack());
-//        int oldHitpoints = elf.getCurrentHitpoints();
+//        this.character.setActionBehavior(new NormalAttack());
 //
-//        //Act
-//        character.performAction(elf);
+//        List<Usable> loot = new ArrayList<>();
+//        loot.add(new EquipmentFactory().createUsable(UsableType.EQUIPMENT_BODY, this.character.getStats().getLevel()));
+//
+//        Builder builder = new EnemyBuilder();
+//        EnemyBuilderDirector builderDirector = new EnemyBuilderDirector(builder);
+//        Enemy enemy = builderDirector.createEnemy("Angry Snake", "A very angry snake", new NormalAttack(), new Stats(), loot);
+//
+//        System.out.println(this.character.getActionBehavior().toString());
+//
+//        // Act
+//        this.character.performAction(enemy);
+//        int oldHitpoints = enemy.getCurrentHitpoints();
 //
 //        //Assert
-//        assertEquals(oldHitpoints - 10, elf.getCurrentHitpoints());
+//        assertEquals(oldHitpoints - 10, enemy.getCurrentHitpoints());
 //    }
 //
 //    /**

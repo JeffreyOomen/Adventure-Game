@@ -16,7 +16,7 @@ public class NormalState extends CharacterState
     private volatile static NormalState uniqueInstance;
 
     // prevent instantiating through constructor
-    public NormalState() {}
+    private NormalState() {}
 
     /**
      * Creates a Singleton instance to prevent multiple objects

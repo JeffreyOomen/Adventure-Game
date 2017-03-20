@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
@@ -100,6 +101,15 @@ public class OpponentServiceImpl implements OpponentService
     @Transactional(readOnly = true)
     public Character findCharacterById(long id) {
         return characterRepository.findOne(id);
+    }
+
+    /**
+     * Find all enemies
+     * @return a List of Enemy's
+     */
+    @Transactional
+    public List<Enemy> findAllEnemies() {
+        return (List<Enemy>) enemyRepository.findAll();
     }
 
     /**

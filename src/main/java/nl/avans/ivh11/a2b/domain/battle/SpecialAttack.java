@@ -11,9 +11,8 @@ public class SpecialAttack implements ActionBehavior
 {
     /**
      * Attack the enemy with a special attack
-     *
-     * @param attacker
-     * @param defender
+     * @param attacker the Opponent which attacks the other Opponent
+     * @param defender the Opponent which is being attacked by the other Opponent
      */
     public String action(Opponent attacker, Opponent defender) {
 
@@ -31,7 +30,7 @@ public class SpecialAttack implements ActionBehavior
             if (!defender.isAlive()) {
                 return "You have WON, " + attacker.getName() + " !!!";
             } else {
-                return attacker.getName() + " attacked " + defender.getName() + " with " + damage + " damage!";
+                return attacker.getName() + " did a special attack on " + defender.getName() + " with " + damage + " damage!";
             }
         }
 

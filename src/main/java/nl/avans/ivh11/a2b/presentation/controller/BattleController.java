@@ -12,8 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-
 @Controller
 public class BattleController
 {
@@ -41,21 +39,33 @@ public class BattleController
         this.enemy = opponentService.findEnemyById(1L);
 
         // Start new battle
-        battleService.startBattle(character, enemy);
+        battleService.startBattle(this.character, this.enemy);
 
-        uiModel.addAttribute("character", character);
-        uiModel.addAttribute("enemy", enemy);
+        uiModel.addAttribute("character", this.character);
+        uiModel.addAttribute("enemy", this.enemy);
 
         return "battle";
     }
 
     /**
+     * Ends a battle between a Character and an Enemy
+     * @param uiModel the model which contains battle information
+     * @return A view
+     */
+    @RequestMapping(value = "/battle/end", method = RequestMethod.GET)
+    public String endBattle(Model uiModel) {
+        uiModel.addAttribute("character", this.character);
+        uiModel.addAttribute("enemy", this.enemy);
+
+        return "home";
+    }
+
+    /**
      * Executes a battle event with a normal attack for the Character
      */
-    @RequestMapping(value = "/battle/normal_attack", method = RequestMethod.POST)
+    @RequestMapping(value = "/battle/normalAttack", method = RequestMethod.POST)
     @ResponseBody
     public BattleModel attack() {
-        System.out.println("Controller attack method called");
         this.battleService.attack();
         return this.battleReport();
     }
@@ -63,7 +73,7 @@ public class BattleController
     /**
      * Executes a battle event with a special attack for the Character
      */
-    @RequestMapping(value = "/battle/special_attack", method = RequestMethod.POST)
+    @RequestMapping(value = "/battle/specialAttack", method = RequestMethod.POST)
     @ResponseBody
     public BattleModel specialAttack() {
         this.battleService.specialAttack();

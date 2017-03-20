@@ -16,15 +16,15 @@ public class Heal implements ActionBehavior
 {
     /**
      * Heal Character
-     * @param character the current Character
-     * @param enemy the Character's enemy
+     * @param attacker the current Character
+     * @param defender the Character's enemy
      * @return The action result
      */
-    public String action(Opponent character, Opponent enemy) {
+    public String action(Opponent attacker, Opponent defender) {
 
-        Character c = (Character) character;
+        Character c = (Character) attacker;
 
-        if (character.isAlive() && enemy.isAlive()) {
+        if (c.isAlive() && c.isAlive()) {
 
             Inventory inventory = c.getInventory();
 
@@ -40,7 +40,7 @@ public class Heal implements ActionBehavior
                 for(Usable u : usables) {
                     if(u.getType() == UsableType.POTION_HEAL) {
                         // heal potion found in inventory - use usable on character
-                        u.use((Character) character);
+                        u.use(c);
                         message = c.getName() + " healed!";
 
                         // Determine heal amount
@@ -57,7 +57,7 @@ public class Heal implements ActionBehavior
             }
             return message;
         }
-        return "Your opponent " + enemy.getName() + " already died...";
+        return "Your opponent " + defender.getName() + " already died...";
     }
 
 }

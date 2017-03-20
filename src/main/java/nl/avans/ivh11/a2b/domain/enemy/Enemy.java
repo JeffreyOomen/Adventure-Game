@@ -124,4 +124,12 @@ public class Enemy extends Opponent
             this.stats.setCurrentHitpoints(this.stats.getHitpoints());
         }
     }
+
+    /**
+     * Gets the Current Hitpoints amount
+     * @return the Current Hitpoints amount
+     */
+    public int getCurrentHitpoints() {
+        return this.stats.getCurrentHitpoints();
+    }
 }

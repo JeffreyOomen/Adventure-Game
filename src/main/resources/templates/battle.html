@@ -12,25 +12,35 @@
     <div class="column fight-view">
         <div class="contender">
             <div class="stats">
+<<<<<<< HEAD
                 <h3 th:text="${character.getName()}">Name</h3>
                 Level: <span id="charLvl" th:text="${character.getStats().getLevel()}"></span><br/>
                 HP: <span id="charCurrentHp" th:text="${character.getStats().getCurrentHitpoints()}"></span>/<span
+=======
+                <span th:text="#{character.level}"></span> <span id="charLvl" th:text="${character.getStats().getLevel()}"></span><br/>
+                <span th:text="#{character.hp}"></span> <span id="charCurrentHp" th:text="${character.getStats().getCurrentHitpoints()}"></span>/<span
+>>>>>>> 69a07cdbf7ea2eceef63ce2e07933b337b5bde2a
                     id="charHp" th:text="${character.getStats().getHitpoints()}"></span><br/>
             </div>
             <div class="battler">
                 <img style="max-height: 350px; width: 80%" th:src="@{/images/rpg-warrior.png}"/>
             </div>
-            <input type="submit" value="Attack" id="normal_attack"/>
-            <input type="submit" value="Special Attack" id="special_attack"/>
-            <input type="submit" value="Heal" id="heal"/>
+            <input type="submit" th:value="#{battle.attack}" id="normal_attack"/>
+            <input type="submit" th:value="#{battle.special_attack}" id="special_attack"/>
+            <input type="submit" th:value="#{battle.heal}" id="heal"/>
         </div>
     </div>
     <div class="column text-right">
         <div class="contender">
             <div class="stats">
+<<<<<<< HEAD
                 <h3 th:text="${enemy.getName()}">Name</h3>
                 Level: <span id="enemyLvl" th:text="${enemy.getStats().getLevel()}"></span><br/>
                 HP: <span id="enemyCurrentHp" th:text="${enemy.getStats().getCurrentHitpoints()}"></span>/<span
+=======
+                <span th:text="#{character.level}"></span> <span id="enemyLvl" th:text="${enemy.getStats().getLevel()}"></span><br/>
+                <span th:text="#{character.hp}"></span> <span id="enemyCurrentHp" th:text="${enemy.getStats().getCurrentHitpoints()}"></span>/<span
+>>>>>>> 69a07cdbf7ea2eceef63ce2e07933b337b5bde2a
                     id="charHp" th:text="${enemy.getStats().getHitpoints()}"></span><br/>
             </div>
             <div class="battler" style="background-image: url('../images/rpg-wolf.png');">
@@ -39,14 +49,84 @@
     </div>
     <div class="column">
         <div class="inventory">
+<<<<<<< HEAD
             <h1>Inventory</h1>
             <ul th:each="usable : ${character.getInventory().getUsables()}">
                 <li th:class="${usable.getType()}" th:text="${usable.getName()}">Name</li>
             </ul>
+=======
+            <h1 th:text="#{character.inventory}"></h1>
+            <div class="row">
+                <h2 style="padding-left: 15px;" th:text="#{character.inventory.equipment}"></h2>
+                <div class="equipment">
+                    <div class="column">
+                        <div class="item-container">
+                            <div class="item">
+                                <div class="item-image" style="background-image: url('../images/rpg-sword.png');">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="item-container">
+                            <div class="item">
+                                <div class="item-image" style="background-image: url('../images/rpg-sword.png');">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="item-container">
+                            <div class="item">
+                                <div class="item-image" style="background-image: url('../images/rpg-sword.png');">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="item-container">
+                            <div class="item">
+                                <div class="item-image" style="background-image: url('../images/rpg-sword.png');">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="potions">
+                    <h2 style="padding-left: 15px;" th:text="#{character.inventory.potions}"></h2>
+                    <div class="column">
+                        <div class="item-container">
+                            <div class="item">
+                                <div class="item-image" style="background-image: url('../images/rpg-potion.png');">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="item-container">
+                            <div class="item">
+                                <div class="item-image" style="background-image: url('../images/rpg-potion.png');">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="item-container">
+                            <div class="item">
+                                <div class="item-image" style="background-image: url('../images/rpg-potion.png');">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+>>>>>>> 69a07cdbf7ea2eceef63ce2e07933b337b5bde2a
         </div>
     </div>
     <div class="messages-container">
-        <h2>Game information</h2>
+        <h2 th:text="#{battle.report}"></h2>
         <div class="messages"></div>
     </div>
 </div>
