@@ -13,9 +13,12 @@ import java.util.List;
 public class EnemyBuilder implements Builder {
     private Enemy enemy;
 
-    public EnemyBuilder() {
-        this.enemy = new Enemy();
-    }
+    /**
+     * With this method, more than one Enemy object can be made with
+     * the same EnemyBuilder
+     * @param enemy an newly created enemy object
+     */
+    public void setEnemy(Enemy enemy) { this.enemy = enemy; }
 
     @Override
     public void setName(String name) {

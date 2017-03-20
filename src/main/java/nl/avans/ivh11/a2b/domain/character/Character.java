@@ -14,6 +14,7 @@ import nl.avans.ivh11.a2b.domain.util.*;
 import nl.avans.ivh11.a2b.domain.usable.Equipment;
 
 import javax.persistence.*;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -298,5 +299,12 @@ public abstract class Character extends Opponent
      */
     public void setState(CharacterState state) {
         this.currentState = state;
+    }
+
+    /**
+     * Bring the character back to live
+     */
+    public void regenerate() {
+        this.stats.setCurrentHitpoints(this.stats.getHitpoints());
     }
 }

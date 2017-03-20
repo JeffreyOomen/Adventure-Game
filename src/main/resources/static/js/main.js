@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     /* handle heal */
     $("#start_battle").click(function() {
-        window.location.href = "/battle";
+        window.location.href = "/start";
     });
 
     /* handle normal attack */
@@ -27,6 +27,11 @@ $(document).ready(function () {
         });
     });
 
+    /* handle regenerating the character */
+    $("#regenerate_character").click(function() {
+        window.location.href = "/doRegenerate";
+    });
+
     /**
      * Show battle report the the client
      * @param data
@@ -43,9 +48,10 @@ $(document).ready(function () {
         if (!data.isCharacterAlive && !data.isEnemyAlive) {
             alert("You both lost...");
         } else if (!data.isCharacterAlive) {
+            window.location.href = "/regenerate";
             alert("You lost!");
         } else if (!data.isEnemyAlive) {
-            window.location.href = "/battle/end";
+            window.location.href = "/quit";
             alert("You won!");
         }
     };

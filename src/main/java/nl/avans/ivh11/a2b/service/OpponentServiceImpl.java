@@ -15,15 +15,15 @@ import nl.avans.ivh11.a2b.domain.usable.EquipmentFactory;
 import nl.avans.ivh11.a2b.domain.usable.Usable;
 import nl.avans.ivh11.a2b.domain.usable.UsableType;
 import nl.avans.ivh11.a2b.domain.util.Stats;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
-@RequestMapping("/")
+@Service("opponentService")
+@Repository
 public class OpponentServiceImpl implements OpponentService
 {
     private CharacterRepository characterRepository;
@@ -61,6 +61,7 @@ public class OpponentServiceImpl implements OpponentService
 
         // Setup non-decorated Character
         Character ch = new Dwarf("Jeffrey Oomen", new Stats());
+        ch.getStats().setCurrentHitpoints(10);
         ch.getStats().setStrength(40);
         ch.getStats().setStrengthAccuracy(100);
         ch.setActionBehavior(new NormalAttack());
@@ -76,9 +77,16 @@ public class OpponentServiceImpl implements OpponentService
         stats.setDefense(5);
         stats.setDefenseAccuracy(10);
         ArrayList<Usable> lootList = new ArrayList<>();
-        Enemy enemy = enemyDirector.createEnemy("Bram", "End boss", new SpecialAttack(), stats, lootList);
+        Enemy enemy1 = enemyDirector.createEnemy("Bram", "End boss", new SpecialAttack(), stats, lootList);
+        Enemy enemy2 = enemyDirector.createEnemy("Gerrie", "Super boss", new SpecialAttack(), new Stats(), null);
 
-        enemy = enemyRepository.save(enemy);
+        stats.setHitpoints(300);
+        stats.setCurrentHitpoints(300);
+        Enemy enemy3 = enemyDirector.createEnemy("Hans", "Weak boss", new SpecialAttack(), new Stats(), null);
+
+        enemyRepository.save(enemy1);
+        enemyRepository.save(enemy2);
+        enemyRepository.save(enemy3);
     }
 
     /**
@@ -108,5 +116,13 @@ public class OpponentServiceImpl implements OpponentService
     @Transactional(readOnly = true)
     public Enemy findEnemyById(long id) {
         return enemyRepository.findOne(id);
+    }
+
+    /**
+     * Saves the state of a Character
+     * @param character the Character to be saved
+     */
+    public void saveCharacter(Character character) {
+        this.characterRepository.save(character);
     }
 }

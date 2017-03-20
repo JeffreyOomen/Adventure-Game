@@ -27,13 +27,13 @@ public class SpecialAttack implements ActionBehavior
             ) * 1.20);
             defender.takeDamage(damage);
 
-            if (!defender.isAlive()) {
-                return "You have WON, " + attacker.getName() + " !!!";
-            } else {
-                return attacker.getName() + " did a special attack on " + defender.getName() + " with " + damage + " damage!";
-            }
+            return attacker.getName() + " did a special attack on " + defender.getName() + " with " + damage + " damage!";
         }
 
-        return "Your opponent " + defender.getName() + " already died...";
+        if (!defender.isAlive()) {
+            return attacker.getName() + " has won the battle";
+        } else {
+            return attacker.getName() + " has lost the battle";
+        }
     }
 }

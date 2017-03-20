@@ -33,7 +33,7 @@ public class Enemy extends Opponent
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
 
-    @OneToMany()
+    @OneToMany
     private List<Usable> loot;
 
     @Transient
