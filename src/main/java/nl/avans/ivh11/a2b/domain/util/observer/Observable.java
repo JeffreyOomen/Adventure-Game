@@ -1,5 +1,7 @@
 package nl.avans.ivh11.a2b.domain.util.observer;
 
+import java.util.List;
+
 /**
  * Observable interface
  */
@@ -9,16 +11,23 @@ public interface Observable
      * Attach an observer to the subject
      * @param observer
      */
-    public void attach(Observer observer);
+    void attach(Observer observer);
 
     /**
      * Detach observer from the subject
      * @param observer
      */
-    public void detach(Observer observer);
+    void detach(Observer observer);
 
     /**
      * Notify all observers
+     * @param messages
      */
-    public void notifyObservers(String message);
+    void notifyObservers(List<String> messages);
+
+    /**
+     * Notify all observers
+     * @param message
+     */
+    void notifyObservers(String message);
 }

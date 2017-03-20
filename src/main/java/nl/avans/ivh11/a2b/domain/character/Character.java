@@ -16,6 +16,7 @@ import nl.avans.ivh11.a2b.domain.usable.Equipment;
 import javax.persistence.*;
 import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -46,7 +47,6 @@ public abstract class Character extends Opponent
     @Transient
     protected Inventory inventory;
 
-    @Transient
     protected UsableType attackStyle;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
@@ -174,25 +174,12 @@ public abstract class Character extends Opponent
     }
 
     /**
-     * Adds the given hitpoints to the currentHitpoints
-     * @param hitPoints int
-     */
-    public void heal(int hitPoints) {
-        int newHitpoints = this.getCurrentHitpoints() + hitPoints;
-        if(newHitpoints <= this.getHitpoints()) {
-            this.stats.setCurrentHitpoints(newHitpoints);
-        } else {
-            this.stats.setCurrentHitpoints(this.stats.getHitpoints());
-        }
-    }
-
-    /**
      * Receive an incoming XP bounty
      */
     public void receiveXp(int earnedXp) {
-        this.stats.processXp(this.getAttackStyle(), earnedXp);
+        List<String> messages = this.stats.processXp(this.getAttackStyle(), earnedXp);
+        notifyObservers(messages);
     }
-
 
     /**
      * Adds a Usable item to the Character's Inventory

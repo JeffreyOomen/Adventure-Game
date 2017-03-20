@@ -48,11 +48,11 @@ $(document).ready(function () {
         if (!data.isCharacterAlive && !data.isEnemyAlive) {
             alert("You both lost...");
         } else if (!data.isCharacterAlive) {
-            window.location.href = "/regenerate";
             alert("You lost!");
+            window.location.href = "/regenerate";
         } else if (!data.isEnemyAlive) {
-            window.location.href = "/quit";
             alert("You won!");
+            window.location.href = "/quit";
         }
     };
 });

@@ -77,6 +77,10 @@ public class BattleController
             // remove enemy from the possible enemy list
             this.possibleEnemies.remove(this.enemy);
 
+            // give the character xp
+            this.character.receiveXp(this.enemy.getHitpoints());
+            this.opponentService.saveCharacter(this.character);
+
             return "home";
         }
 
@@ -123,6 +127,13 @@ public class BattleController
         battleReport += battleService.getBattle().getNextMessage();
         battleReport += "<br/><br/>";
         battleReport += battleService.getBattle().getNextMessage();
+
+        List<String> messages = battleService.getBattle().getMessages();
+
+        for (String message: messages) {
+            battleReport += "<br/><br/>";
+            battleReport += message;
+        }
 
         // Return view model as JSON
         return new BattleModel(

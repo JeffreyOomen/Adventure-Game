@@ -42,14 +42,12 @@ public class OpponentServiceImpl implements OpponentService
         this.characterRepository = characterRepository;
         this.equipmentRepository = equipmentRepository;
         this.enemyRepository = enemyRepository;
+        this.demoEquipment();
         this.demoOpponents();
     }
 
-    /**
-     * Setup Equipment, Character and Enemy for the demo
-     */
     @Transactional
-    private void demoOpponents() {
+    private void demoEquipment() {
         // Setup Equipment
         EquipmentFactory equipmentFactory = new EquipmentFactory();
         equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_HELMET, 10));
@@ -58,10 +56,16 @@ public class OpponentServiceImpl implements OpponentService
         equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_BOOTS, 10));
         equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_GLOVES, 10));
         equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_WEAPON_SWORD, 10));
+    }
 
+    /**
+     * Setup Equipment, Character and Enemy for the demo
+     */
+    @Transactional
+    private void demoOpponents() {
         // Setup non-decorated Character
         Character ch = new Dwarf("Jeffrey Oomen", new Stats());
-        ch.getStats().setCurrentHitpoints(10);
+        ch.mountEquipment(UsableType.EQUIPMENT_WEAPON_SWORD, equipmentRepository.findOne(6L));
         ch.getStats().setStrength(40);
         ch.getStats().setStrengthAccuracy(100);
         ch.setActionBehavior(new NormalAttack());

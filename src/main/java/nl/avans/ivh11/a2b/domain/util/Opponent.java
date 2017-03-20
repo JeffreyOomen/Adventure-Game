@@ -32,6 +32,12 @@ public abstract class Opponent implements Observable
     private List<Observer> observers = new ArrayList<>();
 
     /**
+     * Performs an action against the Opponent
+     * @param opponent the Character's Opponent
+     */
+    public abstract void performAction(Opponent opponent);
+
+    /**
      * Take damage as result van an enemy attack
      * @param hit int damage to take
      */
@@ -63,21 +69,25 @@ public abstract class Opponent implements Observable
     }
 
     /**
-     * Performs an action against the Opponent
-     * @param opponent the Character's Opponent
-     */
-    public abstract void performAction(Opponent opponent);
-
-    /**
      * Adds the given hitpoints to the currentHitpoints
      * @param hitPoints int
      */
-    public abstract void heal(int hitPoints);
+    public void heal(int hitPoints) {
+        int newHitpoints = this.stats.getCurrentHitpoints() + hitPoints;
+        if(newHitpoints <= this.stats.getHitpoints()) {
+            this.stats.setCurrentHitpoints(newHitpoints);
+        } else {
+            this.stats.setCurrentHitpoints(this.stats.getHitpoints());
+        }
+    }
 
     /**
-     * Receive an incoming XP bounty
+     * Gets the maximum hitpoints of the Opponent
+     * @return
      */
-    public abstract void receiveXp(int xp);
+    public int getHitpoints() {
+        return this.stats.getHitpoints();
+    }
 
     /*
      * ################ Observer Pattern ################
@@ -112,6 +122,18 @@ public abstract class Opponent implements Observable
     public void notifyObservers(String message) {
         for (Observer observer : this.observers) {
             observer.update(message);
+        }
+    }
+
+    /**
+     * Notify all attached Observers and
+     * push message
+     * @param messages
+     */
+    @Override
+    public void notifyObservers(List<String> messages) {
+        for (Observer observer : this.observers) {
+            observer.update(messages);
         }
     }
 }
