@@ -1,9 +1,13 @@
 package nl.avans.ivh11.a2b.presentation.controller;
 
+import nl.avans.ivh11.a2b.datastorage.character.CharacterRepository;
 import nl.avans.ivh11.a2b.domain.auth.User;
+import nl.avans.ivh11.a2b.domain.character.Character;
+import nl.avans.ivh11.a2b.domain.character.CharacterFactory;
+import nl.avans.ivh11.a2b.presentation.model.RegisterModel;
+import nl.avans.ivh11.a2b.service.RegistrationValidator;
 import nl.avans.ivh11.a2b.service.SecurityService;
 import nl.avans.ivh11.a2b.service.UserService;
-import nl.avans.ivh11.a2b.service.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +15,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.transaction.Transactional;
 
 /**
  * Authentication Controller
@@ -22,30 +28,38 @@ public class AuthController {
     private UserService userService;
 
     @Autowired
+    private CharacterRepository characterRepository;
+
+    @Autowired
     private SecurityService securityService;
 
     @Autowired
-    private UserValidator userValidator;
+    private RegistrationValidator registrationValidator;
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String registration(Model model) {
-        model.addAttribute("userForm", new User());
+        model.addAttribute("registerForm", new RegisterModel());
 
-        return "register";
+        return "auth/register";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
-        userValidator.validate(userForm, bindingResult);
+    public String registration(@ModelAttribute("registerForm") RegisterModel registerForm, BindingResult bindingResult, Model model) {
+        registrationValidator.validate(registerForm, bindingResult);
 
         System.out.println("Register has errors: " + bindingResult.hasErrors());
         if (bindingResult.hasErrors()) {
-            return "register";
+            return "auth/register";
         }
 
-        userService.save(userForm);
+        User user = new User();
+        user.setUsername(registerForm.getUsername());
+        user.setPassword(registerForm.getPassword());
+        Character character = CharacterFactory.getCharacter(registerForm.getCharacterName(), registerForm.getCharacterRace(), registerForm.getCharacterSpecialization());
+        user.setCharacter(character);
+        userService.save(user);
 
-        securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
+        securityService.autologin(registerForm.getUsername(), registerForm.getPasswordConfirm());
 
         return "redirect:/battle";
     }
@@ -62,9 +76,4 @@ public class AuthController {
 
         return "auth/login";
     }
-//
-//    @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
-//    public String welcome(Model model) {
-//        return "welcome";
-//    }
 }

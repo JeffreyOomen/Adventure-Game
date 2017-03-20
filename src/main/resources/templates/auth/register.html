@@ -10,8 +10,8 @@
 		<h1>Register</h1>
 
         <!--<span th:each="error : ${errors}" th:text="error"></span>-->
-		<form method="POST" class="form-signin" th:object="${userForm}">
-			<h2 class="form-signin-heading">Create your account</h2>
+		<form method="post" th:object="${registerForm}">
+			<h2>Create your account</h2>
 				<div>
                     <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
 					<input th:field="*{username}" type="text" name="username" placeholder="Username"
@@ -30,8 +30,15 @@
 				</div>
 
                 <div>
-                    <label for="race">Select Race:</label>
-                    <select name="race" id="race">
+                    <span th:if="${#fields.hasErrors('characterName')}" th:errors="*{characterName}"></span>
+                    <input th:field="*{characterName}" type="text" name="characterName"
+                           placeholder="Character name" />
+                </div>
+
+                <div>
+                    <span th:if="${#fields.hasErrors('characterRace')}" th:errors="*{characterRace}"></span>
+                    <label for="characterRace">Select Race:</label>
+                    <select th:field="*{characterRace}" name="characterRace" id="characterRace">
                         <option value="dwarf">Dwarf</option>
                         <option value="elf">Elf</option>
                         <option value="troll">Troll</option>
@@ -39,8 +46,9 @@
                 </div>
                 <br />
                 <div>
-                    <label for="specialization">Select Specialization:</label>
-                    <select name="specialization" id="specialization">
+                    <span th:if="${#fields.hasErrors('characterSpecialization')}" th:errors="*{characterSpecialization}"></span>
+                    <label for="characterSpecialization">Select Specialization:</label>
+                    <select th:field="*{characterSpecialization}" name="characterSpecialization" id="characterSpecialization">
                         <option value="archer">Archer</option>
                         <option value="mage">Mage</option>
                         <option value="warrior">Warrior</option>
