@@ -38,6 +38,7 @@ public class AuthController {
     public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
         userValidator.validate(userForm, bindingResult);
 
+        System.out.println("Register has errors: " + bindingResult.hasErrors());
         if (bindingResult.hasErrors()) {
             return "register";
         }
