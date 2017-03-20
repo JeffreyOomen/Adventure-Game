@@ -12,6 +12,7 @@ import nl.avans.ivh11.a2b.domain.usable.Usable;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 @Getter
@@ -19,14 +20,14 @@ import java.util.ArrayList;
 @NoArgsConstructor
 public class BattleModel {
 
-    private ArrayList<Usable> inventory;
+    private List<Usable> inventory;
     private Boolean isCharacterAlive;
     private Boolean isEnemyAlive;
     private Stats characterStats;
     private Stats enemyStats;
     private String message;
 
-    public BattleModel(ArrayList<Usable> inventory, Boolean isCharacterAlive, Boolean isEnemyAlive, Stats characterStats, Stats enemyStats, String message) {
+    public BattleModel(List<Usable> inventory, Boolean isCharacterAlive, Boolean isEnemyAlive, Stats characterStats, Stats enemyStats, String message) {
         this.inventory = inventory;
         this.isCharacterAlive = isCharacterAlive;
         this.isEnemyAlive = isEnemyAlive;

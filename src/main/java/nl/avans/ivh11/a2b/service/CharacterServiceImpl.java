@@ -4,6 +4,7 @@ package nl.avans.ivh11.a2b.service;
 import nl.avans.ivh11.a2b.datastorage.character.CharacterRepository;
 import nl.avans.ivh11.a2b.datastorage.character.EquipmentRepository;
 import nl.avans.ivh11.a2b.datastorage.usable.MediaRepository;
+import nl.avans.ivh11.a2b.datastorage.usable.UsableRepository;
 import nl.avans.ivh11.a2b.domain.battle.NormalAttack;
 import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.domain.character.Dwarf;
@@ -23,6 +24,7 @@ public class CharacterServiceImpl implements CharacterService
 {
     private CharacterRepository characterRepository;
     private EquipmentRepository equipmentRepository;
+    private UsableRepository usableRepository;
     private MediaRepository mediaRepository;
 
     private MediaService mediaService;
@@ -38,11 +40,13 @@ public class CharacterServiceImpl implements CharacterService
     public CharacterServiceImpl(CharacterRepository characterRepo,
                                 EquipmentRepository equipmentRepo,
                                 MediaRepository mediaRepository,
-                                MediaService mediaService) {
+                                MediaService mediaService,
+                                UsableRepository usableRepository) {
         this.characterRepository = characterRepo;
         this.equipmentRepository = equipmentRepo;
         this.mediaRepository = mediaRepository;
         this.mediaService = mediaService;
+        this.usableRepository = usableRepository;
 
         // Start demo
         demoCharacter();
@@ -72,19 +76,17 @@ public class CharacterServiceImpl implements CharacterService
         EquipmentFactory equipmentFactory = new EquipmentFactory();
         PotionFactory potionFactory = new PotionFactory();
         // Necessary to save equipment item for id
-        Usable usable1 =  equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_HELMET, 10));
-        Usable usable2 =  equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_BODY, 10));
-        Usable usable3 =  equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_WEAPON_SWORD, 10));
-        Usable usable4 =  equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_WEAPON_SWORD, 10));
-        Usable usable5 =  equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_WEAPON_SWORD, 10));
-        Usable usable6 =  equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_WEAPON_SWORD, 10));
+        Usable usable1 =  usableRepository.save(equipmentFactory.createUsable(UsableType.EQUIPMENT_HELMET, 10));
+        Usable usable2 =  usableRepository.save(equipmentFactory.createUsable(UsableType.EQUIPMENT_BODY, 10));
+        Usable usable3 =  usableRepository.save(equipmentFactory.createUsable(UsableType.EQUIPMENT_WEAPON_SWORD, 10));
 
+        Usable usable4 = usableRepository.save(potionFactory.createUsable(UsableType.POTION_HEAL, 10));
+
+        // Add usables to inventory
         this.addInventoryItem(c, usable1);
         this.addInventoryItem(c, usable2);
         this.addInventoryItem(c, usable3);
         this.addInventoryItem(c, usable4);
-        this.addInventoryItem(c, usable5);
-        this.addInventoryItem(c, usable6);
 
         characterRepository.save(c);
 

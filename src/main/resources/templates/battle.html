@@ -47,8 +47,11 @@
     <div class="column">
         <div class="inventory">
             <h1>Inventory</h1>
-            <ul>
-                <li></li>
+            <ul th:each="usable : ${character.getInventory().getInventory()}">
+                <li th:text="${usable.getName()}">Name</li>
+                <!--<tr th:each="writer : ${writers}">-->
+                    <!--<td th:text="${writer.name}">Name</td>-->
+                <!--</tr>-->
             </ul>
             <!--<div class="row">-->
                 <!--<h2 style="padding-left: 15px;">Equipment</h2>-->
