@@ -2,6 +2,7 @@ package nl.avans.ivh11.a2b.domain.enemy;
 
 import nl.avans.ivh11.a2b.domain.battle.ActionBehavior;
 import nl.avans.ivh11.a2b.domain.usable.Usable;
+import nl.avans.ivh11.a2b.domain.util.Media;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 
 import java.util.List;
@@ -17,8 +18,9 @@ public class EnemyBuilderDirector {
         this.builder = builder;
     }
 
-    public Enemy createEnemy(String name, String description, ActionBehavior actionBehavior, Stats stats, List<Usable> loot) {
+    public Enemy createEnemy(String name, Media media, String description, ActionBehavior actionBehavior, Stats stats, List<Usable> loot) {
         this.builder.setName(name);
+        this.builder.setMedia(media);
         this.builder.setDescription(description);
         this.builder.setActionBehaviour(actionBehavior);
         this.builder.setStats(stats);

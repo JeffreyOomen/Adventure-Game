@@ -60,9 +60,10 @@ public abstract class Character extends Opponent
      * @param name the name of the Character
      * @param stats
      */
-    public Character(String name, Stats stats) {
+    public Character(String name, Stats stats, Media media) {
         this.name = name;
         this.stats = stats;
+        this.media = media;
         this.equipment = new HashMap<>();
         this.currentState = new NormalState();
         this.inventory = new Inventory();

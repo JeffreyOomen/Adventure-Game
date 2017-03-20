@@ -3,6 +3,7 @@ package nl.avans.ivh11.a2b.service;
 import nl.avans.ivh11.a2b.datastorage.character.CharacterRepository;
 import nl.avans.ivh11.a2b.datastorage.character.EquipmentRepository;
 import nl.avans.ivh11.a2b.datastorage.enemy.EnemyRepository;
+import nl.avans.ivh11.a2b.datastorage.usable.MediaRepository;
 import nl.avans.ivh11.a2b.domain.battle.NormalAttack;
 import nl.avans.ivh11.a2b.domain.battle.SpecialAttack;
 import nl.avans.ivh11.a2b.domain.character.Character;
@@ -11,6 +12,7 @@ import nl.avans.ivh11.a2b.domain.enemy.Enemy;
 import nl.avans.ivh11.a2b.domain.enemy.EnemyBuilder;
 import nl.avans.ivh11.a2b.domain.enemy.EnemyBuilderDirector;
 import nl.avans.ivh11.a2b.domain.usable.*;
+import nl.avans.ivh11.a2b.domain.util.Media;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +27,7 @@ public class OpponentServiceImpl implements OpponentService
     private CharacterRepository characterRepository;
     private EnemyRepository enemyRepository;
     private EquipmentRepository equipmentRepository;
+    private MediaRepository mediaRepository;
 
     /**
      * Constructor
@@ -34,10 +37,12 @@ public class OpponentServiceImpl implements OpponentService
      */
     public OpponentServiceImpl(CharacterRepository characterRepository,
                                EnemyRepository enemyRepository,
-                               EquipmentRepository equipmentRepository) {
+                               EquipmentRepository equipmentRepository,
+                               MediaRepository mediaRepository) {
         this.characterRepository = characterRepository;
         this.equipmentRepository = equipmentRepository;
         this.enemyRepository = enemyRepository;
+        this.mediaRepository = mediaRepository;
         this.demoOpponents();
     }
 
@@ -56,15 +61,13 @@ public class OpponentServiceImpl implements OpponentService
         equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_WEAPON_SWORD, 10));
 
         // Setup non-decorated Character
-        Character ch = new Dwarf("Jeffrey Oomen", new Stats());
+        Character ch = new Dwarf("Jeffrey Oomen", new Stats(), null);
         ch.getStats().setStrength(40);
         ch.getStats().setStrengthAccuracy(100);
         ch.setActionBehavior(new NormalAttack());
         characterRepository.save(ch);
 
         Inventory inv = ch.getInventory();
-
-
 
         ch.getInventory().addUsable(equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_HELMET, 10)));
 
@@ -82,7 +85,9 @@ public class OpponentServiceImpl implements OpponentService
         stats.setDefense(5);
         stats.setDefenseAccuracy(10);
         ArrayList<Usable> lootList = new ArrayList<>();
-        Enemy enemy = enemyDirector.createEnemy("Bram", "End boss", new SpecialAttack(), stats, lootList);
+        // Find media image
+        Media media = mediaRepository.findOne(2L);
+        Enemy enemy = enemyDirector.createEnemy("Bram", media, "End boss", new SpecialAttack(), stats, lootList);
 
         enemy = enemyRepository.save(enemy);
     }

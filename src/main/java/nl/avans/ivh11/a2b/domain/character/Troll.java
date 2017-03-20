@@ -1,6 +1,7 @@
 package nl.avans.ivh11.a2b.domain.character;
 
 import lombok.NoArgsConstructor;
+import nl.avans.ivh11.a2b.domain.util.Media;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 
 import javax.persistence.Entity;
@@ -17,8 +18,8 @@ public class Troll extends Character
     private final static int DEFENSE_ACCURACY = 2;
     private final static int ARCHERY_ACCURACY = 5;
 
-    public Troll(String name, Stats stats) {
-        super(name, stats);
+    public Troll(String name, Stats stats, Media media) {
+        super(name, stats, media);
         this.description = "A Troll";
     }
 

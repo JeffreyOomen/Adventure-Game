@@ -21,6 +21,9 @@ public abstract class Opponent implements Observable
 
     protected String description;
 
+    @ManyToOne(cascade = CascadeType.MERGE)
+    protected Media media;
+
     @Lob
     protected ActionBehavior actionBehavior;
 

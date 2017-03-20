@@ -3,11 +3,13 @@ package nl.avans.ivh11.a2b.service;
 
 import nl.avans.ivh11.a2b.datastorage.character.CharacterRepository;
 import nl.avans.ivh11.a2b.datastorage.character.EquipmentRepository;
+import nl.avans.ivh11.a2b.datastorage.usable.MediaRepository;
 import nl.avans.ivh11.a2b.domain.battle.NormalAttack;
 import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.domain.character.Dwarf;
 import nl.avans.ivh11.a2b.domain.character.Troll;
 import nl.avans.ivh11.a2b.domain.usable.*;
+import nl.avans.ivh11.a2b.domain.util.Media;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,8 +22,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class CharacterServiceImpl implements CharacterService
 {
     private CharacterRepository characterRepository;
-//    private EnemyRepository enemyRepository;
     private EquipmentRepository equipmentRepository;
+    private MediaRepository mediaRepository;
+
+    private MediaService mediaService;
 
     private Character character; // current player
 
@@ -31,9 +35,14 @@ public class CharacterServiceImpl implements CharacterService
      * @param characterRepo
      */
     @Autowired
-    public CharacterServiceImpl(CharacterRepository characterRepo, EquipmentRepository equipmentRepo) {
+    public CharacterServiceImpl(CharacterRepository characterRepo,
+                                EquipmentRepository equipmentRepo,
+                                MediaRepository mediaRepository,
+                                MediaService mediaService) {
         this.characterRepository = characterRepo;
         this.equipmentRepository = equipmentRepo;
+        this.mediaRepository = mediaRepository;
+        this.mediaService = mediaService;
 
         // Start demo
         demoCharacter();
@@ -46,8 +55,13 @@ public class CharacterServiceImpl implements CharacterService
     private void demoCharacter() {
         System.out.println("character service impl aangeroepen");
 
+        // TODO: create a startup service for this later
+        // Persist all Media items (images)
+
+        Media media = mediaService.findById(1L);
+
         // Setup non-decorated Character
-        Character c = new Troll("Bramboo", new Stats());
+        Character c = new Troll("Bramboo", new Stats(), media);
         c.getStats().setStrength(40);
         c.getStats().setStrengthAccuracy(100);
         c.setActionBehavior(new NormalAttack());

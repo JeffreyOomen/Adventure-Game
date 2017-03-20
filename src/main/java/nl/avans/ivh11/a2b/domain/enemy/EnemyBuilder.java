@@ -2,6 +2,7 @@ package nl.avans.ivh11.a2b.domain.enemy;
 
 import nl.avans.ivh11.a2b.domain.battle.ActionBehavior;
 import nl.avans.ivh11.a2b.domain.usable.Usable;
+import nl.avans.ivh11.a2b.domain.util.Media;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 
 import java.util.List;
@@ -20,6 +21,11 @@ public class EnemyBuilder implements Builder {
     @Override
     public void setName(String name) {
         this.enemy.setName(name);
+    }
+
+    @Override
+    public void setMedia(Media media) {
+        this.enemy.setMedia(media);
     }
 
     @Override
