@@ -300,11 +300,4 @@ public abstract class Character extends Opponent
     public void setState(CharacterState state) {
         this.currentState = state;
     }
-
-    /**
-     * Bring the character back to live
-     */
-    public void regenerate() {
-        this.stats.setCurrentHitpoints(this.stats.getHitpoints());
-    }
 }

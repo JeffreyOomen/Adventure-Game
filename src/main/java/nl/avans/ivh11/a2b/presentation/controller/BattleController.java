@@ -44,9 +44,12 @@ public class BattleController
         // Initialize and assign character
         this.character = opponentService.findCharacterById(1L);
 
-        if (this.character.isAlive()) {
+        if (this.enemy == null || !this.enemy.isAlive() || this.character.isAlive()) {
             // Get random enemy from the list
             this.enemy = this.possibleEnemies.get(CustomRandom.getInstance().randomEnemy(this.possibleEnemies.size()));
+
+            // make sure a new battle always starts against an enemy with full hp
+            this.enemy.regenerate();
 
             // Start new battle
             battleService.startBattle(this.character, this.enemy);

@@ -32,23 +32,6 @@ public abstract class Opponent implements Observable
     private List<Observer> observers = new ArrayList<>();
 
     /**
-     * Performs an action against the Opponent
-     * @param opponent the Character's Opponent
-     */
-    public abstract void performAction(Opponent opponent);
-
-    /**
-     * Adds the given hitpoints to the currentHitpoints
-     * @param hitPoints int
-     */
-    public abstract void heal(int hitPoints);
-
-    /**
-     * Receive an incoming XP bounty
-     */
-    public abstract void receiveXp(int xp);
-
-    /**
      * Take damage as result van an enemy attack
      * @param hit int damage to take
      */
@@ -70,6 +53,35 @@ public abstract class Opponent implements Observable
     public boolean isAlive() {
         return this.stats.getCurrentHitpoints() > 0;
     }
+
+    /**
+     * Regenerate the Opponent, this means that the hitpoints will be reset
+     * to the maximum.
+     */
+    public void regenerate() {
+        this.stats.setCurrentHitpoints(this.stats.getHitpoints());
+    }
+
+    /**
+     * Performs an action against the Opponent
+     * @param opponent the Character's Opponent
+     */
+    public abstract void performAction(Opponent opponent);
+
+    /**
+     * Adds the given hitpoints to the currentHitpoints
+     * @param hitPoints int
+     */
+    public abstract void heal(int hitPoints);
+
+    /**
+     * Receive an incoming XP bounty
+     */
+    public abstract void receiveXp(int xp);
+
+    /*
+     * ################ Observer Pattern ################
+     */
 
     /**
      * Attach an Observer
