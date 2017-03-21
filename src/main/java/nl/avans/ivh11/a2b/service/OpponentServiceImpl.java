@@ -66,6 +66,7 @@ public class OpponentServiceImpl implements OpponentService
         // Setup non-decorated Character
         Character ch = new Dwarf("Jeffrey Oomen", new Stats());
         ch.mountEquipment(UsableType.EQUIPMENT_WEAPON_SWORD, equipmentRepository.findOne(6L));
+        ch.getStats().setCurrentHitpoints(5);
         ch.getStats().setStrength(40);
         ch.getStats().setStrengthAccuracy(100);
         ch.setActionBehavior(new NormalAttack());

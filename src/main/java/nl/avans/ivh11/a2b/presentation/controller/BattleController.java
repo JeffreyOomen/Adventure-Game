@@ -6,7 +6,6 @@ import nl.avans.ivh11.a2b.domain.util.CustomRandom;
 import nl.avans.ivh11.a2b.presentation.model.BattleModel;
 import nl.avans.ivh11.a2b.service.BattleService;
 import nl.avans.ivh11.a2b.service.OpponentService;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -133,6 +132,7 @@ public class BattleController
      */
     private void quit() {
         // remove enemy from the possible enemy list
+        // to prevent getting the same enemy
         this.possibleEnemies.remove(this.enemy);
 
         // give the character xp

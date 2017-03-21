@@ -45,6 +45,6 @@ public class CharacterController
             opponentService.saveCharacter(character);
         }
 
-        return "redirect:/start";
+        return "redirect:/home";
     }
 }
