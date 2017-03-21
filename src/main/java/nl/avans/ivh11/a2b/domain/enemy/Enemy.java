@@ -9,7 +9,6 @@ import nl.avans.ivh11.a2b.domain.util.observer.Observer;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import nl.avans.ivh11.a2b.domain.battle.ActionBehavior;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 
@@ -17,7 +16,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 
 /**
  * Represents an Enemy
@@ -33,7 +31,7 @@ public class Enemy extends Opponent
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
 
-    @OneToMany()
+    @OneToMany
     private List<Usable> loot;
 
     @Transient
@@ -99,30 +97,6 @@ public class Enemy extends Opponent
             }
         }
         return chosenDrop;
-    }
-
-    /**
-     * receiveXp
-     * currently based on enemy hitpoints
-     *
-     * @return int
-     */
-    public void receiveXp(int xp) {
-//        this.getStats().getHitpoints(); // TODO: bepalen hoe we dit doen
-    }
-
-    /**
-     * Adds the given hitpoints to the currentHitpoints
-     *
-     * @param hitPoints int
-     */
-    public void heal(int hitPoints) {
-        int newHitpoints = this.stats.getCurrentHitpoints() + hitPoints;
-        if (newHitpoints <= this.stats.getHitpoints()) {
-            this.stats.setCurrentHitpoints(newHitpoints);
-        } else {
-            this.stats.setCurrentHitpoints(this.stats.getHitpoints());
-        }
     }
 
     /**

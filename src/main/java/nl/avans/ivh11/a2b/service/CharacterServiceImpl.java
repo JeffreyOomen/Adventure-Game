@@ -99,6 +99,18 @@ public class CharacterServiceImpl implements CharacterService
             c.getInventory().addUsable(u);
         }
 
+        Equipment equipmentHelmet = (Equipment) equipmentFactory.createUsable(UsableType.EQUIPMENT_BODY, 10);
+        Equipment equipmentBody = (Equipment) equipmentFactory.createUsable(UsableType.EQUIPMENT_BODY, 10);
+        Equipment equipmentLegs = (Equipment) equipmentFactory.createUsable(UsableType.EQUIPMENT_LEGS, 10);
+        usableRepository.save(equipmentHelmet);
+        usableRepository.save(equipmentBody);
+        usableRepository.save(equipmentLegs);
+
+        // Test using gear
+        c.mountEquipment(UsableType.EQUIPMENT_HELMET, equipmentHelmet);
+        c.mountEquipment(UsableType.EQUIPMENT_BODY, equipmentBody);
+        c.mountEquipment(UsableType.EQUIPMENT_LEGS, equipmentLegs);
+
         characterRepository.save(c);
 
     }

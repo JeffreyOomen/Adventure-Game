@@ -11,6 +11,7 @@ import java.util.List;
  * EnemyBuilder 'contract'.
  */
 public interface Builder {
+    void setEnemy(Enemy enemy);
     void setName(String name);
     void setMedia(Media media);
     void setDescription(String description);

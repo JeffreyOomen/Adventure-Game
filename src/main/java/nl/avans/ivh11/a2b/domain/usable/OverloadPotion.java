@@ -21,6 +21,7 @@ public class OverloadPotion extends Usable {
         this.type = type;
         this.name = "Overload potion";
         this.description = "Gives super power";
+        this.imageUrl = "potionoverload.png";
     }
 
     /**

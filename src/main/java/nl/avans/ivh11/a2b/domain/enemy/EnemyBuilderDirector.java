@@ -19,6 +19,7 @@ public class EnemyBuilderDirector {
     }
 
     public Enemy createEnemy(String name, Media media, String description, ActionBehavior actionBehavior, Stats stats, List<Usable> loot) {
+        this.builder.setEnemy(new Enemy()); // in this way we can create more Enemy objects with only one builder
         this.builder.setName(name);
         this.builder.setMedia(media);
         this.builder.setDescription(description);

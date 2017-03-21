@@ -104,6 +104,6 @@ public class BattleServiceImpl implements BattleService
     @Transactional
     private void saveBattleState() {
         this.characterRepository.save(this.character);
-        this.enemyRepository.save(this.enemy);
+        //this.enemyRepository.save(this.enemy);
     }
 }

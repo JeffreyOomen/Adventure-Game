@@ -1,9 +1,7 @@
 $(document).ready(function () {
-    console.log("ready!");
-
     /* handle heal */
     $("#start_battle").click(function() {
-        window.location.href = "/battle";
+        window.location.href = "/start";
     });
 
     /* handle normal attack */
@@ -31,6 +29,69 @@ $(document).ready(function () {
         });
     });
 
+    /* handle regenerating the character */
+    $("#regenerate_character").click(function() {
+        window.location.href = "/doRegenerate";
+    });
+
+
+    $('#inventory-page .item').click(function() {
+        var id = $(this).attr('id');
+
+        // TODO: naam en beschrijving zichtbaar maken.
+        var name = $(this).closest('.name').text();
+        var test = $('#' + id + ', .name').html();
+        // console.log($(test));
+
+        var imageSrc = $("#" + id + ' img').attr('src');
+        // Set selected
+        $('#selectedUsableUrl').attr('src', imageSrc);
+
+
+        // Set id (used to delete/mount usable)
+        $('#selectedUsableId').val(id);
+
+    });
+
+    $('#deleteUsable').click(function() {
+        var id = $('#selectedUsableId').val();
+        $.ajax({
+            url: '/inventory',
+            data: id,
+            contentType: "application/text",
+            dataType:"text",
+            type: 'DELETE',
+            success: function(result) {
+               $('#' + id).remove();
+            }
+        });
+    });
+
+    //
+    // $('#inventory-page .item').click(function() {
+    //     var id = $(this).attr('id');
+    //     var imageSrc = $("#" + id + ' img').attr('src');
+    //     // Set selected
+    //     $('#selectedImage').attr('src', imageSrc);
+    //
+    //
+    //     console.log('test');
+    //     console.log($('#selectedImage'));
+    //     // $.ajax({
+    //     //     url: '/inventory',
+    //     //     type:"POST",
+    //     //     data: usableId,
+    //     //     contentType: "application/text",
+    //     //     dataType:"text",
+    //     //     success: function(){
+    //     //         console.log('geult');
+    //     //         console.log(data);
+    //     //     }
+    //     // })
+    // });
+
+
+
     /**
      * Show battle report the the client
      * @param data
@@ -46,12 +107,32 @@ $(document).ready(function () {
         messageContainer.scrollTop(messageContainer.prop("scrollHeight"));
 
         if (!data.isCharacterAlive && !data.isEnemyAlive) {
-            alert("You both lost...");
+            playerDeadAlert("You both lost...");
         } else if (!data.isCharacterAlive) {
-            alert("You lost!");
+            playerDeadAlert("You lost!");
         } else if (!data.isEnemyAlive) {
-            window.location.href = "/battle/end";
-            alert("You won!");
+            winningState();
         }
     };
+
+    /**
+     * Disables the action buttons and shows the
+     * go home button
+     */
+    function winningState() {
+        $('#normal_attack').prop('disabled', true);
+        $('#special_attack').prop('disabled', true);
+        $('#heal').prop('disabled', true);
+        $('#go_home').attr('hidden', false);
+    }
+
+    /**
+     * Shows an alert to the player and redirects to
+     * the regeneration window
+     * @param message the message to be shown in the alert box
+     */
+    function playerDeadAlert(message) {
+        alert(message);
+        window.location.href = "/regenerate";
+    }
 });

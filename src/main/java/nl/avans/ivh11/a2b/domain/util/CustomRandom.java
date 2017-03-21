@@ -84,7 +84,7 @@ public class CustomRandom {
      */
     public int randomEnemy (int enemies) {
         min = 0;
-        max = enemies;
+        max = enemies - 1;
         return getRandomNumber();
     }
 

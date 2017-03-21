@@ -14,15 +14,15 @@ import nl.avans.ivh11.a2b.domain.enemy.EnemyBuilderDirector;
 import nl.avans.ivh11.a2b.domain.usable.*;
 import nl.avans.ivh11.a2b.domain.util.Media;
 import nl.avans.ivh11.a2b.domain.util.Stats;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
-@RequestMapping("/")
+@Service("opponentService")
+@Repository
 public class OpponentServiceImpl implements OpponentService
 {
     private CharacterRepository characterRepository;
@@ -44,14 +44,12 @@ public class OpponentServiceImpl implements OpponentService
         this.equipmentRepository = equipmentRepository;
         this.enemyRepository = enemyRepository;
         this.mediaRepository = mediaRepository;
+        this.demoEquipment();
         this.demoOpponents();
     }
 
-    /**
-     * Setup Equipment, Character and Enemy for the demo
-     */
     @Transactional
-    private void demoOpponents() {
+    private void demoEquipment() {
         // Setup Equipment
         EquipmentFactory equipmentFactory = new EquipmentFactory();
         equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_HELMET, 10));
@@ -60,21 +58,13 @@ public class OpponentServiceImpl implements OpponentService
         equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_BOOTS, 10));
         equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_GLOVES, 10));
         equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_WEAPON_SWORD, 10));
+    }
 
-//        // Setup non-decorated Character
-//        Character ch = new Dwarf("Jeffrey Oomen", new Stats(), null);
-//        ch.getStats().setStrength(40);
-//        ch.getStats().setStrengthAccuracy(100);
-//        ch.setActionBehavior(new NormalAttack());
-//        characterRepository.save(ch);
-//
-//        Inventory inv = ch.getInventory();
-//
-//        ch.getInventory().addUsable(equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_HELMET, 10)));
-//
-//        inv =  ch.getInventory();
-
-        // Add some items to inventory
+    /**
+     * Setup Equipment, Character and Enemy for the demo
+     */
+    @Transactional
+    private void demoOpponents() {
 
         // Setup Enemy
         EnemyBuilder enemyBuilder = new EnemyBuilder();
@@ -89,8 +79,16 @@ public class OpponentServiceImpl implements OpponentService
         // Find media image
         Media media = mediaRepository.findOne(2L);
         Enemy enemy = enemyDirector.createEnemy("Bram", media, "End boss", new SpecialAttack(), stats, lootList);
+        Enemy enemy1 = enemyDirector.createEnemy("Bram", null,"End boss", new SpecialAttack(), stats, lootList);                // TODO: Media ff leeg
+        Enemy enemy2 = enemyDirector.createEnemy("Gerrie", null, "Super boss", new SpecialAttack(), new Stats(), null);     // TODO: Media ff leeg
 
-        enemy = enemyRepository.save(enemy);
+        stats.setHitpoints(300);
+        stats.setCurrentHitpoints(300);
+        Enemy enemy3 = enemyDirector.createEnemy("Hans", null, "Weak boss",  new SpecialAttack(), new Stats(), null);
+
+        enemyRepository.save(enemy1);
+        enemyRepository.save(enemy2);
+        enemyRepository.save(enemy3);
     }
 
     /**
@@ -120,5 +118,13 @@ public class OpponentServiceImpl implements OpponentService
     @Transactional(readOnly = true)
     public Enemy findEnemyById(long id) {
         return enemyRepository.findOne(id);
+    }
+
+    /**
+     * Saves the state of a Character
+     * @param character the Character to be saved
+     */
+    public void saveCharacter(Character character) {
+        this.characterRepository.save(character);
     }
 }

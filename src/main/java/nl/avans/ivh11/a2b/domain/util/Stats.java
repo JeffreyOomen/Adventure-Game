@@ -4,13 +4,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import nl.avans.ivh11.a2b.domain.usable.UsableType;
-import nl.avans.ivh11.a2b.domain.util.EquipmentEnum;
-import org.springframework.security.access.method.P;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents the Stats
@@ -66,6 +63,9 @@ public class Stats
     private final static String ARCHERY   = "ARCHERY";
     private final static String HITPOINTS = "HITPOINTS";
 
+    @Transient
+    List<String> messages; // used to store logging messages
+
     /**
      * Constructor
      */
@@ -94,8 +94,8 @@ public class Stats
      * @param xp the earned xp to be sieved over the stats
      * @return true if xp is sieved successfully, false otherwise
      */
-    public boolean processXp(final UsableType characterAttackStyle, final int xp) {
-
+    public List<String> processXp(final UsableType characterAttackStyle, final int xp) {
+        this.messages = new ArrayList<>();
         switch (characterAttackStyle) {
             case EQUIPMENT_WEAPON_SWORD:
                 this.processStrengthXp(STRENGTH_MULTIPLIER * xp);
@@ -107,13 +107,14 @@ public class Stats
                this.processArcheryXp(ARCHERY_MULTIPLIER * xp);
                 break;
             default:
-                return false;
+                this.messages.add("XP Calculation Failed...");
+                return messages;
         }
 
         this.processDefenseXp(DEFENSE_MULTIPLIER * xp);
         this.processHitpointsXp(HITPOINTS_MULTIPLIER * xp);
 
-        return true;
+        return this.messages;
     }
 
     /**
@@ -127,6 +128,7 @@ public class Stats
                 this.strengthTotalXp = Math.ceil(LEVEL_MULTIPLIER * (this.strengthTotalXp + Math.sqrt(this.strengthTotalXp)));
                 this.strengthXpLeft = strengthTotalXp;
                 this.strength++;
+                this.messages.add("<span class=\"message-success\">Congratulations! Strength level up: " + this.strength + "</span>");
                 continue;
             } else {
                 this.strengthXpLeft -= earnedXp;
@@ -146,6 +148,7 @@ public class Stats
                 this.magicTotalXp = Math.ceil(LEVEL_MULTIPLIER * (this.magicTotalXp + Math.sqrt(this.magicTotalXp)));
                 this.magicXpLeft = magicTotalXp;
                 this.magic++;
+                this.messages.add("<span class=\"message-success\">Congratulations! Magic level up: " + this.magic + "</span>");
                 continue;
             } else {
                 this.magicXpLeft -= earnedXp;
@@ -165,6 +168,7 @@ public class Stats
                 this.defenseTotalXp = Math.ceil(LEVEL_MULTIPLIER * (this.defenseTotalXp + Math.sqrt(this.defenseTotalXp)));
                 this.defenseXpLeft = defenseTotalXp;
                 this.defense++;
+                this.messages.add("<span class=\"message-success\">Congratulations! Defense level up: " + this.defense + "</span>");
                 continue;
             } else {
                 this.defenseXpLeft -= earnedXp;
@@ -184,6 +188,7 @@ public class Stats
                 this.archeryTotalXp = Math.ceil(LEVEL_MULTIPLIER * (this.archeryTotalXp + Math.sqrt(this.archeryTotalXp)));
                 this.archeryXpLeft = archeryTotalXp;
                 this.archery++;
+                this.messages.add("<span class=\"message-success\">Congratulations! Archery level up: " + this.archery + "</span>");
                 continue;
             } else {
                 this.archeryXpLeft -= earnedXp;
@@ -202,6 +207,7 @@ public class Stats
                 earnedXp -= this.hitpointsXpLeft;
                 this.hitpointsTotalXp = Math.ceil(LEVEL_MULTIPLIER * (this.hitpointsTotalXp + Math.sqrt(this.hitpointsTotalXp)));
                 this.hitpointsXpLeft = hitpointsTotalXp;
+                this.messages.add("<span class=\"message-success\">Congratulations! Achieved more hitpoints: " + this.hitpoints + "</span>");
                 this.hitpoints += 5;
                 continue;
             } else {

@@ -18,7 +18,10 @@ public class Inventory {
     @Column(name = "inventory_id")
     protected Long id;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    /**
+     * Explictically
+     */
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Usable> usables;
 
     public Inventory() {
