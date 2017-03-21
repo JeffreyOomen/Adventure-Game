@@ -1,11 +1,16 @@
 package nl.avans.ivh11.a2b.presentation.controller;
 
+import nl.avans.ivh11.a2b.domain.auth.User;
 import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.domain.enemy.Enemy;
 import nl.avans.ivh11.a2b.presentation.model.BattleModel;
 import nl.avans.ivh11.a2b.service.BattleService;
 import nl.avans.ivh11.a2b.service.OpponentService;
+import nl.avans.ivh11.a2b.service.SecurityService;
+import nl.avans.ivh11.a2b.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+@PreAuthorize("isAuthenticated()")
 public class BattleController
 {
     @Autowired
@@ -20,6 +26,12 @@ public class BattleController
 
     @Autowired
     private OpponentService opponentService;
+
+    @Autowired
+    private SecurityService securityService;
+
+    @Autowired
+    private UserService userService;
 
     private Character character;
     private Enemy enemy;
@@ -31,11 +43,11 @@ public class BattleController
      */
     @RequestMapping(value = "/battle", method = RequestMethod.GET)
     public String startBattle(Model uiModel) {
-        // Initialize and assign character and enemy
-        this.character = opponentService.findCharacterById(1L);
+        String username =  securityService.findLoggedInUsername();
+        User user = userService.findByUsername(username);
+        this.character = user.getCharacter();
         this.enemy = opponentService.findEnemyById(1L);
 
-        // Start new battle
         battleService.startBattle(this.character, this.enemy);
 
         uiModel.addAttribute("character", this.character);
