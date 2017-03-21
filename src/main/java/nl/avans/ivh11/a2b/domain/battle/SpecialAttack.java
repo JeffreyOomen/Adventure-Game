@@ -1,6 +1,5 @@
 package nl.avans.ivh11.a2b.domain.battle;
 
-import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
 import nl.avans.ivh11.a2b.domain.util.CustomRandom;
 
@@ -30,10 +29,6 @@ public class SpecialAttack implements ActionBehavior
             return attacker.getName() + " did a special attack on " + defender.getName() + " with " + damage + " damage!";
         }
 
-        if (!defender.isAlive()) {
-            return attacker.getName() + " has won the battle";
-        } else {
-            return attacker.getName() + " has lost the battle";
-        }
+        return "Nothing happened...";
     }
 }

@@ -1,6 +1,4 @@
 $(document).ready(function () {
-    console.log("ready!");
-
     /* handle heal */
     $("#start_battle").click(function() {
         window.location.href = "/start";
@@ -46,13 +44,32 @@ $(document).ready(function () {
         messageContainer.scrollTop(messageContainer.prop("scrollHeight"));
 
         if (!data.isCharacterAlive && !data.isEnemyAlive) {
-            alert("You both lost...");
+            playerDeadAlert("You both lost...");
         } else if (!data.isCharacterAlive) {
-            alert("You lost!");
-            window.location.href = "/regenerate";
+            playerDeadAlert("You lost!");
         } else if (!data.isEnemyAlive) {
-            alert("You won!");
-            window.location.href = "/quit";
+            winningState();
         }
     };
+
+    /**
+     * Disables the action buttons and shows the
+     * go home button
+     */
+    function winningState() {
+        $('#normal_attack').prop('disabled', true);
+        $('#special_attack').prop('disabled', true);
+        $('#heal').prop('disabled', true);
+        $('#go_home').attr('hidden', false);
+    }
+
+    /**
+     * Shows an alert to the player and redirects to
+     * the regeneration window
+     * @param message the message to be shown in the alert box
+     */
+    function playerDeadAlert(message) {
+        alert(message);
+        window.location.href = "/regenerate";
+    }
 });

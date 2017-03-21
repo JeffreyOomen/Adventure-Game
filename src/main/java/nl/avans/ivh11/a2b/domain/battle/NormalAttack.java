@@ -28,10 +28,6 @@ public class NormalAttack implements ActionBehavior
             return attacker.getName() + " attacked " + defender.getName() + " with " + damage + " damage!";
         }
 
-        if (!defender.isAlive()) {
-            return attacker.getName() + " has won the battle";
-        } else {
-            return attacker.getName() + " has lost the battle";
-        }
+        return "Nothing happened...";
     }
 }

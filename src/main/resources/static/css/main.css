@@ -80,7 +80,7 @@ button {
     padding-right: 15px;
 }
 .container {
-    background: rgba(0, 0, 0, .5);
+    background: rgba(0, 0, 0, .7);
     margin: 50px;
 }
 .text-right > .contender {
@@ -139,4 +139,37 @@ h1, h2 {
 .messages-container .messages p.message {
     margin: 5px 0;
     padding: 0;
+}
+
+.message-info {
+    color:#4286f4;
+}
+
+.message-success {
+    color:#42f483;
+}
+
+/* CSS for homepage */
+.main-container {
+    width: 80%;
+    min-height: 400px;
+    margin: 40px auto;
+    background: rgba(0, 0, 0, .7);
+    padding: 25px;
+}
+
+.main-container-left {
+    text-align: left;
+    float: left;
+}
+
+.main-container-right {
+    text-align: right;
+    float: right;
+}
+
+.stats-container {
+    width: 20%;
+    height: 100%;
+    margin: 0 auto;
 }

@@ -128,7 +128,7 @@ public class Stats
                 this.strengthTotalXp = Math.ceil(LEVEL_MULTIPLIER * (this.strengthTotalXp + Math.sqrt(this.strengthTotalXp)));
                 this.strengthXpLeft = strengthTotalXp;
                 this.strength++;
-                this.messages.add("Congratulations! Strength level up: " + this.strength);
+                this.messages.add("<span class=\"message-success\">Congratulations! Strength level up: " + this.strength + "</span>");
                 continue;
             } else {
                 this.strengthXpLeft -= earnedXp;
@@ -148,7 +148,7 @@ public class Stats
                 this.magicTotalXp = Math.ceil(LEVEL_MULTIPLIER * (this.magicTotalXp + Math.sqrt(this.magicTotalXp)));
                 this.magicXpLeft = magicTotalXp;
                 this.magic++;
-                this.messages.add("Congratulations! Magic level up: " + this.strength);
+                this.messages.add("<span class=\"message-success\">Congratulations! Magic level up: " + this.magic + "</span>");
                 continue;
             } else {
                 this.magicXpLeft -= earnedXp;
@@ -168,7 +168,7 @@ public class Stats
                 this.defenseTotalXp = Math.ceil(LEVEL_MULTIPLIER * (this.defenseTotalXp + Math.sqrt(this.defenseTotalXp)));
                 this.defenseXpLeft = defenseTotalXp;
                 this.defense++;
-                this.messages.add("Congratulations! Defense level up: " + this.strength);
+                this.messages.add("<span class=\"message-success\">Congratulations! Defense level up: " + this.defense + "</span>");
                 continue;
             } else {
                 this.defenseXpLeft -= earnedXp;
@@ -188,7 +188,7 @@ public class Stats
                 this.archeryTotalXp = Math.ceil(LEVEL_MULTIPLIER * (this.archeryTotalXp + Math.sqrt(this.archeryTotalXp)));
                 this.archeryXpLeft = archeryTotalXp;
                 this.archery++;
-                this.messages.add("Congratulations! Archery level up: " + this.strength);
+                this.messages.add("<span class=\"message-success\">Congratulations! Archery level up: " + this.archery + "</span>");
                 continue;
             } else {
                 this.archeryXpLeft -= earnedXp;
@@ -207,7 +207,7 @@ public class Stats
                 earnedXp -= this.hitpointsXpLeft;
                 this.hitpointsTotalXp = Math.ceil(LEVEL_MULTIPLIER * (this.hitpointsTotalXp + Math.sqrt(this.hitpointsTotalXp)));
                 this.hitpointsXpLeft = hitpointsTotalXp;
-                this.messages.add("Congratulations! Achieved more hitpoints: " + this.strength);
+                this.messages.add("<span class=\"message-success\">Congratulations! Achieved more hitpoints: " + this.hitpoints + "</span>");
                 this.hitpoints += 5;
                 continue;
             } else {

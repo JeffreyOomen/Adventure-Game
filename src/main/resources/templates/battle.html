@@ -7,6 +7,11 @@
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
 </head>
 <body>
+
+<div class="container" id="go_home" hidden="hidden">
+    <a href="/home"><button type="button">Home</button></a>
+</div>
+
 <div class="container">
 
     <!--<div th:if="${isEnemyAlive} == false">-->
@@ -16,7 +21,6 @@
     <!--&lt;!&ndash;</div>&ndash;&gt;and ${isEnemyAlive} == true-->
 
     <!--th:if="${isCharacterAlive} == true and  ${isEnemyAlive} == true"-->
-
     <div class="column fight-view">
         <div class="contender">
             <div class="stats">

@@ -6,6 +6,7 @@ import nl.avans.ivh11.a2b.domain.util.CustomRandom;
 import nl.avans.ivh11.a2b.presentation.model.BattleModel;
 import nl.avans.ivh11.a2b.service.BattleService;
 import nl.avans.ivh11.a2b.service.OpponentService;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,9 @@ import java.util.List;
 @Controller
 public class BattleController
 {
+    // used in messages
+    private final static String BREAK = "<br/><br/>";
+
     @Autowired
     private BattleService battleService;
 
@@ -64,30 +68,6 @@ public class BattleController
     }
 
     /**
-     * Ends a battle between a Character and an Enemy
-     * @param uiModel the model which contains battle information
-     * @return A view
-     */
-    @RequestMapping(value = "/quit", method = RequestMethod.GET)
-    public String endBattle(Model uiModel) {
-        if (!this.enemy.isAlive()) { // character can only quit when enemy is beaten
-            uiModel.addAttribute("character", this.character);
-            uiModel.addAttribute("enemy", this.enemy);
-
-            // remove enemy from the possible enemy list
-            this.possibleEnemies.remove(this.enemy);
-
-            // give the character xp
-            this.character.receiveXp(this.enemy.getHitpoints());
-            this.opponentService.saveCharacter(this.character);
-
-            return "home";
-        }
-
-        return "redirect:/start";
-    }
-
-    /**
      * Executes a battle event with a normal attack for the Character
      */
     @RequestMapping(value = "/battle/normalAttack", method = RequestMethod.POST)
@@ -124,15 +104,17 @@ public class BattleController
      */
     private BattleModel battleReport() {
         String battleReport = "";
-        battleReport += battleService.getBattle().getNextMessage();
-        battleReport += "<br/><br/>";
-        battleReport += battleService.getBattle().getNextMessage();
+        battleReport += battleService.getBattle().getNextMessage() + BREAK;
+        battleReport += battleService.getBattle().getNextMessage() + BREAK;
+
+        if (!this.enemy.isAlive()) {
+            this.quit();
+            battleReport += "<span class=\"message-info\">" + this.character.getName() + " has won the battle</span>" + BREAK;
+        }
 
         List<String> messages = battleService.getBattle().getMessages();
-
         for (String message: messages) {
-            battleReport += "<br/><br/>";
-            battleReport += message;
+            battleReport += message + BREAK;
         }
 
         // Return view model as JSON
@@ -143,6 +125,19 @@ public class BattleController
                 enemy.getStats(),
                 battleReport
         );
+    }
+
+    /**
+     * Ends a battle between a Character and an Enemy,
+     * only when the Character has won
+     */
+    private void quit() {
+        // remove enemy from the possible enemy list
+        this.possibleEnemies.remove(this.enemy);
+
+        // give the character xp
+        this.character.receiveXp(this.enemy.getHitpoints());
+        this.opponentService.saveCharacter(this.character);
     }
 
     /**
