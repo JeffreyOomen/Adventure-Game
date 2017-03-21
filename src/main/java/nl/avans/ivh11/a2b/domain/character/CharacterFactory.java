@@ -4,6 +4,7 @@ import nl.avans.ivh11.a2b.domain.battle.NormalAttack;
 import nl.avans.ivh11.a2b.domain.character.decoration.Archer;
 import nl.avans.ivh11.a2b.domain.character.decoration.Mage;
 import nl.avans.ivh11.a2b.domain.character.decoration.Warrior;
+import nl.avans.ivh11.a2b.domain.character.state.NormalState;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 
 /**
@@ -28,6 +29,8 @@ public class CharacterFactory {
                 throw new IllegalArgumentException("Provide a valid specialization");
         }
 
+        character.setActionBehavior(new NormalAttack());
+        character.setState(NormalState.getInstance());
         return character;
     }
 
@@ -48,7 +51,6 @@ public class CharacterFactory {
                 throw new IllegalArgumentException("Provide a valid race");
         }
 
-        character.setActionBehavior(new NormalAttack());
         return character;
     }
 }

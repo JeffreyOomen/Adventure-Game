@@ -61,6 +61,7 @@ public abstract class Character extends Opponent
         this.name = name;
         this.stats = stats;
         this.equipment = new HashMap<>();
+//        this.currentState = NormalState.getInstance();
     }
 
     /**

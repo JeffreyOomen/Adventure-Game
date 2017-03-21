@@ -1,13 +1,20 @@
 $(document).ready(function () {
-    console.log("ready!");
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    //Hook your headers here and set it with before send function.
+    $.ajaxSetup({
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader(header, token);
+        }
+    });
 
-    /* handle heal */
     $("#start_battle").click(function() {
         window.location.href = "/battle";
     });
 
     /* handle normal attack */
     $("#normal_attack").click(function() {
+        // setCsrfHeader();
         $.post("/battle/normalAttack", function(data) {
             showBattlereport(data);
         });
@@ -15,6 +22,7 @@ $(document).ready(function () {
 
     /* handle special attack */
     $("#special_attack").click(function() {
+        // setCsrfHeader();
         $.post("/battle/specialAttack", function(data) {
             showBattlereport(data);
         });
@@ -22,6 +30,7 @@ $(document).ready(function () {
 
     /* handle heal */
     $("#heal").click(function() {
+        // setCsrfHeader();
         $.post("/battle/heal", function(data) {
             showBattlereport(data);
         });
@@ -50,3 +59,11 @@ $(document).ready(function () {
         }
     };
 });
+
+function setCsrfHeader() {
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function(e, xhr, options) {
+        xhr.setRequestHeader(header, token);
+    });
+}
