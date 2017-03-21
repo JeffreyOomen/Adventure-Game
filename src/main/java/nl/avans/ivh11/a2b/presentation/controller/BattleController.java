@@ -35,7 +35,7 @@ public class BattleController
     @RequestMapping(value = "/battle", method = RequestMethod.GET)
     public String startBattle(Model uiModel) {
         // Initialize and assign character and enemy
-        this.character = characterService.findById(2L);
+        this.character = characterService.findById(1L);
         this.enemy = opponentService.findEnemyById(1L);
 
         // Start new battle

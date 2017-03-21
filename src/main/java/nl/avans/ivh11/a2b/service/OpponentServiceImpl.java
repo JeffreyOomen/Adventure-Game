@@ -61,18 +61,18 @@ public class OpponentServiceImpl implements OpponentService
         equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_GLOVES, 10));
         equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_WEAPON_SWORD, 10));
 
-        // Setup non-decorated Character
-        Character ch = new Dwarf("Jeffrey Oomen", new Stats(), null);
-        ch.getStats().setStrength(40);
-        ch.getStats().setStrengthAccuracy(100);
-        ch.setActionBehavior(new NormalAttack());
-        characterRepository.save(ch);
-
-        Inventory inv = ch.getInventory();
-
-        ch.getInventory().addUsable(equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_HELMET, 10)));
-
-        inv =  ch.getInventory();
+//        // Setup non-decorated Character
+//        Character ch = new Dwarf("Jeffrey Oomen", new Stats(), null);
+//        ch.getStats().setStrength(40);
+//        ch.getStats().setStrengthAccuracy(100);
+//        ch.setActionBehavior(new NormalAttack());
+//        characterRepository.save(ch);
+//
+//        Inventory inv = ch.getInventory();
+//
+//        ch.getInventory().addUsable(equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_HELMET, 10)));
+//
+//        inv =  ch.getInventory();
 
         // Add some items to inventory
 

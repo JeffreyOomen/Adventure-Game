@@ -26,27 +26,25 @@ import java.util.List;
 public class CharacterServiceImpl implements CharacterService
 {
     private CharacterRepository characterRepository;
-    private EquipmentRepository equipmentRepository;
     private UsableRepository usableRepository;
     private MediaRepository mediaRepository;
 
     private MediaService mediaService;
-
-    private Character character; // current player
-
 
     /**
      * CharacterServiceImpl Constructor
      * @param characterRepo
      */
     @Autowired
-    public CharacterServiceImpl(CharacterRepository characterRepo,
-                                EquipmentRepository equipmentRepo,
-                                MediaRepository mediaRepository,
-                                MediaService mediaService,
-                                UsableRepository usableRepository) {
+    public CharacterServiceImpl(
+        CharacterRepository characterRepo,
+        EquipmentRepository equipmentRepo,
+        MediaRepository mediaRepository,
+        MediaService mediaService,
+        UsableRepository usableRepository
+    )
+    {
         this.characterRepository = characterRepo;
-        this.equipmentRepository = equipmentRepo;
         this.mediaRepository = mediaRepository;
         this.mediaService = mediaService;
         this.usableRepository = usableRepository;
@@ -68,7 +66,7 @@ public class CharacterServiceImpl implements CharacterService
         Media media = mediaService.findById(1L);
 
         // Setup non-decorated Character
-        Character c = new Troll("Bramboo", new Stats(), media);
+        Character c = new Troll("Kees Kroket", new Stats(), media);
         c.getStats().setStrength(40);
         c.getStats().setStrengthAccuracy(100);
         c.setActionBehavior(new NormalAttack());
