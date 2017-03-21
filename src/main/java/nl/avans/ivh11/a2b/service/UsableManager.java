@@ -60,9 +60,6 @@ public class UsableManager {
 
         System.out.println("=================================================================");
         System.out.println("====================="+ "NEW USABLE CREATED" + "===================");
-//        System.out.println("============== NAME: " + testEquipment.getName() + "==============");
-//        System.out.println("============== DESCRIPTION: " + testEquipment.getDescription() + "==============");
-//        System.out.println("============== TYPE: " + testEquipment.getType() + "==============");
         System.out.println("=================================================================");
 
 

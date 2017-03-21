@@ -1,7 +1,6 @@
 package nl.avans.ivh11.a2b.domain.battle;
 
 import nl.avans.ivh11.a2b.domain.character.Character;
-import nl.avans.ivh11.a2b.domain.enemy.Enemy;
 import nl.avans.ivh11.a2b.domain.usable.Usable;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
 
@@ -16,13 +15,14 @@ public class Heal implements ActionBehavior
      * @param defender the Character's enemy
      * @return The action result
      */
+    @Override
     public String action(Opponent attacker, Opponent defender) {
 
         if (attacker.isAlive() && defender.isAlive()) {
-            Character c = ((Character) attacker);
+            Character c = (Character) attacker;
 
             String message = "No Heal potions";
-            if(c.getInventory().getHealPotions().size() > 0) {
+            if(!c.getInventory().getHealPotions().isEmpty()) {
                 int hitPoints = 10;
                 attacker.heal(hitPoints);
                 Usable potion = c.getInventory().getHealPotions().get(0);

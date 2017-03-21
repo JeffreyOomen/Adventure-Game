@@ -13,6 +13,7 @@ public class NormalAttack implements ActionBehavior
      * @param attacker
      * @param defender
      */
+    @Override
     public String action(Opponent attacker, Opponent defender) {
         if (attacker.isAlive() && defender.isAlive()) {
             int damage = CustomRandom.getInstance().randomDamage(

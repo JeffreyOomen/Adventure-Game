@@ -6,8 +6,10 @@ import java.util.Random;
  * Singleton class which returns a random number based on the attributes and which method is called
  */
 public class CustomRandom {
-    private double min, max;
+    private double min;
+    private double max;
     private static volatile CustomRandom instance = null;
+    private static volatile Random r;
 
     /**
      * Check if class is already instantiated and create if not
@@ -17,6 +19,7 @@ public class CustomRandom {
         if (instance == null) {
             synchronized (CustomRandom.class) {
                 if (instance == null) {
+                    r = new Random();
                     instance = new CustomRandom();
                 }
             }
@@ -29,8 +32,8 @@ public class CustomRandom {
      * @return int random number
      */
     public int getRandomNumber() {
-        double range = max - min + 1;
-        return (int)((Math.random() * range) + min);
+        int range = (int) (max - min + 1);
+        return (int)(r.nextInt(range) + min);
     }
 
     /**
@@ -42,26 +45,27 @@ public class CustomRandom {
      * @return int random number
      */
     public int randomDamage (double strength, double strengthAccuracy, double defense, int defenseAccuracy) {
-        double strDouble = Math.random() * 100;
-        double defDouble = Math.random() * 100;
-        defense = defense * 0.25;
+        double strDouble = r.nextInt(100);
+        double defDouble = r.nextInt(100);
+        double def = defense * 0.25;
+        double str;
         int maxDefense;
         if (defenseAccuracy >= defDouble) {
-            maxDefense = (int) (Math.random() * defense + defense);
+            maxDefense = (int) (r.nextInt((int)def) + def);
         } else {
-            maxDefense = (int) (Math.random() * defense);
+            maxDefense = (r.nextInt((int)def));
         }
         if (strength - 1 < maxDefense) {
-             strength = 1;
+             str = 1;
         } else {
-            strength -= maxDefense;
+            str = strength - maxDefense;
         }
         if (strengthAccuracy >= strDouble) {
-            min = strength * 0.5;
-            max = strength;
+            min = str * 0.5;
+            max = str;
         } else {
             min = 1;
-            max = strength * 0.5;
+            max = str * 0.5;
         }
         return getRandomNumber();
     }
@@ -82,9 +86,9 @@ public class CustomRandom {
      * @param enemies length of list with enemies
      * @return int random number
      */
-    public int randomEnemy (int enemies) {
+    public int randomEnemy (double enemies) {
         min = 0;
-        max = enemies;
+        max = enemies - 1;
         return getRandomNumber();
     }
 

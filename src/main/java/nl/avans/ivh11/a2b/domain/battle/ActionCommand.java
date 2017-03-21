@@ -22,6 +22,7 @@ public class ActionCommand implements Command {
     /**
      * Execute action by the attacker on the defender
      */
+    @Override
     public void execute () {
         attacker.performAction(defender);
     }

@@ -49,7 +49,7 @@ public class OpponentServiceImpl implements OpponentService
      * Setup Equipment, Character and Enemy for the demo
      */
     @Transactional
-    private void demoOpponents() {
+    public void demoOpponents() {
         // Setup Equipment
         EquipmentFactory equipmentFactory = new EquipmentFactory();
         equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_HELMET, 10));
@@ -87,6 +87,7 @@ public class OpponentServiceImpl implements OpponentService
      * @return the Character with the specified id
      */
     @Transactional(readOnly = true)
+    @Override
     public Character findCharacterById(long id) {
         return characterRepository.findOne(id);
     }
@@ -96,6 +97,7 @@ public class OpponentServiceImpl implements OpponentService
      * @return a List of Enemy's
      */
     @Transactional
+    @Override
     public List<Enemy> findAllEnemies() {
         return (List<Enemy>) enemyRepository.findAll();
     }
@@ -106,6 +108,7 @@ public class OpponentServiceImpl implements OpponentService
      * @return the Enemy with the specified id
      */
     @Transactional(readOnly = true)
+    @Override
     public Enemy findEnemyById(long id) {
         return enemyRepository.findOne(id);
     }

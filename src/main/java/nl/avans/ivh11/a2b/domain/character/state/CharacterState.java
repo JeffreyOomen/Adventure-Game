@@ -1,7 +1,6 @@
 package nl.avans.ivh11.a2b.domain.character.state;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;

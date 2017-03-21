@@ -14,7 +14,7 @@ import nl.avans.ivh11.a2b.domain.util.*;
 import nl.avans.ivh11.a2b.domain.usable.Equipment;
 
 import javax.persistence.*;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 /**
@@ -60,7 +60,7 @@ public abstract class Character extends Opponent
     public Character(String name, Stats stats) {
         this.name = name;
         this.stats = stats;
-        this.equipment = new HashMap<>();
+        this.equipment = new EnumMap<>(UsableType.class);
         this.currentState = NormalState.getInstance();
     }
 
@@ -91,6 +91,7 @@ public abstract class Character extends Opponent
      * Performs an action against the Opponent
      * @param opponent the Character's Opponent
      */
+    @Override
     public void performAction(Opponent opponent) {
         String message = this.actionBehavior.action(this, opponent);
         notifyObservers(message);
@@ -176,6 +177,7 @@ public abstract class Character extends Opponent
      * Adds the given hitpoints to the currentHitpoints
      * @param hitPoints int
      */
+    @Override
     public void heal(int hitPoints) {
         int newHitpoints = this.getCurrentHitpoints() + hitPoints;
         if(newHitpoints <= this.getHitpoints()) {
@@ -188,6 +190,7 @@ public abstract class Character extends Opponent
     /**
      * Receive an incoming XP bounty
      */
+    @Override
     public void receiveXp(int earnedXp) {
         this.stats.processXp(this.getAttackStyle(), earnedXp);
     }
