@@ -18,7 +18,7 @@ import java.util.List;
 public class BattleController
 {
     // used in messages
-    private final static String BREAK = "<br/><br/>";
+    private static final String BREAK = "<br/><br/>";
 
     @Autowired
     private BattleService battleService;
