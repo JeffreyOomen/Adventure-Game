@@ -19,13 +19,14 @@ public class EnemyBuilderDirector {
     }
 
     public Enemy createEnemy(String name, Media media, String description, ActionBehavior actionBehavior, Stats stats, List<Usable> loot) {
-        this.builder.setName(name);
-        this.builder.setMedia(media);
-        this.builder.setDescription(description);
-        this.builder.setActionBehaviour(actionBehavior);
-        this.builder.setStats(stats);
-        this.builder.setLoot(loot);
-        return this.builder.buildEnemy();
+        return this.builder.newEnemy()
+                .setName(name)
+                .setMedia(media)
+                .setDescription(description)
+                .setActionBehaviour(actionBehavior)
+                .setStats(stats)
+                .setLoot(loot)
+                .buildEnemy();
     }
 
 }

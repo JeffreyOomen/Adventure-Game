@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
 /**
  * Represents an Enemy
  */
@@ -32,7 +31,7 @@ public class Enemy extends Opponent
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
 
-    @OneToMany()
+    @OneToMany
     private List<Usable> loot;
 
     @Transient

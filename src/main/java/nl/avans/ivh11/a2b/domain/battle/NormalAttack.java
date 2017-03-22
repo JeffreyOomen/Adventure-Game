@@ -26,13 +26,13 @@ public class NormalAttack implements ActionBehavior
             );
             defender.takeDamage(damage);
 
-            if (!defender.isAlive()) {
-                return "You have WON, " + attacker.getName() + " !!!";
-            } else {
-                return attacker.getName() + " attacked " + defender.getName() + " with " + damage + " damage!";
-            }
+            return attacker.getName() + " attacked " + defender.getName() + " with " + damage + " damage!";
         }
 
-        return "Your opponent " + defender.getName() + " already died...";
+        if (!defender.isAlive()) {
+            return attacker.getName() + " has won the battle";
+        } else {
+            return attacker.getName() + " has lost the battle";
+        }
     }
 }

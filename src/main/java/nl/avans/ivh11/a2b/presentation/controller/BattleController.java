@@ -2,7 +2,7 @@ package nl.avans.ivh11.a2b.presentation.controller;
 
 import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.domain.enemy.Enemy;
-import nl.avans.ivh11.a2b.domain.usable.Usable;
+import nl.avans.ivh11.a2b.domain.util.CustomRandom;
 import nl.avans.ivh11.a2b.presentation.model.BattleModel;
 import nl.avans.ivh11.a2b.service.BattleService;
 import nl.avans.ivh11.a2b.service.CharacterService;
@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.PostConstruct;
+import java.util.List;
 
 @Controller
 public class BattleController
@@ -27,24 +30,42 @@ public class BattleController
     private Character character;
     private Enemy enemy;
 
+    private List<Enemy> possibleEnemies;
+
+    @PostConstruct
+    public void init() {
+        System.out.println("Init method called");
+        possibleEnemies = this.getEnemies();
+    }
+
     /**
      * Starts a battle between a Character and an Enemy
      * @param uiModel the model which contains battle information
      * @return A view
      */
-    @RequestMapping(value = "/battle", method = RequestMethod.GET)
+    @RequestMapping(value = "/start", method = RequestMethod.GET)
     public String startBattle(Model uiModel) {
         // Initialize and assign character and enemy
         this.character = characterService.findById(1L);
         this.enemy = opponentService.findEnemyById(1L);
 
-        // Start new battle
-        battleService.startBattle(this.character, this.enemy);
+        if (this.enemy == null || !this.enemy.isAlive() || this.character.isAlive()) {
+            // Get random enemy from the list
+            this.enemy = this.possibleEnemies.get(CustomRandom.getInstance().randomEnemy(this.possibleEnemies.size()));
 
-        uiModel.addAttribute("character", this.character);
-        uiModel.addAttribute("enemy", this.enemy);
+            // make sure a new battle always starts against an enemy with full hp
+            this.enemy.regenerate();
 
-        return "battle";
+            // Start new battle
+            battleService.startBattle(this.character, this.enemy);
+
+            uiModel.addAttribute("character", this.character);
+            uiModel.addAttribute("enemy", this.enemy);
+
+            return "battle";
+        }
+
+        return "character/regenerate";
     }
 
     /**
@@ -52,12 +73,19 @@ public class BattleController
      * @param uiModel the model which contains battle information
      * @return A view
      */
-    @RequestMapping(value = "/battle/end", method = RequestMethod.GET)
+    @RequestMapping(value = "/quit", method = RequestMethod.GET)
     public String endBattle(Model uiModel) {
-        uiModel.addAttribute("character", this.character);
-        uiModel.addAttribute("enemy", this.enemy);
+        if (!this.enemy.isAlive()) { // character can only quit when enemy is beaten
+            uiModel.addAttribute("character", this.character);
+            uiModel.addAttribute("enemy", this.enemy);
 
-        return "home";
+            // remove enemy from the possible enemy list
+            this.possibleEnemies.remove(this.enemy);
+
+            return "home";
+        }
+
+        return "redirect:/start";
     }
 
     /**
@@ -110,5 +138,13 @@ public class BattleController
                 enemy.getStats(),
                 battleReport
         );
+    }
+
+    /**
+     * Gets all enemies
+     * @return a List with all enemies
+     */
+    private List<Enemy> getEnemies() {
+        return opponentService.findAllEnemies();
     }
 }
