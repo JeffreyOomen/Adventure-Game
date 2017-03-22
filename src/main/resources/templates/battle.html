@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<<<<<<< HEAD
 <head>
     <title>Proftaak</title>
 
@@ -43,97 +44,25 @@
             <input type="submit" th:value="#{battle.special_attack}" id="special_attack"/>
             <input type="submit" th:value="#{battle.heal}" id="heal"/>
         </div>
+=======
+<head th:replace="fragments/head :: head">
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/fight :: fight">
+>>>>>>> develop
     </div>
-    <div class="column text-right">
-        <div class="contender">
-            <div class="stats">
-                <span th:text="#{character.level}"></span> <span id="enemyLvl" th:text="${enemy.getStats().getLevel()}"></span><br/>
-                <span th:text="#{character.hp}"></span> <span id="enemyCurrentHp" th:text="${enemy.getStats().getCurrentHitpoints()}"></span>/<span
-                    id="charHp" th:text="${enemy.getStats().getHitpoints()}"></span><br/>
-            </div>
-            <div class="battler" style="background-image: url('../images/rpg-wolf.png');">
-            </div>
-        </div>
-    </div>
-    <div class="column">
+    <div class="column" th:replace="fragments/inventory :: inventory">
         <div class="inventory">
-            <h1 th:text="#{character.inventory}"></h1>
-            <div class="row">
-                <h2 style="padding-left: 15px;" th:text="#{character.inventory.equipment}"></h2>
-                <div class="equipment">
-                    <div class="column">
-                        <div class="item-container">
-                            <div class="item">
-                                <div class="item-image" style="background-image: url('../images/rpg-sword.png');">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="item-container">
-                            <div class="item">
-                                <div class="item-image" style="background-image: url('../images/rpg-sword.png');">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="item-container">
-                            <div class="item">
-                                <div class="item-image" style="background-image: url('../images/rpg-sword.png');">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="item-container">
-                            <div class="item">
-                                <div class="item-image" style="background-image: url('../images/rpg-sword.png');">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="potions">
-                    <h2 style="padding-left: 15px;" th:text="#{character.inventory.potions}"></h2>
-                    <div class="column">
-                        <div class="item-container">
-                            <div class="item">
-                                <div class="item-image" style="background-image: url('../images/rpg-potion.png');">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="item-container">
-                            <div class="item">
-                                <div class="item-image" style="background-image: url('../images/rpg-potion.png');">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="item-container">
-                            <div class="item">
-                                <div class="item-image" style="background-image: url('../images/rpg-potion.png');">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <h1>Inventory</h1>
+            <ul th:each="usable : ${character.getInventory().getUsables()}">
+                <li th:class="${usable.getType()}" th:text="${usable.getName()}">Name</li>
+            </ul>
         </div>
     </div>
-    <div class="messages-container">
-        <h2 th:text="#{battle.report}"></h2>
-        <div class="messages"></div>
-    </div>
+    <div th:replace="fragments/game_information :: info"></div>
 </div>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"
-        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-<script src="../../js/main.js"></script>
+<div th:replace="fragments/script :: script"></div>
 </body>
 </html>
 

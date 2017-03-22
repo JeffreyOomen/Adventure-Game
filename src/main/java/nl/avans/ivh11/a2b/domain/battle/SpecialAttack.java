@@ -1,6 +1,5 @@
 package nl.avans.ivh11.a2b.domain.battle;
 
-import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
 import nl.avans.ivh11.a2b.domain.util.CustomRandom;
 
@@ -14,8 +13,8 @@ public class SpecialAttack implements ActionBehavior
      * @param attacker the Opponent which attacks the other Opponent
      * @param defender the Opponent which is being attacked by the other Opponent
      */
+    @Override
     public String action(Opponent attacker, Opponent defender) {
-
         if (attacker.isAlive() && defender.isAlive()) {
             int damage = (int) (CustomRandom.getInstance().randomDamage(
                     // Attacker determine strength
@@ -27,13 +26,13 @@ public class SpecialAttack implements ActionBehavior
             ) * 1.20);
             defender.takeDamage(damage);
 
-            if (!defender.isAlive()) {
-                return "You have WON, " + attacker.getName() + " !!!";
-            } else {
-                return attacker.getName() + " did a special attack on " + defender.getName() + " with " + damage + " damage!";
-            }
+            return attacker.getName() + " did a special attack on " + defender.getName() + " with " + damage + " damage!";
         }
 
-        return "Your opponent " + defender.getName() + " already died...";
+        if (!defender.isAlive()) {
+            return attacker.getName() + " has won the battle";
+        } else {
+            return attacker.getName() + " has lost the battle";
+        }
     }
 }

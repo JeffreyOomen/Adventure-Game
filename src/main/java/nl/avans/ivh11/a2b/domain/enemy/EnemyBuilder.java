@@ -2,6 +2,7 @@ package nl.avans.ivh11.a2b.domain.enemy;
 
 import nl.avans.ivh11.a2b.domain.battle.ActionBehavior;
 import nl.avans.ivh11.a2b.domain.usable.Usable;
+import nl.avans.ivh11.a2b.domain.util.Media;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 
 import java.util.List;
@@ -13,33 +14,50 @@ import java.util.List;
 public class EnemyBuilder implements Builder {
     private Enemy enemy;
 
-    public EnemyBuilder() {
+    /**
+     * With this method, more than one Enemy object can be made with
+     * the same EnemyBuilder
+     */
+    @Override
+    public Builder newEnemy() {
         this.enemy = new Enemy();
+        return this;
     }
 
     @Override
-    public void setName(String name) {
+    public Builder setName(String name) {
         this.enemy.setName(name);
+        return this;
     }
 
     @Override
-    public void setDescription(String description) {
+    public Builder setMedia(Media media) {
+        this.enemy.setMedia(media);
+        return this;
+    }
+
+    @Override
+    public Builder setDescription(String description) {
         this.enemy.setDescription(description);
+        return this;
     }
 
     @Override
-    public void setActionBehaviour(ActionBehavior actionBehaviour) {
+    public Builder setActionBehaviour(ActionBehavior actionBehaviour) {
         this.enemy.setActionBehavior(actionBehaviour);
+        return this;
     }
 
     @Override
-    public void setLoot(List<Usable> loot) {
+    public Builder setLoot(List<Usable> loot) {
         this.enemy.setLoot(loot);
+        return this;
     }
 
     @Override
-    public void setStats(Stats stats) {
+    public Builder setStats(Stats stats) {
         this.enemy.setStats(stats);
+        return this;
     }
 
     @Override

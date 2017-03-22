@@ -14,7 +14,7 @@ public class BandosEquipment extends Equipment {
 
     public BandosEquipment(UsableType type, int level) {
         super(type, level);
-        setName("Bandos " + getEquipmentType(type));
+        setName("Bandos " + getEquipmentType(type)  + " (lvl " + level + ")");
         setDescription("Item from the Bandos collection. Very useful as a warrior.");
         setEquipmentAccuracies(1.5, 1.2, 1, 1);
     }

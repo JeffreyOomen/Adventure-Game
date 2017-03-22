@@ -5,8 +5,6 @@ import nl.avans.ivh11.a2b.datastorage.enemy.EnemyRepository;
 import nl.avans.ivh11.a2b.domain.battle.*;
 import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.domain.enemy.Enemy;
-import nl.avans.ivh11.a2b.domain.util.Opponent;
-import nl.avans.ivh11.a2b.domain.util.Stats;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -36,6 +34,7 @@ public class BattleServiceImpl implements BattleService
      * @param c the character to participate in the battle
      * @param e the enemy to participate in the battle
      */
+    @Override
     public void startBattle(Character c, Enemy e) {
         battle = new Battle();
 
@@ -78,6 +77,7 @@ public class BattleServiceImpl implements BattleService
      * Gets the current battle
      * @return An object of Battle
      */
+    @Override
     public Battle getBattle() {
         return this.battle;
     }
@@ -94,7 +94,6 @@ public class BattleServiceImpl implements BattleService
 
         // save the battle state
         this.saveBattleState();
-
     }
 
     /**
@@ -102,8 +101,8 @@ public class BattleServiceImpl implements BattleService
      * by the Battle.
      */
     @Transactional
-    private void saveBattleState() {
+    public void saveBattleState() {
         this.characterRepository.save(this.character);
-        this.enemyRepository.save(this.enemy);
+        //this.enemyRepository.save(this.enemy);
     }
 }

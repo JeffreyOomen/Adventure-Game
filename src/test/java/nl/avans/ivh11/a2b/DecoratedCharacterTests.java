@@ -25,7 +25,7 @@ public class DecoratedCharacterTests
     public void setup() {
         System.out.println("SETUP CALLED");
         this.stats = new Stats();
-        this.decoratedCharacter = new Mage(new Troll("Mountain Troll", stats));
+        this.decoratedCharacter = new Mage(new Troll("Mountain Troll", stats, null));
         this.decoratedCharacter.setAttackStyle(UsableType.EQUIPMENT_WEAPON_SWORD);
     }
 

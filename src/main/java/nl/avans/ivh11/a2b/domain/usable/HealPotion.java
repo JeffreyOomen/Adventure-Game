@@ -1,6 +1,7 @@
 package nl.avans.ivh11.a2b.domain.usable;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import nl.avans.ivh11.a2b.domain.character.Character;
 
@@ -14,8 +15,10 @@ import java.util.Random;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class HealPotion extends Usable {
     private int level;
+    private int healAmount = 0;
     public HealPotion(UsableType type, int level) {
         this.type = type;
         this.level = level;
@@ -30,7 +33,7 @@ public class HealPotion extends Usable {
      */
     @Override
     public void use(Character character) {
-        character.getStats().setHitpoints(character.getStats().getHitpoints() + setHealAmount(character.getCurrentHitpoints()));
+        character.heal(setHealAmount(character.getCurrentHitpoints()));
     }
 
     /**
@@ -40,7 +43,6 @@ public class HealPotion extends Usable {
      * @return int
      */
     private int setHealAmount(int maxHp) {
-        // e.g. hp 50, lvl 20: max heal = 30;
         return new Random().nextInt(maxHp - level);
     }
 

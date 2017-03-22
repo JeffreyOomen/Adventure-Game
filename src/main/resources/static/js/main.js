@@ -10,7 +10,7 @@ $(document).ready(function () {
     });
 
     $("#start_battle").click(function() {
-        window.location.href = "/battle";
+        window.location.href = "/start";
     });
 
     /* handle normal attack */
@@ -31,7 +31,16 @@ $(document).ready(function () {
     $("#heal").click(function() {
         $.post("/battle/heal", function(data) {
             showBattlereport(data);
+
+            // Get first available heal potion and remove
+            $('.inventory li.POTION_HEAL:first').remove();
+
         });
+    });
+
+    /* handle regenerating the character */
+    $("#regenerate_character").click(function() {
+        window.location.href = "/doRegenerate";
     });
 
     /**
@@ -39,6 +48,7 @@ $(document).ready(function () {
      * @param data
      */
     var showBattlereport = function(data) {
+        console.log(data);
         $('#charCurrentHp').html(data.characterStats.currentHitpoints);
         $('#enemyCurrentHp').html(data.enemyStats.currentHitpoints);
 
@@ -50,9 +60,10 @@ $(document).ready(function () {
         if (!data.isCharacterAlive && !data.isEnemyAlive) {
             alert("You both lost...");
         } else if (!data.isCharacterAlive) {
+            window.location.href = "/regenerate";
             alert("You lost!");
         } else if (!data.isEnemyAlive) {
-            window.location.href = "/battle/end";
+            window.location.href = "/quit";
             alert("You won!");
         }
     };

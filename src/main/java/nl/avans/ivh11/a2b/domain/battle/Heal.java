@@ -1,9 +1,12 @@
 package nl.avans.ivh11.a2b.domain.battle;
 
 import nl.avans.ivh11.a2b.domain.character.Character;
-import nl.avans.ivh11.a2b.domain.enemy.Enemy;
+import nl.avans.ivh11.a2b.domain.usable.Inventory;
 import nl.avans.ivh11.a2b.domain.usable.Usable;
+import nl.avans.ivh11.a2b.domain.usable.UsableType;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
+
+import java.util.List;
 
 /**
  * Heal the current Character
@@ -16,22 +19,44 @@ public class Heal implements ActionBehavior
      * @param defender the Character's enemy
      * @return The action result
      */
+    @Override
     public String action(Opponent attacker, Opponent defender) {
 
-        if (attacker.isAlive() && defender.isAlive()) {
-            Character c = ((Character) attacker);
+        Character c = (Character) attacker;
 
-            String message = "No Heal potions";
-            if(c.getInventory().getHealPotions().size() > 0) {
-                int hitPoints = 10;
-                attacker.heal(hitPoints);
-                Usable potion = c.getInventory().getHealPotions().get(0);
-                c.getInventory().drop(potion);
-                message = c.getName() + " healed with " + hitPoints + " hp";
+        if (c.isAlive() && c.isAlive()) {
+
+            Inventory inventory = c.getInventory();
+
+            int healed = 0;
+
+            String message = "No heal potion available...";
+            if(inventory.getUsables().size() > 0) {
+                int oldHp = c.getCurrentHitpoints();
+
+                List<Usable> usables =  c.getInventory().getUsables();
+
+                Usable usableToRemove = null;
+                for(Usable u : usables) {
+                    if(u.getType() == UsableType.POTION_HEAL) {
+                        // heal potion found in inventory - use usable on character
+                        u.use(c);
+                        message = c.getName() + " healed!";
+
+                        // Determine heal amount
+                        healed = c.getCurrentHitpoints() - oldHp;
+                        usableToRemove = u;
+                    }
+                }
+                // Validate usableToRemove is found (placed out of the loop to avoid ConcurrentModificationException)
+                if(usableToRemove != null) {
+                    // Remove item from inventory
+                    inventory.dropUsable(usableToRemove);
+                    message = c.getName() + " healed with " + healed + " hp. </br>Removed used potion from inventory.";
+                }
             }
             return message;
         }
-
         return "Your opponent " + defender.getName() + " already died...";
     }
 

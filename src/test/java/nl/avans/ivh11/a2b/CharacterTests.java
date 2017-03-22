@@ -24,7 +24,7 @@ public class CharacterTests
     public void setup() {
         System.out.println("SETUP CALLED");
         this.stats = new Stats();
-        this.character = new Troll("Mountain Troll", stats);
+        this.character = new Troll("Mountain Troll", stats, null);
         this.character.setAttackStyle(UsableType.EQUIPMENT_WEAPON_SWORD);
     }
 

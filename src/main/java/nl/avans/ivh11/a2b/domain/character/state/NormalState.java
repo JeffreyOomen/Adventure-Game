@@ -5,12 +5,12 @@ package nl.avans.ivh11.a2b.domain.character.state;
  */
 public class NormalState extends CharacterState
 {
-    private final static int STRENGTH_LEVEL = 0;
-    private final static int MAGIC_LEVEL = 0;
-    private final static int DEFENSE_LEVEL = 0;
-    private final static int ARCHERY_LEVEL = 0;
+    private static final int STRENGTH_LEVEL = 0;
+    private static final int MAGIC_LEVEL = 0;
+    private static final int DEFENSE_LEVEL = 0;
+    private static final int ARCHERY_LEVEL = 0;
 
-    private volatile static NormalState uniqueInstance;
+    private static volatile NormalState uniqueInstance;
 
     // prevent instantiating through constructor
     private NormalState() {}

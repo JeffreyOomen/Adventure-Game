@@ -1,6 +1,7 @@
 package nl.avans.ivh11.a2b.domain.character;
 
 import lombok.NoArgsConstructor;
+import nl.avans.ivh11.a2b.domain.util.Media;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 
 import javax.persistence.Entity;
@@ -12,13 +13,13 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 public class Dwarf extends Character
 {
-    private final static int STRENGTH_ACCURACY = 15;
-    private final static int MAGIC_ACCURACY = 7;
-    private final static int DEFENSE_ACCURACY = 5;
-    private final static int ARCHERY_ACCURACY = 3;
+    private static final int STRENGTH_ACCURACY = 15;
+    private static final int MAGIC_ACCURACY = 7;
+    private static final int DEFENSE_ACCURACY = 5;
+    private static final int ARCHERY_ACCURACY = 3;
 
-    public Dwarf(String name, Stats stats) {
-        super(name, stats);
+    public Dwarf(String name, Stats stats, Media media) {
+        super(name, stats, media);
         this.description = "A dwarf";
     }
 

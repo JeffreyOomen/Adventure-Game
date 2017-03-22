@@ -5,8 +5,6 @@ import lombok.Setter;
 import nl.avans.ivh11.a2b.domain.battle.ActionBehavior;
 import nl.avans.ivh11.a2b.domain.util.observer.Observable;
 import nl.avans.ivh11.a2b.domain.util.observer.Observer;
-import org.hibernate.annotations.Polymorphism;
-import org.hibernate.annotations.PolymorphismType;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -21,6 +19,9 @@ public abstract class Opponent implements Observable
 
     protected String description;
 
+    @ManyToOne(cascade = CascadeType.MERGE)
+    protected Media media;
+
     @Lob
     protected ActionBehavior actionBehavior;
 
@@ -30,23 +31,6 @@ public abstract class Opponent implements Observable
 
     @Transient
     private List<Observer> observers = new ArrayList<>();
-
-    /**
-     * Performs an action against the Opponent
-     * @param opponent the Character's Opponent
-     */
-    public abstract void performAction(Opponent opponent);
-
-    /**
-     * Adds the given hitpoints to the currentHitpoints
-     * @param hitPoints int
-     */
-    public abstract void heal(int hitPoints);
-
-    /**
-     * Receive an incoming XP bounty
-     */
-    public abstract void receiveXp(int xp);
 
     /**
      * Take damage as result van an enemy attack
@@ -70,6 +54,35 @@ public abstract class Opponent implements Observable
     public boolean isAlive() {
         return this.stats.getCurrentHitpoints() > 0;
     }
+
+    /**
+     * Regenerate the Opponent, this means that the hitpoints will be reset
+     * to the maximum.
+     */
+    public void regenerate() {
+        this.stats.setCurrentHitpoints(this.stats.getHitpoints());
+    }
+
+    /**
+     * Performs an action against the Opponent
+     * @param opponent the Character's Opponent
+     */
+    public abstract void performAction(Opponent opponent);
+
+    /**
+     * Adds the given hitpoints to the currentHitpoints
+     * @param hitPoints int
+     */
+    public abstract void heal(int hitPoints);
+
+    /**
+     * Receive an incoming XP bounty
+     */
+    public abstract void receiveXp(int xp);
+
+    /*
+     * ################ Observer Pattern ################
+     */
 
     /**
      * Attach an Observer

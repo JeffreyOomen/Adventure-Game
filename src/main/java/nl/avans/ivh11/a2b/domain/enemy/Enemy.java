@@ -9,7 +9,6 @@ import nl.avans.ivh11.a2b.domain.util.observer.Observer;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import nl.avans.ivh11.a2b.domain.battle.ActionBehavior;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 
@@ -17,7 +16,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 
 /**
  * Represents an Enemy
@@ -33,7 +31,7 @@ public class Enemy extends Opponent
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
 
-    @OneToMany()
+    @OneToMany
     private List<Usable> loot;
 
     @Transient
@@ -47,6 +45,7 @@ public class Enemy extends Opponent
      * Performs an action against the Opponent
      * @param opponent the Enemy's Opponent
      */
+    @Override
     public void performAction(Opponent opponent) {
         String message = this.actionBehavior.action(this, (nl.avans.ivh11.a2b.domain.character.Character) opponent);
         notifyObservers(message);
@@ -59,8 +58,8 @@ public class Enemy extends Opponent
      * @return usable
      */
     public Usable randomDrop() {
-        UsableFactory usableFactory = null;
-        Usable usable = null;
+        UsableFactory usableFactory;
+        Usable usable;
 
         // Based on random change give a potion or equipment as drop
         // 70% change of a potion drop 30% change of equipment drop.
@@ -107,6 +106,7 @@ public class Enemy extends Opponent
      *
      * @return int
      */
+    @Override
     public void receiveXp(int xp) {
 //        this.getStats().getHitpoints(); // TODO: bepalen hoe we dit doen
     }
@@ -116,6 +116,7 @@ public class Enemy extends Opponent
      *
      * @param hitPoints int
      */
+    @Override
     public void heal(int hitPoints) {
         int newHitpoints = this.stats.getCurrentHitpoints() + hitPoints;
         if (newHitpoints <= this.stats.getHitpoints()) {

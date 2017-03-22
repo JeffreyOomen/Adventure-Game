@@ -1,6 +1,7 @@
 package nl.avans.ivh11.a2b.domain.usable;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import nl.avans.ivh11.a2b.domain.character.Character;
 
@@ -13,6 +14,7 @@ import javax.persistence.Entity;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class OverloadPotion extends Usable {
 
     public OverloadPotion(UsableType type, int level) {

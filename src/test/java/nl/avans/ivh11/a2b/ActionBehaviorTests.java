@@ -16,7 +16,7 @@ import nl.avans.ivh11.a2b.domain.usable.Inventory;
 import nl.avans.ivh11.a2b.domain.usable.Usable;
 import nl.avans.ivh11.a2b.domain.usable.UsableType;
 import nl.avans.ivh11.a2b.domain.util.EquipmentEnum;
-import nl.avans.ivh11.a2b.domain.util.Opponent;
+import nl.avans.ivh11.a2b.domain.util.Media;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 import org.junit.After;
 import org.junit.Before;
@@ -39,7 +39,7 @@ public class ActionBehaviorTests
     @Before
     public void setup() {
         this.stats = new Stats();
-        this.character = new Troll("Mountain Troll", stats);
+        this.character = new Troll("Mountain Troll", stats, new Media("test.png"));
         this.character.setInventory(new Inventory());
         this.character.setAttackStyle(UsableType.EQUIPMENT_WEAPON_SWORD);
     }

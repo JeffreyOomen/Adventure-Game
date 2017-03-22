@@ -15,7 +15,7 @@ public class ZamorakEquipment extends Equipment {
 
     public ZamorakEquipment(UsableType type, int level) {
         super(type, level);
-        setName("Zamorak " + getEquipmentType(type));
+        setName("Zamorak " + getEquipmentType(type) + " (lvl " + level + ")");
         setDescription("Item from the Zamorak collection. Very useful as a warrior.");
         setEquipmentAccuracies(0, -0.8, 0, 6);
     }

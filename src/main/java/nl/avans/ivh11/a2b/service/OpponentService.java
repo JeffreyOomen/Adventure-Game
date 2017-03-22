@@ -12,4 +12,6 @@ public interface OpponentService
     List<Enemy> findAllEnemies();
 
     Enemy findEnemyById(long id);
+
+    void saveCharacter(Character character);
 }

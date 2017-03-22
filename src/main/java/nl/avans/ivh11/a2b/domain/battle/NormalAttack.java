@@ -10,9 +10,10 @@ public class NormalAttack implements ActionBehavior
 {
     /**
      * Attack the enemy with a normal attack
-     * @param attacker
-     * @param defender
+     * @param attacker the Opponent which attacks the other Opponent
+     * @param defender the Opponent which is being attacked by the other Opponent
      */
+    @Override
     public String action(Opponent attacker, Opponent defender) {
         if (attacker.isAlive() && defender.isAlive()) {
             int damage = CustomRandom.getInstance().randomDamage(
@@ -25,13 +26,13 @@ public class NormalAttack implements ActionBehavior
             );
             defender.takeDamage(damage);
 
-            if (!defender.isAlive()) {
-                return "You have WON, " + attacker.getName() + " !!!";
-            } else {
-                return attacker.getName() + " attacked " + defender.getName() + " with " + damage + " damage!";
-            }
+            return attacker.getName() + " attacked " + defender.getName() + " with " + damage + " damage!";
         }
 
-        return "Your opponent " + defender.getName() + " already died...";
+        if (!defender.isAlive()) {
+            return attacker.getName() + " has won the battle";
+        } else {
+            return attacker.getName() + " has lost the battle";
+        }
     }
 }

@@ -5,6 +5,7 @@ import nl.avans.ivh11.a2b.domain.enemy.Enemy;
 import nl.avans.ivh11.a2b.domain.enemy.EnemyBuilder;
 import nl.avans.ivh11.a2b.domain.enemy.EnemyBuilderDirector;
 import nl.avans.ivh11.a2b.domain.usable.Usable;
+import nl.avans.ivh11.a2b.domain.util.Media;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +28,7 @@ public class EnemyTests {
         stats.setHitpoints(100);
         stats.setArchery(999);
         ArrayList<Usable> lootList = new ArrayList<>();
-        enemy = enemyDirector.createEnemy("Bram", "End boss", new SpecialAttack(), stats, lootList);
+        enemy = enemyDirector.createEnemy("Bram", new Media("test.png"), "End boss", new SpecialAttack(), stats, lootList);
     }
 
     @Test
