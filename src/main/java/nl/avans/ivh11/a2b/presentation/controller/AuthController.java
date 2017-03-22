@@ -55,7 +55,7 @@ public class AuthController {
         User user = new User();
         user.setUsername(registerForm.getUsername());
         user.setPassword(registerForm.getPassword());
-        Character character = CharacterFactory.getCharacter(registerForm.getCharacterName(), registerForm.getCharacterRace(), registerForm.getCharacterSpecialization());
+        Character character = CharacterFactory.createCharacter(registerForm.getCharacterName(), registerForm.getCharacterRace(), registerForm.getCharacterSpecialization());
         user.setCharacter(character);
         userService.save(user);
 

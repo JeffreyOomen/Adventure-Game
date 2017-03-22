@@ -12,8 +12,15 @@ import nl.avans.ivh11.a2b.domain.util.Stats;
  */
 public class CharacterFactory {
 
-    public static Character getCharacter(String name, String race, String specialization) {
-        Character character = getCharacterRaceInstance(name, race);
+    /**
+     * Create a new Character using the given parameters
+     * @param name the character name
+     * @param race the character race (Dwarf, Elf, Troll)
+     * @param specialization the character specialization (Warrior, Archer, Mage)
+     * @return Character
+     */
+    public static Character createCharacter(String name, String race, String specialization) {
+        Character character = createCharacterRaceInstance(name, race);
 
         switch (specialization) {
             case "archer":
@@ -34,7 +41,13 @@ public class CharacterFactory {
         return character;
     }
 
-    private static Character getCharacterRaceInstance(String name, String race) {
+    /**
+     * Create a new Character race (Dwarf, Elf, Troll)
+     * @param name the character name
+     * @param race the character race
+     * @return Character
+     */
+    private static Character createCharacterRaceInstance(String name, String race) {
         Character character;
 
         switch (race) {

@@ -34,10 +34,6 @@ public class User {
     @JoinColumn(name = "character_id")
     private Character character;
 
-    public Long getId() {
-        return id;
-    }
-
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }

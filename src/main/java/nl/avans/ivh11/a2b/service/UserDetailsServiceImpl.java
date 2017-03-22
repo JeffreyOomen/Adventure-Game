@@ -17,7 +17,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by matthijs on 20-3-17.
+ * Handles loading the current user details
  */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -31,9 +31,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         User user = userRepository.findByUsername(username);
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        for (Role role : user.getRoles()) {
-            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
-        }
+//        for (Role role : user.getRoles()) {
+//            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
+//        }
+        grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
     }

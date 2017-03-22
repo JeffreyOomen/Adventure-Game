@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="container">
-    <form method="post" action="/logout">
+    <form method="post" action="/logout" style="float: right;">
         <input type="hidden"
                th:name="${_csrf.parameterName}"
                th:value="${_csrf.token}" />
@@ -30,6 +30,7 @@
     <div class="column fight-view">
         <div class="contender">
             <div class="stats">
+                <span id="charName" th:text="${character.getName()}"></span><br/>
                 <span th:text="#{character.level}"></span> <span id="charLvl" th:text="${character.getStats().getLevel()}"></span><br/>
                 <span th:text="#{character.hp}"></span> <span id="charCurrentHp" th:text="${character.getStats().getCurrentHitpoints()}"></span>/<span
                     id="charHp" th:text="${character.getStats().getHitpoints()}"></span><br/>

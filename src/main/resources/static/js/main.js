@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+    //Set CSRF Request header for all AJAX requests
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
     //Hook your headers here and set it with before send function.
@@ -14,7 +16,6 @@ $(document).ready(function () {
 
     /* handle normal attack */
     $("#normal_attack").click(function() {
-        // setCsrfHeader();
         $.post("/battle/normalAttack", function(data) {
             showBattlereport(data);
         });
@@ -22,7 +23,6 @@ $(document).ready(function () {
 
     /* handle special attack */
     $("#special_attack").click(function() {
-        // setCsrfHeader();
         $.post("/battle/specialAttack", function(data) {
             showBattlereport(data);
         });
@@ -30,7 +30,6 @@ $(document).ready(function () {
 
     /* handle heal */
     $("#heal").click(function() {
-        // setCsrfHeader();
         $.post("/battle/heal", function(data) {
             showBattlereport(data);
         });
@@ -59,11 +58,3 @@ $(document).ready(function () {
         }
     };
 });
-
-function setCsrfHeader() {
-    var token = $("meta[name='_csrf']").attr("content");
-    var header = $("meta[name='_csrf_header']").attr("content");
-    $(document).ajaxSend(function(e, xhr, options) {
-        xhr.setRequestHeader(header, token);
-    });
-}

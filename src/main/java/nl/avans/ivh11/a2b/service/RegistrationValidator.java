@@ -9,7 +9,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 /**
- * Created by matthijs on 20-3-17.
+ * Validates the RegisterModel
  */
 @Component
 public class RegistrationValidator implements Validator {
