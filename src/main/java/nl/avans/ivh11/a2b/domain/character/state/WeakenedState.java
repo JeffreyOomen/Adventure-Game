@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 /**
  * Represents the Weak State
  */
-@Entity
 public class WeakenedState extends CharacterState
 {
     private final static int STRENGTH_LEVEL = -10;

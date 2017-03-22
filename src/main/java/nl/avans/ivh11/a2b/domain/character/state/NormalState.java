@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 /**
  * Represents the Normal State
  */
-@Entity
 public class NormalState extends CharacterState
 {
     private final static int STRENGTH_LEVEL = 0;

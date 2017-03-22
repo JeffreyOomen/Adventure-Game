@@ -9,19 +9,10 @@ import javax.persistence.*;
 /**
  * Represents the Character state
  */
-@Entity
-@Table(name = "CHARACTER_STATE")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "CHARACTER_STATE_TYPE")
 @Getter
 @Setter
 public abstract class CharacterState
 {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "CHARACTER_STATE_ID")
-    protected Long id;
-
     protected String name;
 
     protected String description;

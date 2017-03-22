@@ -48,8 +48,7 @@ public abstract class Character extends Opponent
     @Transient
     protected UsableType attackStyle;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "STATE_ID")
+    @Lob
     protected CharacterState currentState;
 
     /**

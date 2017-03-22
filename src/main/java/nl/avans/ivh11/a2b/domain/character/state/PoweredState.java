@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 /**
  * Represents the Powered State
  */
-@Entity
 public class PoweredState extends CharacterState
 {
     private final static int STRENGTH_LEVEL = 10;
