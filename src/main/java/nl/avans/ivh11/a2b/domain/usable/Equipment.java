@@ -44,7 +44,8 @@ public abstract class Equipment extends Usable {
      */
     @Override
     public void use(Character character) {
-        character.mountEquipment(this.type, this); // TODO: change CharacterStub for normal Character (Stub contains new used UsableType enum instead of old)
+        System.out.println("EQUIPMENT USE");
+        character.mountEquipment(this.type, this);
     }
 
     /**

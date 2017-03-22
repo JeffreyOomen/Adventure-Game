@@ -131,17 +131,25 @@ public class CharacterServiceImpl implements CharacterService
     }
 
     @Override
-    public boolean dropInventoryItem(Character character, int index) {
+    public boolean dropInventoryItem(Character character, Long index) {
         Inventory inventory = character.getInventory();
         Usable usable = inventory.getUsable(index);
-        return inventory.dropUsable(usable);
+        inventory.dropUsable(usable);
+        return true;
     }
 
     @Override
-    public void useInventoryItem(Character character, int index) {
+    public void useInventoryItem(Character character, Long usableId) {
+//        System.out.println("useInventoryItem");
         Inventory inventory = character.getInventory();
-        Usable usable = inventory.getUsable(index);
+
+
+        Usable usable = inventory.getUsable(usableId);
         usable.use(character);
+
+        // Update character
+        characterRepository.save(character);
+//        System.out.println("save character");
     }
 
     @Override

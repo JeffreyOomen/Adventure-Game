@@ -38,9 +38,12 @@ $(document).ready(function () {
     $('#inventory-page .item').click(function() {
         var id = $(this).attr('id');
 
-        // TODO: naam en beschrijving zichtbaar maken.
         var name = $('#' + id + ' .name').text();
         var desc = $('#' + id + ' .desc').text();
+
+        console.log('id: ' + id);
+        console.log('name: ' + name);
+        console.log('desc: ' + desc);
 
         var imageSrc = $("#" + id + ' img').attr('src');
         // Set selected
@@ -48,6 +51,7 @@ $(document).ready(function () {
 
 
         $('#selectedUsableId').val(id); // Set id (used to delete/mount usable)
+        // $('#selectedUsableId').text(id); // Set id (used to delete/mount usable)
         $('#selectedItemName').text(name); // set name
         $('#selectedItemDesc').text(desc); // set desc
 
@@ -68,6 +72,7 @@ $(document).ready(function () {
             dataType:"text",
             type: 'DELETE',
             success: function(result) {
+                // Remove item from inventory
                $('#' + id).remove();
             }
         });
@@ -90,7 +95,11 @@ $(document).ready(function () {
             dataType:"text",
             type: 'POST',
             success: function(result) {
+                // remove item from inventory
                 $('#' + id).remove();
+
+                // Get current setted item
+
             }
         });
 

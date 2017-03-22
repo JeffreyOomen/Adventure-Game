@@ -6,7 +6,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Getter
@@ -22,22 +24,25 @@ public class Inventory {
      * Explictically
      */
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Usable> usables;
+    private Map<Long, Usable> usables;
 
     public Inventory() {
-        usables = new ArrayList<>();
+        usables = new HashMap<>();
     }
 
     public boolean addUsable(Usable usable) {
-        return this.usables.add(usable);
+        if(this.usables.put(usable.getId(), usable) != null) {
+            return true;
+        }
+        return false;
     }
 
-    public boolean dropUsable(Usable usable) {
-       return this.usables.remove(usable);
+    public void dropUsable(Usable usable) {
+       this.usables.remove(usable.getId());
     }
 
-    public Usable getUsable(int index) {
-        return this.usables.get(index);
+    public Usable getUsable(Long id) {
+        return this.usables.get(id);
     }
 
 }

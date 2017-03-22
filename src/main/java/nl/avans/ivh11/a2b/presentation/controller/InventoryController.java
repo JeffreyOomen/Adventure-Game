@@ -56,7 +56,7 @@ public class InventoryController {
     @RequestMapping(value = "/inventory", method = RequestMethod.DELETE)
     @ResponseBody
     public void delete(@RequestBody  String usableId) {
-        int id = Integer.parseInt(usableId);
+        long id = Long.parseLong(usableId);
 
         if(id > 0) {
             // Drop item
@@ -73,10 +73,13 @@ public class InventoryController {
     public void useItem(@RequestBody  String usableId) {
         System.out.println("gevonden id" + usableId);
 
-        int id = Integer.parseInt(usableId);
+        long id = Long.parseLong(usableId);
 
-        // Use item
-        this.characterService.useInventoryItem(character, id);
+        // Validate usable found based on given id
+        if(id > 0){
+            // Use item
+            this.characterService.useInventoryItem(character, id);
+        }
 
     }
 }
