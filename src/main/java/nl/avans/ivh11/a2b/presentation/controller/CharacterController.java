@@ -14,7 +14,7 @@ public class CharacterController
     @Autowired
     private OpponentService opponentService;
 
-    @RequestMapping(value = "/home", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(Model uiModel) {
         uiModel.addAttribute("character", opponentService.findCharacterById(1L));
 
