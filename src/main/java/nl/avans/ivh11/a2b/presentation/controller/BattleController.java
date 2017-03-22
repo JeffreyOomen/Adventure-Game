@@ -120,6 +120,9 @@ public class BattleController
             this.quit();
         }
 
+        // empty battle messages
+        this.battleService.getBattle().getMessages().clear();
+
         // Return view model as JSON
         return new BattleModel(
                 character.getInventory().getUsables(),

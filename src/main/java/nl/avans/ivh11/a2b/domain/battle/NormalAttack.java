@@ -1,16 +1,14 @@
 package nl.avans.ivh11.a2b.domain.battle;
 
-import nl.avans.ivh11.a2b.domain.util.CustomRandom;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Attack the Opponent with a normal attack
  */
-public class NormalAttack implements ActionBehavior
+public class NormalAttack extends AttackUtil implements ActionBehavior
 {
     /**
      * Attack the enemy with a normal attack
@@ -19,38 +17,20 @@ public class NormalAttack implements ActionBehavior
      */
     @Override
     public List<String> action(Opponent attacker, Opponent defender) {
-        List<String> battleMessages = new ArrayList<>();
+        List<String> attackMessages = new ArrayList<>();
+
+        // only perform action when both attacker and defender are alive
         if (attacker.isAlive() && defender.isAlive()) {
-            // get the attack style stats of the attacker
-            Map<String, Integer> attackStyleStats = attacker.getAttackStyleStats();
-            int attackStyleLevel = attackStyleStats.get("AttackStyleLevel");
-            int attackStyleAccuracy = attackStyleStats.get("AttackStyleAccuracy");
-
-            // calculate how much damage is done
-            int damage = CustomRandom.getInstance().randomOpponentDamage(
-                    attackStyleLevel,
-                    attackStyleAccuracy,
-                    defender.getStats().getDefense(),
-                    defender.getStats().getDefenseAccuracy()
-            );
-
-            // prevent hitting above the defender's hitpoints
-            if (damage > defender.getCurrentHitpoints()) {
-                damage = defender.getCurrentHitpoints();
-            }
+            int damage = this.calculateDamage(attacker, defender, 1.0);
 
             // add messages to the list to report the player about the actions taking place
-            battleMessages.add(attacker.getName() + " attacked " + defender.getName() + " with "  + damage + " damage");
+            attackMessages.add(attacker.getName() + " attacked " + defender.getName() + " with "  + damage + " damage");
             defender.takeDamage(damage);
 
-            // notify that the defender has been killed
-            if (!defender.isAlive()) {
-                battleMessages.add("<span class=\"message-danger\">" + defender.getName() + " has been killed!</span>");
-            }
-
-            return battleMessages;
+            // add an optional kill message
+            attackMessages = this.addKillMessage(attackMessages, defender);
         }
 
-        return battleMessages;
+        return attackMessages;
     }
 }
