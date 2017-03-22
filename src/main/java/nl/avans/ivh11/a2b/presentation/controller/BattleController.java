@@ -18,6 +18,9 @@ import java.util.List;
 @Controller
 public class BattleController
 {
+    // used in messages
+    private static final String BREAK = "<br/><br/>";
+
     @Autowired
     private BattleService battleService;
 
@@ -51,6 +54,7 @@ public class BattleController
 
         if (this.enemy == null || !this.enemy.isAlive() || this.character.isAlive()) {
             // Get random enemy from the list
+            // TODO generate random enemies instead based on a list
             this.enemy = this.possibleEnemies.get(CustomRandom.getInstance().randomEnemy(this.possibleEnemies.size()));
 
             // make sure a new battle always starts against an enemy with full hp
@@ -66,26 +70,6 @@ public class BattleController
         }
 
         return "character/regenerate";
-    }
-
-    /**
-     * Ends a battle between a Character and an Enemy
-     * @param uiModel the model which contains battle information
-     * @return A view
-     */
-    @RequestMapping(value = "/quit", method = RequestMethod.GET)
-    public String endBattle(Model uiModel) {
-        if (!this.enemy.isAlive()) { // character can only quit when enemy is beaten
-            uiModel.addAttribute("character", this.character);
-            uiModel.addAttribute("enemy", this.enemy);
-
-            // remove enemy from the possible enemy list
-            this.possibleEnemies.remove(this.enemy);
-
-            return "home";
-        }
-
-        return "redirect:/start";
     }
 
     /**
@@ -125,9 +109,16 @@ public class BattleController
      */
     private BattleModel battleReport() {
         String battleReport = "";
-        battleReport += battleService.getBattle().getNextMessage();
-        battleReport += "<br/><br/>";
-        battleReport += battleService.getBattle().getNextMessage();
+
+        if (!this.enemy.isAlive()) {
+            this.quit();
+            battleReport += "<span class=\"message-info\">" + this.character.getName() + " has won the battle</span>" + BREAK;
+        }
+
+        List<String> messages = battleService.getBattle().getMessages();
+        for (String message: messages) {
+            battleReport += message + BREAK;
+        }
 
         // Return view model as JSON
         return new BattleModel(
@@ -138,6 +129,23 @@ public class BattleController
                 enemy.getStats(),
                 battleReport
         );
+    }
+
+    /**
+     * Ends a battle between a Character and an Enemy,
+     * only when the Character has won
+     */
+    private void quit() {
+        // remove enemy from the possible enemy list
+        // to prevent getting the same enemy
+        this.possibleEnemies.remove(this.enemy);
+
+        // empty battle messages
+        this.battleService.getBattle().getMessages().clear();
+
+        // give the character xp
+        this.character.receiveXp(this.enemy.getHitpoints());
+        this.opponentService.saveCharacter(this.character);
     }
 
     /**

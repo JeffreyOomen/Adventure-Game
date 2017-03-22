@@ -2,19 +2,17 @@ package nl.avans.ivh11.a2b.domain.battle;
 
 import nl.avans.ivh11.a2b.domain.util.observer.Observer;
 
-import java.util.ArrayDeque;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * Class to command actions every turn
  */
 public class Battle implements Observer
 {
-
-    private Queue<String> messages;
+    private List<String> messages;
 
     public Battle() {
-        this.messages = new ArrayDeque<>();
+        this.messages = new ArrayList<>();
     }
 
     /**
@@ -27,8 +25,13 @@ public class Battle implements Observer
 
     /**
      * Add message
-     * @param message
+     * @param messages
      */
+    @Override
+    public void update(List<String> messages) {
+        this.messages.addAll(messages);
+    }
+
     @Override
     public void update(String message) {
         System.out.println("Battle message: " + message);
@@ -36,12 +39,11 @@ public class Battle implements Observer
     }
 
     /**
-     * getNextMessage
-     * get next message from Queue
-     * @return String
+     * Gets the battle messages
+     * @return a List with messages
      */
-    public String getNextMessage() {
-        return messages.poll();
+    public List<String> getMessages() {
+        return this.messages;
     }
 }
 

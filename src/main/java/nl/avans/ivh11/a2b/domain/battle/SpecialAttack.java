@@ -16,7 +16,7 @@ public class SpecialAttack implements ActionBehavior
     @Override
     public String action(Opponent attacker, Opponent defender) {
         if (attacker.isAlive() && defender.isAlive()) {
-            int damage = (int) (CustomRandom.getInstance().randomDamage(
+            int damage = (int) (CustomRandom.getInstance().randomOpponentDamage(
                     // Attacker determine strength
                     attacker.getStats().getStrength(),
                     attacker.getStats().getStrengthAccuracy(),
@@ -24,15 +24,12 @@ public class SpecialAttack implements ActionBehavior
                     defender.getStats().getDefense(),
                     defender.getStats().getDefenseAccuracy()
             ) * 1.20);
+            String battleMessage = attacker.getName() + " did a special attack on " + defender.getName() + " with "  + damage + " damage";
             defender.takeDamage(damage);
 
-            return attacker.getName() + " did a special attack on " + defender.getName() + " with " + damage + " damage!";
+            return battleMessage;
         }
 
-        if (!defender.isAlive()) {
-            return attacker.getName() + " has won the battle";
-        } else {
-            return attacker.getName() + " has lost the battle";
-        }
+        return "Nothing happened...";
     }
 }

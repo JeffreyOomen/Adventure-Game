@@ -1,6 +1,4 @@
 $(document).ready(function () {
-    console.log("ready!");
-
     /* handle heal */
     $("#start_battle").click(function() {
         window.location.href = "/start";
@@ -27,13 +25,7 @@ $(document).ready(function () {
 
             // Get first available heal potion and remove
             $('.inventory li.POTION_HEAL:first').remove();
-
         });
-    });
-
-    /* handle regenerating the character */
-    $("#regenerate_character").click(function() {
-        window.location.href = "/doRegenerate";
     });
 
     /**
@@ -51,13 +43,33 @@ $(document).ready(function () {
         messageContainer.scrollTop(messageContainer.prop("scrollHeight"));
 
         if (!data.isCharacterAlive && !data.isEnemyAlive) {
-            alert("You both lost...");
+            losingState()
         } else if (!data.isCharacterAlive) {
-            window.location.href = "/regenerate";
-            alert("You lost!");
+            losingState();
         } else if (!data.isEnemyAlive) {
-            window.location.href = "/quit";
-            alert("You won!");
+            winningState();
         }
     };
+
+    /**
+     * Disables the action buttons and shows the
+     * go home button
+     */
+    function winningState() {
+        $('#normal_attack').prop('disabled', true);
+        $('#special_attack').prop('disabled', true);
+        $('#heal').prop('disabled', true);
+        $('#battle_aftermath_btn').attr('hidden', false).attr('href', '/');
+        $('#battle_aftermath_btn button').text('Home');
+    }
+
+    /**
+     * Shows an alert to the player and redirects to
+     * the regeneration window
+     * @param message the message to be shown in the alert box
+     */
+    function losingState(message) {
+        $('#battle_aftermath_btn').attr('hidden', false).attr('href', '/regenerate');
+        $('#battle_aftermath_btn button').text('Regenerate');
+    }
 });

@@ -16,7 +16,7 @@ public class NormalAttack implements ActionBehavior
     @Override
     public String action(Opponent attacker, Opponent defender) {
         if (attacker.isAlive() && defender.isAlive()) {
-            int damage = CustomRandom.getInstance().randomDamage(
+            int damage = CustomRandom.getInstance().randomOpponentDamage(
                     // Attacker determine strength
                     attacker.getStats().getStrength(),
                     attacker.getStats().getStrengthAccuracy(),
@@ -24,15 +24,12 @@ public class NormalAttack implements ActionBehavior
                     defender.getStats().getDefense(),
                     defender.getStats().getDefenseAccuracy()
             );
+            String battleMessage = attacker.getName() + " attacked " + defender.getName() + " with "  + damage + " damage";
             defender.takeDamage(damage);
 
-            return attacker.getName() + " attacked " + defender.getName() + " with " + damage + " damage!";
+            return battleMessage;
         }
 
-        if (!defender.isAlive()) {
-            return attacker.getName() + " has won the battle";
-        } else {
-            return attacker.getName() + " has lost the battle";
-        }
+        return "Nothing happened...";
     }
 }

@@ -3,17 +3,39 @@
 <head th:replace="fragments/head :: head">
 </head>
 <body>
-<div class="container">
-	<div class="home-text-left">
-		<h1 th:text="#{home.welcome}"></h1>
+	<div class="main-container">
+		<div class="main-container-left">
+			<h1 th:text="#{home.welcome}"></h1>
 
-		<a href="/start"><button id="start_battle" th:text="#{battle.start}"></button></a><br/>
-		<button th:text="#{character.inventory}"></button>
-	</div>
-	<div class="home-text-right">
-		<div th:replace="fragments/character :: character"></div>
+			<a href="/start"><button id="start_battle" th:text="#{battle.start}"></button></a><br/>
+			<button th:text="#{character.inventory}"></button>
+		</div>
+
+		<div class="main-container-right">
+			Level: <span id="charLvl" th:text="${character.getStats().getLevel()}"></span><br/>
+			HP: <span id="charCurrentHp" th:text="${character.getStats().getCurrentHitpoints()}"></span>/<span
+				id="charHp" th:text="${character.getStats().getHitpoints()}"></span><br/>
+			XP: 1083/1200<br/>
+			<img style="height: 350px;" th:src="@{/images/rpg-warrior.png}"/>
+		</div>
+
+		<div class="stats-container">
+			<img th:src="@{/images/rpg-hp.png}" th:width="20px" /> Hitpoints: <span id="charLvl" th:text="${character.getStats().getHitpoints()}"></span><br/>
+			Hitpoints XP left: <span id="char_hp_xp" th:text="${character.getStats().getHitpointsXpLeft()}"></span><br/><br/>
+
+			<img th:src="@{/images/rpg-strength.png}" th:width="20px" /> Strength Level: <span id="charLvl" th:text="${character.getStats().getStrength()}"></span><br/>
+			Strength XP left: <span id="char_strength_xp" th:text="${character.getStats().getStrengthXpLeft()}"></span><br/><br/>
+
+			<img th:src="@{/images/rpg-defense.png}" th:width="20px" /> Defense Level: <span id="charLvl" th:text="${character.getStats().getDefense()}"></span><br/>
+			Defense XP left: <span id="char_defense_xp" th:text="${character.getStats().getDefenseXpLeft()}"></span><br/><br/>
+
+			<img th:src="@{/images/rpg-magic.png}" th:width="20px" /> Magic Level: <span id="charLvl" th:text="${character.getStats().getMagic()}"></span><br/>
+			Magic XP left: <span id="char_magic_xp" th:text="${character.getStats().getMagicXpLeft()}"></span><br/><br/>
+
+			<img th:src="@{/images/rpg-archery.png}" th:width="20px" /> Archery Level: <span id="charLvl" th:text="${character.getStats().getArchery()}"></span><br/>
+			Archery XP left: <span id="char_achery_xp" th:text="${character.getStats().getArcheryXpLeft()}"></span><br/><br/>
+		</div>
 	</div>
 	<div th:replace="fragments/script :: script"></div>
-</div>
 </body>
 </html>

@@ -3,9 +3,15 @@
 <head th:replace="fragments/head :: head">
 </head>
 <body>
+
 <div class="container">
+    <a href="/" id="battle_aftermath_btn" hidden="hidden"><button type="button"></button></a>
+</div>
+
+<div class="container">
+
     <div th:replace="fragments/fight :: fight">
-    </div>
+
     <div class="column" th:replace="fragments/inventory :: inventory">
         <div class="inventory">
             <h1>Inventory</h1>
@@ -13,6 +19,7 @@
                 <li th:class="${usable.getType()}" th:text="${usable.getName()}">Name</li>
             </ul>
         </div>
+    </div>
     </div>
     <div th:replace="fragments/game_information :: info"></div>
 </div>
