@@ -1,17 +1,16 @@
 package nl.avans.ivh11.a2b.domain.character.state;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Represents the Character state
  */
 @Getter
 @Setter
-public abstract class CharacterState
+public abstract class CharacterState implements Serializable
 {
     protected String name;
 

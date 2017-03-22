@@ -41,7 +41,6 @@ public abstract class Character extends Opponent
     @Column(name = "EQUIPMENT")
     protected Map<UsableType, Equipment> equipment;
 
-    //@OneToOne
     @Transient
     protected Inventory inventory;
 
