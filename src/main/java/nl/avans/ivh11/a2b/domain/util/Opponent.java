@@ -3,12 +3,14 @@ package nl.avans.ivh11.a2b.domain.util;
 import lombok.Getter;
 import lombok.Setter;
 import nl.avans.ivh11.a2b.domain.battle.ActionBehavior;
+import nl.avans.ivh11.a2b.domain.usable.UsableType;
 import nl.avans.ivh11.a2b.domain.util.observer.Observable;
 import nl.avans.ivh11.a2b.domain.util.observer.Observer;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @MappedSuperclass
 @Getter
@@ -37,6 +39,20 @@ public abstract class Opponent implements Observable
      * @param opponent the Character's Opponent
      */
     public abstract void performAction(Opponent opponent);
+
+    /**
+     * Gets the attacking style of the opponent (e.g. melee, magic, archery)
+     * @return the attack style in the form of an UsableType
+     */
+    public abstract UsableType getAttackStyle();
+
+    /**
+     * Gets the level and accuracy in a Map based on the current
+     * Attack Style of the Character
+     * @return a Map which contains the level and accuracy of the skill
+     * which belongs to the current Attack Style
+     */
+    public abstract Map<String, Integer> getAttackStyleStats();
 
     /**
      * Take damage as result van an enemy attack
@@ -83,10 +99,18 @@ public abstract class Opponent implements Observable
 
     /**
      * Gets the maximum hitpoints of the Opponent
-     * @return
+     * @return the maximum hitpoints of the Opponent
      */
     public int getHitpoints() {
         return this.stats.getHitpoints();
+    }
+
+    /**
+     * Gets the current hitpoints of the Opponent
+     * @return the current hitpoints left of the Opponent
+     */
+    public int getCurrentHitpoints() {
+        return this.stats.getCurrentHitpoints();
     }
 
     /*

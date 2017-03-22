@@ -5,6 +5,7 @@ import nl.avans.ivh11.a2b.domain.util.CustomRandom;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Attack the Opponent with a special attack
@@ -20,19 +21,22 @@ public class SpecialAttack implements ActionBehavior
     public List<String> action(Opponent attacker, Opponent defender) {
         List<String> battleMessages = new ArrayList<>();
         if (attacker.isAlive() && defender.isAlive()) {
+            // get the attack style stats of the attacker
+            Map<String, Integer> attackStyleStats = attacker.getAttackStyleStats();
+            int attackStyleLevel = attackStyleStats.get("AttackStyleLevel");
+            int attackStyleAccuracy = attackStyleStats.get("AttackStyleAccuracy");
+
             // calculate how much damage is done
             int damage = (int) (CustomRandom.getInstance().randomOpponentDamage(
-                    // Attacker determine strength
-                    attacker.getStats().getStrength(),
-                    attacker.getStats().getStrengthAccuracy(),
-                    // Defender determine defense
+                    attackStyleLevel,
+                    attackStyleAccuracy,
                     defender.getStats().getDefense(),
                     defender.getStats().getDefenseAccuracy()
             ) * 1.20);
 
             // prevent hitting above the defender's hitpoints
-            if (damage > defender.getHitpoints()) {
-                damage = defender.getHitpoints();
+            if (damage > defender.getCurrentHitpoints()) {
+                damage = defender.getCurrentHitpoints();
             }
 
             // add messages to the list to report the player about the actions taking place

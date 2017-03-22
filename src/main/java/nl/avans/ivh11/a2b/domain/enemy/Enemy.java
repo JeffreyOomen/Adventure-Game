@@ -11,11 +11,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
 import nl.avans.ivh11.a2b.domain.util.Stats;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Represents an Enemy
@@ -48,6 +47,25 @@ public class Enemy extends Opponent
     @Override
     public void performAction(Opponent opponent) {
         notifyObservers(this.actionBehavior.action(this, (nl.avans.ivh11.a2b.domain.character.Character) opponent));
+    }
+
+    @Override
+    public UsableType getAttackStyle() {
+        throw new NotImplementedException();
+    }
+
+    /**
+     * Gets the level and accuracy in a Map based on the current
+     * Attack Style of the Character
+     * @return a Map which contains the level and accuracy of the skill
+     * which belongs to the current Attack Style
+     */
+    @Override
+    public Map<String, Integer> getAttackStyleStats() {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("AttackStyleLevel", this.getStats().getStrength());
+        map.put("AttackStyleAccuracy", this.getStats().getStrengthAccuracy());
+        return map;
     }
 
     /**
