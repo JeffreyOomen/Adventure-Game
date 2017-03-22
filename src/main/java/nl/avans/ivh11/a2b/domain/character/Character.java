@@ -95,8 +95,11 @@ public abstract class Character extends Opponent
      */
     @Override
     public void performAction(Opponent opponent) {
-        String message = this.actionBehavior.action(this, opponent);
-        notifyObservers(message);
+        List<String> battleMessages = this.actionBehavior.action(this, opponent);
+
+        if (battleMessages != null) {
+            notifyObservers(battleMessages);
+        }
     }
 
     /**

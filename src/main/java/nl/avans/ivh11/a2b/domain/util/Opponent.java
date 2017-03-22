@@ -42,15 +42,17 @@ public abstract class Opponent implements Observable
      * Take damage as result van an enemy attack
      * @param hit int damage to take
      */
-    public void takeDamage(int hit) {
+    public String takeDamage(int hit) {
         if (this.isAlive()) {
             if (hit >= this.stats.getCurrentHitpoints()) {
                 this.stats.setCurrentHitpoints(0);
-                notifyObservers("<span class=\"message-danger\">" + this.getName() + " has been killed!</span>");
+                return "<span class=\"message-danger\">" + this.getName() + " has been killed!</span>";
             } else {
                 this.stats.setCurrentHitpoints(this.stats.getCurrentHitpoints() - hit);
             }
         }
+
+        return null;
     }
 
     /**

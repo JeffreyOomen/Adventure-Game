@@ -29,7 +29,9 @@ public class Battle implements Observer
      */
     @Override
     public void update(List<String> messages) {
+        System.out.println("MESSAGES" + messages.size());
         this.messages.addAll(messages);
+        System.out.println("Here it goes wrong");
     }
 
     @Override

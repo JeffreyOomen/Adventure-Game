@@ -66,9 +66,11 @@ $(document).ready(function () {
     /**
      * Shows an alert to the player and redirects to
      * the regeneration window
-     * @param message the message to be shown in the alert box
      */
-    function losingState(message) {
+    function losingState() {
+        $('#normal_attack').prop('disabled', true);
+        $('#special_attack').prop('disabled', true);
+        $('#heal').prop('disabled', true);
         $('#battle_aftermath_btn').attr('hidden', false).attr('href', '/regenerate');
         $('#battle_aftermath_btn button').text('Regenerate');
     }

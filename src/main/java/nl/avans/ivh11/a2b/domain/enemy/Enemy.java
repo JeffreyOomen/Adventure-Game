@@ -47,8 +47,11 @@ public class Enemy extends Opponent
      */
     @Override
     public void performAction(Opponent opponent) {
-        String message = this.actionBehavior.action(this, (nl.avans.ivh11.a2b.domain.character.Character) opponent);
-        notifyObservers(message);
+        List<String> battleMessages = this.actionBehavior.action(this, (nl.avans.ivh11.a2b.domain.character.Character) opponent);
+
+        if (battleMessages != null) {
+            notifyObservers(battleMessages);
+        }
     }
 
     /**
@@ -101,6 +104,7 @@ public class Enemy extends Opponent
     }
 
     /**
+
      * Gets the Current Hitpoints amount
      * @return the Current Hitpoints amount
      */
