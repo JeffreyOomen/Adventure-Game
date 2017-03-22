@@ -18,13 +18,13 @@ public class EnemyBuilderDirector {
     }
 
     public Enemy createEnemy(String name, String description, ActionBehavior actionBehavior, Stats stats, List<Usable> loot) {
-        this.builder.setEnemy(new Enemy()); // in this way we can create more Enemy objects with only one builder
-        this.builder.setName(name);
-        this.builder.setDescription(description);
-        this.builder.setActionBehaviour(actionBehavior);
-        this.builder.setStats(stats);
-        this.builder.setLoot(loot);
-        return this.builder.buildEnemy();
+        return this.builder.newEnemy()
+                .setName(name)
+                .setDescription(description)
+                .setActionBehaviour(actionBehavior)
+                .setStats(stats)
+                .setLoot(loot)
+                .buildEnemy();
     }
 
 }
