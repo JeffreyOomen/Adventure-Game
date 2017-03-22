@@ -14,12 +14,10 @@ public class PotionFactory implements UsableFactory {
     @Override
     public Usable createUsable(UsableType type, int level) {
         Usable usable = null;
-        switch(type) {
-            case POTION_HEAL:
-                usable = new HealPotion(type, level);
-                break;
-            case POTION_OVERLOAD:
-                usable = new OverloadPotion(type, level);
+        if (type == UsableType.POTION_HEAL) {
+            usable = new HealPotion(type, level);
+        } else if (type == UsableType.POTION_OVERLOAD) {
+            usable = new OverloadPotion(type, level);
         }
         return usable;
     }

@@ -1,7 +1,6 @@
 package nl.avans.ivh11.a2b.domain.battle;
 
 import nl.avans.ivh11.a2b.domain.character.Character;
-import nl.avans.ivh11.a2b.domain.enemy.Enemy;
 import nl.avans.ivh11.a2b.domain.usable.Inventory;
 import nl.avans.ivh11.a2b.domain.usable.Usable;
 import nl.avans.ivh11.a2b.domain.usable.UsableType;
@@ -20,6 +19,7 @@ public class Heal implements ActionBehavior
      * @param defender the Character's enemy
      * @return The action result
      */
+    @Override
     public String action(Opponent attacker, Opponent defender) {
 
         Character c = (Character) attacker;

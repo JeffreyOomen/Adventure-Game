@@ -43,7 +43,6 @@ public class HealPotion extends Usable {
      * @return int
      */
     private int setHealAmount(int maxHp) {
-        // e.g. hp 50, lvl 20: max heal = 30;
         return new Random().nextInt(maxHp - level);
     }
 

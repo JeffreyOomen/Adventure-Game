@@ -1,6 +1,5 @@
 package nl.avans.ivh11.a2b.domain.battle;
 
-import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
 import nl.avans.ivh11.a2b.domain.util.CustomRandom;
 
@@ -14,6 +13,7 @@ public class SpecialAttack implements ActionBehavior
      * @param attacker the Opponent which attacks the other Opponent
      * @param defender the Opponent which is being attacked by the other Opponent
      */
+    @Override
     public String action(Opponent attacker, Opponent defender) {
 
         if (attacker.isAlive() && defender.isAlive()) {

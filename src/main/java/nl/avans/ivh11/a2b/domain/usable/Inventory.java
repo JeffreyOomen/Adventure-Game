@@ -1,7 +1,6 @@
 package nl.avans.ivh11.a2b.domain.usable;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -30,7 +29,13 @@ public class Inventory {
     }
 
     public boolean dropUsable(Usable usable) {
-       return this.usables.remove(usable);
+        return this.usables.remove(usable);
+    }
+
+    public List<HealPotion> getHealPotions() {
+        List<HealPotion> healPotions = new ArrayList<>();
+        healPotions.add(new HealPotion(UsableType.POTION_HEAL, 10));
+        return healPotions;
     }
 
     public Usable getUsable(int index) {

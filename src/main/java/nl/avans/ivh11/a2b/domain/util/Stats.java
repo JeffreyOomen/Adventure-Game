@@ -1,11 +1,8 @@
 package nl.avans.ivh11.a2b.domain.util;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import nl.avans.ivh11.a2b.domain.usable.UsableType;
-import nl.avans.ivh11.a2b.domain.util.EquipmentEnum;
-import org.springframework.security.access.method.P;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -53,18 +50,18 @@ public class Stats
     private int level;
     private double levelXpLeft;
 
-    private final static double STRENGTH_MULTIPLIER  = 0.6;
-    private final static double MAGIC_MULTIPLIER     = 0.6;
-    private final static double ARCHERY_MULTIPLIER   = 0.6;
-    private final static double DEFENSE_MULTIPLIER   = 0.2;
-    private final static double HITPOINTS_MULTIPLIER = 0.2;
-    private final static double LEVEL_MULTIPLIER     = 1.5; // determines how fast levels are acquired
+    private static final double STRENGTH_MULTIPLIER  = 0.6;
+    private static final double MAGIC_MULTIPLIER     = 0.6;
+    private static final double ARCHERY_MULTIPLIER   = 0.6;
+    private static final double DEFENSE_MULTIPLIER   = 0.2;
+    private static final double HITPOINTS_MULTIPLIER = 0.2;
+    private static final double LEVEL_MULTIPLIER     = 1.5; // determines how fast levels are acquired
 
-    private final static String STRENGTH  = "STRENGTH";
-    private final static String MAGIC     = "MAGIC";
-    private final static String DEFENSE   = "DEFENSE";
-    private final static String ARCHERY   = "ARCHERY";
-    private final static String HITPOINTS = "HITPOINTS";
+    private static final String STRENGTH  = "STRENGTH";
+    private static final String MAGIC     = "MAGIC";
+    private static final String DEFENSE   = "DEFENSE";
+    private static final String ARCHERY   = "ARCHERY";
+    private static final String HITPOINTS = "HITPOINTS";
 
     /**
      * Constructor
@@ -121,15 +118,16 @@ public class Stats
      * @param earnedXp the Strength XP gained
      */
     private void processStrengthXp(double earnedXp) {
-        while (earnedXp > 0) {
-            if (earnedXp >= this.strengthXpLeft) {
-                earnedXp -= this.strengthXpLeft;
+        double gainedXp = earnedXp;
+        while (gainedXp > 0) {
+            if (gainedXp >= this.strengthXpLeft) {
+                gainedXp -= this.strengthXpLeft;
                 this.strengthTotalXp = Math.ceil(LEVEL_MULTIPLIER * (this.strengthTotalXp + Math.sqrt(this.strengthTotalXp)));
                 this.strengthXpLeft = strengthTotalXp;
                 this.strength++;
                 continue;
             } else {
-                this.strengthXpLeft -= earnedXp;
+                this.strengthXpLeft -= gainedXp;
                 break;
             }
         }
@@ -140,15 +138,16 @@ public class Stats
      * @param earnedXp the Magic XP gained
      */
     private void processMagicXp(double earnedXp) {
-        while (earnedXp > 0) {
-            if (earnedXp >= this.magicXpLeft) {
-                earnedXp -= this.magicXpLeft;
+        double gainedXp = earnedXp;
+        while (gainedXp > 0) {
+            if (gainedXp >= this.magicXpLeft) {
+                gainedXp -= this.magicXpLeft;
                 this.magicTotalXp = Math.ceil(LEVEL_MULTIPLIER * (this.magicTotalXp + Math.sqrt(this.magicTotalXp)));
                 this.magicXpLeft = magicTotalXp;
                 this.magic++;
                 continue;
             } else {
-                this.magicXpLeft -= earnedXp;
+                this.magicXpLeft -= gainedXp;
                 break;
             }
         }
@@ -159,15 +158,16 @@ public class Stats
      * @param earnedXp the Defense XP gained
      */
     private void processDefenseXp(double earnedXp) {
-        while (earnedXp > 0) {
-            if (earnedXp >= this.defenseXpLeft) {
-                earnedXp -= this.defenseXpLeft;
+        double gainedXp = earnedXp;
+        while (gainedXp > 0) {
+            if (gainedXp >= this.defenseXpLeft) {
+                gainedXp -= this.defenseXpLeft;
                 this.defenseTotalXp = Math.ceil(LEVEL_MULTIPLIER * (this.defenseTotalXp + Math.sqrt(this.defenseTotalXp)));
                 this.defenseXpLeft = defenseTotalXp;
                 this.defense++;
                 continue;
             } else {
-                this.defenseXpLeft -= earnedXp;
+                this.defenseXpLeft -= gainedXp;
                 break;
             }
         }
@@ -178,15 +178,16 @@ public class Stats
      * @param earnedXp the Archery XP gained
      */
     private void processArcheryXp(double earnedXp) {
-        while (earnedXp > 0) {
-            if (earnedXp >= this.archeryXpLeft) {
-                earnedXp -= this.archeryXpLeft;
+        double gainedXp = earnedXp;
+        while (gainedXp > 0) {
+            if (gainedXp >= this.archeryXpLeft) {
+                gainedXp -= this.archeryXpLeft;
                 this.archeryTotalXp = Math.ceil(LEVEL_MULTIPLIER * (this.archeryTotalXp + Math.sqrt(this.archeryTotalXp)));
                 this.archeryXpLeft = archeryTotalXp;
                 this.archery++;
                 continue;
             } else {
-                this.archeryXpLeft -= earnedXp;
+                this.archeryXpLeft -= gainedXp;
                 break;
             }
         }
@@ -197,15 +198,16 @@ public class Stats
      * @param earnedXp the Hitpoints XP gained
      */
     private void processHitpointsXp(double earnedXp) {
-        while (earnedXp > 0) {
-            if (earnedXp >= this.hitpointsXpLeft) {
-                earnedXp -= this.hitpointsXpLeft;
+        double gainedXp = earnedXp;
+        while (gainedXp > 0) {
+            if (gainedXp >= this.hitpointsXpLeft) {
+                gainedXp -= this.hitpointsXpLeft;
                 this.hitpointsTotalXp = Math.ceil(LEVEL_MULTIPLIER * (this.hitpointsTotalXp + Math.sqrt(this.hitpointsTotalXp)));
                 this.hitpointsXpLeft = hitpointsTotalXp;
                 this.hitpoints += 5;
                 continue;
             } else {
-                this.hitpointsXpLeft -= earnedXp;
+                this.hitpointsXpLeft -= gainedXp;
                 break;
             }
         }

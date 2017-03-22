@@ -40,6 +40,7 @@ public abstract class CharacterDecorator extends Character
      * @param equipmentType what kind of EquipmentRepository Piece
      * @param equipment an EquipmentRepository Object
      */
+    @Override
     public void mountEquipment(UsableType equipmentType, Equipment equipment) {
         this.character.mountEquipment(equipmentType, equipment);
     }
@@ -48,6 +49,7 @@ public abstract class CharacterDecorator extends Character
      * Unmounts the Character with the specified EquipmentRepository Piece
      * @param equipmentType what kind of EquipmentRepository Piece
      */
+    @Override
     public void unMountEquipment(UsableType equipmentType) {
         this.character.unMountEquipment(equipmentType);
     }
@@ -56,6 +58,7 @@ public abstract class CharacterDecorator extends Character
      * Performs an action against the Opponent
      * @param opponent the Character's Opponent
      */
+    @Override
     public void performAction(Opponent opponent) {
         this.character.performAction(opponent);
     }
@@ -64,6 +67,7 @@ public abstract class CharacterDecorator extends Character
      * Gets the Strength Level
      * @return the Strength Level
      */
+    @Override
     public int getStrength() {
         return this.character.getStrength();
     }
@@ -72,6 +76,7 @@ public abstract class CharacterDecorator extends Character
      * Gets the Magic Level
      * @return the Magic Level
      */
+    @Override
     public int getMagic() {
         return this.character.getMagic();
     }
@@ -80,6 +85,7 @@ public abstract class CharacterDecorator extends Character
      * Gets the Defense Level
      * @return the Defense Level
      */
+    @Override
     public int getDefense() {
         return this.character.getDefense();
     }
@@ -88,6 +94,7 @@ public abstract class CharacterDecorator extends Character
      * Gets the Archery Level
      * @return the Archery Level
      */
+    @Override
     public int getArchery() {
         return this.character.getArchery();
     }
@@ -96,6 +103,7 @@ public abstract class CharacterDecorator extends Character
      * Gets the Hitpoints amount
      * @return the Hitpoints amount
      */
+    @Override
     public int getHitpoints() {
         return this.character.getHitpoints();
     }
@@ -104,6 +112,7 @@ public abstract class CharacterDecorator extends Character
      * Gets the Current Hitpoints amount
      * @return the Current Hitpoints amount
      */
+    @Override
     public int getCurrentHitpoints() {
         return this.character.getCurrentHitpoints();
     }
@@ -112,6 +121,7 @@ public abstract class CharacterDecorator extends Character
      * Gets an instance of PoweredState
      * @return an instance of PoweredState
      */
+    @Override
     public CharacterState getPoweredState() {
         return this.character.getPoweredState();
     }
@@ -120,6 +130,7 @@ public abstract class CharacterDecorator extends Character
      * Gets an instance of NormalState
      * @return an instance of NormalState
      */
+    @Override
     public CharacterState getNormalState() {
         return this.character.getNormalState();
     }
@@ -128,6 +139,7 @@ public abstract class CharacterDecorator extends Character
      * Gets an instance of WeakenedState
      * @return an instance of WeakenedState
      */
+    @Override
     public CharacterState getWeakenedState() {
         return this.character.getWeakenedState();
     }
@@ -135,6 +147,7 @@ public abstract class CharacterDecorator extends Character
     /**
      * Sets the current Character state
      */
+    @Override
     public void setState(CharacterState state) {
         this.character.setState(state);
     }
@@ -143,6 +156,7 @@ public abstract class CharacterDecorator extends Character
      * Determines if the Character is still alive
      * @return true if the Character is alive, false otherwise
      */
+    @Override
     public boolean isAlive() {
         return this.character.isAlive();
     }
@@ -150,6 +164,7 @@ public abstract class CharacterDecorator extends Character
     /**
      * Bears an incoming hit from an Opponent
      */
+    @Override
     public void takeDamage(int hit) {
         this.character.takeDamage(hit);
     }
@@ -157,6 +172,7 @@ public abstract class CharacterDecorator extends Character
     /**
      * Receive an incoming XP bounty
      */
+    @Override
     public void receiveXp(int earnedXp) {
         this.character.receiveXp(earnedXp);
     }
@@ -183,6 +199,7 @@ public abstract class CharacterDecorator extends Character
      * Gets the Map with Character Equipment
      * @return the Character Equipment
      */
+    @Override
     public Map<UsableType, Equipment> getEquipment() {
         return this.character.getEquipment();
     }
@@ -191,6 +208,7 @@ public abstract class CharacterDecorator extends Character
      * Sets the Attack Style
      * @param attackStyle the Attack Style to be used by the character
      */
+    @Override
     public void setAttackStyle(UsableType attackStyle) {
         this.character.setAttackStyle(attackStyle);
     }
@@ -199,6 +217,7 @@ public abstract class CharacterDecorator extends Character
      * Gets the Stats of the Character
      * @return the Stats of the Character
      */
+    @Override
     public Stats getStats() {
         return this.character.getStats();
     }
@@ -211,10 +230,12 @@ public abstract class CharacterDecorator extends Character
         return this.character;
     }
 
+    @Override
     public void setActionBehavior(ActionBehavior actionBehavior) {
         this.character.setActionBehavior(actionBehavior);
     }
 
+    @Override
     public String getName() {
         return this.character.getName();
     }

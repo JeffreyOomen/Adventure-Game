@@ -5,8 +5,6 @@ import lombok.Setter;
 import nl.avans.ivh11.a2b.domain.battle.ActionBehavior;
 import nl.avans.ivh11.a2b.domain.util.observer.Observable;
 import nl.avans.ivh11.a2b.domain.util.observer.Observer;
-import org.hibernate.annotations.Polymorphism;
-import org.hibernate.annotations.PolymorphismType;
 
 import javax.persistence.*;
 import java.util.ArrayList;

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
+<head>
+    ...
+</head>
+<body>
+<div th:fragment="character">
+    <div class="contender">
+        <div class="stats">
+            <span th:text="#{character.level}"></span> <span id="charLvl" th:text="${character.getStats().getLevel()}"></span><br/>
+            <span th:text="#{character.hp}"></span> <span id="charCurrentHp" th:text="${character.getStats().getCurrentHitpoints()}"></span>/<span
+                id="charHp" th:text="${character.getStats().getHitpoints()}"></span><br/>
+            <span>XP: 1083/1200</span>
+        </div>
+        <div class="battler" style="background-image: url('../images/rpg-warrior.png');">
+        </div>
+    </div>
+</div>
+</body>
+</html>

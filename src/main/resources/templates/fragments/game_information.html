@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
+<head>
+    ...
+</head>
+<body>
+<div class="messages-container" th:fragment="info">
+    <h2 th:text="#{battle.report}"></h2>
+    <div class="messages"></div>
+</div>
+</body>
+</html>

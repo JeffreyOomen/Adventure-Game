@@ -12,10 +12,10 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 public class Archer extends CharacterDecorator
 {
-    private final static int STRENGTH_ACCURACY = 0;
-    private final static int MAGIC_ACCURACY = 0;
-    private final static int DEFENSE_ACCURACY = 10;
-    private final static int ARCHERY_ACCURACY = 20;
+    private static final int STRENGTH_ACCURACY = 0;
+    private static final int MAGIC_ACCURACY = 0;
+    private static final int DEFENSE_ACCURACY = 10;
+    private static final int ARCHERY_ACCURACY = 20;
 
     /**
      * Constructor
