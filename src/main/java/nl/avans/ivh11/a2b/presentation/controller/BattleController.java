@@ -2,6 +2,7 @@ package nl.avans.ivh11.a2b.presentation.controller;
 
 import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.domain.enemy.Enemy;
+import nl.avans.ivh11.a2b.domain.usable.Usable;
 import nl.avans.ivh11.a2b.domain.util.CustomRandom;
 import nl.avans.ivh11.a2b.presentation.model.BattleModel;
 import nl.avans.ivh11.a2b.service.BattleService;
@@ -112,7 +113,10 @@ public class BattleController
 
         if (!this.enemy.isAlive()) {
             this.quit();
+            Usable randomDrop = this.enemy.randomDrop();
+            characterService.addInventoryItem(this.character, randomDrop);
             battleReport += "<span class=\"message-info\">" + this.character.getName() + " has won the battle</span>" + BREAK;
+            battleReport += "<span class=\"message-info\">" + this.enemy.getName() + " dropped " + randomDrop.getName() + "</span>" + BREAK;
         }
 
         List<String> messages = battleService.getBattle().getMessages();

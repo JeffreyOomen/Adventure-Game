@@ -14,7 +14,7 @@
 
     <div class="column" th:replace="fragments/inventory :: inventory">
         <div class="inventory">
-            <h1>Inventory</h1>
+            <h1><span th:text="#{character.inventory}"></span></h1>
             <ul th:each="usable : ${character.getInventory().getUsables()}">
                 <li th:class="${usable.getType()}" th:text="${usable.getName()}">Name</li>
             </ul>
