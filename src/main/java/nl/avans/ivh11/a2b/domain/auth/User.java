@@ -26,7 +26,7 @@ public class User {
 
     private String password;
 
-    @ManyToMany
+    @ManyToMany(targetEntity = Role.class, cascade = CascadeType.PERSIST)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
@@ -34,15 +34,15 @@ public class User {
     @JoinColumn(name = "character_id")
     private Character character;
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public User() {
+        this.roles = new HashSet<>();
     }
 
-    public void setRoles(Iterable<Role> roles) {
-        this.roles = new HashSet<>();
-        Iterator<Role> roleIterator = roles.iterator();
-        while(roleIterator.hasNext()) {
-            this.roles.add(roleIterator.next());
-        }
+    /**
+     * Add Role
+     * @param role
+     */
+    public void addRole(Role role) {
+        this.roles.add(role);
     }
 }

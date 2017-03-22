@@ -3,7 +3,6 @@ $(document).ready(function () {
     //Set CSRF Request header for all AJAX requests
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
-    //Hook your headers here and set it with before send function.
     $.ajaxSetup({
         beforeSend: function(xhr) {
             xhr.setRequestHeader(header, token);
