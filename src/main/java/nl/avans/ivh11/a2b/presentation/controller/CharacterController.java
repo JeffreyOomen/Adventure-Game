@@ -4,6 +4,7 @@ import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.service.OpponentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -13,8 +14,15 @@ public class CharacterController
     @Autowired
     private OpponentService opponentService;
 
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String home(Model uiModel) {
+        uiModel.addAttribute("character", opponentService.findCharacterById(1L));
+
+        return "home";
+    }
+
     /**
-     * Ends a battle between a Character and an Enemy
+     * Returns the view where the Character can be brought back to live
      * @return A view
      */
     @RequestMapping(value = "/regenerate", method = RequestMethod.GET)
@@ -23,20 +31,20 @@ public class CharacterController
     }
 
     /**
-     * Ends a battle between a Character and an Enemy
+     * Brings the Character back to live
      * @return A view
      */
-    @RequestMapping(value = "/doRegenerate", method = RequestMethod.GET)
+    @RequestMapping(value = "/regenerate", method = RequestMethod.POST)
     public String doRegenerateCharacter() {
         // Initialize and assign character and enemy
         Character character = opponentService.findCharacterById(1L);
 
-        // only regenerate when character is not alive
+        // Only regenerate when character is not alive
         if (!character.isAlive()) {
             character.regenerate();
             opponentService.saveCharacter(character);
         }
 
-        return "redirect:/start";
+        return "redirect:/";
     }
 }

@@ -3,6 +3,9 @@ package nl.avans.ivh11.a2b.domain.battle;
 import nl.avans.ivh11.a2b.domain.util.CustomRandom;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Attack the Opponent with a normal attack
  */
@@ -14,9 +17,10 @@ public class NormalAttack implements ActionBehavior
      * @param defender the Opponent which is being attacked by the other Opponent
      */
     @Override
-    public String action(Opponent attacker, Opponent defender) {
+    public List<String> action(Opponent attacker, Opponent defender) {
         if (attacker.isAlive() && defender.isAlive()) {
-            int damage = CustomRandom.getInstance().randomDamage(
+            List<String> battleMessages = new ArrayList<>();
+            int damage = CustomRandom.getInstance().randomOpponentDamage(
                     // Attacker determine strength
                     attacker.getStats().getStrength(),
                     attacker.getStats().getStrengthAccuracy(),
@@ -24,15 +28,16 @@ public class NormalAttack implements ActionBehavior
                     defender.getStats().getDefense(),
                     defender.getStats().getDefenseAccuracy()
             );
-            defender.takeDamage(damage);
+            battleMessages.add(attacker.getName() + " attacked " + defender.getName() + " with "  + damage + " damage");
 
-            return attacker.getName() + " attacked " + defender.getName() + " with " + damage + " damage!";
+            String damageMessage = defender.takeDamage(damage);
+            if (damageMessage != null) {
+                battleMessages.add(damageMessage);
+            }
+
+            return battleMessages;
         }
 
-        if (!defender.isAlive()) {
-            return attacker.getName() + " has won the battle";
-        } else {
-            return attacker.getName() + " has lost the battle";
-        }
+        return null;
     }
 }

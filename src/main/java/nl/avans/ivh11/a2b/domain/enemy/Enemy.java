@@ -47,8 +47,11 @@ public class Enemy extends Opponent
      */
     @Override
     public void performAction(Opponent opponent) {
-        String message = this.actionBehavior.action(this, (nl.avans.ivh11.a2b.domain.character.Character) opponent);
-        notifyObservers(message);
+        List<String> battleMessages = this.actionBehavior.action(this, (nl.avans.ivh11.a2b.domain.character.Character) opponent);
+
+        if (battleMessages != null) {
+            notifyObservers(battleMessages);
+        }
     }
 
     /**
@@ -101,32 +104,7 @@ public class Enemy extends Opponent
     }
 
     /**
-     * receiveXp
-     * currently based on enemy hitpoints
-     *
-     * @return int
-     */
-    @Override
-    public void receiveXp(int xp) {
-//        this.getStats().getHitpoints(); // TODO: bepalen hoe we dit doen
-    }
 
-    /**
-     * Adds the given hitpoints to the currentHitpoints
-     *
-     * @param hitPoints int
-     */
-    @Override
-    public void heal(int hitPoints) {
-        int newHitpoints = this.stats.getCurrentHitpoints() + hitPoints;
-        if (newHitpoints <= this.stats.getHitpoints()) {
-            this.stats.setCurrentHitpoints(newHitpoints);
-        } else {
-            this.stats.setCurrentHitpoints(this.stats.getHitpoints());
-        }
-    }
-
-    /**
      * Gets the Current Hitpoints amount
      * @return the Current Hitpoints amount
      */

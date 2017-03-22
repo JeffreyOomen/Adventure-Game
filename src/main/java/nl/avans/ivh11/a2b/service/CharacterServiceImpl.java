@@ -69,9 +69,11 @@ public class CharacterServiceImpl implements CharacterService
         Character c = new Troll("Kees Kroket", new Stats(), media);
         c.getStats().setStrength(40);
         c.getStats().setStrengthAccuracy(100);
+        c.getStats().setDefense(40);
+        c.getStats().setDefenseAccuracy(40);
         c.setActionBehavior(new NormalAttack());
+        c.setAttackStyle(UsableType.EQUIPMENT_WEAPON_SWORD);
         characterRepository.save(c);
-
 
         // Initialize factories
         EquipmentFactory equipmentFactory = new EquipmentFactory();

@@ -166,8 +166,8 @@ public abstract class CharacterDecorator extends Character
      * Bears an incoming hit from an Opponent
      */
     @Override
-    public void takeDamage(int hit) {
-        this.character.takeDamage(hit);
+    public String takeDamage(int hit) {
+        return this.character.takeDamage(hit);
     }
 
     /**
