@@ -46,7 +46,7 @@ public class BattleController
      * @param uiModel the model which contains battle information
      * @return A view
      */
-    @RequestMapping(value = "/start", method = RequestMethod.GET)
+    @RequestMapping(value = "/battle", method = RequestMethod.GET)
     public String startBattle(Model uiModel) {
         // Initialize and assign character and enemy
         this.character = characterService.findById(1L);

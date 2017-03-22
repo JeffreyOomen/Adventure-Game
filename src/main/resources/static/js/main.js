@@ -1,7 +1,7 @@
 $(document).ready(function () {
     /* handle heal */
     $("#start_battle").click(function() {
-        window.location.href = "/start";
+        window.location.href = "/battle";
     });
 
     /* handle normal attack */

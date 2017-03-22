@@ -33,7 +33,6 @@ public class CustomRandom {
      */
     public int getRandomNumber() {
         int range = (int) (max - min + 1);
-        System.out.println("RANDOM NUMMER STILL GOES GOED " + range + " " + range + min);
         return (int)(r.nextInt(range) + min);
     }
 
