@@ -10,8 +10,8 @@ public class NormalAttack implements ActionBehavior
 {
     /**
      * Attack the enemy with a normal attack
-     * @param attacker
-     * @param defender
+     * @param attacker the Opponent which attacks the other Opponent
+     * @param defender the Opponent which is being attacked by the other Opponent
      */
     @Override
     public String action(Opponent attacker, Opponent defender) {

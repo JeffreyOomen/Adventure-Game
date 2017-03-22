@@ -47,7 +47,8 @@ public class CustomRandom {
     public int randomDamage (double strength, double strengthAccuracy, double defense, int defenseAccuracy) {
         double strDouble = r.nextInt(100);
         double defDouble = r.nextInt(100);
-        double def = defense * 0.25;
+
+        double def = defense;
         double str;
         int maxDefense;
         if (defenseAccuracy >= defDouble) {

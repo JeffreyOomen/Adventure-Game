@@ -15,7 +15,6 @@ public class SpecialAttack implements ActionBehavior
      */
     @Override
     public String action(Opponent attacker, Opponent defender) {
-
         if (attacker.isAlive() && defender.isAlive()) {
             int damage = (int) (CustomRandom.getInstance().randomDamage(
                     // Attacker determine strength

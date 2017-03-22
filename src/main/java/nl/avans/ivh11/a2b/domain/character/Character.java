@@ -41,7 +41,7 @@ public abstract class Character extends Opponent
     @Column(name = "EQUIPMENT")
     protected Map<UsableType, Equipment> equipment;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //    @Column(name = "CHARACTER_INVENTORY")
     protected Inventory inventory;
 

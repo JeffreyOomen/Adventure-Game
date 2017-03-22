@@ -94,7 +94,6 @@ public class BattleServiceImpl implements BattleService
 
         // save the battle state
         this.saveBattleState();
-
     }
 
     /**
