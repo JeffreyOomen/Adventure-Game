@@ -39,22 +39,28 @@ $(document).ready(function () {
         var id = $(this).attr('id');
 
         // TODO: naam en beschrijving zichtbaar maken.
-        var name = $(this).closest('.name').text();
-        var test = $('#' + id + ', .name').html();
-        // console.log($(test));
+        var name = $('#' + id + ' .name').text();
+        var desc = $('#' + id + ' .desc').text();
 
         var imageSrc = $("#" + id + ' img').attr('src');
         // Set selected
         $('#selectedUsableUrl').attr('src', imageSrc);
 
 
-        // Set id (used to delete/mount usable)
-        $('#selectedUsableId').val(id);
+        $('#selectedUsableId').val(id); // Set id (used to delete/mount usable)
+        $('#selectedItemName').text(name); // set name
+        $('#selectedItemDesc').text(desc); // set desc
 
     });
 
+    /**
+     * Used to delete a selected usable based on id
+     */
     $('#deleteUsable').click(function() {
         var id = $('#selectedUsableId').val();
+
+        console.log('Deleted item with ID: ' + id);
+
         $.ajax({
             url: '/inventory',
             data: id,
@@ -65,7 +71,30 @@ $(document).ready(function () {
                $('#' + id).remove();
             }
         });
+
     });
+
+
+    /**
+     * Used to delete a selected usable based on id
+     */
+    $('#useUsable').click(function() {
+        var id = $('#selectedUsableId').val();
+
+        console.log('Use item with ID: ' + id);
+
+        $.ajax({
+            url: '/inventory',
+            data: id,
+            contentType: "application/text",
+            dataType:"text",
+            type: 'POST',
+            success: function(result) {
+                $('#' + id).remove();
+            }
+        });
+
+});
 
     //
     // $('#inventory-page .item').click(function() {

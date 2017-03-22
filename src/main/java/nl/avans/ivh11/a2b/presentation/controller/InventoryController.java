@@ -57,9 +57,12 @@ public class InventoryController {
     @ResponseBody
     public void delete(@RequestBody  String usableId) {
         int id = Integer.parseInt(usableId);
-        // Drop item
-        System.out.println("DELETE USABLE WITH ID: " + usableId);
-        this.characterService.dropInventoryItem(character, id);
+
+        if(id > 0) {
+            // Drop item
+            System.out.println("DELETE USABLE WITH ID: " + usableId);
+            this.characterService.dropInventoryItem(character, id);
+        }
     }
 
     /**
