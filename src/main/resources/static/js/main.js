@@ -25,11 +25,6 @@ $(document).ready(function () {
         });
     });
 
-    /* handle regenerating the character */
-    $("#regenerate_character").click(function() {
-        window.location.href = "/doRegenerate";
-    });
-
     /**
      * Show battle report the the client
      * @param data

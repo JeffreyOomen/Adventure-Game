@@ -9,13 +9,10 @@ import java.util.*;
  */
 public class Battle implements Observer
 {
-
-    private Queue<String> messages;
-    private List<String> levelMessages;
+    private List<String> messages;
 
     public Battle() {
-        this.messages = new ArrayDeque<>();
-        this.levelMessages = new ArrayList<>();
+        this.messages = new ArrayList<>();
     }
 
     /**
@@ -32,10 +29,7 @@ public class Battle implements Observer
      */
     @Override
     public void update(List<String> messages) {
-        for (String message : messages) {
-            System.out.println("Battle message: " + message);
-            this.levelMessages.add(message);
-        }
+        this.messages.addAll(messages);
     }
 
     @Override
@@ -45,16 +39,11 @@ public class Battle implements Observer
     }
 
     /**
-     * getNextMessage
-     * get next message from Queue
-     * @return String
+     * Gets the battle messages
+     * @return a List with messages
      */
-    public String getNextMessage() {
-        return messages.poll();
-    }
-
     public List<String> getMessages() {
-        return this.levelMessages;
+        return this.messages;
     }
 }
 

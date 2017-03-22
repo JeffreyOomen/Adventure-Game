@@ -22,7 +22,7 @@ public class CharacterController
     }
 
     /**
-     * Ends a battle between a Character and an Enemy
+     * Returns the view where the Character can be brought back to live
      * @return A view
      */
     @RequestMapping(value = "/regenerate", method = RequestMethod.GET)
@@ -31,20 +31,20 @@ public class CharacterController
     }
 
     /**
-     * Ends a battle between a Character and an Enemy
+     * Brings the Character back to live
      * @return A view
      */
-    @RequestMapping(value = "/doRegenerate", method = RequestMethod.GET)
+    @RequestMapping(value = "/regenerate", method = RequestMethod.POST)
     public String doRegenerateCharacter() {
         // Initialize and assign character and enemy
         Character character = opponentService.findCharacterById(1L);
 
-        // only regenerate when character is not alive
+        // Only regenerate when character is not alive
         if (!character.isAlive()) {
             character.regenerate();
             opponentService.saveCharacter(character);
         }
 
-        return "redirect:/home";
+        return "redirect:/";
     }
 }

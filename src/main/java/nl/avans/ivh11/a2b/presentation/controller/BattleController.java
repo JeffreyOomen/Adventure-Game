@@ -49,6 +49,7 @@ public class BattleController
 
         if (this.enemy == null || !this.enemy.isAlive() || this.character.isAlive()) {
             // Get random enemy from the list
+            // TODO generate random enemies instead based on a list
             this.enemy = this.possibleEnemies.get(CustomRandom.getInstance().randomEnemy(this.possibleEnemies.size()));
 
             // make sure a new battle always starts against an enemy with full hp
@@ -103,8 +104,6 @@ public class BattleController
      */
     private BattleModel battleReport() {
         String battleReport = "";
-        battleReport += battleService.getBattle().getNextMessage() + BREAK;
-        battleReport += battleService.getBattle().getNextMessage() + BREAK;
 
         if (!this.enemy.isAlive()) {
             this.quit();
@@ -134,6 +133,9 @@ public class BattleController
         // remove enemy from the possible enemy list
         // to prevent getting the same enemy
         this.possibleEnemies.remove(this.enemy);
+
+        // empty battle messages
+        this.battleService.getBattle().getMessages().clear();
 
         // give the character xp
         this.character.receiveXp(this.enemy.getHitpoints());
