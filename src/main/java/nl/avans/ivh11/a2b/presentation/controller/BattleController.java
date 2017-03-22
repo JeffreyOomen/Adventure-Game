@@ -110,14 +110,14 @@ public class BattleController
     private BattleModel battleReport() {
         String battleReport = "";
 
-        if (!this.enemy.isAlive()) {
-            this.quit();
-            battleReport += "<span class=\"message-info\">" + this.character.getName() + " has won the battle</span>" + BREAK;
-        }
-
         List<String> messages = battleService.getBattle().getMessages();
         for (String message: messages) {
             battleReport += message + BREAK;
+        }
+
+        if (!this.enemy.isAlive()) {
+            battleReport += "<span class=\"message-info\">" + this.character.getName() + " has won the battle</span>" + BREAK;
+            this.quit();
         }
 
         // Return view model as JSON

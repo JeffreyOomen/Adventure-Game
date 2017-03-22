@@ -42,17 +42,14 @@ public abstract class Opponent implements Observable
      * Take damage as result van an enemy attack
      * @param hit int damage to take
      */
-    public String takeDamage(int hit) {
+    public void takeDamage(int hit) {
         if (this.isAlive()) {
             if (hit >= this.stats.getCurrentHitpoints()) {
                 this.stats.setCurrentHitpoints(0);
-                return "<span class=\"message-danger\">" + this.getName() + " has been killed!</span>";
             } else {
                 this.stats.setCurrentHitpoints(this.stats.getCurrentHitpoints() - hit);
             }
         }
-
-        return null;
     }
 
     /**
@@ -98,7 +95,7 @@ public abstract class Opponent implements Observable
 
     /**
      * Attach an Observer
-     * @param observer
+     * @param observer an object of Observer which listens to any Observables
      */
     @Override
     public void attach(Observer observer) {
@@ -107,7 +104,7 @@ public abstract class Opponent implements Observable
 
     /**
      * Detach an Observer
-     * @param observer
+     * @param observer an object of Observer which listens to any Observables
      */
     @Override
     public void detach(Observer observer) {
@@ -117,21 +114,8 @@ public abstract class Opponent implements Observable
     }
 
     /**
-     * Notify all attached Observers and
-     * push message
-     * @param message
-     */
-    @Override
-    public void notifyObservers(String message) {
-        for (Observer observer : this.observers) {
-            observer.update(message);
-        }
-    }
-
-    /**
-     * Notify all attached Observers and
-     * push message
-     * @param messages
+     * Notify all attached Observers and push messages
+     * @param messages messages which need to be logged to the user
      */
     @Override
     public void notifyObservers(List<String> messages) {

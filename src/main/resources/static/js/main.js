@@ -1,27 +1,28 @@
 $(document).ready(function () {
-    /* handle heal */
+
+    // Handle starting a new battle against an enemy
     $("#start_battle").click(function() {
         window.location.href = "/battle";
     });
 
-    /* handle normal attack */
+    // Handle a normal attack action
     $("#normal_attack").click(function() {
         $.post("/battle/normalAttack", function(data) {
-            showBattlereport(data);
+            battleReport(data);
         });
     });
 
-    /* handle special attack */
+    // Handle a special attack action
     $("#special_attack").click(function() {
         $.post("/battle/specialAttack", function(data) {
-            showBattlereport(data);
+            battleReport(data);
         });
     });
 
-    /* handle heal */
+    // Handle a heal action
     $("#heal").click(function() {
         $.post("/battle/heal", function(data) {
-            showBattlereport(data);
+            battleReport(data);
 
             // Get first available heal potion and remove
             $('.inventory li.POTION_HEAL:first').remove();
@@ -30,14 +31,13 @@ $(document).ready(function () {
 
     /**
      * Show battle report the the client
-     * @param data
+     * @param data the battle messages received from the controllers
      */
-    var showBattlereport = function(data) {
-        console.log(data);
+    function battleReport(data) {
         $('#charCurrentHp').html(data.characterStats.currentHitpoints);
         $('#enemyCurrentHp').html(data.enemyStats.currentHitpoints);
 
-        // show battle messages
+        // show battle messages and automatically scroll downwards
         var messageContainer = $('.messages');
         messageContainer.append($('<p "message">' + data.message + '</p>'));
         messageContainer.scrollTop(messageContainer.prop("scrollHeight"));
@@ -49,29 +49,32 @@ $(document).ready(function () {
         } else if (!data.isEnemyAlive) {
             winningState();
         }
-    };
-
-    /**
-     * Disables the action buttons and shows the
-     * go home button
-     */
-    function winningState() {
-        $('#normal_attack').prop('disabled', true);
-        $('#special_attack').prop('disabled', true);
-        $('#heal').prop('disabled', true);
-        $('#battle_aftermath_btn').attr('hidden', false).attr('href', '/');
-        $('#battle_aftermath_btn button').text('Home');
     }
 
     /**
-     * Shows an alert to the player and redirects to
-     * the regeneration window
+     * Shows a button to the user which can be used to navigate back to the regeneration screen
+     */
+    function winningState() {
+        $('#battle_aftermath_btn').attr('hidden', false).attr('href', '/');
+        $('#battle_aftermath_btn button').text('Home');
+        battleEndState();
+    }
+
+    /**
+     * Shows a button to the user which can be used to navigate back to the home screen
      */
     function losingState() {
+        $('#battle_aftermath_btn').attr('hidden', false).attr('href', '/regenerate');
+        $('#battle_aftermath_btn button').text('Regenerate');
+        battleEndState();
+    }
+
+    /**
+     * Disables the action buttons in the battle
+     */
+    function battleEndState() {
         $('#normal_attack').prop('disabled', true);
         $('#special_attack').prop('disabled', true);
         $('#heal').prop('disabled', true);
-        $('#battle_aftermath_btn').attr('hidden', false).attr('href', '/regenerate');
-        $('#battle_aftermath_btn button').text('Regenerate');
     }
 });

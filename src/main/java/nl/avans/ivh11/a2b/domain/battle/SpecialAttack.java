@@ -18,8 +18,9 @@ public class SpecialAttack implements ActionBehavior
      */
     @Override
     public List<String> action(Opponent attacker, Opponent defender) {
+        List<String> battleMessages = new ArrayList<>();
         if (attacker.isAlive() && defender.isAlive()) {
-            List<String> battleMessages = new ArrayList<>();
+            // calculate how much damage is done
             int damage = (int) (CustomRandom.getInstance().randomOpponentDamage(
                     // Attacker determine strength
                     attacker.getStats().getStrength(),
@@ -28,16 +29,24 @@ public class SpecialAttack implements ActionBehavior
                     defender.getStats().getDefense(),
                     defender.getStats().getDefenseAccuracy()
             ) * 1.20);
-            battleMessages.add(attacker.getName() + " did a special attack on " + defender.getName() + " with "  + damage + " damage");
 
-            String damageMessage = defender.takeDamage(damage);
-            if (damageMessage != null) {
-                battleMessages.add(damageMessage);
+            // prevent hitting above the defender's hitpoints
+            if (damage > defender.getHitpoints()) {
+                damage = defender.getHitpoints();
+            }
+
+            // add messages to the list to report the player about the actions taking place
+            battleMessages.add(attacker.getName() + " did a special attack on " + defender.getName() + " with "  + damage + " damage");
+            defender.takeDamage(damage);
+
+            // notify that the defender has been killed
+            if (!defender.isAlive()) {
+                battleMessages.add("<span class=\"message-danger\">" + defender.getName() + " has been killed!</span>");
             }
 
             return battleMessages;
         }
 
-        return null;
+        return battleMessages;
     }
 }

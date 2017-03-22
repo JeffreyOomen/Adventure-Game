@@ -47,17 +47,11 @@ public class Enemy extends Opponent
      */
     @Override
     public void performAction(Opponent opponent) {
-        List<String> battleMessages = this.actionBehavior.action(this, (nl.avans.ivh11.a2b.domain.character.Character) opponent);
-
-        if (battleMessages != null) {
-            notifyObservers(battleMessages);
-        }
+        notifyObservers(this.actionBehavior.action(this, (nl.avans.ivh11.a2b.domain.character.Character) opponent));
     }
 
     /**
-     * randomDrop
-     * receiver a random drop from a chosen factory.
-     *
+     * Receive a random drop from a chosen factory
      * @return usable
      */
     public Usable randomDrop() {
@@ -82,11 +76,9 @@ public class Enemy extends Opponent
     }
 
     /**
-     * pickRandomUsableType
-     * used to randomly get a UsableType based on given subtype (equipment or potion). This method is used in @randomDrop to generate a usable.
-     *
+     * Used to randomly get a UsableType based on given subtype (equipment or potion). This method is used in @randomDrop to generate a usable.
      * @param type potion or equipment : String
-     * @return
+     * @return an Usable
      */
     private UsableType getRandomDropUsableType(String type) {
         UsableType chosenDrop = null;

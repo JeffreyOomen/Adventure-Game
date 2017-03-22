@@ -24,10 +24,4 @@ public interface Observable
      * @param messages
      */
     void notifyObservers(List<String> messages);
-
-    /**
-     * Notify all observers
-     * @param message
-     */
-    void notifyObservers(String message);
 }
