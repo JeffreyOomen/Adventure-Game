@@ -5,10 +5,14 @@ import nl.avans.ivh11.a2b.datastorage.enemy.EnemyRepository;
 import nl.avans.ivh11.a2b.domain.battle.*;
 import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.domain.enemy.Enemy;
+import nl.avans.ivh11.a2b.domain.util.CustomRandom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.PostConstruct;
+import java.util.List;
 
 @Service("battleService")
 @Repository
@@ -17,16 +21,23 @@ public class BattleServiceImpl implements BattleService
 {
     private CharacterRepository characterRepository;
     private EnemyRepository enemyRepository;
+    private OpponentService opponentService;
     private Battle battle;
-    private int turnCounter = 0;
 
     private Character character;
     private Enemy enemy;
+    private List<Enemy> possibleEnemies;
+
+    @PostConstruct
+    public void init() {
+        possibleEnemies = opponentService.findAllEnemies();
+    }
 
     @Autowired
-    public BattleServiceImpl(CharacterRepository characterRepo, EnemyRepository enemyRepo) {
+    public BattleServiceImpl(CharacterRepository characterRepo, EnemyRepository enemyRepo, OpponentService opponentService) {
         this.characterRepository = characterRepo;
         this.enemyRepository = enemyRepo;
+        this.opponentService = opponentService;
     }
 
     /**
@@ -44,6 +55,16 @@ public class BattleServiceImpl implements BattleService
         // Attach observers to subject
         this.character.attach(battle);
         this.enemy.attach(battle);
+    }
+
+    public Enemy randomEnemy() {
+        this.enemy = this.possibleEnemies.get(CustomRandom.getInstance().randomEnemy(this.possibleEnemies.size()));
+        System.out.println("ALL GOOD");
+        System.out.println(this.possibleEnemies.size());
+        System.out.println(this.character.getName());
+        this.enemy.setStats(CustomRandom.getInstance().randomEnemyStats(this.character));
+
+        return this.enemy;
     }
 
     /**

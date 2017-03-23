@@ -10,6 +10,8 @@ public interface BattleService
 
     void attack();
 
+    Enemy randomEnemy();
+
     void specialAttack();
 
     void heal();
