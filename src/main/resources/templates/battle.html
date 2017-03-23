@@ -7,6 +7,9 @@
 <div class="container">
     <div id="regenerate" hidden="hidden"> <!-- if customer is anonymous-->
         <form method="post" action="/regenerate">
+            <input type="hidden"
+                   th:name="${_csrf.parameterName}"
+                   th:value="${_csrf.token}" />
             <button type="submit" value="submit">Regenerate</button>
         </form>
     </div>
