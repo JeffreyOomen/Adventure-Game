@@ -1,5 +1,9 @@
 package nl.avans.ivh11.a2b.domain.battle;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import nl.avans.ivh11.a2b.domain.util.Opponent;
 import nl.avans.ivh11.a2b.domain.util.observer.Observer;
 
 import java.util.*;
@@ -7,12 +11,23 @@ import java.util.*;
 /**
  * Class to command actions every turn
  */
+@Getter
+@Setter
 public class Battle implements Observer
 {
     private List<String> messages;
 
-    public Battle() {
+    private Opponent character;
+
+    private Opponent enemy;
+
+    public Battle(Opponent character, Opponent enemy) {
+        this.character = character;
+        this.enemy = enemy;
         this.messages = new ArrayList<>();
+
+        this.character.attach(this);
+        this.enemy.attach(this);
     }
 
     /**
@@ -25,23 +40,15 @@ public class Battle implements Observer
 
     /**
      * Add message
-     * @param messages
+     * @param messages a list with messages which should be logged
      */
     @Override
     public void update(List<String> messages) {
-        System.out.println("MESSAGES" + messages.size());
         this.messages.addAll(messages);
-        System.out.println("Here it goes wrong");
-    }
-
-    @Override
-    public void update(String message) {
-        System.out.println("Battle message: " + message);
-        this.messages.add(message);
     }
 
     /**
-     * Gets the battle messages
+     * Gets the battle messages which should be logged
      * @return a List with messages
      */
     public List<String> getMessages() {

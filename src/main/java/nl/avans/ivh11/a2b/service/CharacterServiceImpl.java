@@ -67,10 +67,10 @@ public class CharacterServiceImpl implements CharacterService
 
         // Setup non-decorated Character
         Character c = new Troll("Kees Kroket", new Stats(), media);
-        c.getStats().setStrength(40);
+        c.getStats().setStrength(90);
         c.getStats().setStrengthAccuracy(100);
-        c.getStats().setDefense(40);
-        c.getStats().setDefenseAccuracy(40);
+        c.getStats().setDefense(90);
+        c.getStats().setDefenseAccuracy(80);
         c.setActionBehavior(new NormalAttack());
         c.setAttackStyle(UsableType.EQUIPMENT_WEAPON_SWORD);
         characterRepository.save(c);

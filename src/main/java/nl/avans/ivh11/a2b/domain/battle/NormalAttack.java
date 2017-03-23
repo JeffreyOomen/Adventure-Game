@@ -1,6 +1,5 @@
 package nl.avans.ivh11.a2b.domain.battle;
 
-import nl.avans.ivh11.a2b.domain.util.CustomRandom;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
 
 import java.util.ArrayList;
@@ -9,7 +8,7 @@ import java.util.List;
 /**
  * Attack the Opponent with a normal attack
  */
-public class NormalAttack implements ActionBehavior
+public class NormalAttack extends AttackUtil implements ActionBehavior
 {
     /**
      * Attack the enemy with a normal attack
@@ -18,26 +17,20 @@ public class NormalAttack implements ActionBehavior
      */
     @Override
     public List<String> action(Opponent attacker, Opponent defender) {
+        List<String> attackMessages = new ArrayList<>();
+
+        // only perform action when both attacker and defender are alive
         if (attacker.isAlive() && defender.isAlive()) {
-            List<String> battleMessages = new ArrayList<>();
-            int damage = CustomRandom.getInstance().randomOpponentDamage(
-                    // Attacker determine strength
-                    attacker.getStats().getStrength(),
-                    attacker.getStats().getStrengthAccuracy(),
-                    // Defender determine defense
-                    defender.getStats().getDefense(),
-                    defender.getStats().getDefenseAccuracy()
-            );
-            battleMessages.add(attacker.getName() + " attacked " + defender.getName() + " with "  + damage + " damage");
+            int damage = this.calculateDamage(attacker, defender, 1.0);
 
-            String damageMessage = defender.takeDamage(damage);
-            if (damageMessage != null) {
-                battleMessages.add(damageMessage);
-            }
+            // add messages to the list to report the player about the actions taking place
+            attackMessages.add(attacker.getName() + " attacked " + defender.getName() + " with "  + damage + " damage");
+            defender.takeDamage(damage);
 
-            return battleMessages;
+            // add an optional kill message
+            attackMessages = this.addKillMessage(attackMessages, attacker, defender);
         }
 
-        return null;
+        return attackMessages;
     }
 }

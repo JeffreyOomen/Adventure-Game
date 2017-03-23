@@ -11,11 +11,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
 import nl.avans.ivh11.a2b.domain.util.Stats;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Represents an Enemy
@@ -47,17 +46,41 @@ public class Enemy extends Opponent
      */
     @Override
     public void performAction(Opponent opponent) {
-        List<String> battleMessages = this.actionBehavior.action(this, (nl.avans.ivh11.a2b.domain.character.Character) opponent);
+        notifyObservers(this.actionBehavior.action(this, opponent));
+    }
 
-        if (battleMessages != null) {
-            notifyObservers(battleMessages);
-        }
+    @Override
+    public UsableType getAttackStyle() {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public void receiveXp(int earnedXp) {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public Inventory getInventory() {
+        throw new NotImplementedException();
     }
 
     /**
-     * randomDrop
-     * receiver a random drop from a chosen factory.
-     *
+     * Gets the level and accuracy in a Map based on the current
+     * Attack Style of the Character
+     * @return a Map which contains the level and accuracy of the skill
+     * which belongs to the current Attack Style
+     */
+    @Override
+    public Map<String, Integer> getAttackStyleStats() {
+        Map<String, Integer> map = new HashMap<>();
+        // since attack styles for enemies are not supported, always give strength
+        map.put("AttackStyleLevel", this.getStats().getStrength());
+        map.put("AttackStyleAccuracy", this.getStats().getStrengthAccuracy());
+        return map;
+    }
+
+    /**
+     * Receive a random drop from a chosen factory
      * @return usable
      */
     public Usable randomDrop() {
@@ -66,7 +89,7 @@ public class Enemy extends Opponent
 
         // Based on random change give a potion or equipment as drop
         // 70% change of a potion drop 30% change of equipment drop.
-        int determineDropChange = new CustomRandom().randomBetweenZeroAnd(100);
+        int determineDropChange = CustomRandom.getInstance().randomBetweenZeroAnd(100);
 
         if (determineDropChange < 70) {
             usableFactory = new PotionFactory();
@@ -82,17 +105,15 @@ public class Enemy extends Opponent
     }
 
     /**
-     * pickRandomUsableType
-     * used to randomly get a UsableType based on given subtype (equipment or potion). This method is used in @randomDrop to generate a usable.
-     *
+     * Used to randomly get a UsableType based on given subtype (equipment or potion). This method is used in @randomDrop to generate a usable.
      * @param type potion or equipment : String
-     * @return
+     * @return an Usable
      */
     private UsableType getRandomDropUsableType(String type) {
         UsableType chosenDrop = null;
         List<UsableType> possibleDrops = Arrays.asList(UsableType.values());
         int size = UsableType.values().length;
-        CustomRandom customRandom = new CustomRandom();
+        CustomRandom customRandom = CustomRandom.getInstance();
 
         while (chosenDrop == null) {
             UsableType randomType = possibleDrops.get(customRandom.randomBetweenZeroAnd(size));

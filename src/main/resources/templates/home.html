@@ -24,19 +24,19 @@
 
 		<div class="stats-container">
 			<img th:src="@{/images/rpg-hp.png}" th:width="20px" /> Hitpoints: <span id="charLvl" th:text="${character.getStats().getHitpoints()}"></span><br/>
-			Hitpoints XP left: <span id="char_hp_xp" th:text="${character.getStats().getHitpointsXpLeft()}"></span><br/><br/>
+			Hitpoints XP left: <span id="char_hp_xp" th:text="${#numbers.formatDecimal(character.getStats().getHitpointsXpLeft(), 0, 2)}"></span><br/><br/>
 
 			<img th:src="@{/images/rpg-strength.png}" th:width="20px" /> Strength Level: <span id="charLvl" th:text="${character.getStats().getStrength()}"></span><br/>
-			Strength XP left: <span id="char_strength_xp" th:text="${character.getStats().getStrengthXpLeft()}"></span><br/><br/>
+			Strength XP left: <span id="char_strength_xp" th:text="${#numbers.formatDecimal(character.getStats().getStrengthXpLeft(), 0, 2)}"></span><br/><br/>
 
 			<img th:src="@{/images/rpg-defense.png}" th:width="20px" /> Defense Level: <span id="charLvl" th:text="${character.getStats().getDefense()}"></span><br/>
-			Defense XP left: <span id="char_defense_xp" th:text="${character.getStats().getDefenseXpLeft()}"></span><br/><br/>
+			Defense XP left: <span id="char_defense_xp" th:text="${#numbers.formatDecimal(character.getStats().getDefenseXpLeft(), 0, 2)}"></span><br/><br/>
 
 			<img th:src="@{/images/rpg-magic.png}" th:width="20px" /> Magic Level: <span id="charLvl" th:text="${character.getStats().getMagic()}"></span><br/>
-			Magic XP left: <span id="char_magic_xp" th:text="${character.getStats().getMagicXpLeft()}"></span><br/><br/>
+			Magic XP left: <span id="char_magic_xp" th:text="${#numbers.formatDecimal(character.getStats().getMagicXpLeft(), 0, 2)}"></span><br/><br/>
 
 			<img th:src="@{/images/rpg-archery.png}" th:width="20px" /> Archery Level: <span id="charLvl" th:text="${character.getStats().getArchery()}"></span><br/>
-			Archery XP left: <span id="char_achery_xp" th:text="${character.getStats().getArcheryXpLeft()}"></span><br/><br/>
+			Archery XP left: <span id="char_achery_xp" th:text="${#numbers.formatDecimal(character.getStats().getArcheryXpLeft(), 0, 2)}"></span><br/><br/>
 		</div>
 	</div>
 	<div th:replace="fragments/script :: script"></div>

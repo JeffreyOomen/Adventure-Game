@@ -3,12 +3,15 @@ package nl.avans.ivh11.a2b.domain.util;
 import lombok.Getter;
 import lombok.Setter;
 import nl.avans.ivh11.a2b.domain.battle.ActionBehavior;
+import nl.avans.ivh11.a2b.domain.usable.Inventory;
+import nl.avans.ivh11.a2b.domain.usable.UsableType;
 import nl.avans.ivh11.a2b.domain.util.observer.Observable;
 import nl.avans.ivh11.a2b.domain.util.observer.Observer;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @MappedSuperclass
 @Getter
@@ -39,20 +42,43 @@ public abstract class Opponent implements Observable
     public abstract void performAction(Opponent opponent);
 
     /**
+     * Gets the attacking style of the opponent (e.g. melee, magic, archery)
+     * @return the attack style in the form of an UsableType
+     */
+    public abstract UsableType getAttackStyle();
+
+    /**
+     * Receive earned XP by killing an Opponent
+     * @param earnedXp an Integer representing the XP earned
+     */
+    public abstract void receiveXp(int earnedXp);
+
+    /**
+     * Get the Character's Inventory
+     * @return Inventory
+     */
+    public abstract Inventory getInventory();
+
+    /**
+     * Gets the level and accuracy in a Map based on the current
+     * Attack Style of the Character
+     * @return a Map which contains the level and accuracy of the skill
+     * which belongs to the current Attack Style
+     */
+    public abstract Map<String, Integer> getAttackStyleStats();
+
+    /**
      * Take damage as result van an enemy attack
      * @param hit int damage to take
      */
-    public String takeDamage(int hit) {
+    public void takeDamage(int hit) {
         if (this.isAlive()) {
             if (hit >= this.stats.getCurrentHitpoints()) {
                 this.stats.setCurrentHitpoints(0);
-                return "<span class=\"message-danger\">" + this.getName() + " has been killed!</span>";
             } else {
                 this.stats.setCurrentHitpoints(this.stats.getCurrentHitpoints() - hit);
             }
         }
-
-        return null;
     }
 
     /**
@@ -86,10 +112,18 @@ public abstract class Opponent implements Observable
 
     /**
      * Gets the maximum hitpoints of the Opponent
-     * @return
+     * @return the maximum hitpoints of the Opponent
      */
     public int getHitpoints() {
         return this.stats.getHitpoints();
+    }
+
+    /**
+     * Gets the current hitpoints of the Opponent
+     * @return the current hitpoints left of the Opponent
+     */
+    public int getCurrentHitpoints() {
+        return this.stats.getCurrentHitpoints();
     }
 
     /*
@@ -98,7 +132,7 @@ public abstract class Opponent implements Observable
 
     /**
      * Attach an Observer
-     * @param observer
+     * @param observer an object of Observer which listens to any Observables
      */
     @Override
     public void attach(Observer observer) {
@@ -107,7 +141,7 @@ public abstract class Opponent implements Observable
 
     /**
      * Detach an Observer
-     * @param observer
+     * @param observer an object of Observer which listens to any Observables
      */
     @Override
     public void detach(Observer observer) {
@@ -117,21 +151,8 @@ public abstract class Opponent implements Observable
     }
 
     /**
-     * Notify all attached Observers and
-     * push message
-     * @param message
-     */
-    @Override
-    public void notifyObservers(String message) {
-        for (Observer observer : this.observers) {
-            observer.update(message);
-        }
-    }
-
-    /**
-     * Notify all attached Observers and
-     * push message
-     * @param messages
+     * Notify all attached Observers and push messages
+     * @param messages messages which need to be logged to the user
      */
     @Override
     public void notifyObservers(List<String> messages) {

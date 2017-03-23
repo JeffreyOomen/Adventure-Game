@@ -18,5 +18,4 @@ public interface CharacterService
     void useInventoryItem(Character character, int index);
 
     boolean addInventoryItem(Character character, Usable usable);
-
 }

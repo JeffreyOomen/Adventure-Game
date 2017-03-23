@@ -1,5 +1,6 @@
 package nl.avans.ivh11.a2b.domain.util;
 
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -10,6 +11,9 @@ public class CustomRandom {
     private double max;
     private static volatile CustomRandom instance = null;
     private static volatile Random r;
+
+    // Private constructor to prevent direct instantiation
+    private CustomRandom() {}
 
     /**
      * Check if class is already instantiated and create if not
@@ -34,41 +38,6 @@ public class CustomRandom {
     public int getRandomNumber() {
         int range = (int) (max - min + 1);
         return (int)(r.nextInt(range) + min);
-    }
-
-    /**
-     * Gives random number of how much damage has been taken
-     * @param strength attacking power of attacker
-     * @param strengthAccuracy attackingrate of attacker
-     * @param defense defensive power of defender
-     * @param defenseAccuracy defenserate of defender
-     * @return int random number
-     */
-    public int randomDamage (double strength, double strengthAccuracy, double defense, int defenseAccuracy) {
-        double strDouble = r.nextInt(100);
-        double defDouble = r.nextInt(100);
-
-        double def = defense;
-        double str;
-        int maxDefense;
-        if (defenseAccuracy >= defDouble) {
-            maxDefense = (int) (r.nextInt((int)def) + def);
-        } else {
-            maxDefense = (r.nextInt((int)def));
-        }
-        if (strength - 1 < maxDefense) {
-             str = 1;
-        } else {
-            str = strength - maxDefense;
-        }
-        if (strengthAccuracy >= strDouble) {
-            min = str * 0.5;
-            max = str;
-        } else {
-            min = 1;
-            max = str * 0.5;
-        }
-        return getRandomNumber();
     }
 
     /**
@@ -107,13 +76,8 @@ public class CustomRandom {
      * @return a randomly generated number which represents the attacking damage done based on level and accuracy
      */
     private int randomAttackingDamage(int attackingLevel, int attackingAccuracy, int randomNumber) {
-        System.out.println("Attacking level: " + attackingLevel);
-        System.out.println("Attacking accuracy: " + attackingAccuracy);
-        System.out.println("Random number: " + randomNumber);
         int maxAttackingDamage = (int) Math.ceil(attackingLevel * 1.5);
-        System.out.println("Max damage: " + maxAttackingDamage);
         int midAttackingDamage = (int) Math.ceil(maxAttackingDamage / 2);
-        System.out.println("Mid damage: " + midAttackingDamage);
 
         if (randomNumber < ((attackingAccuracy / 100) * attackingLevel)) {
             return r.nextInt((maxAttackingDamage - midAttackingDamage) + 1) + midAttackingDamage;
@@ -136,7 +100,7 @@ public class CustomRandom {
      * @return a randomly generated number which represents the damage being defended based on level and accuracy
      */
     private int randomDefendingDamage(int defenseLevel, int defenseAccuracy, int randomNumber) {
-        int maxDefendingDamage = (int) Math.ceil(defenseLevel * 1.2);
+        int maxDefendingDamage = (int) Math.ceil(defenseLevel * 1.5);
         int midDefendingDamage = (int) Math.ceil(maxDefendingDamage / 2);
 
         if (randomNumber < ((defenseAccuracy / 100) * defenseLevel)) {
@@ -144,6 +108,33 @@ public class CustomRandom {
         } else {
             return r.nextInt(midDefendingDamage);
         }
+    }
+
+    /**
+     * Gives an Opponent which has the role of Enemy certain Stats
+     * based on the Stats of the Opponent which has the role of Character.
+     * @param character an Object of Character
+     * @return the Enemy Object with random stats based on the Character Stats
+     */
+    public Stats randomEnemyStats(Opponent character) {
+        int randomNumber = r.nextInt((110 - 50) + 1) + 50;
+        Map<String, Integer> attackStyleStats = character.getAttackStyleStats();
+
+        // add more hp for fun
+        int hpMultiplier = 1;
+        if (randomNumber < 60) {
+            hpMultiplier = 30;
+        }
+
+        Stats enemyStats = new Stats();
+        enemyStats.setHitpoints((int)((randomNumber / 100.0) * character.getHitpoints() * hpMultiplier));
+        enemyStats.setCurrentHitpoints((int)((randomNumber / 100.0) * character.getHitpoints() * hpMultiplier));
+        enemyStats.setStrength((int)((randomNumber / 100.0) * attackStyleStats.get("AttackStyleLevel")));
+        enemyStats.setStrength((int)((randomNumber / 100.0) * attackStyleStats.get("AttackStyleAccuracy")));
+        enemyStats.setDefense((int)((randomNumber / 100.0) * character.getStats().getDefense()));
+        enemyStats.setDefenseAccuracy((int)((randomNumber / 100.0) * character.getStats().getDefenseAccuracy()));
+
+        return enemyStats;
     }
 
     /**

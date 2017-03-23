@@ -22,15 +22,6 @@ public class CharacterController
     }
 
     /**
-     * Returns the view where the Character can be brought back to live
-     * @return A view
-     */
-    @RequestMapping(value = "/regenerate", method = RequestMethod.GET)
-    public String regenerateCharacter() {
-        return "character/regenerate";
-    }
-
-    /**
      * Brings the Character back to live
      * @return A view
      */

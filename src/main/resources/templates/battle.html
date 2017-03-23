@@ -5,7 +5,15 @@
 <body>
 
 <div class="container">
-    <a href="/" id="battle_aftermath_btn" hidden="hidden"><button type="button"></button></a>
+    <div id="regenerate" hidden="hidden"> <!-- if customer is anonymous-->
+        <form method="post" action="/regenerate">
+            <button type="submit" value="submit">Regenerate</button>
+        </form>
+    </div>
+
+    <div id="go_home" hidden="hidden"> <!-- if customer is anonymous-->
+        <a href="/"><button type="button">Home</button></a>
+    </div>
 </div>
 
 <div class="container">
