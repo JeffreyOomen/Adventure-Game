@@ -52,13 +52,13 @@ public class CharacterFactory {
 
         switch (race) {
             case "dwarf":
-                character = new Dwarf(name, new Stats());
+                character = new Dwarf(name, new Stats(), null);
                 break;
             case "elf":
-                character = new Elf(name, new Stats());
+                character = new Elf(name, new Stats(), null);
                 break;
             case "troll":
-                character = new Troll(name, new Stats());
+                character = new Troll(name, new Stats(), null);
                 break;
             default:
                 throw new IllegalArgumentException("Provide a valid race");

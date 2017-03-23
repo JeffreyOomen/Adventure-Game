@@ -9,6 +9,9 @@
 <body>
 <div class="container">
     <form method="post" action="/regenerate">
+        <input type="hidden"
+               th:name="${_csrf.parameterName}"
+               th:value="${_csrf.token}" />
         <button type="submit" value="submit">REGENERATE</button>
     </form>
 </div>

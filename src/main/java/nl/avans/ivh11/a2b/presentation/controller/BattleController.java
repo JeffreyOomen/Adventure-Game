@@ -62,7 +62,7 @@ public class BattleController
         String username =  securityService.findLoggedInUsername();
         User user = userService.findByUsername(username);
         this.character = user.getCharacter();
-        this.enemy = opponentService.findEnemyById(1L);
+//        this.enemy = opponentService.findEnemyById(1L);
 
 //        battleService.startBattle(this.character, this.enemy);
         // Initialize and assign character and enemy
