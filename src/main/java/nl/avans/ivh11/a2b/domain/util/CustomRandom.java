@@ -1,7 +1,5 @@
 package nl.avans.ivh11.a2b.domain.util;
 
-import nl.avans.ivh11.a2b.domain.enemy.Enemy;
-
 import java.util.Map;
 import java.util.Random;
 
@@ -102,7 +100,7 @@ public class CustomRandom {
      * @return a randomly generated number which represents the damage being defended based on level and accuracy
      */
     private int randomDefendingDamage(int defenseLevel, int defenseAccuracy, int randomNumber) {
-        int maxDefendingDamage = (int) Math.ceil(defenseLevel * 1.2);
+        int maxDefendingDamage = (int) Math.ceil(defenseLevel * 1.5);
         int midDefendingDamage = (int) Math.ceil(maxDefendingDamage / 2);
 
         if (randomNumber < ((defenseAccuracy / 100) * defenseLevel)) {
@@ -119,12 +117,18 @@ public class CustomRandom {
      * @return the Enemy Object with random stats based on the Character Stats
      */
     public Stats randomEnemyStats(Opponent character) {
-        int randomNumber = r.nextInt((200 - 50) + 1) + 50;
+        int randomNumber = r.nextInt((110 - 50) + 1) + 50;
         Map<String, Integer> attackStyleStats = character.getAttackStyleStats();
 
+        // add more hp for fun
+        int hpMultiplier = 1;
+        if (randomNumber < 60) {
+            hpMultiplier = 30;
+        }
+
         Stats enemyStats = new Stats();
-        enemyStats.setHitpoints((int)((randomNumber / 100.0) * character.getHitpoints()));
-        enemyStats.setCurrentHitpoints((int)((randomNumber / 100.0) * character.getHitpoints()));
+        enemyStats.setHitpoints((int)((randomNumber / 100.0) * character.getHitpoints() * hpMultiplier));
+        enemyStats.setCurrentHitpoints((int)((randomNumber / 100.0) * character.getHitpoints() * hpMultiplier));
         enemyStats.setStrength((int)((randomNumber / 100.0) * attackStyleStats.get("AttackStyleLevel")));
         enemyStats.setStrength((int)((randomNumber / 100.0) * attackStyleStats.get("AttackStyleAccuracy")));
         enemyStats.setDefense((int)((randomNumber / 100.0) * character.getStats().getDefense()));

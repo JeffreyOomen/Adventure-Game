@@ -1,11 +1,14 @@
 package nl.avans.ivh11.a2b.service;
 
+import lombok.Getter;
+import lombok.Setter;
 import nl.avans.ivh11.a2b.datastorage.character.CharacterRepository;
 import nl.avans.ivh11.a2b.datastorage.enemy.EnemyRepository;
 import nl.avans.ivh11.a2b.domain.battle.*;
 import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.domain.enemy.Enemy;
 import nl.avans.ivh11.a2b.domain.util.CustomRandom;
+import nl.avans.ivh11.a2b.domain.util.Opponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -16,16 +19,17 @@ import java.util.List;
 
 @Service("battleService")
 @Repository
-@Transactional
+@Getter
+@Setter
 public class BattleServiceImpl implements BattleService
 {
+    private static final String BREAK = "<br/><br/>";
+
     private CharacterRepository characterRepository;
     private EnemyRepository enemyRepository;
     private OpponentService opponentService;
     private Battle battle;
 
-    private Character character;
-    private Enemy enemy;
     private List<Enemy> possibleEnemies;
 
     @PostConstruct
@@ -41,30 +45,56 @@ public class BattleServiceImpl implements BattleService
     }
 
     /**
-     * Starts a new battle between a Character and a Enemy
-     * @param c the character to participate in the battle
-     * @param e the enemy to participate in the battle
+     * Setup a new Battle between two Opponent's. Setting up includes
+     * making a Battle Object. This Battle Object will observe the actions
+     * taking place on the Opponent's.
+     * @param character an Opponent
+     * @return a random enemy
      */
     @Override
-    public void startBattle(Character c, Enemy e) {
-        battle = new Battle();
+    public Opponent setupBattle(Opponent character) {
+        // generate a random enemy
+        Opponent enemy = this.randomEnemy(character);
 
-        this.character = c;
-        this.enemy = e;
+        // setup battle between character and enemy
+        this.battle = new Battle(character, enemy);
 
-        // Attach observers to subject
-        this.character.attach(battle);
-        this.enemy.attach(battle);
+        return enemy;
     }
 
-    public Enemy randomEnemy() {
-        this.enemy = this.possibleEnemies.get(CustomRandom.getInstance().randomEnemy(this.possibleEnemies.size()));
-        System.out.println("ALL GOOD");
-        System.out.println(this.possibleEnemies.size());
-        System.out.println(this.character.getName());
-        this.enemy.setStats(CustomRandom.getInstance().randomEnemyStats(this.character));
+    /**
+     * Teardown the Battle between the two Opponent's. Tearing down includes
+     * giving the Character XP, saving the state of both Character and Enemy
+     * and clears any memory allocation.
+     */
+    private void teardownBattle() {
+        this.saveBattleState(); // save current state
+        this.battle = null; // clear memory allocation
+    }
 
-        return this.enemy;
+    /**
+     * Report about the events happened in the battle during the player's actions.
+     * @return A String containing battle report information
+     */
+    public String battleReport() {
+        String battleReport = "";
+
+        List<String> messages = this.battle.getMessages();
+        if (!this.battle.getEnemy().isAlive()) {
+            // give out XP to the character
+            this.battle.getCharacter().receiveXp(this.getBattle().getEnemy().getHitpoints());
+            messages = this.battle.getMessages(); // add any level up messages
+            this.teardownBattle();
+        }
+
+        for (String message: messages) {
+            battleReport += message + BREAK;
+        }
+
+        // clear messages to prevent duplicates
+        if(this.battle != null) this.battle.getMessages().clear();
+
+        return battleReport;
     }
 
     /**
@@ -72,7 +102,7 @@ public class BattleServiceImpl implements BattleService
      */
     @Override
     public void attack() {
-        this.character.setActionBehavior(new NormalAttack());
+        this.battle.getCharacter().setActionBehavior(new NormalAttack());
         this.doAction();
     }
 
@@ -81,7 +111,7 @@ public class BattleServiceImpl implements BattleService
      */
     @Override
     public void specialAttack() {
-        this.character.setActionBehavior(new SpecialAttack());
+        this.battle.getCharacter().setActionBehavior(new SpecialAttack());
         this.doAction();
     }
 
@@ -90,17 +120,8 @@ public class BattleServiceImpl implements BattleService
      */
     @Override
     public void heal() {
-        this.character.setActionBehavior(new Heal());
+        this.battle.getCharacter().setActionBehavior(new Heal());
         this.doAction();
-    }
-
-    /**
-     * Gets the current battle
-     * @return An object of Battle
-     */
-    @Override
-    public Battle getBattle() {
-        return this.battle;
     }
 
     /**
@@ -108,22 +129,33 @@ public class BattleServiceImpl implements BattleService
      */
     private void doAction() {
         // let the character attack
-        this.battle.playTurn(new ActionCommand(character, enemy));
+        this.battle.playTurn(new ActionCommand(this.battle.getCharacter(), this.battle.getEnemy()));
 
         // let the enemy attack
-        this.battle.playTurn(new ActionCommand(enemy, character));
+        this.battle.playTurn(new ActionCommand(this.battle.getEnemy(), this.battle.getCharacter()));
 
         // save the battle state
         this.saveBattleState();
     }
 
     /**
-     * Saves the state of the Character and the Enemy caused
-     * by the Battle.
+     * Saves the state of the Character and the Enemy caused by the Battle.
      */
     @Transactional
     public void saveBattleState() {
-        this.characterRepository.save(this.character);
-        //this.enemyRepository.save(this.enemy);
+        this.characterRepository.save((Character) this.battle.getCharacter());
+        this.enemyRepository.save((Enemy) this.battle.getEnemy());
+    }
+
+    /**
+     * Generates a random Opponent based on the Stats of the other Opponent.
+     * @param character an Opponent
+     * @return an randomly generated Opponent
+     */
+    private Opponent randomEnemy(Opponent character) {
+        Opponent enemy = this.possibleEnemies.get(CustomRandom.getInstance().randomEnemy(this.possibleEnemies.size()));
+        enemy.setStats(CustomRandom.getInstance().randomEnemyStats(character));
+
+        return enemy;
     }
 }

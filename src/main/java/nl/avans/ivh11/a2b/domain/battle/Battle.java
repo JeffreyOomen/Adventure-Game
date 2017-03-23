@@ -1,5 +1,9 @@
 package nl.avans.ivh11.a2b.domain.battle;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import nl.avans.ivh11.a2b.domain.util.Opponent;
 import nl.avans.ivh11.a2b.domain.util.observer.Observer;
 
 import java.util.*;
@@ -7,12 +11,23 @@ import java.util.*;
 /**
  * Class to command actions every turn
  */
+@Getter
+@Setter
 public class Battle implements Observer
 {
     private List<String> messages;
 
-    public Battle() {
+    private Opponent character;
+
+    private Opponent enemy;
+
+    public Battle(Opponent character, Opponent enemy) {
+        this.character = character;
+        this.enemy = enemy;
         this.messages = new ArrayList<>();
+
+        this.character.attach(this);
+        this.enemy.attach(this);
     }
 
     /**
