@@ -28,9 +28,7 @@ public class SpecialAttack extends AttackUtil implements ActionBehavior
             defender.takeDamage(damage);
 
             // add an optional kill message
-            this.addKillMessage(attackMessages, attacker, defender);
-
-            return attackMessages;
+            attackMessages = this.addKillMessage(attackMessages, attacker, defender);
         }
 
         return attackMessages;

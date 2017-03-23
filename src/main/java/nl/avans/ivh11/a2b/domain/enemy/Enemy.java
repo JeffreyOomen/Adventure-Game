@@ -46,7 +46,7 @@ public class Enemy extends Opponent
      */
     @Override
     public void performAction(Opponent opponent) {
-        notifyObservers(this.actionBehavior.action(this, (nl.avans.ivh11.a2b.domain.character.Character) opponent));
+        notifyObservers(this.actionBehavior.action(this, opponent));
     }
 
     @Override
@@ -63,6 +63,7 @@ public class Enemy extends Opponent
     @Override
     public Map<String, Integer> getAttackStyleStats() {
         Map<String, Integer> map = new HashMap<>();
+        // since attack styles for enemies are not supported, always give strength
         map.put("AttackStyleLevel", this.getStats().getStrength());
         map.put("AttackStyleAccuracy", this.getStats().getStrengthAccuracy());
         return map;
