@@ -78,7 +78,7 @@ public class Enemy extends Opponent
 
         // Based on random change give a potion or equipment as drop
         // 70% change of a potion drop 30% change of equipment drop.
-        int determineDropChange = new CustomRandom().randomBetweenZeroAnd(100);
+        int determineDropChange = CustomRandom.getInstance().randomBetweenZeroAnd(100);
 
         if (determineDropChange < 70) {
             usableFactory = new PotionFactory();
@@ -102,7 +102,7 @@ public class Enemy extends Opponent
         UsableType chosenDrop = null;
         List<UsableType> possibleDrops = Arrays.asList(UsableType.values());
         int size = UsableType.values().length;
-        CustomRandom customRandom = new CustomRandom();
+        CustomRandom customRandom = CustomRandom.getInstance();
 
         while (chosenDrop == null) {
             UsableType randomType = possibleDrops.get(customRandom.randomBetweenZeroAnd(size));

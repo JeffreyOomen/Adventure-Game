@@ -46,9 +46,10 @@ public class AttackUtil
      * to the attack messages list
      * @param defender an Object of Opponent, which has the role of defender
      */
-    protected List<String> addKillMessage(List<String> attackMessages, Opponent defender) {
+    protected List<String> addKillMessage(List<String> attackMessages, Opponent attacker, Opponent defender) {
         if (!defender.isAlive()) {
-            attackMessages.add("<span class=\"message-danger\">" + defender.getName() + " has been killed!</span>");
+            attackMessages.add("<span class=\"message-danger\">" + defender.getName() + " has been killed</span>");
+            attackMessages.add("<span class=\"message-info\">" + attacker.getName() + " has won the battle</span>");
         }
 
         return attackMessages;

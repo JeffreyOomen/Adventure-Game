@@ -42,31 +42,13 @@ $(document).ready(function () {
         messageContainer.append($('<p "message">' + data.message + '</p>'));
         messageContainer.scrollTop(messageContainer.prop("scrollHeight"));
 
-        if (!data.isCharacterAlive && !data.isEnemyAlive) {
-            losingState()
-        } else if (!data.isCharacterAlive) {
-            losingState();
+        if (!data.isCharacterAlive) {
+            $('#regenerate').attr('hidden', false);
+            battleEndState();
         } else if (!data.isEnemyAlive) {
-            winningState();
+            $('#go_home').attr('hidden', false);
+            battleEndState();
         }
-    }
-
-    /**
-     * Shows a button to the user which can be used to navigate back to the regeneration screen
-     */
-    function winningState() {
-        $('#battle_aftermath_btn').attr('hidden', false).attr('href', '/');
-        $('#battle_aftermath_btn button').text('Home');
-        battleEndState();
-    }
-
-    /**
-     * Shows a button to the user which can be used to navigate back to the home screen
-     */
-    function losingState() {
-        $('#battle_aftermath_btn').attr('hidden', false).attr('href', '/regenerate');
-        $('#battle_aftermath_btn button').text('Regenerate');
-        battleEndState();
     }
 
     /**

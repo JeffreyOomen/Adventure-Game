@@ -70,8 +70,8 @@ public class OpponentServiceImpl implements OpponentService
         EnemyBuilder enemyBuilder = new EnemyBuilder();
         EnemyBuilderDirector enemyDirector = new EnemyBuilderDirector(enemyBuilder);
         Stats stats = new Stats();
-        stats.setHitpoints(1000);
-        stats.setCurrentHitpoints(1000);
+        stats.setHitpoints(500);
+        stats.setCurrentHitpoints(500);
         stats.setStrength(66);
         stats.setStrengthAccuracy(70);
         stats.setDefense(5);
@@ -82,10 +82,6 @@ public class OpponentServiceImpl implements OpponentService
         Media media = mediaRepository.findOne(2L);
         Enemy enemy1 = enemyDirector.createEnemy("Bram", media, "End boss", new SpecialAttack(), stats, lootList);
         Enemy enemy2 = enemyDirector.createEnemy("Gerrie", media, "Super boss", new SpecialAttack(), new Stats(), null);
-
-
-        stats.setHitpoints(300);
-        stats.setCurrentHitpoints(300);
         Enemy enemy3 = enemyDirector.createEnemy("Hans", media, "Weak boss", new SpecialAttack(), new Stats(), null);
 
         enemyRepository.save(enemy1);

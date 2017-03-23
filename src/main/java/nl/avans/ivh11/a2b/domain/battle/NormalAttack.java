@@ -28,7 +28,7 @@ public class NormalAttack extends AttackUtil implements ActionBehavior
             defender.takeDamage(damage);
 
             // add an optional kill message
-            attackMessages = this.addKillMessage(attackMessages, defender);
+            attackMessages = this.addKillMessage(attackMessages, attacker, defender);
         }
 
         return attackMessages;

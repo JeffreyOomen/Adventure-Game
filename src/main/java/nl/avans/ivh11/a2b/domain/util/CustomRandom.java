@@ -11,6 +11,9 @@ public class CustomRandom {
     private static volatile CustomRandom instance = null;
     private static volatile Random r;
 
+    // Private constructor to prevent direct instantiation
+    private CustomRandom() {}
+
     /**
      * Check if class is already instantiated and create if not
      * @return instance of class CustomRandom
@@ -34,41 +37,6 @@ public class CustomRandom {
     public int getRandomNumber() {
         int range = (int) (max - min + 1);
         return (int)(r.nextInt(range) + min);
-    }
-
-    /**
-     * Gives random number of how much damage has been taken
-     * @param strength attacking power of attacker
-     * @param strengthAccuracy attackingrate of attacker
-     * @param defense defensive power of defender
-     * @param defenseAccuracy defenserate of defender
-     * @return int random number
-     */
-    public int randomDamage (double strength, double strengthAccuracy, double defense, int defenseAccuracy) {
-        double strDouble = r.nextInt(100);
-        double defDouble = r.nextInt(100);
-
-        double def = defense;
-        double str;
-        int maxDefense;
-        if (defenseAccuracy >= defDouble) {
-            maxDefense = (int) (r.nextInt((int)def) + def);
-        } else {
-            maxDefense = (r.nextInt((int)def));
-        }
-        if (strength - 1 < maxDefense) {
-             str = 1;
-        } else {
-            str = strength - maxDefense;
-        }
-        if (strengthAccuracy >= strDouble) {
-            min = str * 0.5;
-            max = str;
-        } else {
-            min = 1;
-            max = str * 0.5;
-        }
-        return getRandomNumber();
     }
 
     /**
@@ -107,13 +75,8 @@ public class CustomRandom {
      * @return a randomly generated number which represents the attacking damage done based on level and accuracy
      */
     private int randomAttackingDamage(int attackingLevel, int attackingAccuracy, int randomNumber) {
-        System.out.println("Attacking level: " + attackingLevel);
-        System.out.println("Attacking accuracy: " + attackingAccuracy);
-        System.out.println("Random number: " + randomNumber);
         int maxAttackingDamage = (int) Math.ceil(attackingLevel * 1.5);
-        System.out.println("Max damage: " + maxAttackingDamage);
         int midAttackingDamage = (int) Math.ceil(maxAttackingDamage / 2);
-        System.out.println("Mid damage: " + midAttackingDamage);
 
         if (randomNumber < ((attackingAccuracy / 100) * attackingLevel)) {
             return r.nextInt((maxAttackingDamage - midAttackingDamage) + 1) + midAttackingDamage;
