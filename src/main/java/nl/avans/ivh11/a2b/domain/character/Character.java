@@ -15,6 +15,7 @@ import nl.avans.ivh11.a2b.domain.usable.Equipment;
 
 import javax.persistence.*;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -95,11 +96,7 @@ public abstract class Character extends Opponent
      */
     @Override
     public void performAction(Opponent opponent) {
-        List<String> battleMessages = this.actionBehavior.action(this, opponent);
-
-        if (battleMessages != null) {
-            notifyObservers(battleMessages);
-        }
+        notifyObservers(this.actionBehavior.action(this, opponent));
     }
 
     /**
@@ -291,5 +288,32 @@ public abstract class Character extends Opponent
      */
     public void setState(CharacterState state) {
         this.currentState = state;
+    }
+
+    /**
+     * Gets the level and accuracy in a Map based on the current
+     * Attack Style of the Character
+     * @return a Map which contains the level and accuracy of the skill
+     * which belongs to the current Attack Style
+     */
+    public Map<String, Integer> getAttackStyleStats() {
+        Map<String, Integer> map = new HashMap<>();
+
+        switch (this.getAttackStyle()) {
+            case EQUIPMENT_WEAPON_SWORD:
+                map.put("AttackStyleLevel", this.getStrength());
+                map.put("AttackStyleAccuracy", this.getStrengthAccuracy());
+                break;
+            case EQUIPMENT_WEAPON_STAFF:
+                map.put("AttackStyleLevel", this.getMagic());
+                map.put("AttackStyleAccuracy", this.getMagicAccuracy());
+                break;
+            case EQUIPMENT_WEAPON_BOW:
+                map.put("AttackStyleLevel", this.getArchery());
+                map.put("AttackStyleAccuracy", this.getArcheryAccuracy());
+                break;
+        }
+
+        return map;
     }
 }

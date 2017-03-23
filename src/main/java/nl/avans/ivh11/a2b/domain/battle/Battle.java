@@ -25,23 +25,15 @@ public class Battle implements Observer
 
     /**
      * Add message
-     * @param messages
+     * @param messages a list with messages which should be logged
      */
     @Override
     public void update(List<String> messages) {
-        System.out.println("MESSAGES" + messages.size());
         this.messages.addAll(messages);
-        System.out.println("Here it goes wrong");
-    }
-
-    @Override
-    public void update(String message) {
-        System.out.println("Battle message: " + message);
-        this.messages.add(message);
     }
 
     /**
-     * Gets the battle messages
+     * Gets the battle messages which should be logged
      * @return a List with messages
      */
     public List<String> getMessages() {

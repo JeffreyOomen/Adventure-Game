@@ -37,7 +37,6 @@ public class BattleController
 
     @PostConstruct
     public void init() {
-        System.out.println("Init method called");
         possibleEnemies = this.getEnemies();
     }
 
@@ -112,13 +111,15 @@ public class BattleController
 
         if (!this.enemy.isAlive()) {
             this.quit();
-            battleReport += "<span class=\"message-info\">" + this.character.getName() + " has won the battle</span>" + BREAK;
         }
 
         List<String> messages = battleService.getBattle().getMessages();
         for (String message: messages) {
             battleReport += message + BREAK;
         }
+
+        // empty battle messages
+        this.battleService.getBattle().getMessages().clear();
 
         // Return view model as JSON
         return new BattleModel(
@@ -139,9 +140,6 @@ public class BattleController
         // remove enemy from the possible enemy list
         // to prevent getting the same enemy
         this.possibleEnemies.remove(this.enemy);
-
-        // empty battle messages
-        this.battleService.getBattle().getMessages().clear();
 
         // give the character xp
         this.character.receiveXp(this.enemy.getHitpoints());
