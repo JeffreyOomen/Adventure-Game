@@ -23,11 +23,6 @@ public class BattleController
     @Autowired
     private SecurityService securityService;
 
-    @Autowired
-    private UserService userService;
-
-    private CharacterService characterService;
-
     private Opponent character;
     private Opponent enemy;
 
@@ -38,11 +33,7 @@ public class BattleController
      */
     @RequestMapping(value = "/battle", method = RequestMethod.GET)
     public String setupBattle(Model uiModel) {
-        // Initialize and assign character and enemy
-//        this.character = characterService.findById(1L);
-
-        String username =  securityService.findLoggedInUsername();
-        User user = userService.findByUsername(username);
+        User user = securityService.findLoggedInUser();
         this.character = user.getCharacter();
 
         if (this.enemy == null || !this.enemy.isAlive() || this.character.isAlive()) {

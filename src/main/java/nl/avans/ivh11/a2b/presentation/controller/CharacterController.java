@@ -1,7 +1,10 @@
 package nl.avans.ivh11.a2b.presentation.controller;
 
+import nl.avans.ivh11.a2b.domain.auth.User;
 import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.service.OpponentService;
+import nl.avans.ivh11.a2b.service.SecurityService;
+import nl.avans.ivh11.a2b.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +17,14 @@ public class CharacterController
     @Autowired
     private OpponentService opponentService;
 
+    @Autowired
+    private SecurityService securityService;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(Model uiModel) {
-        uiModel.addAttribute("character", opponentService.findCharacterById(1L));
+        User user = securityService.findLoggedInUser();
+        Character character = user.getCharacter();
+        uiModel.addAttribute("character", character);
 
         return "home";
     }
@@ -27,8 +35,8 @@ public class CharacterController
      */
     @RequestMapping(value = "/regenerate", method = RequestMethod.POST)
     public String doRegenerateCharacter() {
-        // Initialize and assign character and enemy
-        Character character = opponentService.findCharacterById(1L);
+        User user = securityService.findLoggedInUser();
+        Character character = user.getCharacter();
 
         // Only regenerate when character is not alive
         if (!character.isAlive()) {

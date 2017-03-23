@@ -17,11 +17,21 @@ public class RegistrationValidator implements Validator {
     @Autowired
     private UserService userService;
 
+    /**
+     * Returns whether this validator supports the given class
+     * @param aClass Class to check
+     * @return boolean
+     */
     @Override
     public boolean supports(Class<?> aClass) {
         return User.class.equals(aClass);
     }
 
+    /**
+     * Validate the model
+     * @param o Object model to validate. Should be supported
+     * @param errors Error
+     */
     @Override
     public void validate(Object o, Errors errors) {
         RegisterModel registerModel = (RegisterModel) o;
