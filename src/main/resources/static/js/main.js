@@ -105,31 +105,6 @@ $(document).ready(function () {
 
 });
 
-    //
-    // $('#inventory-page .item').click(function() {
-    //     var id = $(this).attr('id');
-    //     var imageSrc = $("#" + id + ' img').attr('src');
-    //     // Set selected
-    //     $('#selectedImage').attr('src', imageSrc);
-    //
-    //
-    //     console.log('test');
-    //     console.log($('#selectedImage'));
-    //     // $.ajax({
-    //     //     url: '/inventory',
-    //     //     type:"POST",
-    //     //     data: usableId,
-    //     //     contentType: "application/text",
-    //     //     dataType:"text",
-    //     //     success: function(){
-    //     //         console.log('geult');
-    //     //         console.log(data);
-    //     //     }
-    //     // })
-    // });
-
-
-
     /**
      * Show battle report the the client
      * @param data
