@@ -37,7 +37,6 @@ public class BattleController
 
     @PostConstruct
     public void init() {
-        System.out.println("Init method called");
         possibleEnemies = this.getEnemies();
     }
 

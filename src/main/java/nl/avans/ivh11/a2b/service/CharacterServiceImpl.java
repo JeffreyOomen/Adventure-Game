@@ -58,7 +58,6 @@ public class CharacterServiceImpl implements CharacterService
      */
     @Transactional
     private void demoCharacter() {
-        System.out.println("character service impl aangeroepen");
 
         // TODO: create a startup service for this later
         // Persist all Media items (images)
@@ -131,25 +130,21 @@ public class CharacterServiceImpl implements CharacterService
     }
 
     @Override
-    public boolean dropInventoryItem(Character character, Long index) {
+    public void dropInventoryItem(Character character, Long index) {
         Inventory inventory = character.getInventory();
         Usable usable = inventory.getUsable(index);
         inventory.dropUsable(usable);
-        return true;
     }
 
     @Override
     public void useInventoryItem(Character character, Long usableId) {
-//        System.out.println("useInventoryItem");
         Inventory inventory = character.getInventory();
-
 
         Usable usable = inventory.getUsable(usableId);
         usable.use(character);
 
         // Update character
         characterRepository.save(character);
-//        System.out.println("save character");
     }
 
     @Override

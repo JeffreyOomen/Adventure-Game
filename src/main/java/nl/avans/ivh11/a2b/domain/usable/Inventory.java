@@ -31,10 +31,7 @@ public class Inventory {
     }
 
     public boolean addUsable(Usable usable) {
-        if(this.usables.put(usable.getId(), usable) != null) {
-            return true;
-        }
-        return false;
+        return this.usables.put(usable.getId(), usable) != null;
     }
 
     public void dropUsable(Usable usable) {

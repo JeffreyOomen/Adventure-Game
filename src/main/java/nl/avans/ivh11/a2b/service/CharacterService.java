@@ -13,7 +13,7 @@ public interface CharacterService
     // Inventory methods
     Inventory getInventory(Character character);
 
-    boolean dropInventoryItem(Character character, Long key);
+    void dropInventoryItem(Character character, Long key);
 
     void useInventoryItem(Character character, Long key);
 
