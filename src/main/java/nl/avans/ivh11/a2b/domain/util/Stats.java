@@ -211,8 +211,8 @@ public class Stats
                 gainedXp -= this.hitpointsXpLeft;
                 this.hitpointsTotalXp = Math.ceil(LEVEL_MULTIPLIER * (this.hitpointsTotalXp + Math.sqrt(this.hitpointsTotalXp)));
                 this.hitpointsXpLeft = hitpointsTotalXp;
-                this.messages.add("<span class=\"message-success\">Congratulations! Achieved more hitpoints: " + this.hitpoints + "</span>");
                 this.hitpoints += 5;
+                this.messages.add("<span class=\"message-success\">Congratulations! Achieved more hitpoints: " + this.hitpoints + "</span>");
                 continue;
             } else {
                 this.hitpointsXpLeft -= gainedXp;

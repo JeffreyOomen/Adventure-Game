@@ -176,7 +176,8 @@ public abstract class Character extends Opponent
     }
 
     /**
-     * Receive an incoming XP bounty
+     * Receive earned XP by killing an Opponent
+     * @param earnedXp an Integer representing the XP earned
      */
     public void receiveXp(int earnedXp) {
         List<String> messages = this.stats.processXp(this.getAttackStyle(), earnedXp);

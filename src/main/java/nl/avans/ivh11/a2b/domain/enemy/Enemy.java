@@ -54,6 +54,16 @@ public class Enemy extends Opponent
         throw new NotImplementedException();
     }
 
+    @Override
+    public void receiveXp(int earnedXp) {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public Inventory getInventory() {
+        throw new NotImplementedException();
+    }
+
     /**
      * Gets the level and accuracy in a Map based on the current
      * Attack Style of the Character

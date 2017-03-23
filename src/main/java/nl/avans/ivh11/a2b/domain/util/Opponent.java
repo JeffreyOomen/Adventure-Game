@@ -3,6 +3,7 @@ package nl.avans.ivh11.a2b.domain.util;
 import lombok.Getter;
 import lombok.Setter;
 import nl.avans.ivh11.a2b.domain.battle.ActionBehavior;
+import nl.avans.ivh11.a2b.domain.usable.Inventory;
 import nl.avans.ivh11.a2b.domain.usable.UsableType;
 import nl.avans.ivh11.a2b.domain.util.observer.Observable;
 import nl.avans.ivh11.a2b.domain.util.observer.Observer;
@@ -45,6 +46,18 @@ public abstract class Opponent implements Observable
      * @return the attack style in the form of an UsableType
      */
     public abstract UsableType getAttackStyle();
+
+    /**
+     * Receive earned XP by killing an Opponent
+     * @param earnedXp an Integer representing the XP earned
+     */
+    public abstract void receiveXp(int earnedXp);
+
+    /**
+     * Get the Character's Inventory
+     * @return Inventory
+     */
+    public abstract Inventory getInventory();
 
     /**
      * Gets the level and accuracy in a Map based on the current

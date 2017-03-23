@@ -1,5 +1,6 @@
 package nl.avans.ivh11.a2b.domain.util;
 
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -99,7 +100,7 @@ public class CustomRandom {
      * @return a randomly generated number which represents the damage being defended based on level and accuracy
      */
     private int randomDefendingDamage(int defenseLevel, int defenseAccuracy, int randomNumber) {
-        int maxDefendingDamage = (int) Math.ceil(defenseLevel * 1.2);
+        int maxDefendingDamage = (int) Math.ceil(defenseLevel * 1.5);
         int midDefendingDamage = (int) Math.ceil(maxDefendingDamage / 2);
 
         if (randomNumber < ((defenseAccuracy / 100) * defenseLevel)) {
@@ -107,6 +108,33 @@ public class CustomRandom {
         } else {
             return r.nextInt(midDefendingDamage);
         }
+    }
+
+    /**
+     * Gives an Opponent which has the role of Enemy certain Stats
+     * based on the Stats of the Opponent which has the role of Character.
+     * @param character an Object of Character
+     * @return the Enemy Object with random stats based on the Character Stats
+     */
+    public Stats randomEnemyStats(Opponent character) {
+        int randomNumber = r.nextInt((110 - 50) + 1) + 50;
+        Map<String, Integer> attackStyleStats = character.getAttackStyleStats();
+
+        // add more hp for fun
+        int hpMultiplier = 1;
+        if (randomNumber < 60) {
+            hpMultiplier = 30;
+        }
+
+        Stats enemyStats = new Stats();
+        enemyStats.setHitpoints((int)((randomNumber / 100.0) * character.getHitpoints() * hpMultiplier));
+        enemyStats.setCurrentHitpoints((int)((randomNumber / 100.0) * character.getHitpoints() * hpMultiplier));
+        enemyStats.setStrength((int)((randomNumber / 100.0) * attackStyleStats.get("AttackStyleLevel")));
+        enemyStats.setStrength((int)((randomNumber / 100.0) * attackStyleStats.get("AttackStyleAccuracy")));
+        enemyStats.setDefense((int)((randomNumber / 100.0) * character.getStats().getDefense()));
+        enemyStats.setDefenseAccuracy((int)((randomNumber / 100.0) * character.getStats().getDefenseAccuracy()));
+
+        return enemyStats;
     }
 
     /**

@@ -26,7 +26,8 @@
                 <span th:text="#{character.hp}"></span> <span id="enemyCurrentHp" th:text="${enemy.getStats().getCurrentHitpoints()}"></span>/<span
                     id="charHp" th:text="${enemy.getStats().getHitpoints()}"></span><br/>
             </div>
-            <div class="battler" style="background-image: url('../images/rpg-giant.png');">
+            <div class="battler">
+                <img  th:src="${enemy.getMedia().getImageUrl()}" height="350px"/>
             </div>
         </div>
     </div>

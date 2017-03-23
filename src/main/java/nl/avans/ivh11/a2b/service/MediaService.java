@@ -4,6 +4,8 @@ import nl.avans.ivh11.a2b.domain.util.Media;
 
 public interface MediaService {
 
+    void persistMediaItems();
+
     /**
      * findById
      * find a Media object
