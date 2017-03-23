@@ -30,7 +30,8 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void create(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPasswordConfirm()));
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPlainPassword()));
+        user.setPlainPassword(null);
         Role role = roleRepository.findByName("ROLE_USER");
         if(role == null) {
             role = new Role();
@@ -46,8 +47,9 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void save(User user) {
-        if(!user.getPasswordConfirm().isEmpty()) {
-            user.setPassword(bCryptPasswordEncoder.encode(user.getPasswordConfirm()));
+        if(user.getPlainPassword() != null && !user.getPlainPassword().isEmpty()) {
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPlainPassword()));
+            user.setPlainPassword(null);
         }
         userRepository.save(user);
     }

@@ -5,6 +5,7 @@ import nl.avans.ivh11.a2b.domain.character.decoration.Archer;
 import nl.avans.ivh11.a2b.domain.character.decoration.Mage;
 import nl.avans.ivh11.a2b.domain.character.decoration.Warrior;
 import nl.avans.ivh11.a2b.domain.character.state.NormalState;
+import nl.avans.ivh11.a2b.domain.usable.UsableType;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 
 /**
@@ -25,12 +26,15 @@ public class CharacterFactory {
         switch (specialization) {
             case "archer":
                 character = new Archer(character);
+                character.setAttackStyle(UsableType.EQUIPMENT_WEAPON_BOW);
                 break;
             case "mage":
                 character = new Mage(character);
+                character.setAttackStyle(UsableType.EQUIPMENT_WEAPON_STAFF);
                 break;
             case "warrior":
                 character = new Warrior(character);
+                character.setAttackStyle(UsableType.EQUIPMENT_WEAPON_SWORD);
                 break;
             default:
                 throw new IllegalArgumentException("Provide a valid specialization");
