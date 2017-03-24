@@ -130,7 +130,7 @@ public class CustomRandom {
         enemyStats.setHitpoints((int)((randomNumber / 100.0) * character.getHitpoints() * hpMultiplier));
         enemyStats.setCurrentHitpoints((int)((randomNumber / 100.0) * character.getHitpoints() * hpMultiplier));
         enemyStats.setStrength((int)((randomNumber / 100.0) * attackStyleStats.get("AttackStyleLevel")));
-        enemyStats.setStrength((int)((randomNumber / 100.0) * attackStyleStats.get("AttackStyleAccuracy")));
+        enemyStats.setStrengthAccuracy((int)((randomNumber / 100.0) * attackStyleStats.get("AttackStyleAccuracy")));
         enemyStats.setDefense((int)((randomNumber / 100.0) * character.getStats().getDefense()));
         enemyStats.setDefenseAccuracy((int)((randomNumber / 100.0) * character.getStats().getDefenseAccuracy()));
 
