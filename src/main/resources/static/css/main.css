@@ -149,6 +149,10 @@ h1, h2 {
     color:#42f483;
 }
 
+.message-danger {
+    color: darkred;
+}
+
 /* CSS for homepage */
 .main-container {
     width: 80%;

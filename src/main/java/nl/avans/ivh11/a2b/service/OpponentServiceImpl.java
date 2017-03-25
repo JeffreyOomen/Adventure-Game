@@ -29,6 +29,7 @@ public class OpponentServiceImpl implements OpponentService
     private EnemyRepository enemyRepository;
     private EquipmentRepository equipmentRepository;
     private MediaRepository mediaRepository;
+    private MediaService mediaService;
 
     /**
      * Constructor
@@ -39,11 +40,15 @@ public class OpponentServiceImpl implements OpponentService
     public OpponentServiceImpl(CharacterRepository characterRepository,
                                EnemyRepository enemyRepository,
                                EquipmentRepository equipmentRepository,
-                               MediaRepository mediaRepository) {
+                               MediaRepository mediaRepository,
+                               MediaService mediaService) {
         this.characterRepository = characterRepository;
         this.equipmentRepository = equipmentRepository;
         this.enemyRepository = enemyRepository;
         this.mediaRepository = mediaRepository;
+        this.mediaService = mediaService;
+
+        mediaService.persistMediaItems();
         this.demoEquipment();
         this.demoOpponents();
     }
@@ -65,26 +70,30 @@ public class OpponentServiceImpl implements OpponentService
      */
     @Transactional
     private void demoOpponents() {
-
         // Setup Enemy
         EnemyBuilder enemyBuilder = new EnemyBuilder();
         EnemyBuilderDirector enemyDirector = new EnemyBuilderDirector(enemyBuilder);
         Stats stats = new Stats();
-        stats.setHitpoints(1000);
-        stats.setCurrentHitpoints(1000);
-        stats.setArchery(999);
+        stats.setHitpoints(500);
+        stats.setCurrentHitpoints(500);
+        stats.setStrength(66);
+        stats.setStrengthAccuracy(70);
         stats.setDefense(5);
         stats.setDefenseAccuracy(10);
         ArrayList<Usable> lootList = new ArrayList<>();
         // Find media image
         Media media = mediaRepository.findOne(2L);
-        Enemy enemy = enemyDirector.createEnemy("Bram", media, "End boss", new SpecialAttack(), stats, lootList);
-        Enemy enemy1 = enemyDirector.createEnemy("Bram", null,"End boss", new SpecialAttack(), stats, lootList);                // TODO: Media ff leeg
-        Enemy enemy2 = enemyDirector.createEnemy("Gerrie", null, "Super boss", new SpecialAttack(), new Stats(), null);     // TODO: Media ff leeg
 
         stats.setHitpoints(300);
         stats.setCurrentHitpoints(300);
-        Enemy enemy3 = enemyDirector.createEnemy("Hans", null, "Weak boss",  new SpecialAttack(), new Stats(), null);
+
+        // Find media image
+        Media media1 = mediaRepository.findOne(2L);
+        Media media2 = mediaRepository.findOne(9L);
+        Media media3 = mediaRepository.findOne(3L);
+        Enemy enemy1 = enemyDirector.createEnemy("Bram", media1, "End boss", new SpecialAttack(), stats, lootList);
+        Enemy enemy2 = enemyDirector.createEnemy("Gerrie", media2, "Super boss", new SpecialAttack(), new Stats(), null);
+        Enemy enemy3 = enemyDirector.createEnemy("Hans", media3, "Weak boss", new SpecialAttack(), new Stats(), null);
 
         enemyRepository.save(enemy1);
         enemyRepository.save(enemy2);
@@ -97,6 +106,7 @@ public class OpponentServiceImpl implements OpponentService
      * @return the Character with the specified id
      */
     @Transactional(readOnly = true)
+    @Override
     public Character findCharacterById(long id) {
         return characterRepository.findOne(id);
     }
@@ -106,6 +116,7 @@ public class OpponentServiceImpl implements OpponentService
      * @return a List of Enemy's
      */
     @Transactional
+    @Override
     public List<Enemy> findAllEnemies() {
         return (List<Enemy>) enemyRepository.findAll();
     }
@@ -116,6 +127,7 @@ public class OpponentServiceImpl implements OpponentService
      * @return the Enemy with the specified id
      */
     @Transactional(readOnly = true)
+    @Override
     public Enemy findEnemyById(long id) {
         return enemyRepository.findOne(id);
     }

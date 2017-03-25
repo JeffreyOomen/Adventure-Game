@@ -8,7 +8,9 @@
 </head>
 <body>
 <div class="container">
-    <button id="regenerate_character">REGENERATE</button>
+    <form method="post" action="/regenerate">
+        <button type="submit" value="submit"><span th:text="#{character.regenerate}"></span></button>
+    </form>
 </div>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"
         integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>

@@ -1,5 +1,9 @@
 package nl.avans.ivh11.a2b.domain.battle;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import nl.avans.ivh11.a2b.domain.util.Opponent;
 import nl.avans.ivh11.a2b.domain.util.observer.Observer;
 
 import java.util.*;
@@ -7,15 +11,23 @@ import java.util.*;
 /**
  * Class to command actions every turn
  */
+@Getter
+@Setter
 public class Battle implements Observer
 {
+    private List<String> messages;
 
-    private Queue<String> messages;
-    private List<String> levelMessages;
+    private Opponent character;
 
-    public Battle() {
-        this.messages = new ArrayDeque<>();
-        this.levelMessages = new ArrayList<>();
+    private Opponent enemy;
+
+    public Battle(Opponent character, Opponent enemy) {
+        this.character = character;
+        this.enemy = enemy;
+        this.messages = new ArrayList<>();
+
+        this.character.attach(this);
+        this.enemy.attach(this);
     }
 
     /**
@@ -28,33 +40,19 @@ public class Battle implements Observer
 
     /**
      * Add message
-     * @param messages
+     * @param messages a list with messages which should be logged
      */
     @Override
     public void update(List<String> messages) {
-        for (String message : messages) {
-            System.out.println("Battle message: " + message);
-            this.levelMessages.add(message);
-        }
-    }
-
-    @Override
-    public void update(String message) {
-        System.out.println("Battle message: " + message);
-        this.messages.add(message);
+        this.messages.addAll(messages);
     }
 
     /**
-     * getNextMessage
-     * get next message from Queue
-     * @return String
+     * Gets the battle messages which should be logged
+     * @return a List with messages
      */
-    public String getNextMessage() {
-        return messages.poll();
-    }
-
     public List<String> getMessages() {
-        return this.levelMessages;
+        return this.messages;
     }
 }
 

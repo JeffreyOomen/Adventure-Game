@@ -16,7 +16,7 @@ public class EquipmentFactory implements UsableFactory {
      */
     @Override
     public Usable createUsable(UsableType type, int level) {
-        Usable usable = null;
+        Usable usable;
         String equipmentSetName = getRandomEquipmentCollectionName();   // Randomly get a equipment collection name
 
         // Determine which collection item to return
@@ -33,6 +33,8 @@ public class EquipmentFactory implements UsableFactory {
             case "Zamorak":
                 usable = new ZamorakEquipment(type, getEquipmentCollectionLevel(level));
                 break;
+            default:
+                usable = null;
         }
         return usable;
     }
@@ -55,19 +57,7 @@ public class EquipmentFactory implements UsableFactory {
      * @return equipment collection level
      */
     private int getEquipmentCollectionLevel(int enemyLevel) {
-        int equipmentCollectionLevel = 5; // default
-        // OLD
-//        if(enemyLevel > 5 && enemyLevel <= 10) {
-//            equipmentCollectionLevel = 10;
-//        } else if(enemyLevel > 10 && enemyLevel <= 15) {
-//            equipmentCollectionLevel = 15;
-//        } else {
-//            equipmentCollectionLevel = 20;
-//        }
-//        return equipmentCollectionLevel;
-
-        // Loop through enemy levels and decrement by 1
-        // TODO: determine this wat is better
+        int equipmentCollectionLevel = 5;
         for(int i = enemyLevel;  i > 10; i--) {
             // i % 10 remainder value = 0
             if((i % 10) == 0) {

@@ -1,7 +1,6 @@
 package nl.avans.ivh11.a2b.domain.usable;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -20,9 +19,6 @@ public class Inventory {
     @Column(name = "inventory_id")
     protected Long id;
 
-    /**
-     * Explictically
-     */
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Map<Long, Usable> usables;
 
@@ -35,7 +31,7 @@ public class Inventory {
     }
 
     public void dropUsable(Usable usable) {
-       this.usables.remove(usable.getId());
+        this.usables.remove(usable.getId());
     }
 
     public Usable getUsable(Long id) {

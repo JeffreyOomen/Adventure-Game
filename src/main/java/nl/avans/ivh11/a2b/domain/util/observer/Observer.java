@@ -11,9 +11,4 @@ public interface Observer
      * Notify observer of subject state change
      */
     void update(List<String> messages);
-
-    /**
-     * Notify observer of subject state change
-     */
-    void update(String message);
 }

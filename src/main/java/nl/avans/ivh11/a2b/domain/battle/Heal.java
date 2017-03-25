@@ -1,12 +1,12 @@
 package nl.avans.ivh11.a2b.domain.battle;
 
 import nl.avans.ivh11.a2b.domain.character.Character;
-import nl.avans.ivh11.a2b.domain.enemy.Enemy;
 import nl.avans.ivh11.a2b.domain.usable.Inventory;
 import nl.avans.ivh11.a2b.domain.usable.Usable;
 import nl.avans.ivh11.a2b.domain.usable.UsableType;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,8 +21,9 @@ public class Heal implements ActionBehavior
      * @param defender the Character's enemy
      * @return The action result
      */
-    public String action(Opponent attacker, Opponent defender) {
-
+    @Override
+    public List<String> action(Opponent attacker, Opponent defender) {
+        List<String> battleMessages = new ArrayList<>();
         Character c = (Character) attacker;
 
         if (c.isAlive() && c.isAlive()) {
@@ -31,7 +32,7 @@ public class Heal implements ActionBehavior
 
             int healed = 0;
 
-            String message = "No heal potion available...";
+            battleMessages.add("No heal potion available...");
             if(inventory.getUsables().size() > 0) {
                 int oldHp = c.getCurrentHitpoints();
 
@@ -42,7 +43,7 @@ public class Heal implements ActionBehavior
                     if(u.getType() == UsableType.POTION_HEAL) {
                         // heal potion found in inventory - use usable on character
                         u.use(c);
-                        message = c.getName() + " healed!";
+                        battleMessages.add(c.getName() + " healed!");
 
                         // Determine heal amount
                         healed = c.getCurrentHitpoints() - oldHp;
@@ -53,12 +54,13 @@ public class Heal implements ActionBehavior
                 if(usableToRemove != null) {
                     // Remove item from inventory
                     inventory.dropUsable(usableToRemove);
-                    message = c.getName() + " healed with " + healed + " hp. </br>Removed used potion from inventory.";
+                    battleMessages.add(c.getName() + " healed with " + healed + " hp. </br>Removed used potion from inventory.");
                 }
             }
-            return message;
+            return battleMessages;
         }
-        return "Your opponent " + defender.getName() + " already died...";
+
+        return null;
     }
 
 }

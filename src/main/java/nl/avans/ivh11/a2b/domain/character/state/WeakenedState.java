@@ -1,19 +1,16 @@
 package nl.avans.ivh11.a2b.domain.character.state;
 
-import javax.persistence.Entity;
-
 /**
  * Represents the Weak State
  */
-@Entity
 public class WeakenedState extends CharacterState
 {
-    private final static int STRENGTH_LEVEL = -10;
-    private final static int MAGIC_LEVEL = -10;
-    private final static int DEFENSE_LEVEL = -15;
-    private final static int ARCHERY_LEVEL = -10;
+    private static final int STRENGTH_LEVEL = -10;
+    private static final int MAGIC_LEVEL = -10;
+    private static final int DEFENSE_LEVEL = -15;
+    private static final int ARCHERY_LEVEL = -10;
 
-    private volatile static WeakenedState uniqueInstance;
+    private static volatile WeakenedState uniqueInstance;
 
     // prevent instantiating through constructor
     private WeakenedState() {}

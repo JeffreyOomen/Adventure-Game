@@ -1,34 +1,43 @@
 $(document).ready(function () {
-    /* handle heal */
-    $("#start_battle").click(function() {
-        window.location.href = "/start";
+    //Set CSRF Request header for all AJAX requests
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $.ajaxSetup({
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader(header, token);
+        }
     });
 
-    /* handle normal attack */
+    // Handle starting a new battle against an enemy
+    $("#start_battle").click(function() {
+        window.location.href = "/battle";
+    });
+
+    // Handle a normal attack action
     $("#normal_attack").click(function() {
         $.post("/battle/normalAttack", function(data) {
-            showBattlereport(data);
+            battleReport(data);
         });
     });
 
-    /* handle special attack */
+    // Handle a special attack action
     $("#special_attack").click(function() {
         $.post("/battle/specialAttack", function(data) {
-            showBattlereport(data);
+            battleReport(data);
         });
     });
 
-    /* handle heal */
+    // Handle a heal action
     $("#heal").click(function() {
         $.post("/battle/heal", function(data) {
-            showBattlereport(data);
+            battleReport(data);
 
             // Get first available heal potion and remove
             $('.inventory li.POTION_HEAL:first').remove();
-
         });
     });
 
+<<<<<<< HEAD
     /* handle regenerating the character */
     $("#regenerate_character").click(function() {
         window.location.href = "/doRegenerate";
@@ -105,46 +114,40 @@ $(document).ready(function () {
         location.reload();
     }
 
+=======
+>>>>>>> a97479f64a2eac4d5a6b60bdb4fe60336a5a08df
     /**
      * Show battle report the the client
-     * @param data
+     * @param data the battle messages received from the controllers
      */
+<<<<<<< HEAD
     var showBattlereport = function(data) {
+=======
+    function battleReport(data) {
+>>>>>>> a97479f64a2eac4d5a6b60bdb4fe60336a5a08df
         $('#charCurrentHp').html(data.characterStats.currentHitpoints);
         $('#enemyCurrentHp').html(data.enemyStats.currentHitpoints);
 
-        // show battle messages
+        // show battle messages and automatically scroll downwards
         var messageContainer = $('.messages');
         messageContainer.append($('<p "message">' + data.message + '</p>'));
         messageContainer.scrollTop(messageContainer.prop("scrollHeight"));
 
-        if (!data.isCharacterAlive && !data.isEnemyAlive) {
-            playerDeadAlert("You both lost...");
-        } else if (!data.isCharacterAlive) {
-            playerDeadAlert("You lost!");
+        if (!data.isCharacterAlive) {
+            $('#regenerate').attr('hidden', false);
+            battleEndState();
         } else if (!data.isEnemyAlive) {
-            winningState();
+            $('#go_home').attr('hidden', false);
+            battleEndState();
         }
-    };
-
-    /**
-     * Disables the action buttons and shows the
-     * go home button
-     */
-    function winningState() {
-        $('#normal_attack').prop('disabled', true);
-        $('#special_attack').prop('disabled', true);
-        $('#heal').prop('disabled', true);
-        $('#go_home').attr('hidden', false);
     }
 
     /**
-     * Shows an alert to the player and redirects to
-     * the regeneration window
-     * @param message the message to be shown in the alert box
+     * Disables the action buttons in the battle
      */
-    function playerDeadAlert(message) {
-        alert(message);
-        window.location.href = "/regenerate";
+    function battleEndState() {
+        $('#normal_attack').prop('disabled', true);
+        $('#special_attack').prop('disabled', true);
+        $('#heal').prop('disabled', true);
     }
 });

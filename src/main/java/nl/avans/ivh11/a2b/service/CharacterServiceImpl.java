@@ -5,6 +5,7 @@ import nl.avans.ivh11.a2b.datastorage.character.CharacterRepository;
 import nl.avans.ivh11.a2b.datastorage.character.EquipmentRepository;
 import nl.avans.ivh11.a2b.datastorage.usable.MediaRepository;
 import nl.avans.ivh11.a2b.datastorage.usable.UsableRepository;
+import nl.avans.ivh11.a2b.domain.auth.User;
 import nl.avans.ivh11.a2b.domain.battle.NormalAttack;
 import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.domain.character.Dwarf;
@@ -50,7 +51,7 @@ public class CharacterServiceImpl implements CharacterService
         this.usableRepository = usableRepository;
 
         // Start demo
-        demoCharacter();
+//        demoCharacter();
     }
 
     /**
@@ -66,11 +67,13 @@ public class CharacterServiceImpl implements CharacterService
 
         // Setup non-decorated Character
         Character c = new Troll("Kees Kroket", new Stats(), media);
-        c.getStats().setStrength(40);
+        c.getStats().setStrength(90);
         c.getStats().setStrengthAccuracy(100);
+        c.getStats().setDefense(90);
+        c.getStats().setDefenseAccuracy(80);
         c.setActionBehavior(new NormalAttack());
+        c.setAttackStyle(UsableType.EQUIPMENT_WEAPON_SWORD);
         characterRepository.save(c);
-
 
         // Initialize factories
         EquipmentFactory equipmentFactory = new EquipmentFactory();

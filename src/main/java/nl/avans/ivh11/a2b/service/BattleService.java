@@ -3,10 +3,13 @@ package nl.avans.ivh11.a2b.service;
 import nl.avans.ivh11.a2b.domain.battle.Battle;
 import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.domain.enemy.Enemy;
+import nl.avans.ivh11.a2b.domain.util.Opponent;
 
 public interface BattleService
 {
-    void startBattle(Character c, Enemy e);
+    Opponent setupBattle(Opponent character);
+
+    String battleReport(CharacterService characterService);
 
     void attack();
 

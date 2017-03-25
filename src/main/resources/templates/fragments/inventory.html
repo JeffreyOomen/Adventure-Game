@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
+<head>
+    ...
+</head>
+<body>
+<div th:fragment="inventory">
+    <div class="inventory">
+        <h1><span th:text="#{character.inventory}"></span></h1>
+
+        <!--<ul th:each="usable : ${inventory.values()}">-->
+            <!--<li th:class="${usable.getType()}" th:text="${usable.getName()}">Name</li>-->
+        <!--</ul>-->
+    </div>
+</div>
+</body>
+</html>
