@@ -14,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@PreAuthorize("isAuthenticated()")
 public class BattleController
 {
     @Autowired
@@ -22,6 +21,9 @@ public class BattleController
 
     @Autowired
     private SecurityService securityService;
+
+    @Autowired
+    private CharacterService characterService;
 
     private Opponent character;
     private Opponent enemy;
