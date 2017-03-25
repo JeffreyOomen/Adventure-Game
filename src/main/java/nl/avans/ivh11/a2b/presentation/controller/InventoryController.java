@@ -27,9 +27,6 @@ import java.util.Map;
 public class InventoryController {
 
     private CharacterService characterService;
-    private SecurityService securityService;
-
-    private Character character;
 
     @Autowired
     public InventoryController(CharacterService characterService, SecurityService securityService) {
@@ -37,12 +34,12 @@ public class InventoryController {
         this.securityService = securityService;
 
     }
+    private SecurityService securityService;
 
     @RequestMapping(value = "/inventory", method = RequestMethod.GET)
     public String inventory(Model uiModel) {
-
         User user = this.securityService.findLoggedInUser();
-        this.character = user.getCharacter();
+        Character character = user.getCharacter();
 
         uiModel.addAttribute("helmet", character.getEquipment().get(UsableType.EQUIPMENT_HELMET));
         uiModel.addAttribute("weapon", character.getEquipment().get(UsableType.EQUIPMENT_WEAPON));
@@ -50,6 +47,7 @@ public class InventoryController {
         uiModel.addAttribute("legs", character.getEquipment().get(UsableType.EQUIPMENT_LEGS));
         uiModel.addAttribute("gloves", character.getEquipment().get(UsableType.EQUIPMENT_GLOVES));
         uiModel.addAttribute("boots", character.getEquipment().get(UsableType.EQUIPMENT_BOOTS));
+
 
         // Validate inventory isn't empty
         if(character.getInventory() != null) {
@@ -67,6 +65,9 @@ public class InventoryController {
     public void delete(@RequestBody String usableId) {
         long id = Long.parseLong(usableId);
 
+        User user = this.securityService.findLoggedInUser();
+        Character character = user.getCharacter();
+
         if (id > 0) {
             // Drop item
             this.characterService.dropInventoryItem(character, id);
@@ -81,6 +82,9 @@ public class InventoryController {
     public void useItem(@RequestBody String usableId) {
 
         long id = Long.parseLong(usableId);
+
+        User user = this.securityService.findLoggedInUser();
+        Character character = user.getCharacter();
 
         // Validate usable found based on given id
         if (id > 0) {
