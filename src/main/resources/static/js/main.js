@@ -1,4 +1,12 @@
 $(document).ready(function () {
+    //Set CSRF Request header for all AJAX requests
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $.ajaxSetup({
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader(header, token);
+        }
+    });
 
     // Handle starting a new battle against an enemy
     $("#start_battle").click(function() {

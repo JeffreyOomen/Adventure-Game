@@ -1,11 +1,8 @@
 package nl.avans.ivh11.a2b.domain.character.state;
 
-import javax.persistence.Entity;
-
 /**
  * Represents the Powered State
  */
-@Entity
 public class PoweredState extends CharacterState
 {
     private static final int STRENGTH_LEVEL = 10;

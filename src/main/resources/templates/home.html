@@ -5,7 +5,10 @@
 <body>
 	<div class="main-container">
 		<div class="main-container-left">
-			<h1 th:text="#{home.welcome}"></h1>
+			<h1>
+				<span th:text="#{home.welcome}"></span>
+				<span th:text="${#httpServletRequest.remoteUser}"></span>
+			</h1>
 
 			<a href="/battle"><button id="start_battle" th:text="#{battle.start}"></button></a><br/>
 			<button th:text="#{character.inventory}"></button>

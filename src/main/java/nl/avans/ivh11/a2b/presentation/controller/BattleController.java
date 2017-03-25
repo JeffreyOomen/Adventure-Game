@@ -1,22 +1,27 @@
 package nl.avans.ivh11.a2b.presentation.controller;
 
-import nl.avans.ivh11.a2b.domain.util.Opponent;
+import nl.avans.ivh11.a2b.domain.auth.User;
 import nl.avans.ivh11.a2b.presentation.model.BattleModel;
 import nl.avans.ivh11.a2b.service.BattleService;
 import nl.avans.ivh11.a2b.service.CharacterService;
+import nl.avans.ivh11.a2b.service.SecurityService;
+import nl.avans.ivh11.a2b.service.UserService;
+import nl.avans.ivh11.a2b.domain.util.Opponent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@PreAuthorize("isAuthenticated()")
 public class BattleController
 {
     @Autowired
     private BattleService battleService;
 
     @Autowired
-    private CharacterService characterService;
+    private SecurityService securityService;
 
     private Opponent character;
     private Opponent enemy;
@@ -28,8 +33,8 @@ public class BattleController
      */
     @RequestMapping(value = "/battle", method = RequestMethod.GET)
     public String setupBattle(Model uiModel) {
-        // Initialize and assign character and enemy
-        this.character = characterService.findById(1L);
+        User user = securityService.findLoggedInUser();
+        this.character = user.getCharacter();
 
         if (this.enemy == null || !this.enemy.isAlive() || this.character.isAlive()) {
             this.enemy = this.battleService.setupBattle(character);

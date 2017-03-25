@@ -1,11 +1,8 @@
 package nl.avans.ivh11.a2b.domain.character.state;
 
-import javax.persistence.Entity;
-
 /**
  * Represents the Weak State
  */
-@Entity
 public class WeakenedState extends CharacterState
 {
     private static final int STRENGTH_LEVEL = -10;

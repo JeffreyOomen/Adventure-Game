@@ -11,8 +11,10 @@ import nl.avans.ivh11.a2b.domain.usable.UsableType;
 import nl.avans.ivh11.a2b.domain.usable.Equipment;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
 import nl.avans.ivh11.a2b.domain.util.Stats;
+import nl.avans.ivh11.a2b.domain.util.observer.Observer;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -214,6 +216,15 @@ public abstract class CharacterDecorator extends Character
     }
 
     /**
+     * Get the AttackStyle
+     * @return UsableType
+     */
+    @Override
+    public UsableType getAttackStyle() {
+        return this.character.getAttackStyle();
+    }
+
+    /**
      * Gets the Stats of the Character
      * @return the Stats of the Character
      */
@@ -238,5 +249,33 @@ public abstract class CharacterDecorator extends Character
     @Override
     public String getName() {
         return this.character.getName();
+    }
+
+    /**
+     * Attach an Observer
+     * @param observer
+     */
+    @Override
+    public void attach(Observer observer) {
+        this.character.attach(observer);
+    }
+
+    /**
+     * Detach an Observer
+     * @param observer
+     */
+    @Override
+    public void detach(Observer observer) {
+        this.character.detach(observer);
+    }
+
+    /**
+     * Notify all attached Observers and
+     * push message
+     * @param messages
+     */
+    @Override
+    public void notifyObservers(List<String> messages) {
+        this.character.notifyObservers(messages);
     }
 }

@@ -3,24 +3,15 @@ package nl.avans.ivh11.a2b.domain.character.state;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Represents the Character state
  */
-@Entity
-@Table(name = "CHARACTER_STATE")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "CHARACTER_STATE_TYPE")
 @Getter
 @Setter
-public abstract class CharacterState
+public abstract class CharacterState implements Serializable
 {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "CHARACTER_STATE_ID")
-    protected Long id;
-
     protected String name;
 
     protected String description;

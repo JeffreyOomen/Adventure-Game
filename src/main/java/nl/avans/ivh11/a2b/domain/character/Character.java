@@ -44,13 +44,11 @@ public abstract class Character extends Opponent
     protected Map<UsableType, Equipment> equipment;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    @Column(name = "CHARACTER_INVENTORY")
     protected Inventory inventory;
 
     protected UsableType attackStyle;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "STATE_ID")
+    @Lob
     protected CharacterState currentState;
 
     /**
@@ -64,7 +62,6 @@ public abstract class Character extends Opponent
         this.media = media;
         this.inventory = new Inventory();
         this.equipment = new EnumMap<>(UsableType.class);
-        this.currentState = NormalState.getInstance();
     }
 
     /**
