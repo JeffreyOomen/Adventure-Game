@@ -23,33 +23,24 @@ import java.util.Map;
 @PreAuthorize("isAuthenticated()")
 public class InventoryController {
 
+    @Autowired
     private CharacterService characterService;
-    private SecurityService securityService;
-
-    private Character character;
 
     @Autowired
-    public InventoryController(CharacterService characterService, SecurityService securityService) {
-        this.characterService = characterService;
-        this.securityService = securityService;
-
-        // Get character
-        User user = this.securityService.findLoggedInUser();
-//        if (user != null) {
-//            this.character = user.getCharacter();
-//        }
-    }
+    private SecurityService securityService;
 
     @RequestMapping(value = "/inventory", method = RequestMethod.GET)
     public String inventory(Model uiModel) {
+        User user = this.securityService.findLoggedInUser();
+        Character character = user.getCharacter();
 
-//        uiModel.addAttribute("helmet", character.getEquipment().get(UsableType.EQUIPMENT_HELMET));
-//        uiModel.addAttribute("weapon", character.getEquipment().get(UsableType.EQUIPMENT_WEAPON));
-//        uiModel.addAttribute("body", character.getEquipment().get(UsableType.EQUIPMENT_BODY));
-//        uiModel.addAttribute("legs", character.getEquipment().get(UsableType.EQUIPMENT_LEGS));
-//        uiModel.addAttribute("gloves", character.getEquipment().get(UsableType.EQUIPMENT_GLOVES));
-//        uiModel.addAttribute("boots", character.getEquipment().get(UsableType.EQUIPMENT_BOOTS));
-//
+        uiModel.addAttribute("helmet", character.getEquipment().get(UsableType.EQUIPMENT_HELMET));
+        uiModel.addAttribute("weapon", character.getEquipment().get(UsableType.EQUIPMENT_WEAPON));
+        uiModel.addAttribute("body", character.getEquipment().get(UsableType.EQUIPMENT_BODY));
+        uiModel.addAttribute("legs", character.getEquipment().get(UsableType.EQUIPMENT_LEGS));
+        uiModel.addAttribute("gloves", character.getEquipment().get(UsableType.EQUIPMENT_GLOVES));
+        uiModel.addAttribute("boots", character.getEquipment().get(UsableType.EQUIPMENT_BOOTS));
+
 //        uiModel.addAttribute("inventoryUsables", character.getInventory().getUsables());
 
         return "inventory";
@@ -62,6 +53,9 @@ public class InventoryController {
     @ResponseBody
     public void delete(@RequestBody String usableId) {
         long id = Long.parseLong(usableId);
+
+        User user = this.securityService.findLoggedInUser();
+        Character character = user.getCharacter();
 
         if (id > 0) {
             // Drop item
@@ -77,6 +71,9 @@ public class InventoryController {
     public void useItem(@RequestBody String usableId) {
 
         long id = Long.parseLong(usableId);
+
+        User user = this.securityService.findLoggedInUser();
+        Character character = user.getCharacter();
 
         // Validate usable found based on given id
         if (id > 0) {
