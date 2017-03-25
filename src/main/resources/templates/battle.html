@@ -28,13 +28,12 @@
     </form>
     <div th:replace="fragments/fight :: fight">
 
-        <div class="column" th:replace="fragments/inventory :: inventory">
-            <div class="inventory">
-                <h1>Inventory</h1>
-                <ul th:each="usable : ${character.getInventory().getUsables()}">
-                    <li th:class="${usable.getType()}" th:text="${usable.getName()}">Name</li>
-                </ul>
-            </div>
+    <div class="column" th:replace="fragments/inventory :: inventory">
+        <div class="inventory">
+            <h1><span th:text="#{character.inventory}"></span></h1>
+            <ul th:each="usable : ${character.getInventory().getUsables()}">
+                <li th:class="${usable.getType()}" th:text="${usable.getName()}">Name</li>
+            </ul>
         </div>
     </div>
     <div th:replace="fragments/game_information :: info"></div>

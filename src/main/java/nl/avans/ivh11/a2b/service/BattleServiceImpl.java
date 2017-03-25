@@ -7,6 +7,7 @@ import nl.avans.ivh11.a2b.datastorage.enemy.EnemyRepository;
 import nl.avans.ivh11.a2b.domain.battle.*;
 import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.domain.enemy.Enemy;
+import nl.avans.ivh11.a2b.domain.usable.Usable;
 import nl.avans.ivh11.a2b.domain.util.CustomRandom;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,13 +77,18 @@ public class BattleServiceImpl implements BattleService
      * Report about the events happened in the battle during the player's actions.
      * @return A String containing battle report information
      */
-    public String battleReport() {
+    public String battleReport(CharacterService characterService) {
         String battleReport = "";
 
         List<String> messages = this.battle.getMessages();
         if (!this.battle.getEnemy().isAlive()) {
             // give out XP to the character
             this.battle.getCharacter().receiveXp(this.getBattle().getEnemy().getHitpoints());
+            Enemy enemy = (Enemy) this.battle.getEnemy();
+            Character character = (Character) this.battle.getCharacter();
+            Usable randomDrop = enemy.randomDrop();
+            characterService.addInventoryItem(character, randomDrop);
+            battleReport += enemy.getName() + " just dropped " + randomDrop.getName() + BREAK;
             messages = this.battle.getMessages(); // add any level up messages
             this.teardownBattle();
         }

@@ -82,7 +82,7 @@ public class BattleController
      * @return an model containing battle information
      */
     private BattleModel battleReport() {
-        String battleReport = this.battleService.battleReport();
+        String battleReport = this.battleService.battleReport(characterService);
         System.out.println(" BATTLE REPORT " + battleReport);
 
         // Return view model as JSON

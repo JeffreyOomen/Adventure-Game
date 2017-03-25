@@ -9,7 +9,7 @@ public interface BattleService
 {
     Opponent setupBattle(Opponent character);
 
-    String battleReport();
+    String battleReport(CharacterService characterService);
 
     void attack();
 
