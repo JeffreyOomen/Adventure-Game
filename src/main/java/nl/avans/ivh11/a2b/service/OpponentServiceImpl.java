@@ -81,6 +81,11 @@ public class OpponentServiceImpl implements OpponentService
         stats.setDefense(5);
         stats.setDefenseAccuracy(10);
         ArrayList<Usable> lootList = new ArrayList<>();
+        // Find media image
+        Media media = mediaRepository.findOne(2L);
+
+        stats.setHitpoints(300);
+        stats.setCurrentHitpoints(300);
 
         // Find media image
         Media media1 = mediaRepository.findOne(2L);

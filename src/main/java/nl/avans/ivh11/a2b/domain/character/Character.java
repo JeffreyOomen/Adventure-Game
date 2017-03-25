@@ -70,13 +70,32 @@ public abstract class Character extends Opponent
      * @param equipment an EquipmentRepository Object
      */
     public void mountEquipment(UsableType usableType, Equipment equipment) {
-        // Make sure only one weapon can be equipped
+
+        // First get old item for the given type
+        Equipment currentMountEquipment = this.equipment.get(usableType);
+
+        // Validate current mounted equipment found
+        if(currentMountEquipment != null) {
+
+            // unmount old equipment
+            unMountEquipment(usableType);
+
+            // Move item back to inventory
+            this.inventory.addUsable(currentMountEquipment);
+
+        }
+
+        // Mount new equipment
         if (usableType == UsableType.EQUIPMENT_WEAPON_SWORD || usableType == UsableType.EQUIPMENT_WEAPON_STAFF || usableType == UsableType.EQUIPMENT_WEAPON_BOW) {
             this.equipment.put(UsableType.EQUIPMENT_WEAPON, equipment);
             this.attackStyle = usableType;
         } else {
             this.equipment.put(usableType, equipment);
         }
+
+        // Remove item from inventory
+        this.inventory.dropUsable(equipment);
+
     }
 
     /**
@@ -195,8 +214,8 @@ public abstract class Character extends Opponent
      * @param usable an Object of Usable
      * @return true if dropped successfully, false otherwise
      */
-    public boolean dropFromInventory(Usable usable) {
-        return this.inventory.dropUsable(usable);
+    public void dropFromInventory(Usable usable) {
+        this.inventory.dropUsable(usable);
     }
 
     /**

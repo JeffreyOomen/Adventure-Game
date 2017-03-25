@@ -16,6 +16,7 @@ public class ArmadylEquipment extends Equipment {
         super(type, level);
         setName("Armadyl " + getEquipmentType(type)  + " (lvl " + level + ")");
         setDescription("Item from the Armadyl collection. Very useful as a warrior.");
+        imageUrl = "armadyl" + getEquipmentType(type) + ".png";
         setEquipmentAccuracies(0.4, 1.2, 4, 0);
     }
 
