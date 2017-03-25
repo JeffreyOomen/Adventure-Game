@@ -72,9 +72,6 @@ public abstract class Character extends Opponent
      * @param equipment an EquipmentRepository Object
      */
     public void mountEquipment(UsableType usableType, Equipment equipment) {
-        System.out.println("mount item");
-        System.out.println(equipment.getType());
-        System.out.println(equipment.getName());
 
         // First get old item for the given type
         Equipment currentMountEquipment = this.equipment.get(usableType);
@@ -97,6 +94,9 @@ public abstract class Character extends Opponent
         } else {
             this.equipment.put(usableType, equipment);
         }
+
+        // Remove item from inventory
+        this.inventory.dropUsable(equipment);
 
     }
 

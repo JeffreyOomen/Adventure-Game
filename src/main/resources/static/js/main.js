@@ -41,10 +41,6 @@ $(document).ready(function () {
         var name = $('#' + id + ' .name').text();
         var desc = $('#' + id + ' .desc').text();
 
-        console.log('id: ' + id);
-        console.log('name: ' + name);
-        console.log('desc: ' + desc);
-
         var imageSrc = $("#" + id + ' img').attr('src');
         // Set selected
         $('#selectedUsableUrl').attr('src', imageSrc);
@@ -57,13 +53,12 @@ $(document).ready(function () {
 
     });
 
+
     /**
      * Used to delete a selected usable based on id
      */
     $('#deleteUsable').click(function() {
         var id = $('#selectedUsableId').val();
-
-        console.log('Deleted item with ID: ' + id);
 
         $.ajax({
             url: '/inventory',
@@ -72,8 +67,8 @@ $(document).ready(function () {
             dataType:"text",
             type: 'DELETE',
             success: function(result) {
-                // Remove item from inventory
-               $('#' + id).remove();
+                // reload page
+                reloadCurrentPage();
             }
         });
 
@@ -81,12 +76,10 @@ $(document).ready(function () {
 
 
     /**
-     * Used to delete a selected usable based on id
+     * Used to use a selected usable based on id
      */
     $('#useUsable').click(function() {
         var id = $('#selectedUsableId').val();
-
-        console.log('Use item with ID: ' + id);
 
         $.ajax({
             url: '/inventory',
@@ -98,19 +91,25 @@ $(document).ready(function () {
                 // remove item from inventory
                 $('#' + id).remove();
 
-                // Get current setted item
-
+                reloadCurrentPage();
             }
         });
 
 });
+
+
+    /**
+     * Reload current page
+     */
+    function reloadCurrentPage() {
+        location.reload();
+    }
 
     /**
      * Show battle report the the client
      * @param data
      */
     var showBattlereport = function(data) {
-        console.log(data);
         $('#charCurrentHp').html(data.characterStats.currentHitpoints);
         $('#enemyCurrentHp').html(data.enemyStats.currentHitpoints);
 

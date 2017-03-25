@@ -22,7 +22,7 @@
                     </div>
 
                     <div th:if="${helmet != null}">
-                        <div class="image"><img class="shoulders" th:src="@{'/images/' + ${helmet.getImageUrl()}}" alt=""></img></div>
+                        <div class="image"><img th:src="@{'/images/' + ${helmet.getImageUrl()}}" alt=""></img></div>
                     </div>
                 </div>
 
@@ -32,7 +32,7 @@
                         <div class="item-not-found"><p>Not set</p></div>
                     </div>
                     <div th:if="${weapon != null}">
-                        <div class="image"><img class="shoulders" th:src="@{'/images/' + ${weapon.getImageUrl()}}" alt=""></img></div>
+                        <div class="image"><img th:src="@{'/images/' + ${weapon.getImageUrl()}}" alt=""></img></div>
                     </div>
                 </div>
 
@@ -42,7 +42,7 @@
                         <div class="item-not-found"><p>Not set</p></div>
                     </div>
                     <div th:if="${body != null}">
-                        <div class="image"><img class="shoulders" th:src="@{'/images/' + ${body.getImageUrl()}}" alt=""></img></div>
+                        <div class="image"><img th:src="@{'/images/' + ${body.getImageUrl()}}" alt=""></img></div>
                     </div>
                 </div>
 
@@ -52,7 +52,7 @@
                         <div class="item-not-found"><p>Not set</p></div>
                     </div>
                     <div th:if="${legs != null}">
-                        <div class="image"><img class="shoulders" th:src="@{'/images/' + ${legs.getImageUrl()}}" alt=""></img></div>
+                        <div class="image"><img th:src="@{'/images/' + ${legs.getImageUrl()}}" alt=""></img></div>
                     </div>
                 </div>
 
@@ -62,7 +62,7 @@
                         <div class="item-not-found"><p>Not set</p></div>
                     </div>
                     <div th:if="${gloves != null}">
-                        <div class="image"><img class="shoulders" th:src="@{'/images/' + ${gloves.getImageUrl()}}" alt=""></img></div>
+                        <div class="image"><img th:src="@{'/images/' + ${gloves.getImageUrl()}}" alt=""></img></div>
                     </div>
                 </div>
 
@@ -72,7 +72,7 @@
                         <div class="item-not-found"><p>Not set</p></div>
                     </div>
                     <div th:if="${boots != null}">
-                        <div class="image"><img class="shoulders" th:src="@{'/images/' + ${boots.getImageUrl()}}" alt=""></img></div>
+                        <div class="image"><img th:src="@{'/images/' + ${boots.getImageUrl()}}" alt=""></img></div>
                     </div>
                 </div>
 
@@ -94,7 +94,7 @@
                     <h3>Selected:</h3>
                     <strong>Name: </strong><div id="selectedItemName"></div>
                     <strong>Description: </strong><div id="selectedItemDesc"></div>
-                    <div id="item_selected"><img id="selectedUsableUrl" th:src="@{/images/potionoverload.png}" alt=""></img></div>
+                    <div id="item_selected"><img id="selectedUsableUrl"  alt=""></img></div>
                     <input type="text" name="id"  id="selectedUsableId" th:hidden="usable"  value='' ></input>
                     <button id="deleteUsable">Delete</button>
                     <button id="useUsable">Use</button>

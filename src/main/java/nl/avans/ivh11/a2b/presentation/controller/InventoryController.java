@@ -36,8 +36,6 @@ public class InventoryController {
     @RequestMapping(value = "/inventory", method = RequestMethod.GET)
     public String inventory(Model uiModel) {
 
-        Equipment e = character.getEquipment().get(UsableType.EQUIPMENT_BODY);
-
         uiModel.addAttribute("helmet",  character.getEquipment().get(UsableType.EQUIPMENT_HELMET));
         uiModel.addAttribute("weapon",  character.getEquipment().get(UsableType.EQUIPMENT_WEAPON));
         uiModel.addAttribute("body",  character.getEquipment().get(UsableType.EQUIPMENT_BODY));
@@ -70,7 +68,6 @@ public class InventoryController {
     @RequestMapping(value = "/inventory", method = RequestMethod.POST)
     @ResponseBody
     public void useItem(@RequestBody  String usableId) {
-        System.out.println("gevonden id" + usableId);
 
         long id = Long.parseLong(usableId);
 
