@@ -80,24 +80,32 @@
         </div>
         <div class="inventory-right">
             <div class="inventory-title"><h1>Inventory</h1></div>
-            <div class="inventory-items">
-                <div th:each="usable : ${inventoryUsables.values()}">
-                    <div class="item" th:id="${usable.getId()}">
-                        <div class="name" th:hidden="usable" th:text="${usable.getName()}"></div>
-                        <div class="desc" th:hidden="usable" th:text="${usable.getDescription()}"></div>
-                        <img  th:src="@{'/images/'  + ${usable.getImageUrl()}}" th:alt="${usable.getName()}"></img>
+            <div th:if="${inventoryUsables != null}">
+                <div class="inventory-items">
+                    <div th:each="usable : ${inventoryUsables}">
+                        <div class="item" th:id="${usable.getId()}">
+                            <div class="name" th:hidden="usable" th:text="${usable.getName()}"></div>
+                            <div class="desc" th:hidden="usable" th:text="${usable.getDescription()}"></div>
+                            <img th:src="@{'/images/'  + ${usable.getImageUrl()}}" th:alt="${usable.getName()}"></img>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div id="selectedItem">
+
+                <div id="selectedItem">
                     <h3>Selected:</h3>
-                    <strong>Name: </strong><div id="selectedItemName"></div>
-                    <strong>Description: </strong><div id="selectedItemDesc"></div>
-                    <div id="item_selected"><img id="selectedUsableUrl"  alt=""></img></div>
-                    <input type="text" name="id"  id="selectedUsableId" th:hidden="usable"  value='' ></input>
+                    <strong>Name: </strong>
+                    <div id="selectedItemName"></div>
+                    <strong>Description: </strong>
+                    <div id="selectedItemDesc"></div>
+                    <div id="item_selected"><img id="selectedUsableUrl" alt=""></img></div>
+                    <input type="text" name="id" id="selectedUsableId" th:hidden="usable" value=''></input>
                     <button id="deleteUsable">Delete</button>
                     <button id="useUsable">Use</button>
+                </div>
+            </div>
+            <div th:if="${inventoryUsables == null}">
+                <h2>No items found, start fighting and earning loot!</h2>
             </div>
         </div>
     </div>

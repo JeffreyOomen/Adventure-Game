@@ -17,6 +17,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -33,24 +36,25 @@ public class InventoryController {
         this.characterService = characterService;
         this.securityService = securityService;
 
-        // Get character
-        User user = this.securityService.findLoggedInUser();
-//        if (user != null) {
-//            this.character = user.getCharacter();
-//        }
     }
 
     @RequestMapping(value = "/inventory", method = RequestMethod.GET)
     public String inventory(Model uiModel) {
 
-//        uiModel.addAttribute("helmet", character.getEquipment().get(UsableType.EQUIPMENT_HELMET));
-//        uiModel.addAttribute("weapon", character.getEquipment().get(UsableType.EQUIPMENT_WEAPON));
-//        uiModel.addAttribute("body", character.getEquipment().get(UsableType.EQUIPMENT_BODY));
-//        uiModel.addAttribute("legs", character.getEquipment().get(UsableType.EQUIPMENT_LEGS));
-//        uiModel.addAttribute("gloves", character.getEquipment().get(UsableType.EQUIPMENT_GLOVES));
-//        uiModel.addAttribute("boots", character.getEquipment().get(UsableType.EQUIPMENT_BOOTS));
-//
-//        uiModel.addAttribute("inventoryUsables", character.getInventory().getUsables());
+        User user = this.securityService.findLoggedInUser();
+        this.character = user.getCharacter();
+
+        uiModel.addAttribute("helmet", character.getEquipment().get(UsableType.EQUIPMENT_HELMET));
+        uiModel.addAttribute("weapon", character.getEquipment().get(UsableType.EQUIPMENT_WEAPON));
+        uiModel.addAttribute("body", character.getEquipment().get(UsableType.EQUIPMENT_BODY));
+        uiModel.addAttribute("legs", character.getEquipment().get(UsableType.EQUIPMENT_LEGS));
+        uiModel.addAttribute("gloves", character.getEquipment().get(UsableType.EQUIPMENT_GLOVES));
+        uiModel.addAttribute("boots", character.getEquipment().get(UsableType.EQUIPMENT_BOOTS));
+
+        // Validate inventory isn't empty
+        if(character.getInventory() != null) {
+                uiModel.addAttribute("inventoryUsables", character.getInventory().getUsables());
+        }
 
         return "inventory";
     }

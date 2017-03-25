@@ -37,7 +37,6 @@ $(document).ready(function () {
         });
     });
 
-<<<<<<< HEAD
     /* handle regenerating the character */
     $("#regenerate_character").click(function() {
         window.location.href = "/doRegenerate";
@@ -114,17 +113,12 @@ $(document).ready(function () {
         location.reload();
     }
 
-=======
->>>>>>> a97479f64a2eac4d5a6b60bdb4fe60336a5a08df
     /**
      * Show battle report the the client
      * @param data the battle messages received from the controllers
      */
-<<<<<<< HEAD
-    var showBattlereport = function(data) {
-=======
+
     function battleReport(data) {
->>>>>>> a97479f64a2eac4d5a6b60bdb4fe60336a5a08df
         $('#charCurrentHp').html(data.characterStats.currentHitpoints);
         $('#enemyCurrentHp').html(data.enemyStats.currentHitpoints);
 
