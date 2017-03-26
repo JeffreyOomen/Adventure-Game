@@ -4,10 +4,12 @@ import nl.avans.ivh11.a2b.datastorage.auth.RoleRepository;
 import nl.avans.ivh11.a2b.datastorage.auth.UserRepository;
 import nl.avans.ivh11.a2b.domain.auth.Role;
 import nl.avans.ivh11.a2b.domain.auth.User;
+import nl.avans.ivh11.a2b.domain.character.CharacterFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.HashSet;
 
 /**
@@ -24,12 +26,21 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @PostConstruct
+    private void demoUser() {
+        User user = new User();
+        user.setUsername("test");
+        user.setPlainPassword("password1");
+        user.setCharacter(CharacterFactory.createCharacter("Character1", "dwarf", "archer"));
+        this.create(user);
+    }
+
     /**
      * Persist a new User
      * @param user User
      */
     @Override
-    public void create(User user) {
+    public User create(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPlainPassword()));
         user.setPlainPassword(null);
         Role role = roleRepository.findByName("ROLE_USER");
@@ -38,7 +49,7 @@ public class UserServiceImpl implements UserService {
             role.setName("ROLE_USER");
         }
         user.addRole(role);
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     /**
@@ -46,12 +57,12 @@ public class UserServiceImpl implements UserService {
      * @param user User
      */
     @Override
-    public void save(User user) {
+    public User save(User user) {
         if(user.getPlainPassword() != null && !user.getPlainPassword().isEmpty()) {
             user.setPassword(bCryptPasswordEncoder.encode(user.getPlainPassword()));
             user.setPlainPassword(null);
         }
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     /**
