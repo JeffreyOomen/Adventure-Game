@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
+<head>
+    <title>Proftaak</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>
+    <!--<link rel="stylesheet" type="text/css" href="../static/css/main.css" />-->
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+<body>
+<div id="inventory-page" class="main-container">
+    <div class="inventory-container">
+        <div class="inventory-left">
+            <div class="inventory-title"><h1>Current equipment</h1></div>
+            <div class="current-equipment">
+                <div>
+
+                </div>
+                <div class="item-container">
+                    <div class="title"><strong>Helmet:</strong></div>
+                    <div th:if="${helmet == null}">
+                        <div class="item-not-found"><p>Not set</p></div>
+                    </div>
+
+                    <div th:if="${helmet != null}">
+                        <div class="image"><img th:src="@{'/images/' + ${helmet.getImageUrl()}}" alt=""></img></div>
+                    </div>
+                </div>
+
+                <div class="item-container">
+                    <div class="title"><strong>Weapon:</strong></div>
+                    <div th:if="${weapon == null}">
+                        <div class="item-not-found"><p>Not set</p></div>
+                    </div>
+                    <div th:if="${weapon != null}">
+                        <div class="image"><img th:src="@{'/images/' + ${weapon.getImageUrl()}}" alt=""></img></div>
+                    </div>
+                </div>
+
+                <div class="item-container">
+                    <div class="title"><strong>Body:</strong></div>
+                    <div th:if="${body == null}">
+                        <div class="item-not-found"><p>Not set</p></div>
+                    </div>
+                    <div th:if="${body != null}">
+                        <div class="image"><img th:src="@{'/images/' + ${body.getImageUrl()}}" alt=""></img></div>
+                    </div>
+                </div>
+
+                <div class="item-container">
+                    <div class="title"><strong>Legs:</strong></div>
+                    <div th:if="${legs == null}">
+                        <div class="item-not-found"><p>Not set</p></div>
+                    </div>
+                    <div th:if="${legs != null}">
+                        <div class="image"><img th:src="@{'/images/' + ${legs.getImageUrl()}}" alt=""></img></div>
+                    </div>
+                </div>
+
+                <div class="item-container">
+                    <div class="title"><strong>Gloves:</strong></div>
+                    <div th:if="${gloves == null}">
+                        <div class="item-not-found"><p>Not set</p></div>
+                    </div>
+                    <div th:if="${gloves != null}">
+                        <div class="image"><img th:src="@{'/images/' + ${gloves.getImageUrl()}}" alt=""></img></div>
+                    </div>
+                </div>
+
+                <div class="item-container">
+                    <div class="title"><strong>Boots:</strong></div>
+                    <div th:if="${boots == null}">
+                        <div class="item-not-found"><p>Not set</p></div>
+                    </div>
+                    <div th:if="${boots != null}">
+                        <div class="image"><img th:src="@{'/images/' + ${boots.getImageUrl()}}" alt=""></img></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="inventory-right">
+            <div class="inventory-title"><h1>Inventory</h1></div>
+            <div th:if="${inventoryUsables != null}">
+                <div class="inventory-items">
+                    <div th:each="usable : ${inventoryUsables}">
+                        <div class="item" th:id="${usable.getId()}">
+                            <div class="name" th:hidden="usable" th:text="${usable.getName()}"></div>
+                            <div class="desc" th:hidden="usable" th:text="${usable.getDescription()}"></div>
+                            <img th:src="@{'/images/'  + ${usable.getImageUrl()}}" th:alt="${usable.getName()}"></img>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="selectedItem">
+                    <h3>Selected:</h3>
+                    <strong>Name: </strong>
+                    <div id="selectedItemName"></div>
+                    <strong>Description: </strong>
+                    <div id="selectedItemDesc"></div>
+                    <div id="item_selected"><img id="selectedUsableUrl" alt=""></img></div>
+                    <input type="text" name="id" id="selectedUsableId" th:hidden="usable" value=''></input>
+                    <button id="deleteUsable">Delete</button>
+                    <button id="useUsable">Use</button>
+                </div>
+            </div>
+            <div th:if="${inventoryUsables == null}">
+                <h2>No items found, start fighting and earning loot!</h2>
+            </div>
+        </div>
+    </div>
+    <a href="/">
+        <button>Back to start</button>
+    </a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="../../js/main.js"></script>
+</body>
+</html>

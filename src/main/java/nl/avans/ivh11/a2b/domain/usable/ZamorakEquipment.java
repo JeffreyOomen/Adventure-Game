@@ -17,6 +17,7 @@ public class ZamorakEquipment extends Equipment {
         super(type, level);
         setName("Zamorak " + getEquipmentType(type) + " (lvl " + level + ")");
         setDescription("Item from the Zamorak collection. Very useful as a warrior.");
+        imageUrl = "zamorak" + getEquipmentType(type) + ".png";
         setEquipmentAccuracies(0, -0.8, 0, 6);
     }
 

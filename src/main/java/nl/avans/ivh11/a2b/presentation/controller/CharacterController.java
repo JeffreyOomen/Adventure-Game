@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class CharacterController
-{
+public class CharacterController {
     @Autowired
     private OpponentService opponentService;
 
@@ -30,6 +29,8 @@ public class CharacterController
     }
 
     /**
+     * Ends a battle between a Character and an Enemy
+     *
      * Brings the Character back to live
      * @return A view
      */
@@ -46,4 +47,5 @@ public class CharacterController
 
         return "redirect:/";
     }
+
 }

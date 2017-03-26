@@ -24,6 +24,7 @@ public class HealPotion extends Usable {
         this.level = level;
         this.name = "Heal potion";
         this.description = "Increases hitpoints";
+        this.imageUrl = "potionheal.png";
     }
 
     /**

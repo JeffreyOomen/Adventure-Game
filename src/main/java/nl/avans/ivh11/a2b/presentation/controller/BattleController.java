@@ -1,5 +1,7 @@
 package nl.avans.ivh11.a2b.presentation.controller;
 
+import nl.avans.ivh11.a2b.domain.enemy.Enemy;
+import nl.avans.ivh11.a2b.domain.util.CustomRandom;
 import nl.avans.ivh11.a2b.domain.auth.User;
 import nl.avans.ivh11.a2b.presentation.model.BattleModel;
 import nl.avans.ivh11.a2b.service.BattleService;
@@ -12,6 +14,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.PostConstruct;
+import java.util.List;
 
 @Controller
 public class BattleController
@@ -39,7 +44,7 @@ public class BattleController
         this.character = user.getCharacter();
 
         if (this.enemy == null || !this.enemy.isAlive() || this.character.isAlive()) {
-            this.enemy = this.battleService.setupBattle(character);
+            this.enemy = this.battleService.setupBattle((character));
         }
 
         uiModel.addAttribute("character", this.character);
@@ -85,7 +90,6 @@ public class BattleController
      */
     private BattleModel battleReport() {
         String battleReport = this.battleService.battleReport(characterService);
-        System.out.println(" BATTLE REPORT " + battleReport);
 
         // Return view model as JSON
         return new BattleModel(

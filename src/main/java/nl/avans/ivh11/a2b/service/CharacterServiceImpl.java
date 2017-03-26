@@ -5,6 +5,7 @@ import nl.avans.ivh11.a2b.datastorage.character.CharacterRepository;
 import nl.avans.ivh11.a2b.datastorage.character.EquipmentRepository;
 import nl.avans.ivh11.a2b.datastorage.usable.MediaRepository;
 import nl.avans.ivh11.a2b.datastorage.usable.UsableRepository;
+import nl.avans.ivh11.a2b.domain.auth.User;
 import nl.avans.ivh11.a2b.domain.battle.NormalAttack;
 import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.domain.character.Dwarf;
@@ -50,7 +51,7 @@ public class CharacterServiceImpl implements CharacterService
         this.usableRepository = usableRepository;
 
         // Start demo
-        demoCharacter();
+//        demoCharacter();
     }
 
     /**
@@ -58,7 +59,6 @@ public class CharacterServiceImpl implements CharacterService
      */
     @Transactional
     private void demoCharacter() {
-        System.out.println("character service impl aangeroepen");
 
         // TODO: create a startup service for this later
         // Persist all Media items (images)
@@ -101,6 +101,18 @@ public class CharacterServiceImpl implements CharacterService
             c.getInventory().addUsable(u);
         }
 
+        Equipment equipmentHelmet = (Equipment) equipmentFactory.createUsable(UsableType.EQUIPMENT_HELMET, 10);
+        Equipment equipmentBody = (Equipment) equipmentFactory.createUsable(UsableType.EQUIPMENT_BODY, 10);
+        Equipment equipmentLegs = (Equipment) equipmentFactory.createUsable(UsableType.EQUIPMENT_LEGS, 10);
+        usableRepository.save(equipmentHelmet);
+        usableRepository.save(equipmentBody);
+        usableRepository.save(equipmentLegs);
+
+        // Test using gear
+        c.mountEquipment(UsableType.EQUIPMENT_HELMET, equipmentHelmet);
+        c.mountEquipment(UsableType.EQUIPMENT_BODY, equipmentBody);
+        c.mountEquipment(UsableType.EQUIPMENT_LEGS, equipmentLegs);
+
         characterRepository.save(c);
 
     }
@@ -121,17 +133,21 @@ public class CharacterServiceImpl implements CharacterService
     }
 
     @Override
-    public boolean dropInventoryItem(Character character, int index) {
+    public void dropInventoryItem(Character character, Long index) {
         Inventory inventory = character.getInventory();
         Usable usable = inventory.getUsable(index);
-        return inventory.dropUsable(usable);
+        inventory.dropUsable(usable);
     }
 
     @Override
-    public void useInventoryItem(Character character, int index) {
+    public void useInventoryItem(Character character, Long usableId) {
         Inventory inventory = character.getInventory();
-        Usable usable = inventory.getUsable(index);
+
+        Usable usable = inventory.getUsable(usableId);
         usable.use(character);
+
+        // Update character
+        characterRepository.save(character);
     }
 
     @Override

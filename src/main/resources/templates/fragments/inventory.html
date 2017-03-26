@@ -5,6 +5,17 @@
 </head>
 <body>
 <div th:fragment="inventory">
+    <div class="inventory">
+        <h1><span th:text="#{character.inventory}"></span></h1>
+        <div th:if="${character.getInventory() != null}">
+            <ul th:each="usable : ${character.getInventory().getUsables()}">
+                <li th:class="${usable.getType()}" th:text="${usable.getName()}">Name</li>
+            </ul>
+        </div>
+        <div th:if="${character.getInventory() == null}">
+            <h3>No items found</h3>
+        </div>
+    </div>
 </div>
 </body>
 </html>

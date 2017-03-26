@@ -19,20 +19,20 @@
         </div>
     </div>
 
-    <div class="main-container">
-        <div th:replace="fragments/fight :: fight">
-
-            <div class="column" th:replace="fragments/inventory :: inventory">
-                <div class="inventory">
-                    <h1><span th:text="#{character.inventory}"></span></h1>
-                    <ul th:each="usable : ${character.getInventory().getUsables()}">
-                        <li th:class="${usable.getType()}" th:text="${usable.getName()}">Name</li>
-                    </ul>
-                </div>
-            </div>
-            <div th:replace="fragments/game_information :: info"></div>
-        </div>
-        <div th:replace="fragments/script :: script"></div>
-    </div>
+<div class="container">
+    <form method="post" action="/logout" style="float: right;">
+        <input type="hidden"
+               th:name="${_csrf.parameterName}"
+               th:value="${_csrf.token}" />
+        <button type="submit">Logout</button>
+    </form>
+    <div th:replace="fragments/fight :: fight"></div>
+    <div class="column" th:replace="fragments/inventory :: inventory"></div>
+    <div th:replace="fragments/game_information :: info"></div>s
+    <a href="/">
+        <button>Back to start</button>
+    </a>
+</div>
+<div th:replace="fragments/script :: script"></div>
 </body>
 </html>
