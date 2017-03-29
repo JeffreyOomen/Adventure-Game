@@ -4,6 +4,7 @@ import nl.avans.ivh11.a2b.datastorage.character.CharacterRepository;
 import nl.avans.ivh11.a2b.domain.auth.User;
 import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.domain.usable.Equipment;
+import nl.avans.ivh11.a2b.domain.usable.Inventory;
 import nl.avans.ivh11.a2b.domain.usable.Usable;
 import nl.avans.ivh11.a2b.domain.usable.UsableType;
 import nl.avans.ivh11.a2b.presentation.model.BattleModel;
@@ -49,9 +50,13 @@ public class InventoryController {
         uiModel.addAttribute("boots", character.getEquipment().get(UsableType.EQUIPMENT_BOOTS));
 
 
+        Inventory inv  = character.getInventory();
+
+
+
         // Validate inventory isn't empty
         if(character.getInventory() != null) {
-                uiModel.addAttribute("inventoryUsables", character.getInventory().getUsables());
+            uiModel.addAttribute("inventoryUsables", character.getInventory().getUsables().values());
         }
 
         return "inventory";

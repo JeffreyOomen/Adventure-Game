@@ -80,17 +80,25 @@
         </div>
         <div class="inventory-right">
             <div class="inventory-title"><h1>Inventory</h1></div>
-            <div th:if="${inventoryUsables != null}">
+
+            <div th:if="${inventoryUsables.size() == 0}">
+                <h2>No items found, start fighting and earning loot!</h2>
+            </div>
+
+            <div th:if="${inventoryUsables.size() > 0}">
                 <div class="inventory-items">
-                    <div th:each="usable : ${inventoryUsables}">
-                        <div class="item" th:id="${usable.getId()}">
+                    <div class="inventory-items">
+                        <div th:each="usable : ${inventoryUsables}">
                             <div class="name" th:hidden="usable" th:text="${usable.getName()}"></div>
-                            <div class="desc" th:hidden="usable" th:text="${usable.getDescription()}"></div>
-                            <img th:src="@{'/images/'  + ${usable.getImageUrl()}}" th:alt="${usable.getName()}"></img>
+                            <div class="item" th:id="${usable.getId()}">
+                                <div class="name" th:hidden="usable" th:text="${usable.getName()}"></div>
+                                <div class="desc" th:hidden="usable" th:text="${usable.getDescription()}"></div>
+                                <img th:src="@{'/images/'  + ${usable.getImageUrl()}}"
+                                     th:alt="${usable.getName()}"></img>
+                            </div>
                         </div>
                     </div>
                 </div>
-
 
                 <div id="selectedItem">
                     <h3>Selected:</h3>
