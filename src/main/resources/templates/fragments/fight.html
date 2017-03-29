@@ -8,7 +8,7 @@
     <div class="column fight-view">
         <div class="contender">
             <div class="stats">
-                <span id="charLvl" th:text="${character.getName()}"></span><br/>
+                <span id="charName" th:text="${character.getName()}"></span><br/>
                 <span th:text="#{character.level}"></span> <span id="charLvl" th:text="${character.getStats().getLevel()}"></span><br/>
                 <span th:text="#{character.hp}"></span> <span id="charCurrentHp" th:text="${character.getStats().getCurrentHitpoints()}"></span>/<span
                     id="charHp" th:text="${character.getStats().getHitpoints()}"></span><br/>
@@ -23,6 +23,7 @@
     <div class="column text-right">
         <div class="contender">
             <div class="stats">
+                <span id="enemyName" th:text="${enemy.getName()}"></span><br/>
                 <span th:text="#{character.level}"></span> <span id="enemyLvl" th:text="${enemy.getStats().getLevel()}"></span><br/>
                 <span th:text="#{character.hp}"></span> <span id="enemyCurrentHp" th:text="${enemy.getStats().getCurrentHitpoints()}"></span>/<span
                     id="charHp" th:text="${enemy.getStats().getHitpoints()}"></span><br/>

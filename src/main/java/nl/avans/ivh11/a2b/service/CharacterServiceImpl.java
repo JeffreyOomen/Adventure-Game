@@ -71,6 +71,7 @@ public class CharacterServiceImpl implements CharacterService
         c.getStats().setStrengthAccuracy(100);
         c.getStats().setDefense(90);
         c.getStats().setDefenseAccuracy(80);
+        c.getStats().setCurrentHitpoints(1000);
         c.setActionBehavior(new NormalAttack());
         c.setAttackStyle(UsableType.EQUIPMENT_WEAPON_SWORD);
         characterRepository.save(c);

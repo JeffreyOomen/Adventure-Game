@@ -44,7 +44,7 @@ public class BattleController
         this.character = user.getCharacter();
 
         if (this.enemy == null || !this.enemy.isAlive() || this.character.isAlive()) {
-            this.enemy = this.battleService.setupBattle((character));
+            this.enemy = this.battleService.setupBattle(character);
         }
 
         uiModel.addAttribute("character", this.character);
@@ -89,7 +89,7 @@ public class BattleController
      * @return an model containing battle information
      */
     private BattleModel battleReport() {
-        String battleReport = this.battleService.battleReport(characterService);
+        String battleReport = this.battleService.battleReport();
 
         // Return view model as JSON
         return new BattleModel(
