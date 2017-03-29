@@ -37,16 +37,15 @@ public class BattleServiceImpl implements BattleService
     private CharacterRepository characterRepository;
     private EnemyRepository enemyRepository;
     private UsableRepository usableRepository;
-    private OpponentService opponentService;
-    private Battle battle;
-
-    @Autowired
-    private EntityManagerFactory entityManagerFactory;
 
     @Autowired
     private CharacterService characterService;
+    @Autowired
+    private OpponentService opponentService;
+    @Autowired
+    private EntityManagerFactory entityManagerFactory;
 
-
+    private Battle battle;
     private List<Enemy> possibleEnemies;
 
     @PostConstruct
@@ -55,11 +54,10 @@ public class BattleServiceImpl implements BattleService
     }
 
     @Autowired
-    public BattleServiceImpl(CharacterRepository characterRepo, EnemyRepository enemyRepo, UsableRepository usableRepo, OpponentService opponentService) {
+    public BattleServiceImpl(CharacterRepository characterRepo, EnemyRepository enemyRepo, UsableRepository usableRepo) {
         this.characterRepository = characterRepo;
         this.enemyRepository = enemyRepo;
         this.usableRepository = usableRepo;
-        this.opponentService = opponentService;
     }
 
     /**
@@ -118,6 +116,14 @@ public class BattleServiceImpl implements BattleService
         return battleReport;
     }
 
+    /**
+     * Programmatically (without using declarative approach @Transactional) handle
+     * an Enemy drop. This includes randomly creating a drop, assigning it to a
+     * Character, and logging to the battle report.
+     * @param battleReport a String consisting of text with all events happened.
+     * @return a modified battle report
+     * @throws HibernateException when something goes wrong
+     */
     private String handleEnemyDrop(String battleReport) throws HibernateException {
         Session session = this.entityManagerFactory.unwrap(SessionFactory.class).openSession();
         try {
@@ -143,22 +149,6 @@ public class BattleServiceImpl implements BattleService
         }
 
         return battleReport;
-    }
-
-    public static void close(Session session) {
-        try {
-            session.close();
-        } catch (HibernateException e) {
-            System.err.println("Could not close the session: " + e);
-        }
-    }
-    public static void rollback(Session session) {
-        try {
-            Transaction tx = session.getTransaction();
-            tx.rollback();
-        } catch (HibernateException e) {
-            System.err.println("Could not rollback the session: " + e);
-        }
     }
 
     /**
@@ -205,12 +195,25 @@ public class BattleServiceImpl implements BattleService
     /**
      * Saves the state of the Character and the Enemy caused by the Battle.
      */
-    @Transactional
-    public void saveBattleState() {
-        System.out.println("Think it will go wrong frm here");
-        this.characterRepository.save((Character) this.battle.getCharacter());
-        this.enemyRepository.save((Enemy) this.battle.getEnemy());
-        System.out.println("Gone wrong...");
+    private void saveBattleState() {
+        Session session = this.entityManagerFactory.unwrap(SessionFactory.class).openSession();
+        try {
+            session.beginTransaction();
+
+            Enemy enemy = (Enemy)this.battle.getEnemy();
+            Character character = (Character) this.battle.getCharacter();
+
+            session.saveOrUpdate(enemy);
+            session.saveOrUpdate(character);
+
+            // commit the transaction
+            session.getTransaction().commit();
+        } catch (HibernateException e1) {
+            rollback(session);
+            throw e1;
+        } finally {
+            close(session);
+        }
     }
 
     /**
@@ -223,5 +226,31 @@ public class BattleServiceImpl implements BattleService
         enemy.setStats(CustomRandom.getInstance().randomEnemyStats(character));
 
         return enemy;
+    }
+
+    /**
+     * Closes the Hibernate Session Connection
+     * @param session a session in which a transaction is started
+     */
+    private static void close(Session session) {
+        try {
+            session.close();
+        } catch (HibernateException e) {
+            System.err.println("Could not close the session: " + e);
+        }
+    }
+
+    /**
+     * Rollback the Transaction which happened inside the Session.
+     * This must be done when a Transaction has failed.
+     * @param session a session in which a transaction is started
+     */
+    private static void rollback(Session session) {
+        try {
+            Transaction tx = session.getTransaction();
+            tx.rollback();
+        } catch (HibernateException e) {
+            System.err.println("Could not rollback the session: " + e);
+        }
     }
 }
