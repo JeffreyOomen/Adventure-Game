@@ -61,7 +61,7 @@ public class AuthController {
 
         securityService.autologin(registerForm.getUsername(), registerForm.getPasswordConfirm());
 
-        return "redirect:/battle";
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
