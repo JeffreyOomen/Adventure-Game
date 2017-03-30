@@ -109,7 +109,7 @@ public class BattleServiceImpl implements BattleService
             this.battle.getCharacter().receiveXp(this.getBattle().getEnemy().getHitpoints());
 
             for (String message: this.battle.getMessages()) {
-                battleReport += message;
+                battleReport += message + BREAK;
             }
 
             battleReport += this.handleEnemyDrop();
