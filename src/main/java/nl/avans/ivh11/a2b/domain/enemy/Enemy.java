@@ -95,12 +95,12 @@ public class Enemy extends Opponent
         if (determineDropChange < 70) {
             usableFactory = new PotionFactory();
             UsableType usableType = getRandomDropUsableType("potion");
-            usable = usableFactory.createUsable(usableType, this.stats.getLevel());
+            usable = usableFactory.createUsable(usableType, this.stats.getCombatLevel());
         } else {
             // 30% drop change - create equipment
             usableFactory = new EquipmentFactory();
             UsableType usableType = getRandomDropUsableType("equipment");
-            usable = usableFactory.createUsable(usableType, this.stats.getLevel());
+            usable = usableFactory.createUsable(usableType, this.stats.getCombatLevel());
         }
         return usable;
     }

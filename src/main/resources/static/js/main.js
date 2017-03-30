@@ -33,7 +33,7 @@ $(document).ready(function () {
             battleReport(data);
 
             // Get first available heal potion and remove
-            $('.inventory li.POTION_HEAL:first').remove();
+            $('.inventory-items .item.POTION_HEAL:first').remove();
         });
     });
 

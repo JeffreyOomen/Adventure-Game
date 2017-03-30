@@ -48,6 +48,7 @@ public class BattleController
         }
 
         uiModel.addAttribute("character", this.character);
+        uiModel.addAttribute("inventoryUsables", this.character.getInventory().getUsables().values());
         uiModel.addAttribute("enemy", this.enemy);
 
         return "battle";

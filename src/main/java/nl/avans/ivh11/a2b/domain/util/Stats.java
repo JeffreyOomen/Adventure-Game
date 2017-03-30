@@ -46,8 +46,7 @@ public class Stats
     private double hitpointsTotalXp;
     private double hitpointsXpLeft;
 
-    private int level;
-    private double levelXpLeft;
+    private int combatLevel = 1;
 
     private static final double STRENGTH_MULTIPLIER  = 0.6;
     private static final double MAGIC_MULTIPLIER     = 0.6;
@@ -61,6 +60,8 @@ public class Stats
     private static final String DEFENSE   = "DEFENSE";
     private static final String ARCHERY   = "ARCHERY";
     private static final String HITPOINTS = "HITPOINTS";
+
+    private static final int AMOUNT_OF_LEVELS = 4;
 
     @Transient
     List<String> messages; // used to store logging messages
@@ -128,6 +129,7 @@ public class Stats
                 this.strengthTotalXp = Math.ceil(LEVEL_MULTIPLIER * (this.strengthTotalXp + Math.sqrt(this.strengthTotalXp)));
                 this.strengthXpLeft = strengthTotalXp;
                 this.strength++;
+                this.processCombatLevel();
                 this.messages.add("<span class=\"message-success\">Congratulations! Strength level up: " + this.strength + "</span>");
                 continue;
             } else {
@@ -149,6 +151,7 @@ public class Stats
                 this.magicTotalXp = Math.ceil(LEVEL_MULTIPLIER * (this.magicTotalXp + Math.sqrt(this.magicTotalXp)));
                 this.magicXpLeft = magicTotalXp;
                 this.magic++;
+                this.processCombatLevel();
                 this.messages.add("<span class=\"message-success\">Congratulations! Magic level up: " + this.magic + "</span>");
                 continue;
             } else {
@@ -170,6 +173,7 @@ public class Stats
                 this.defenseTotalXp = Math.ceil(LEVEL_MULTIPLIER * (this.defenseTotalXp + Math.sqrt(this.defenseTotalXp)));
                 this.defenseXpLeft = defenseTotalXp;
                 this.defense++;
+                this.processCombatLevel();
                 this.messages.add("<span class=\"message-success\">Congratulations! Defense level up: " + this.defense + "</span>");
                 continue;
             } else {
@@ -191,6 +195,7 @@ public class Stats
                 this.archeryTotalXp = Math.ceil(LEVEL_MULTIPLIER * (this.archeryTotalXp + Math.sqrt(this.archeryTotalXp)));
                 this.archeryXpLeft = archeryTotalXp;
                 this.archery++;
+                this.processCombatLevel();
                 this.messages.add("<span class=\"message-success\">Congratulations! Archery level up: " + this.archery + "</span>");
                 continue;
             } else {
@@ -219,5 +224,19 @@ public class Stats
                 break;
             }
         }
+    }
+
+    /**
+     * Handles leveling up the combat level
+     */
+    private void processCombatLevel() {
+        int totalLevels = 0;
+
+        totalLevels += this.strength;
+        totalLevels += this.defense;
+        totalLevels += this.archery;
+        totalLevels += this.magic;
+
+        this.combatLevel = totalLevels / AMOUNT_OF_LEVELS;
     }
 }
