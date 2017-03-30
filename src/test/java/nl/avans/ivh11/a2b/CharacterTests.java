@@ -39,8 +39,8 @@ public class CharacterTests
         assertEquals(2, this.character.getMagicAccuracy());
         assertEquals(2, this.character.getDefenseAccuracy());
         assertEquals(5, this.character.getArcheryAccuracy());
-        assertEquals(50, this.character.getHitpoints());
-        assertEquals(50, this.character.getCurrentHitpoints());
+        assertEquals(10, this.character.getHitpoints());
+        assertEquals(10, this.character.getCurrentHitpoints());
         assertEquals("A Troll", this.character.getDescription());
     }
 
@@ -77,25 +77,25 @@ public class CharacterTests
         this.character.receiveXp(180);
 
         // Assert
-        assertEquals(200, character.getStats().getStrengthTotalXp(), 0);
-        assertEquals(92, character.getStats().getStrengthXpLeft(), 0);
-        assertEquals(1, character.getStats().getStrength(), 0);
+        assertEquals(89, character.getStats().getStrengthTotalXp(), 0);
+        assertEquals(77, character.getStats().getStrengthXpLeft(), 0);
+        assertEquals(4, character.getStats().getStrength(), 0);
 
-        assertEquals(200, character.getStats().getMagicTotalXp(), 0);
-        assertEquals(200, character.getStats().getMagicXpLeft(), 0);
+        assertEquals(15, character.getStats().getMagicTotalXp(), 0);
+        assertEquals(15, character.getStats().getMagicXpLeft(), 0);
         assertEquals(1, character.getStats().getMagic(), 0);
 
-        assertEquals(200, character.getStats().getDefenseTotalXp(), 0);
-        assertEquals(164, character.getStats().getDefenseXpLeft(), 0);
-        assertEquals(1, character.getStats().getDefense(), 0);
+        assertEquals(29, character.getStats().getDefenseTotalXp(), 0);
+        assertEquals(8, character.getStats().getDefenseXpLeft(), 0);
+        assertEquals(2, character.getStats().getDefense(), 0);
 
-        assertEquals(200, character.getStats().getArcheryTotalXp(), 0);
-        assertEquals(200, character.getStats().getArcheryXpLeft(), 0);
+        assertEquals(15, character.getStats().getArcheryTotalXp(), 0);
+        assertEquals(15, character.getStats().getArcheryXpLeft(), 0);
         assertEquals(1, character.getStats().getArchery(), 0);
 
-        assertEquals(200, character.getStats().getHitpointsTotalXp(), 0);
-        assertEquals(164, character.getStats().getHitpointsXpLeft(), 0);
-        assertEquals(50, character.getStats().getHitpoints(), 0);
+        assertEquals(29, character.getStats().getHitpointsTotalXp(), 0);
+        assertEquals(8, character.getStats().getHitpointsXpLeft(), 0);
+        assertEquals(15, character.getStats().getHitpoints(), 0);
     }
 
     /**
@@ -108,25 +108,25 @@ public class CharacterTests
         this.character.receiveXp(1200);
 
         // Assert
-        assertEquals(510, character.getStats().getStrengthTotalXp(), 0);
-        assertEquals(312, character.getStats().getStrengthXpLeft(), 0);
-        assertEquals(3, character.getStats().getStrength(), 0);
+        assertEquals(385, character.getStats().getStrengthTotalXp(), 0);
+        assertEquals(239, character.getStats().getStrengthXpLeft(), 0);
+        assertEquals(7, character.getStats().getStrength(), 0);
 
-        assertEquals(200, character.getStats().getMagicTotalXp(), 0);
-        assertEquals(200, character.getStats().getMagicXpLeft(), 0);
+        assertEquals(15, character.getStats().getMagicTotalXp(), 0);
+        assertEquals(15, character.getStats().getMagicXpLeft(), 0);
         assertEquals(1, character.getStats().getMagic(), 0);
 
-        assertEquals(322, character.getStats().getDefenseTotalXp(), 0);
-        assertEquals(282, character.getStats().getDefenseXpLeft(), 0);
-        assertEquals(2, character.getStats().getDefense(), 0);
+        assertEquals(148, character.getStats().getDefenseTotalXp(), 0);
+        assertEquals(93, character.getStats().getDefenseXpLeft(), 0);
+        assertEquals(5, character.getStats().getDefense(), 0);
 
-        assertEquals(200, character.getStats().getArcheryTotalXp(), 0);
-        assertEquals(200, character.getStats().getArcheryXpLeft(), 0);
+        assertEquals(15, character.getStats().getArcheryTotalXp(), 0);
+        assertEquals(15, character.getStats().getArcheryXpLeft(), 0);
         assertEquals(1, character.getStats().getArchery(), 0);
 
-        assertEquals(322, character.getStats().getHitpointsTotalXp(), 0);
-        assertEquals(282, character.getStats().getHitpointsXpLeft(), 0);
-        assertEquals(55, character.getStats().getHitpoints(), 0);
+        assertEquals(148, character.getStats().getHitpointsTotalXp(), 0);
+        assertEquals(93, character.getStats().getHitpointsXpLeft(), 0);
+        assertEquals(30, character.getStats().getHitpoints(), 0);
     }
 
     /**
@@ -150,12 +150,12 @@ public class CharacterTests
 
         // Assert
         assertEquals(6, this.character.getEquipment().size());
-        assertEquals("Bandos helmet", this.character.getEquipment().get(UsableType.EQUIPMENT_HELMET).getName());
-        assertEquals("Bandos body", this.character.getEquipment().get(UsableType.EQUIPMENT_BODY).getName());
-        assertEquals("Bandos legs", this.character.getEquipment().get(UsableType.EQUIPMENT_LEGS).getName());
-        assertEquals("Bandos boots", this.character.getEquipment().get(UsableType.EQUIPMENT_BOOTS).getName());
-        assertEquals("Bandos gloves", this.character.getEquipment().get(UsableType.EQUIPMENT_GLOVES).getName());
-        assertEquals("Bandos sword", this.character.getEquipment().get(UsableType.EQUIPMENT_WEAPON).getName());
+        assertEquals("Bandos helmet (lvl 10)", this.character.getEquipment().get(UsableType.EQUIPMENT_HELMET).getName());
+        assertEquals("Bandos body (lvl 10)", this.character.getEquipment().get(UsableType.EQUIPMENT_BODY).getName());
+        assertEquals("Bandos legs (lvl 10)", this.character.getEquipment().get(UsableType.EQUIPMENT_LEGS).getName());
+        assertEquals("Bandos boots (lvl 10)", this.character.getEquipment().get(UsableType.EQUIPMENT_BOOTS).getName());
+        assertEquals("Bandos gloves (lvl 10)", this.character.getEquipment().get(UsableType.EQUIPMENT_GLOVES).getName());
+        assertEquals("Bandos sword (lvl 10)", this.character.getEquipment().get(UsableType.EQUIPMENT_WEAPON).getName());
     }
 
     /**
@@ -187,12 +187,12 @@ public class CharacterTests
 
         // Assert
         assertEquals(6, this.character.getEquipment().size());
-        assertEquals("Bandos helmet", this.character.getEquipment().get(UsableType.EQUIPMENT_HELMET).getName());
-        assertEquals("Bandos body", this.character.getEquipment().get(UsableType.EQUIPMENT_BODY).getName());
-        assertEquals("Bandos legs", this.character.getEquipment().get(UsableType.EQUIPMENT_LEGS).getName());
-        assertEquals("Bandos boots", this.character.getEquipment().get(UsableType.EQUIPMENT_BOOTS).getName());
-        assertEquals("Bandos gloves", this.character.getEquipment().get(UsableType.EQUIPMENT_GLOVES).getName());
-        assertEquals("Bandos bow", this.character.getEquipment().get(UsableType.EQUIPMENT_WEAPON).getName());
+        assertEquals("Bandos helmet (lvl 10)", this.character.getEquipment().get(UsableType.EQUIPMENT_HELMET).getName());
+        assertEquals("Bandos body (lvl 10)", this.character.getEquipment().get(UsableType.EQUIPMENT_BODY).getName());
+        assertEquals("Bandos legs (lvl 10)", this.character.getEquipment().get(UsableType.EQUIPMENT_LEGS).getName());
+        assertEquals("Bandos boots (lvl 10)", this.character.getEquipment().get(UsableType.EQUIPMENT_BOOTS).getName());
+        assertEquals("Bandos gloves (lvl 10)", this.character.getEquipment().get(UsableType.EQUIPMENT_GLOVES).getName());
+        assertEquals("Bandos bow (lvl 10)", this.character.getEquipment().get(UsableType.EQUIPMENT_WEAPON).getName());
     }
 
     /**
@@ -221,10 +221,10 @@ public class CharacterTests
 
         // Assert
         assertEquals(4, this.character.getEquipment().size());
-        assertEquals("Bandos helmet", this.character.getEquipment().get(UsableType.EQUIPMENT_HELMET).getName());
-        assertEquals("Bandos body", this.character.getEquipment().get(UsableType.EQUIPMENT_BODY).getName());
-        assertEquals("Bandos legs", this.character.getEquipment().get(UsableType.EQUIPMENT_LEGS).getName());
-        assertEquals("Bandos gloves", this.character.getEquipment().get(UsableType.EQUIPMENT_GLOVES).getName());
+        assertEquals("Bandos helmet (lvl 10)", this.character.getEquipment().get(UsableType.EQUIPMENT_HELMET).getName());
+        assertEquals("Bandos body (lvl 10)", this.character.getEquipment().get(UsableType.EQUIPMENT_BODY).getName());
+        assertEquals("Bandos legs (lvl 10)", this.character.getEquipment().get(UsableType.EQUIPMENT_LEGS).getName());
+        assertEquals("Bandos gloves (lvl 10)", this.character.getEquipment().get(UsableType.EQUIPMENT_GLOVES).getName());
     }
 
     /**
@@ -237,8 +237,8 @@ public class CharacterTests
         this.character.takeDamage(12);
 
         // Assert
-        assertEquals(50, this.character.getHitpoints());
-        assertEquals(38, this.character.getCurrentHitpoints());
+        assertEquals(10, this.character.getHitpoints());
+        assertEquals(0, this.character.getCurrentHitpoints());
     }
 
     @Test

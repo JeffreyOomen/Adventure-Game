@@ -47,21 +47,21 @@ public class EnemyTests {
 
     @Test
     public void enemyIsNotAliveTest() {
-        enemy.getStats().setHitpoints(0);
+        enemy.getStats().setCurrentHitpoints(0);
         assertFalse(enemy.isAlive());
     }
 
     @Test
     public void enemyIsNotAliveWithNegativeAmountTest() {
-        enemy.getStats().setHitpoints(-10);
+        enemy.getStats().setCurrentHitpoints(-10);
         assertFalse(enemy.isAlive());
     }
 
     @Test
     public void enemyTakeDamageSuccessful() {
         // Act
-        enemy.takeDamage(20);
-        assertEquals(80, enemy.getStats().getHitpoints());
+        enemy.takeDamage(5);
+        assertEquals(5, enemy.getStats().getCurrentHitpoints());
     }
 
     @Test

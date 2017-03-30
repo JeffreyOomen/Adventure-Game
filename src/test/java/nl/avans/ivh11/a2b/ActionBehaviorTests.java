@@ -61,7 +61,7 @@ public class ActionBehaviorTests
         assertEquals(oldHitpoints + 10, character.getStats().getCurrentHitpoints());
     }
 
-    //TODO Check tests when Ranom is implemented
+    // TODO Check tests when Random is implemented
     /**
      * Heal method adds 10 hp
      */
