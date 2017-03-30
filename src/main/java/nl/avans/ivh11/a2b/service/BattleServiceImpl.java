@@ -96,22 +96,29 @@ public class BattleServiceImpl implements BattleService
     public String battleReport() {
         String battleReport = "";
 
-        List<String> messages = this.battle.getMessages();
+        //First add attack messages before adding possible victory messages
+        for (String message: this.battle.getMessages()) {
+            battleReport += message + BREAK;
+        }
+        this.battle.getMessages().clear();
+
         if (!this.battle.getEnemy().isAlive()) {
             // give out XP to the character
             this.battle.getCharacter().receiveXp(this.getBattle().getEnemy().getHitpoints());
-            this.handleEnemyDrop(battleReport);
-            messages = this.battle.getMessages(); // add any level up messages
+
+            for (String message: this.battle.getMessages()) {
+                battleReport += message;
+            }
+
+            battleReport += this.handleEnemyDrop();
 
             this.teardownBattle();
         }
 
-        for (String message: messages) {
-            battleReport += message + BREAK;
-        }
-
         // clear messages to prevent duplicates
-        if(this.battle != null) this.battle.getMessages().clear();
+        if(this.battle != null) {
+            this.battle.getMessages().clear();
+        }
 
         return battleReport;
     }
@@ -120,11 +127,11 @@ public class BattleServiceImpl implements BattleService
      * Programmatically (without using declarative approach @Transactional) handle
      * an Enemy drop. This includes randomly creating a drop, assigning it to a
      * Character, and logging to the battle report.
-     * @param battleReport a String consisting of text with all events happened.
      * @return a modified battle report
      * @throws HibernateException when something goes wrong
      */
-    private String handleEnemyDrop(String battleReport) throws HibernateException {
+    private String handleEnemyDrop() throws HibernateException {
+        String battleReport = "";
         Session session = this.entityManagerFactory.unwrap(SessionFactory.class).openSession();
         try {
             session.beginTransaction();
