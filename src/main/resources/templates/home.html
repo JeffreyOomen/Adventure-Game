@@ -20,7 +20,7 @@
 		</div>
 
 		<div class="main-container-right">
-			<span th:text="#{character.level}"></span> <span id="charLvl" th:text="${character.getStats().getLevel()}"></span><br/>
+			<span th:text="#{character.level}"></span> <span id="charLvl" th:text="${character.getStats().getCombatLevel()}"></span><br/>
 			<span th:text="#{character.hp}"></span> <span id="charCurrentHp" th:text="${character.getStats().getCurrentHitpoints()}"></span>/<span
 				id="charHp" th:text="${character.getStats().getHitpoints()}"></span><br/>
 			<span th:text="#{character.xp}"></span> 1083/1200<br/>
