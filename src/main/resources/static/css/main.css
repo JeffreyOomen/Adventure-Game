@@ -192,6 +192,7 @@ INVENTORY STYLING
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-bottom: 50px;
 }
 
 #inventory-page .inventory-container .inventory-left .current-equipment .image img {
@@ -241,4 +242,18 @@ INVENTORY STYLING
 #item_selected img {
     width: 100%;
     height: 100%;
+}
+
+.battle.inventory-items {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+.battle.inventory-items .item {
+    background: none;
+    margin-bottom: 50px;
+}
+.battle.inventory-items .item img {
+    height: 100px;
 }

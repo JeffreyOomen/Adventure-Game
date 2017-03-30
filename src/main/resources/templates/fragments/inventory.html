@@ -7,13 +7,22 @@
 <div th:fragment="inventory">
     <div class="inventory">
         <h1><span th:text="#{character.inventory}"></span></h1>
-        <div th:if="${character.getInventory() != null}">
-            <ul th:each="instance : ${character.getInventory().getUsables()}">
-                <li th:class="${instance.value.getType()}" th:text="${instance.value.getName()}">Name</li>
-            </ul>
+        <div th:if="${inventoryUsables.size() == 0}">
+            <h2>No items found, start fighting and earning loot!</h2>
         </div>
-        <div th:if="${character.getInventory() == null}">
-            <h3>No items found</h3>
+
+        <div th:if="${inventoryUsables.size() > 0}">
+            <div class="battle inventory-items">
+                <div class="item" th:each="usable : ${inventoryUsables}">
+                    <div class="name" th:hidden="usable" th:text="${usable.getName()}"></div>
+                    <div class="item" th:id="${usable.getId()}">
+                        <div class="name" th:hidden="usable" th:text="${usable.getName()}"></div>
+                        <div class="desc" th:hidden="usable" th:text="${usable.getDescription()}"></div>
+                        <img th:src="@{'/images/'  + ${usable.getImageUrl()}}"
+                             th:alt="${usable.getName()}"></img>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
