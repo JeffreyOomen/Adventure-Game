@@ -13,13 +13,11 @@
 
         <div th:if="${inventoryUsables.size() > 0}">
             <div class="battle inventory-items">
-                <div class="item" th:each="usable : ${inventoryUsables}">
-                    <div class="name" th:hidden="usable" th:text="${usable.getName()}"></div>
+                <div th:class="${'item ' + usable.getType()}" th:each="usable : ${inventoryUsables}">
+                    <div class="type" th:text="${usable.getType()}" th:hidden="usable"></div>
+                    <div class="name" th:text="${usable.getName()}"></div>
                     <div class="item" th:id="${usable.getId()}">
-                        <div class="name" th:hidden="usable" th:text="${usable.getName()}"></div>
-                        <div class="desc" th:hidden="usable" th:text="${usable.getDescription()}"></div>
-                        <img th:src="@{'/images/'  + ${usable.getImageUrl()}}"
-                             th:alt="${usable.getName()}"></img>
+                        <img th:src="@{'/images/'  + ${usable.getImageUrl()}}" th:alt="${usable.getName()}"></img>
                     </div>
                 </div>
             </div>
