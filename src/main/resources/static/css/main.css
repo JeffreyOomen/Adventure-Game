@@ -248,6 +248,7 @@ INVENTORY STYLING
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
+    height: 400px;
 }
 
 .battle.inventory-items .item {

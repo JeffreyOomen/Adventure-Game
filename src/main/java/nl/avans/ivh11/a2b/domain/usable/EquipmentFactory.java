@@ -1,5 +1,7 @@
 package nl.avans.ivh11.a2b.domain.usable;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import java.util.Random;
 
 /**
@@ -11,7 +13,7 @@ public class EquipmentFactory implements UsableFactory {
     /**
      * createUsable
      * creates a Equipment object
-     * @param type
+     * @param type UsableType
      * @return Equipment
      */
     @Override
@@ -37,6 +39,16 @@ public class EquipmentFactory implements UsableFactory {
                 usable = null;
         }
         return usable;
+    }
+
+    /**
+     * Not implemented for this EquipmentFactory used in PotionFactory.
+     * @param type
+     * @return
+     */
+    @Override
+    public Usable createUsable(UsableType type) {
+        throw new NotImplementedException();
     }
 
     /**

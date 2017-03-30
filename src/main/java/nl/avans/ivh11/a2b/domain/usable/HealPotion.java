@@ -19,9 +19,8 @@ import java.util.Random;
 public class HealPotion extends Usable {
     private int level;
     private int healAmount = 0;
-    public HealPotion(UsableType type, int level) {
+    public HealPotion(UsableType type) {
         this.type = type;
-        this.level = level;
         this.name = "Heal potion";
         this.description = "Increases hitpoints";
         this.imageUrl = "potionheal.png";
@@ -44,7 +43,7 @@ public class HealPotion extends Usable {
      * @return int
      */
     private int setHealAmount(int maxHp) {
-        return new Random().nextInt(maxHp - level);
+        return new Random().nextInt(maxHp);
     }
 
 }

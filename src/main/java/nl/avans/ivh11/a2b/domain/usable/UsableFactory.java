@@ -5,8 +5,15 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 /**
  * UsableFactory 'contract' that every Factory need to implement.
  */
-@FunctionalInterface
 public interface UsableFactory {
+
+    /**
+     * createUsable
+     * used to create a Equipment
+     * @param type
+     * @return
+     */
+    Usable createUsable(UsableType type, int level);
 
     /**
      * createUsable
@@ -14,5 +21,5 @@ public interface UsableFactory {
      * @param type
      * @return
      */
-    Usable createUsable(UsableType type, int level);
+    Usable createUsable(UsableType type);
 }

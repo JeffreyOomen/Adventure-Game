@@ -11,10 +11,7 @@ import nl.avans.ivh11.a2b.domain.enemy.Builder;
 import nl.avans.ivh11.a2b.domain.enemy.Enemy;
 import nl.avans.ivh11.a2b.domain.enemy.EnemyBuilder;
 import nl.avans.ivh11.a2b.domain.enemy.EnemyBuilderDirector;
-import nl.avans.ivh11.a2b.domain.usable.EquipmentFactory;
-import nl.avans.ivh11.a2b.domain.usable.Inventory;
-import nl.avans.ivh11.a2b.domain.usable.Usable;
-import nl.avans.ivh11.a2b.domain.usable.UsableType;
+import nl.avans.ivh11.a2b.domain.usable.*;
 import nl.avans.ivh11.a2b.domain.util.EquipmentEnum;
 import nl.avans.ivh11.a2b.domain.util.Media;
 import nl.avans.ivh11.a2b.domain.util.Stats;
@@ -26,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by matthijs on 8-3-17.
@@ -45,20 +43,22 @@ public class ActionBehaviorTests
     }
 
     /**
-     * Heal method adds 10 hp
+     * Heal method
      */
     @Test
-    public void healBelowMaxHitpointsActionBehaviorTest() {
+    public void healIncreasingHitpointsActionBehaviorTest() {
         //Arrange
-        character.getStats().setCurrentHitpoints(30);
+        character.getStats().setCurrentHitpoints(5);
+        character.getInventory().addUsable(new HealPotion(UsableType.POTION_HEAL));
         this.character.setActionBehavior(new Heal());
         int oldHitpoints = stats.getCurrentHitpoints();
 
         //Act
         this.character.performAction(character);
 
-        //Assert
-        assertEquals(oldHitpoints + 10, character.getStats().getCurrentHitpoints());
+        // Assert
+        assertTrue(character.getStats().getCurrentHitpoints() > oldHitpoints);
+
     }
 
     // TODO Check tests when Random is implemented
@@ -66,13 +66,26 @@ public class ActionBehaviorTests
      * Heal method adds 10 hp
      */
     @Test
-    public void healAboveMaxHitpointsActionBehaviorTest() {
+    public void healAboveMaxHitpointsNotAllowedActionBehaviorTest() {
         //Arrange
-        character.getStats().setCurrentHitpoints(45);
+        character.getStats().setCurrentHitpoints(5);
         this.character.setActionBehavior(new Heal());
         int maxHitpoints = character.getHitpoints();
 
+        Usable potion1 = new HealPotion(UsableType.POTION_HEAL);
+        potion1.setId(1L);
+        Usable potion2 = new HealPotion(UsableType.POTION_HEAL);
+        potion1.setId(2L);
+        Usable potion3 = new HealPotion(UsableType.POTION_HEAL);
+        potion1.setId(3L);
+
+        character.getInventory().addUsable(potion1);
+        character.getInventory().addUsable(potion2);
+        character.getInventory().addUsable(potion3);
+
         //Act
+        this.character.performAction(character);
+        this.character.performAction(character);
         this.character.performAction(character);
 
         //Assert
