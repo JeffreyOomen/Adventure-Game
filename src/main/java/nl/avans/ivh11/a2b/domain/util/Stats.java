@@ -69,22 +69,22 @@ public class Stats
      * Constructor
      */
     public Stats() {
-        this.strengthTotalXp  = 200;
-        this.strengthXpLeft   = 200;
+        this.strengthTotalXp  = 15;
+        this.strengthXpLeft   = 15;
 
-        this.magicTotalXp     = 200;
-        this.magicXpLeft      = 200;
+        this.magicTotalXp     = 15;
+        this.magicXpLeft      = 15;
 
-        this.defenseTotalXp   = 200;
-        this.defenseXpLeft    = 200;
+        this.defenseTotalXp   = 15;
+        this.defenseXpLeft    = 15;
 
-        this.archeryTotalXp   = 200;
-        this.archeryXpLeft    = 200;
+        this.archeryTotalXp   = 15;
+        this.archeryXpLeft    = 15;
 
-        this.hitpoints        = 50;
-        this.currentHitpoints = 50;
-        this.hitpointsTotalXp = 200;
-        this.hitpointsXpLeft  = 200;
+        this.hitpoints        = 10;
+        this.currentHitpoints = 10;
+        this.hitpointsTotalXp = 15;
+        this.hitpointsXpLeft  = 15;
     }
 
     /**

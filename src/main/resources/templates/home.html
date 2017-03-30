@@ -15,9 +15,8 @@
 				<span th:text="#{home.welcome}"></span>
 				<span th:text="${#httpServletRequest.remoteUser}"></span>
 			</h1>
-
 			<a href="/battle"><button id="start_battle" th:text="#{battle.start}"></button></a><br/>
-			<button th:text="#{character.inventory}"></button>
+			<a href="/inventory"><button>Inventory</button></a>
 		</div>
 
 		<div class="main-container-right">

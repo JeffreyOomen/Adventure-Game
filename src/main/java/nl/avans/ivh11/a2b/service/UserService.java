@@ -12,13 +12,13 @@ public interface UserService {
      * Persist a new User
      * @param user User
      */
-    void create(User user);
+    User create(User user);
 
     /**
      * Save the user and update password in necessary
      * @param user User
      */
-    void save(User user);
+    User save(User user);
 
     /**
      * Get UserDetail by username

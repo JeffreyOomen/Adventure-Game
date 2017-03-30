@@ -8,6 +8,7 @@ import nl.avans.ivh11.a2b.domain.util.Opponent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Heal the current Character
@@ -35,10 +36,10 @@ public class Heal implements ActionBehavior
             if(inventory.getUsables().size() > 0) {
                 int oldHp = c.getCurrentHitpoints();
 
-                List<Usable> usables =  c.getInventory().getUsables();
+                Map<Long, Usable> usables =  c.getInventory().getUsables();
 
                 Usable usableToRemove = null;
-                for(Usable u : usables) {
+                for(Usable u : usables.values()) {
                     if(u.getType() == UsableType.POTION_HEAL) {
                         // heal potion found in inventory - use usable on character
                         u.use(c);

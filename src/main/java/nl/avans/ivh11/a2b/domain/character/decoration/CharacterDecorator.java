@@ -7,6 +7,7 @@ import nl.avans.ivh11.a2b.domain.character.state.CharacterState;
 import nl.avans.ivh11.a2b.domain.character.state.NormalState;
 import nl.avans.ivh11.a2b.domain.character.state.PoweredState;
 import nl.avans.ivh11.a2b.domain.character.state.WeakenedState;
+import nl.avans.ivh11.a2b.domain.usable.Inventory;
 import nl.avans.ivh11.a2b.domain.usable.UsableType;
 import nl.avans.ivh11.a2b.domain.usable.Equipment;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
@@ -249,6 +250,23 @@ public abstract class CharacterDecorator extends Character
     @Override
     public String getName() {
         return this.character.getName();
+    }
+
+    /**
+     * Get the Character's Inventory
+     * @return Inventory
+     */
+    public Inventory getInventory() {
+        return this.character.getInventory();
+    }
+
+    /**
+     * Regenerate the Opponent, this means that the hitpoints will be reset
+     * to the maximum.
+     */
+    @Override
+    public void regenerate() {
+        this.character.regenerate();
     }
 
     /**

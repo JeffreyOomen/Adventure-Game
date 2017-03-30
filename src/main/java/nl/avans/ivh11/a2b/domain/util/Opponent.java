@@ -22,15 +22,15 @@ public abstract class Opponent implements Observable
 
     protected String description;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
-    protected Media media;
-
     @Lob
     protected ActionBehavior actionBehavior;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "STATS_ID")
     protected Stats stats;
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    protected Media media;
 
     @Transient
     private List<Observer> observers = new ArrayList<>();

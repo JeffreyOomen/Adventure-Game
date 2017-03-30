@@ -37,10 +37,87 @@ $(document).ready(function () {
         });
     });
 
+    /* handle regenerating the character */
+    $("#regenerate_character").click(function() {
+        window.location.href = "/doRegenerate";
+    });
+
+
+    $('#inventory-page .item').click(function() {
+        var id = $(this).attr('id');
+
+        var name = $('#' + id + ' .name').text();
+        var desc = $('#' + id + ' .desc').text();
+
+        var imageSrc = $("#" + id + ' img').attr('src');
+        // Set selected
+        $('#selectedUsableUrl').attr('src', imageSrc);
+
+
+        $('#selectedUsableId').val(id); // Set id (used to delete/mount usable)
+        // $('#selectedUsableId').text(id); // Set id (used to delete/mount usable)
+        $('#selectedItemName').text(name); // set name
+        $('#selectedItemDesc').text(desc); // set desc
+
+    });
+
+
+    /**
+     * Used to delete a selected usable based on id
+     */
+    $('#deleteUsable').click(function() {
+        var id = $('#selectedUsableId').val();
+
+        $.ajax({
+            url: '/inventory',
+            data: id,
+            contentType: "application/text",
+            dataType:"text",
+            type: 'DELETE',
+            success: function(result) {
+                // reload page
+                reloadCurrentPage();
+            }
+        });
+
+    });
+
+
+    /**
+     * Used to use a selected usable based on id
+     */
+    $('#useUsable').click(function() {
+        var id = $('#selectedUsableId').val();
+
+        $.ajax({
+            url: '/inventory',
+            data: id,
+            contentType: "application/text",
+            dataType:"text",
+            type: 'POST',
+            success: function(result) {
+                // remove item from inventory
+                $('#' + id).remove();
+
+                reloadCurrentPage();
+            }
+        });
+
+});
+
+
+    /**
+     * Reload current page
+     */
+    function reloadCurrentPage() {
+        location.reload();
+    }
+
     /**
      * Show battle report the the client
      * @param data the battle messages received from the controllers
      */
+
     function battleReport(data) {
         $('#charCurrentHp').html(data.characterStats.currentHitpoints);
         $('#enemyCurrentHp').html(data.enemyStats.currentHitpoints);

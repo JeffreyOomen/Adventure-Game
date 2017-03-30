@@ -17,6 +17,7 @@ public class SaradominEquipment extends Equipment {
         super(type, level);
         setName("Saradomin " + getEquipmentType(type)  + " (lvl " + level + ")");
         setDescription("Item from the Saradomin collection. Very useful as a warrior.");
+        imageUrl = "saradomin" + getEquipmentType(type) + ".png";
         setEquipmentAccuracies(0, 0.4, 0, 3);
     }
 

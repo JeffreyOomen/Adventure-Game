@@ -76,7 +76,7 @@ public class CustomRandom {
      * @return a randomly generated number which represents the attacking damage done based on level and accuracy
      */
     private int randomAttackingDamage(int attackingLevel, int attackingAccuracy, int randomNumber) {
-        int maxAttackingDamage = (int) Math.ceil(attackingLevel * 1.5);
+        int maxAttackingDamage = (int) Math.ceil(attackingLevel * 10);
         int midAttackingDamage = (int) Math.ceil(maxAttackingDamage / 2);
 
         if (randomNumber < ((attackingAccuracy / 100) * attackingLevel)) {
@@ -100,7 +100,7 @@ public class CustomRandom {
      * @return a randomly generated number which represents the damage being defended based on level and accuracy
      */
     private int randomDefendingDamage(int defenseLevel, int defenseAccuracy, int randomNumber) {
-        int maxDefendingDamage = (int) Math.ceil(defenseLevel * 1.5);
+        int maxDefendingDamage = (int) Math.ceil(defenseLevel * 10);
         int midDefendingDamage = (int) Math.ceil(maxDefendingDamage / 2);
 
         if (randomNumber < ((defenseAccuracy / 100) * defenseLevel)) {
@@ -120,32 +120,15 @@ public class CustomRandom {
         int randomNumber = r.nextInt((110 - 50) + 1) + 50;
         Map<String, Integer> attackStyleStats = character.getAttackStyleStats();
 
-        // add more hp for fun
-        int hpMultiplier = 1;
-        if (randomNumber < 60) {
-            hpMultiplier = 30;
-        }
-
         Stats enemyStats = new Stats();
-        enemyStats.setHitpoints((int)((randomNumber / 100.0) * character.getHitpoints() * hpMultiplier));
-        enemyStats.setCurrentHitpoints((int)((randomNumber / 100.0) * character.getHitpoints() * hpMultiplier));
-        enemyStats.setStrength((int)((randomNumber / 100.0) * attackStyleStats.get("AttackStyleLevel")));
-        enemyStats.setStrengthAccuracy((int)((randomNumber / 100.0) * attackStyleStats.get("AttackStyleAccuracy")));
-        enemyStats.setDefense((int)((randomNumber / 100.0) * character.getStats().getDefense()));
-        enemyStats.setDefenseAccuracy((int)((randomNumber / 100.0) * character.getStats().getDefenseAccuracy()));
+        enemyStats.setHitpoints((int)((randomNumber / 100.0) * character.getHitpoints()));
+        enemyStats.setCurrentHitpoints((int)((randomNumber / 100.0) * character.getHitpoints()));
+        enemyStats.setStrength((int)((randomNumber / 100.0) * attackStyleStats.get("AttackStyleLevel") + 1));
+        enemyStats.setStrengthAccuracy((int)((randomNumber / 100.0) * attackStyleStats.get("AttackStyleAccuracy") + 1));
+        enemyStats.setDefense((int)((randomNumber / 100.0) * character.getStats().getDefense() + 1));
+        enemyStats.setDefenseAccuracy((int)((randomNumber / 100.0) * character.getStats().getDefenseAccuracy() + 1));
 
         return enemyStats;
-    }
-
-    /**
-     * Gives random number based on the player's level
-     * @param level player's level
-     * @return int random number
-     */
-    public int randomLevel (int level) {
-        min = level * 0.75;
-        max = level * 1.15;
-        return getRandomNumber();
     }
 
     /**
