@@ -62,10 +62,4 @@
         <property name="initialSize" value="50" />
     </bean>
 
-    <!--<beans profile="dev">-->
-        <!--<jdbc:embedded-database id="dataSource" type="H2">-->
-            <!--<jdbc:script location="classpath:hh.sql" />-->
-        <!--</jdbc:embedded-database>-->
-    <!--</beans>-->
-
 </beans>
