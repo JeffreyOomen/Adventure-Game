@@ -118,7 +118,7 @@ public class Enemy extends Opponent
 
         while (chosenDrop == null) {
             UsableType randomType = possibleDrops.get(customRandom.randomBetweenZeroAnd(size));
-            if (randomType.toString().toLowerCase().contains(type)) {
+            if (randomType.toString().toLowerCase().contains(type) && randomType != UsableType.EQUIPMENT_WEAPON) {
                 chosenDrop = randomType;
             }
         }
