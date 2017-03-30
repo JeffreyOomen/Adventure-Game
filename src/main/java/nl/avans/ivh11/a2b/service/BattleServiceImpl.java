@@ -7,6 +7,7 @@ import nl.avans.ivh11.a2b.datastorage.enemy.EnemyRepository;
 import nl.avans.ivh11.a2b.datastorage.usable.UsableRepository;
 import nl.avans.ivh11.a2b.domain.battle.*;
 import nl.avans.ivh11.a2b.domain.character.Character;
+import nl.avans.ivh11.a2b.domain.character.state.NormalState;
 import nl.avans.ivh11.a2b.domain.enemy.Enemy;
 import nl.avans.ivh11.a2b.domain.usable.Usable;
 import nl.avans.ivh11.a2b.domain.util.CustomRandom;
@@ -83,7 +84,8 @@ public class BattleServiceImpl implements BattleService
      * giving the Character XP, saving the state of both Character and Enemy
      * and clears any memory allocation.
      */
-    private void teardownBattle() {
+    private void teardownBattle(Character character) {
+        character.setState(character.getNormalState());
         this.saveBattleState(); // save current state
         this.battle = null; // clear memory allocation
     }
@@ -112,7 +114,7 @@ public class BattleServiceImpl implements BattleService
 
             battleReport += this.handleEnemyDrop();
 
-            this.teardownBattle();
+            this.teardownBattle((Character) this.battle.getCharacter());
         }
 
         // clear messages to prevent duplicates
