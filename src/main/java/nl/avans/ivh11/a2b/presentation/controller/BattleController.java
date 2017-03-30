@@ -19,6 +19,7 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Controller
+@PreAuthorize("isAuthenticated()")
 public class BattleController
 {
     @Autowired
