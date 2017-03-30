@@ -17,7 +17,7 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 public class OverloadPotion extends Usable {
 
-    public OverloadPotion(UsableType type, int level) {
+    public OverloadPotion(UsableType type) {
         this.type = type;
         this.name = "Overload potion";
         this.description = "Gives super power";

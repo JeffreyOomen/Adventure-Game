@@ -23,45 +23,45 @@ public class UsableManager {
 
     public UsableManager(UsableRepository usableRepository) {
         this.usableRepository = usableRepository;
-        runDemo();
+//        runDemo();
     }
 
     /**
      * Test
      * Test equipment items can be created and assign to equipment list. increase given accuracies.
      */
-    public void runDemo() {
-        EquipmentFactory ef = new EquipmentFactory();
-//        Usable usable = ef.createUsable(UsableType.EQUIPMENT_BODY , "Adamant Body", "Strong", new Stats());
-//        Equipment savedEquipment =  (Equipment) usableRepository.save(usable);
-
-        List<Equipment> equipmentList = new ArrayList<>();
-
-        equipmentList.add( (Equipment) ef.createUsable(UsableType.EQUIPMENT_BODY, 10));
-        equipmentList.add( (Equipment) ef.createUsable(UsableType.EQUIPMENT_BOOTS, 10));
-        equipmentList.add( (Equipment) ef.createUsable(UsableType.EQUIPMENT_LEGS, 10));
-
-        int totalStrengthAccurancy = 0;
-        int totalDefAccurancy = 0;
-        int totalMagicAccurancy = 0;
-        int totalArcheryAccurancy = 0;
-
-        for(Equipment e : equipmentList) {
-            totalStrengthAccurancy += e.getStrengthAccuracy();
-            totalDefAccurancy += e.getDefenseAccuracy();
-            totalMagicAccurancy += e.getMagicAccuracy();
-            totalArcheryAccurancy += e.getArcheryAccuracy();
-        }
-
-
-        PotionFactory pf = new PotionFactory();
-        Usable healPotion = pf.createUsable(UsableType.POTION_HEAL, 10);
-        usableRepository.save(healPotion);
-
-        System.out.println("=================================================================");
-        System.out.println("====================="+ "NEW USABLE CREATED" + "===================");
-        System.out.println("=================================================================");
-
-
-    }
+//    public void runDemo() {
+//        EquipmentFactory ef = new EquipmentFactory();
+////        Usable usable = ef.createUsable(UsableType.EQUIPMENT_BODY , "Adamant Body", "Strong", new Stats());
+////        Equipment savedEquipment =  (Equipment) usableRepository.save(usable);
+//
+//        List<Equipment> equipmentList = new ArrayList<>();
+//
+//        equipmentList.add( (Equipment) ef.createUsable(UsableType.EQUIPMENT_BODY, 10));
+//        equipmentList.add( (Equipment) ef.createUsable(UsableType.EQUIPMENT_BOOTS, 10));
+//        equipmentList.add( (Equipment) ef.createUsable(UsableType.EQUIPMENT_LEGS, 10));
+//
+//        int totalStrengthAccurancy = 0;
+//        int totalDefAccurancy = 0;
+//        int totalMagicAccurancy = 0;
+//        int totalArcheryAccurancy = 0;
+//
+//        for(Equipment e : equipmentList) {
+//            totalStrengthAccurancy += e.getStrengthAccuracy();
+//            totalDefAccurancy += e.getDefenseAccuracy();
+//            totalMagicAccurancy += e.getMagicAccuracy();
+//            totalArcheryAccurancy += e.getArcheryAccuracy();
+//        }
+//
+//
+//        PotionFactory pf = new PotionFactory();
+//        Usable healPotion = pf.createUsable(UsableType.POTION_HEAL);
+//        usableRepository.save(healPotion);
+//
+//        System.out.println("=================================================================");
+//        System.out.println("====================="+ "NEW USABLE CREATED" + "===================");
+//        System.out.println("=================================================================");
+//
+//
+//    }
 }
