@@ -261,6 +261,15 @@ public abstract class CharacterDecorator extends Character
     }
 
     /**
+     * Regenerate the Opponent, this means that the hitpoints will be reset
+     * to the maximum.
+     */
+    @Override
+    public void regenerate() {
+        this.character.regenerate();
+    }
+
+    /**
      * Attach an Observer
      * @param observer
      */
