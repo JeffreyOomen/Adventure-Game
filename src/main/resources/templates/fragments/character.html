@@ -7,7 +7,7 @@
 <div th:fragment="character">
     <div class="contender">
         <div class="stats">
-            <span th:text="#{character.level}"></span> <span id="charLvl" th:text="${character.getStats().getLevel()}"></span><br/>
+            <span th:text="#{character.level}"></span> <span id="charLvl" th:text="${character.getStats().getCombatLevel()}"></span><br/>
             <span th:text="#{character.hp}"></span> <span id="charCurrentHp" th:text="${character.getStats().getCurrentHitpoints()}"></span>/<span
                 id="charHp" th:text="${character.getStats().getHitpoints()}"></span><br/>
             <span>XP: 1083/1200</span>
