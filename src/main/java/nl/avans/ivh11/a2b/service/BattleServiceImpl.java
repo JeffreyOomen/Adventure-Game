@@ -7,7 +7,6 @@ import nl.avans.ivh11.a2b.datastorage.enemy.EnemyRepository;
 import nl.avans.ivh11.a2b.datastorage.usable.UsableRepository;
 import nl.avans.ivh11.a2b.domain.battle.*;
 import nl.avans.ivh11.a2b.domain.character.Character;
-import nl.avans.ivh11.a2b.domain.character.state.NormalState;
 import nl.avans.ivh11.a2b.domain.enemy.Enemy;
 import nl.avans.ivh11.a2b.domain.usable.Usable;
 import nl.avans.ivh11.a2b.domain.util.CustomRandom;
@@ -22,10 +21,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import java.sql.SQLException;
 import java.util.List;
+import java.util.Random;
 
 @Service("battleService")
 @Repository
@@ -42,7 +40,7 @@ public class BattleServiceImpl implements BattleService
     @Autowired
     private CharacterService characterService;
     @Autowired
-    private OpponentService opponentService;
+    private EnemyService enemyService;
     @Autowired
     private EntityManagerFactory entityManagerFactory;
 
@@ -51,7 +49,7 @@ public class BattleServiceImpl implements BattleService
 
     @PostConstruct
     public void init() {
-        this.possibleEnemies = opponentService.findAllEnemies();
+        this.possibleEnemies = enemyService.findAll();
     }
 
     @Autowired
@@ -196,6 +194,15 @@ public class BattleServiceImpl implements BattleService
 
         // let the enemy attack
         this.battle.playTurn(new ActionCommand(this.battle.getEnemy(), this.battle.getCharacter()));
+
+        Character character = (Character) this.battle.getCharacter();
+        Random r = new Random();
+        if (r.nextInt(20) == 1) {
+            List<String> messages = this.battle.getMessages();
+            character.setState(character.getWeakenedState());
+            messages.add(this.battle.getEnemy().getName() + " has just set you back to your weakened state");
+            this.battle.setMessages(messages);
+        }
 
         // save the battle state
         this.saveBattleState();
