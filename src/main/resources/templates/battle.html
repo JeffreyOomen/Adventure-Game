@@ -27,7 +27,9 @@
         <button type="submit">Logout</button>
     </form>
     <div th:replace="fragments/fight :: fight"></div>
-    <div class="column" th:replace="fragments/inventory :: inventory"></div>
+    <div id="fragmentInventory">
+        <div class="column" id="character_inventory" th:replace="fragments/inventory :: inventory"></div>
+    </div>
     <div th:replace="fragments/game_information :: info"></div>s
     <a href="/">
         <button>Back to start</button>

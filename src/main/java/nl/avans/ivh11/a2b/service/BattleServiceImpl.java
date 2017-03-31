@@ -146,7 +146,7 @@ public class BattleServiceImpl implements BattleService
 
             characterService.addInventoryItem(character, randomDrop);
 
-            battleReport += enemy.getName() + " just dropped " + randomDrop.getName() + BREAK;
+            battleReport += "<span class=\"message-warning\">" + enemy.getName() + " just dropped " + randomDrop.getName() + BREAK;
 
             // commit the transaction
             session.getTransaction().commit();

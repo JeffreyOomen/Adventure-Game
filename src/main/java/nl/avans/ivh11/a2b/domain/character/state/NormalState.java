@@ -13,7 +13,10 @@ public class NormalState extends CharacterState
     private static volatile NormalState uniqueInstance;
 
     // prevent instantiating through constructor
-    private NormalState() {}
+    private NormalState() {
+        this.name = "Normal State";
+        this.description = "You feel normal";
+    }
 
     /**
      * Creates a Singleton instance to prevent multiple objects
