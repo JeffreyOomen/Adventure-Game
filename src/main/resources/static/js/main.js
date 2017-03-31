@@ -42,7 +42,6 @@ $(document).ready(function () {
         window.location.href = "/doRegenerate";
     });
 
-
     $('#inventory-page .item').click(function() {
         var id = $(this).attr('id');
 
@@ -61,7 +60,6 @@ $(document).ready(function () {
 
     });
 
-
     /**
      * Used to delete a selected usable based on id
      */
@@ -79,16 +77,13 @@ $(document).ready(function () {
                 reloadCurrentPage();
             }
         });
-
     });
-
 
     /**
      * Used to use a selected usable based on id
      */
     $('#useUsable').click(function() {
         var id = $('#selectedUsableId').val();
-
         $.ajax({
             url: '/inventory',
             data: id,
@@ -102,9 +97,7 @@ $(document).ready(function () {
                 reloadCurrentPage();
             }
         });
-
-});
-
+    });
 
     /**
      * Reload current page
@@ -133,6 +126,7 @@ $(document).ready(function () {
         } else if (!data.isEnemyAlive) {
             $('#go_home').attr('hidden', false);
             battleEndState();
+            reloadInventoryFragment();
         }
     }
 
@@ -143,5 +137,9 @@ $(document).ready(function () {
         $('#normal_attack').prop('disabled', true);
         $('#special_attack').prop('disabled', true);
         $('#heal').prop('disabled', true);
+    }
+
+    function reloadInventoryFragment() {
+        $('#fragmentInventory').load('/inventoryFragment');
     }
 });

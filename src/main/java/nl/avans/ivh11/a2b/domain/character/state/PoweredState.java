@@ -13,7 +13,10 @@ public class PoweredState extends CharacterState
     private static volatile PoweredState uniqueInstance;
 
     // prevent instantiating through constructor
-    private PoweredState() {}
+    private PoweredState() {
+        this.name = "Powered State";
+        this.description = "You feel empowered";
+    }
 
     /**
      * Creates a Singleton instance to prevent multiple objects

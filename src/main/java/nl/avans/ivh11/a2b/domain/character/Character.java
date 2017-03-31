@@ -23,9 +23,9 @@ import java.util.Map;
  * Represents a Player of the game.
  */
 @Entity
-@Table(name = "BASE_CHARACTER")
+@Table(name = "Base_Character")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "CHARACTER_TYPE")
+@DiscriminatorColumn(name = "Character_Type")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -34,13 +34,13 @@ public abstract class Character extends Opponent
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "CHARACTER_ID" )
+    @Column(name = "Character_Id" )
     protected Long id;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "CHARACTER_EQUIPMENT", joinColumns = @JoinColumn(name = "CHARACTER_ID"))
-    @MapKeyColumn(name = "EQUIPMENT_ENUM")
-    @Column(name = "EQUIPMENT")
+    @CollectionTable(name = "Character_Equipment", joinColumns = @JoinColumn(name = "Character_Id"))
+    @MapKeyColumn(name = "Equipment_Enum")
+    @Column(name = "Equipment")
     protected Map<UsableType, Equipment> equipment;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -70,19 +70,16 @@ public abstract class Character extends Opponent
      * @param equipment an EquipmentRepository Object
      */
     public void mountEquipment(UsableType usableType, Equipment equipment) {
-
         // First get old item for the given type
         Equipment currentMountEquipment = this.equipment.get(usableType);
 
         // Validate current mounted equipment found
         if(currentMountEquipment != null) {
-
             // unmount old equipment
             unMountEquipment(usableType);
 
             // Move item back to inventory
             this.inventory.addUsable(currentMountEquipment);
-
         }
 
         // Mount new equipment
@@ -95,7 +92,6 @@ public abstract class Character extends Opponent
 
         // Remove item from inventory
         this.inventory.dropUsable(equipment);
-
     }
 
     /**

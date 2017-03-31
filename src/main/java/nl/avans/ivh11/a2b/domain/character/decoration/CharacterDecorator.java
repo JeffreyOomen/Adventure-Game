@@ -252,6 +252,11 @@ public abstract class CharacterDecorator extends Character
         return this.character.getName();
     }
 
+    @Override
+    public CharacterState getCurrentState() {
+        return this.character.getCurrentState();
+    }
+
     /**
      * Get the Character's Inventory
      * @return Inventory

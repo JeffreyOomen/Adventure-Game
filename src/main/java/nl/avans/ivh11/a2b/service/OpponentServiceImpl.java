@@ -88,9 +88,9 @@ public class OpponentServiceImpl implements OpponentService
         stats.setCurrentHitpoints(300);
 
         // Find media image
-        Media media1 = mediaRepository.findOne(2L);
-        Media media2 = mediaRepository.findOne(9L);
-        Media media3 = mediaRepository.findOne(3L);
+        Media media1 = mediaRepository.findOne(9L);
+        Media media2 = mediaRepository.findOne(12L);
+        Media media3 = mediaRepository.findOne(17L);
         Enemy enemy1 = enemyDirector.createEnemy("Bram", media1, "End boss", new SpecialAttack(), stats, lootList);
         Enemy enemy2 = enemyDirector.createEnemy("Gerrie", media2, "Super boss", new SpecialAttack(), new Stats(), null);
         Enemy enemy3 = enemyDirector.createEnemy("Hans", media3, "Weak boss", new SpecialAttack(), new Stats(), null);

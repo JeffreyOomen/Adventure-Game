@@ -18,7 +18,7 @@ public class Stats
 {
     @Id
     @GeneratedValue
-    @Column(name = "STATS_ID")
+    @Column(name = "Stats_Id")
     private Long id;
 
     private int strength = 1;

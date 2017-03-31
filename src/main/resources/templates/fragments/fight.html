@@ -12,6 +12,7 @@
                 <span th:text="#{character.level}"></span> <span id="charLvl" th:text="${character.getStats().getCombatLevel()}"></span><br/>
                 <span th:text="#{character.hp}"></span> <span id="charCurrentHp" th:text="${character.getStats().getCurrentHitpoints()}"></span>/<span
                     id="charHp" th:text="${character.getStats().getHitpoints()}"></span><br/>
+                <span th:text="#{character.state}"></span> <span id="charState" th:text="${character.getCurrentState().getName()}"></span>
             </div>
             <div class="battler" style="background-image: url('../images/rpg-warrior.png');">
             </div>

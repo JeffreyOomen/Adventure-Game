@@ -153,6 +153,10 @@ h1, h2 {
     color: darkred;
 }
 
+.message-warning {
+    color: #f2b51d;
+}
+
 /* CSS for homepage */
 .main-container {
     width: 80%;

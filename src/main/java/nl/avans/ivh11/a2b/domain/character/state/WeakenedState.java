@@ -13,7 +13,10 @@ public class WeakenedState extends CharacterState
     private static volatile WeakenedState uniqueInstance;
 
     // prevent instantiating through constructor
-    private WeakenedState() {}
+    private WeakenedState() {
+        this.name = "Weakened State";
+        this.description = "You feel weakened...";
+    }
 
     /**
      * Creates a Singleton instance to prevent multiple objects
