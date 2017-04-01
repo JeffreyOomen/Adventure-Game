@@ -57,66 +57,66 @@ public class CharacterServiceImpl implements CharacterService
     /**
      * Setup Demo, Character and Enemy for the demo
      */
-    @Transactional
-    private void demoCharacter() {
-
-        // TODO: create a startup service for this later
-        // Persist all Media items (images)
-
-        Media media = mediaService.findById(1L);
-
-        // Setup non-decorated Character
-        Character c = new Troll("Kees Kroket", new Stats(), media);
-        c.getStats().setStrength(90);
-        c.getStats().setStrengthAccuracy(100);
-        c.getStats().setDefense(90);
-        c.getStats().setDefenseAccuracy(80);
-        c.getStats().setCurrentHitpoints(1000);
-        c.setActionBehavior(new NormalAttack());
-        c.setAttackStyle(UsableType.EQUIPMENT_WEAPON_SWORD);
-        characterRepository.save(c);
-
-        // Initialize factories
-        EquipmentFactory equipmentFactory = new EquipmentFactory();
-        PotionFactory potionFactory = new PotionFactory();
-
-        List<Usable> usableList = new ArrayList<>();
-
-        // Necessary to save equipment item for id
-        usableList.add(usableRepository.save(equipmentFactory.createUsable(UsableType.EQUIPMENT_HELMET, 10)));
-        usableList.add(usableRepository.save(equipmentFactory.createUsable(UsableType.EQUIPMENT_BODY, 20)));
-        usableList.add(usableRepository.save(equipmentFactory.createUsable(UsableType.EQUIPMENT_LEGS, 30)));
-        usableList.add(usableRepository.save(equipmentFactory.createUsable(UsableType.EQUIPMENT_LEGS, 20)));
-        usableList.add(usableRepository.save(equipmentFactory.createUsable(UsableType.EQUIPMENT_WEAPON_STAFF, 10)));
-
-        usableList.add(usableRepository.save(potionFactory.createUsable(UsableType.POTION_HEAL, 10)));
-        usableList.add(usableRepository.save(potionFactory.createUsable(UsableType.POTION_HEAL, 10)));
-        usableList.add(usableRepository.save(potionFactory.createUsable(UsableType.POTION_HEAL, 10)));
-        usableList.add(usableRepository.save(potionFactory.createUsable(UsableType.POTION_HEAL, 10)));
-        usableList.add(usableRepository.save(potionFactory.createUsable(UsableType.POTION_OVERLOAD, 10)));
-        usableList.add(usableRepository.save(potionFactory.createUsable(UsableType.POTION_OVERLOAD, 10)));
-
-
-        // Assign created usable to inventory character
-        for(Usable u : usableList) {
-            c.getInventory().addUsable(u);
-        }
-
-        Equipment equipmentHelmet = (Equipment) equipmentFactory.createUsable(UsableType.EQUIPMENT_HELMET, 10);
-        Equipment equipmentBody = (Equipment) equipmentFactory.createUsable(UsableType.EQUIPMENT_BODY, 10);
-        Equipment equipmentLegs = (Equipment) equipmentFactory.createUsable(UsableType.EQUIPMENT_LEGS, 10);
-        usableRepository.save(equipmentHelmet);
-        usableRepository.save(equipmentBody);
-        usableRepository.save(equipmentLegs);
-
-        // Test using gear
-        c.mountEquipment(UsableType.EQUIPMENT_HELMET, equipmentHelmet);
-        c.mountEquipment(UsableType.EQUIPMENT_BODY, equipmentBody);
-        c.mountEquipment(UsableType.EQUIPMENT_LEGS, equipmentLegs);
-
-        characterRepository.save(c);
-
-    }
+//    @Transactional
+//    private void demoCharacter() {
+//
+//        // TODO: create a startup service for this later
+//        // Persist all Media items (images)
+//
+//        Media media = mediaService.findById(1L);
+//
+//        // Setup non-decorated Character
+//        Character c = new Troll("Kees Kroket", new Stats(), media);
+//        c.getStats().setStrength(90);
+//        c.getStats().setStrengthAccuracy(100);
+//        c.getStats().setDefense(90);
+//        c.getStats().setDefenseAccuracy(80);
+//        c.getStats().setCurrentHitpoints(1000);
+//        c.setActionBehavior(new NormalAttack());
+//        c.setAttackStyle(UsableType.EQUIPMENT_WEAPON_SWORD);
+//        characterRepository.save(c);
+//
+//        // Initialize factories
+//        EquipmentFactory equipmentFactory = new EquipmentFactory();
+//        PotionFactory potionFactory = new PotionFactory();
+//
+//        List<Usable> usableList = new ArrayList<>();
+//
+//        // Necessary to save equipment item for id
+//        usableList.add(usableRepository.save(equipmentFactory.createUsable(UsableType.EQUIPMENT_HELMET, 10)));
+//        usableList.add(usableRepository.save(equipmentFactory.createUsable(UsableType.EQUIPMENT_BODY, 20)));
+//        usableList.add(usableRepository.save(equipmentFactory.createUsable(UsableType.EQUIPMENT_LEGS, 30)));
+//        usableList.add(usableRepository.save(equipmentFactory.createUsable(UsableType.EQUIPMENT_LEGS, 20)));
+//        usableList.add(usableRepository.save(equipmentFactory.createUsable(UsableType.EQUIPMENT_WEAPON_STAFF, 10)));
+//
+//        usableList.add(usableRepository.save(potionFactory.createUsable(UsableType.POTION_HEAL, 10)));
+//        usableList.add(usableRepository.save(potionFactory.createUsable(UsableType.POTION_HEAL, 10)));
+//        usableList.add(usableRepository.save(potionFactory.createUsable(UsableType.POTION_HEAL, 10)));
+//        usableList.add(usableRepository.save(potionFactory.createUsable(UsableType.POTION_HEAL, 10)));
+//        usableList.add(usableRepository.save(potionFactory.createUsable(UsableType.POTION_OVERLOAD, 10)));
+//        usableList.add(usableRepository.save(potionFactory.createUsable(UsableType.POTION_OVERLOAD, 10)));
+//
+//
+//        // Assign created usable to inventory character
+//        for(Usable u : usableList) {
+//            c.getInventory().addUsable(u);
+//        }
+//
+//        Equipment equipmentHelmet = (Equipment) equipmentFactory.createUsable(UsableType.EQUIPMENT_HELMET, 10);
+//        Equipment equipmentBody = (Equipment) equipmentFactory.createUsable(UsableType.EQUIPMENT_BODY, 10);
+//        Equipment equipmentLegs = (Equipment) equipmentFactory.createUsable(UsableType.EQUIPMENT_LEGS, 10);
+//        usableRepository.save(equipmentHelmet);
+//        usableRepository.save(equipmentBody);
+//        usableRepository.save(equipmentLegs);
+//
+//        // Test using gear
+//        c.mountEquipment(UsableType.EQUIPMENT_HELMET, equipmentHelmet);
+//        c.mountEquipment(UsableType.EQUIPMENT_BODY, equipmentBody);
+//        c.mountEquipment(UsableType.EQUIPMENT_LEGS, equipmentLegs);
+//
+//        characterRepository.save(c);
+//
+//    }
 
     @Override
     public Character findById(long id) {

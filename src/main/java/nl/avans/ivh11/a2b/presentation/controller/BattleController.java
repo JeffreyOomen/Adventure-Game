@@ -1,6 +1,8 @@
 package nl.avans.ivh11.a2b.presentation.controller;
 
 import nl.avans.ivh11.a2b.domain.enemy.Enemy;
+import nl.avans.ivh11.a2b.domain.usable.Usable;
+import nl.avans.ivh11.a2b.domain.usable.UsableType;
 import nl.avans.ivh11.a2b.domain.util.CustomRandom;
 import nl.avans.ivh11.a2b.domain.auth.User;
 import nl.avans.ivh11.a2b.presentation.model.BattleModel;
@@ -16,7 +18,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @PreAuthorize("isAuthenticated()")
@@ -97,6 +102,7 @@ public class BattleController
         return new BattleModel(
                 character.getInventory().getUsables(),
                 character.isAlive(),
+                character.getInventory().CheckUsableExists(UsableType.POTION_HEAL),
                 enemy.isAlive(),
                 character.getStats(),
                 enemy.getStats(),

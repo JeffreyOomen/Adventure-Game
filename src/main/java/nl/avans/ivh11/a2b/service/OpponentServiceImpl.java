@@ -48,56 +48,6 @@ public class OpponentServiceImpl implements OpponentService
         this.mediaRepository = mediaRepository;
         this.mediaService = mediaService;
 
-        mediaService.persistMediaItems();
-        this.demoEquipment();
-        this.demoOpponents();
-    }
-
-    @Transactional
-    private void demoEquipment() {
-        // Setup Equipment
-        EquipmentFactory equipmentFactory = new EquipmentFactory();
-        equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_HELMET, 10));
-        equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_BODY, 10));
-        equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_LEGS, 10));
-        equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_BOOTS, 10));
-        equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_GLOVES, 10));
-        equipmentRepository.save((Equipment)equipmentFactory.createUsable(UsableType.EQUIPMENT_WEAPON_SWORD, 10));
-    }
-
-    /**
-     * Setup Equipment, Character and Enemy for the demo
-     */
-    @Transactional
-    private void demoOpponents() {
-        // Setup Enemy
-        EnemyBuilder enemyBuilder = new EnemyBuilder();
-        EnemyBuilderDirector enemyDirector = new EnemyBuilderDirector(enemyBuilder);
-        Stats stats = new Stats();
-        stats.setHitpoints(500);
-        stats.setCurrentHitpoints(500);
-        stats.setStrength(66);
-        stats.setStrengthAccuracy(70);
-        stats.setDefense(5);
-        stats.setDefenseAccuracy(10);
-        ArrayList<Usable> lootList = new ArrayList<>();
-        // Find media image
-        Media media = mediaRepository.findOne(2L);
-
-        stats.setHitpoints(300);
-        stats.setCurrentHitpoints(300);
-
-        // Find media image
-        Media media1 = mediaRepository.findOne(9L);
-        Media media2 = mediaRepository.findOne(12L);
-        Media media3 = mediaRepository.findOne(17L);
-        Enemy enemy1 = enemyDirector.createEnemy("Bram", media1, "End boss", new SpecialAttack(), stats, lootList);
-        Enemy enemy2 = enemyDirector.createEnemy("Gerrie", media2, "Super boss", new SpecialAttack(), new Stats(), null);
-        Enemy enemy3 = enemyDirector.createEnemy("Hans", media3, "Weak boss", new SpecialAttack(), new Stats(), null);
-
-        enemyRepository.save(enemy1);
-        enemyRepository.save(enemy2);
-        enemyRepository.save(enemy3);
     }
 
     /**

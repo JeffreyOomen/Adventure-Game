@@ -16,7 +16,5 @@ public interface Builder {
     Builder setMedia(Media media);
     Builder setDescription(String description);
     Builder setActionBehaviour(ActionBehavior actionBehaviour);
-    Builder setLoot(List<Usable> loot);
-    Builder setStats(Stats stats);
     Enemy buildEnemy();
 }

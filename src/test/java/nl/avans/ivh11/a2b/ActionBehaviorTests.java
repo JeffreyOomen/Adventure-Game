@@ -37,7 +37,7 @@ public class ActionBehaviorTests
     @Before
     public void setup() {
         this.stats = new Stats();
-        this.character = new Troll("Mountain Troll", stats, new Media("test.png"));
+        this.character = new Troll("Mountain Troll", stats, new Media("", "test.png"));
         this.character.setInventory(new Inventory());
         this.character.setAttackStyle(UsableType.EQUIPMENT_WEAPON_SWORD);
     }

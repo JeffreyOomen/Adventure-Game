@@ -4,6 +4,7 @@ import nl.avans.ivh11.a2b.domain.auth.User;
 import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.service.OpponentService;
 import nl.avans.ivh11.a2b.service.SecurityService;
+import nl.avans.ivh11.a2b.service.StartupService;
 import nl.avans.ivh11.a2b.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,6 +20,15 @@ public class CharacterController {
 
     @Autowired
     private SecurityService securityService;
+
+    @Autowired
+    private StartupService startupService;
+
+    public CharacterController(StartupService startupService) {
+        this.startupService = startupService;
+        // Initialize game with all necessary dependencies
+        startupService.initializeGame();
+    }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(Model uiModel) {

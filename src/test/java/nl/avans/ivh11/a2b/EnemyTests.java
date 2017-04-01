@@ -27,8 +27,7 @@ public class EnemyTests {
         Stats stats = new Stats();
         stats.setHitpoints(100);
         stats.setArchery(999);
-        ArrayList<Usable> lootList = new ArrayList<>();
-        enemy = enemyDirector.createEnemy("Bram", new Media("test.png"), "End boss", new SpecialAttack(), stats, lootList);
+        enemy = enemyDirector.createEnemy("Bram", new Media("", "test.png"), "End boss", new SpecialAttack());
     }
 
     @Test
