@@ -2,18 +2,29 @@ package nl.avans.ivh11.a2b.service;
 
 import nl.avans.ivh11.a2b.datastorage.enemy.EnemyRepository;
 import nl.avans.ivh11.a2b.domain.enemy.Enemy;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Created by isazu on 31-3-2017.
- */
+
+@Service("EnemyService")
+@Repository
 public class EnemyServiceImpl implements EnemyService {
+
+    @Autowired
     private EnemyRepository enemyRepository;
 
-    public EnemyServiceImpl(EnemyRepository enemyRepository) {
-        this.enemyRepository = enemyRepository;
+    /**
+     * Find all enemies
+     * @return a List of Enemy's
+     */
+    @Transactional(readOnly = true)
+    @Override
+    public List<Enemy> findAll() {
+        return (List<Enemy>) enemyRepository.findAll();
     }
 
     /**
@@ -22,18 +33,7 @@ public class EnemyServiceImpl implements EnemyService {
      */
     @Transactional
     @Override
-    public List<Enemy> findAllEnemies() {
-        return (List<Enemy>) enemyRepository.findAll();
-    }
-
-    /**
-     * Gets the Enemy by id
-     * @param id the id of the Enemy to be found
-     * @return the Enemy with the specified id
-     */
-    @Transactional(readOnly = true)
-    @Override
-    public Enemy findEnemyById(long id) {
+    public Enemy findById(Long id) {
         return enemyRepository.findOne(id);
     }
 }
