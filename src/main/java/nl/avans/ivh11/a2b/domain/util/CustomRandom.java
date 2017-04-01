@@ -6,7 +6,8 @@ import java.util.Random;
 /**
  * Singleton class which returns a random number based on the attributes and which method is called
  */
-public class CustomRandom {
+public class CustomRandom
+{
     private double min;
     private double max;
     private static volatile CustomRandom instance = null;
@@ -134,12 +135,12 @@ public class CustomRandom {
 
     /**
      * Gives random number based on the number of possible enemies
-     * @param enemies length of list with enemies
+     * @param enemyCount length of list with enemies
      * @return int random number
      */
-    public int randomEnemy (double enemies) {
+    public int randomEnemy (int enemyCount) {
         min = 0;
-        max = enemies - 1;
+        max = enemyCount - 1;
         return getRandomNumber();
     }
 

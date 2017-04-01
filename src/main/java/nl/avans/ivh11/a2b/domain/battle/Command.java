@@ -1,12 +1,13 @@
 package nl.avans.ivh11.a2b.domain.battle;
 
 /**
- * Interface class to execute battle command
+ * Interface class to execute battle actions
  */
 @FunctionalInterface
-public interface Command {
+public interface Command
+{
     /**
-     * Execute battle command
+     * This method executes an Action as a Command
      */
     void execute();
 }

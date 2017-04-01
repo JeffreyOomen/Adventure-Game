@@ -13,8 +13,8 @@ import javax.persistence.OneToOne;
 @Entity
 @Getter
 @Setter
-public abstract class Usable {
-
+public abstract class Usable
+{
     @Id
     @GeneratedValue
     protected Long id;
@@ -22,8 +22,6 @@ public abstract class Usable {
     protected String description;
     protected UsableType type;
     protected String imageUrl;
-//    @OneToOne()
-//    protected Media media;
 
     /**
      * Use usable item on given character

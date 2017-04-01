@@ -16,9 +16,11 @@ import java.util.Random;
 @Getter
 @Setter
 @NoArgsConstructor
-public class HealPotion extends Usable {
+public class HealPotion extends Usable
+{
     private int level;
     private int healAmount = 0;
+
     public HealPotion(UsableType type) {
         this.type = type;
         this.name = "Heal potion";
@@ -45,5 +47,4 @@ public class HealPotion extends Usable {
     private int setHealAmount(int maxHp) {
         return new Random().nextInt(maxHp);
     }
-
 }

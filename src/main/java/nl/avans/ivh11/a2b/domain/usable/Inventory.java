@@ -12,8 +12,8 @@ import java.util.Map;
 @Entity
 @Getter
 @Setter
-public class Inventory {
-
+public class Inventory
+{
     @Id
     @GeneratedValue()
     @Column(name = "inventory_id")
@@ -37,5 +37,4 @@ public class Inventory {
     public Usable getUsable(Long id) {
         return this.usables.get(id);
     }
-
 }

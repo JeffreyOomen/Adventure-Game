@@ -15,8 +15,8 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 @NoArgsConstructor
-public class OverloadPotion extends Usable {
-
+public class OverloadPotion extends Usable
+{
     public OverloadPotion(UsableType type) {
         this.type = type;
         this.name = "Overload potion";

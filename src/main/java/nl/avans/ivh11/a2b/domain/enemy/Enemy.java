@@ -33,9 +33,6 @@ public class Enemy extends Opponent
     @OneToMany
     private List<Usable> loot;
 
-    @Transient
-    private List<Observer> observers = new ArrayList<>();
-
     public Enemy(Stats stats) {
         this.stats = stats;
     }

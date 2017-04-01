@@ -197,24 +197,6 @@ public abstract class Character extends Opponent
     }
 
     /**
-     * Adds a Usable item to the Character's Inventory
-     * @param usable an Object of Usable
-     * @return true if added successfully, false otherwise (e.g. when full)
-     */
-//    public boolean addToInventory(Usable usable) {
-//        return this.inventory.addUsable(usable);
-//    }
-
-    /**
-     * Removes the specified Usable from the Character's Inventory
-     * @param usable an Object of Usable
-     * @return true if dropped successfully, false otherwise
-     */
-    public void dropFromInventory(Usable usable) {
-        this.inventory.dropUsable(usable);
-    }
-
-    /**
      * Get the Character's Inventory
      * @return Inventory
      */

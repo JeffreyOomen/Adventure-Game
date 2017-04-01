@@ -11,8 +11,8 @@ import javax.persistence.Entity;
  */
 @Entity
 @NoArgsConstructor
-public class ZamorakEquipment extends Equipment {
-
+public class ZamorakEquipment extends Equipment
+{
     public ZamorakEquipment(UsableType type, int level) {
         super(type, level);
         setName("Zamorak " + getEquipmentType(type) + " (lvl " + level + ")");

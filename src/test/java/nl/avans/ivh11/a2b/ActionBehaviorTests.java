@@ -1,26 +1,14 @@
 package nl.avans.ivh11.a2b;
 
 import nl.avans.ivh11.a2b.domain.battle.Heal;
-import nl.avans.ivh11.a2b.domain.battle.NormalAttack;
-import nl.avans.ivh11.a2b.domain.battle.SpecialAttack;
 import nl.avans.ivh11.a2b.domain.character.Character;
-import nl.avans.ivh11.a2b.domain.character.Elf;
 import nl.avans.ivh11.a2b.domain.character.Troll;
-import nl.avans.ivh11.a2b.domain.character.state.NormalState;
-import nl.avans.ivh11.a2b.domain.enemy.Builder;
-import nl.avans.ivh11.a2b.domain.enemy.Enemy;
-import nl.avans.ivh11.a2b.domain.enemy.EnemyBuilder;
-import nl.avans.ivh11.a2b.domain.enemy.EnemyBuilderDirector;
 import nl.avans.ivh11.a2b.domain.usable.*;
-import nl.avans.ivh11.a2b.domain.util.EquipmentEnum;
 import nl.avans.ivh11.a2b.domain.util.Media;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

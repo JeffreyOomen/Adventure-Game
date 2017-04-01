@@ -8,8 +8,8 @@ import java.util.Random;
  * EquipmentFactory concrete implementation of the UsableFactory
  * can create Equipment items.
  */
-public class EquipmentFactory implements UsableFactory {
-
+public class EquipmentFactory implements UsableFactory
+{
     /**
      * createUsable
      * creates a Equipment object

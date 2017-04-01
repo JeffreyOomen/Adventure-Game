@@ -6,8 +6,8 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  * PotionFactory concrete implementation of the UsableFactory
  * can create potion items.
  */
-public class PotionFactory implements UsableFactory {
-
+public class PotionFactory implements UsableFactory
+{
     /**
      * Not implemented for this PotionFactory used in EquipmentFactory.
      * @param type

@@ -15,8 +15,8 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class Equipment extends Usable {
-
+public abstract class Equipment extends Usable
+{
     @OneToOne(cascade = CascadeType.ALL)
     @Transient
     private int level;

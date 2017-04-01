@@ -10,8 +10,8 @@ import javax.persistence.Entity;
  */
 @Entity
 @NoArgsConstructor
-public class BandosEquipment extends Equipment {
-
+public class BandosEquipment extends Equipment
+{
     public BandosEquipment(UsableType type, int level) {
         super(type, level);
         setName("Bandos " + getEquipmentType(type)  + " (lvl " + level + ")");

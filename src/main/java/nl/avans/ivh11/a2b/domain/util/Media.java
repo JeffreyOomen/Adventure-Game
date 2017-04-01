@@ -12,8 +12,8 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Media {
-
+public class Media
+{
     @Id
     @GeneratedValue
     private long id;
@@ -23,5 +23,4 @@ public class Media {
     public Media(String url) {
         this.imageUrl = url;
     }
-
 }
