@@ -9,7 +9,7 @@ import java.util.Random;
 public class CustomRandom {
     private double min;
     private double max;
-    private static volatile CustomRandom instance = null;
+    private static volatile CustomRandom instance = new CustomRandom();
     private static volatile Random r;
 
     // Private constructor to prevent direct instantiation
@@ -20,14 +20,6 @@ public class CustomRandom {
      * @return instance of class CustomRandom
      */
     public static CustomRandom getInstance() {
-        if (instance == null) {
-            synchronized (CustomRandom.class) {
-                if (instance == null) {
-                    r = new Random();
-                    instance = new CustomRandom();
-                }
-            }
-        }
         return instance;
     }
 

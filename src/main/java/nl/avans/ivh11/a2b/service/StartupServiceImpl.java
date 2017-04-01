@@ -9,8 +9,10 @@ import nl.avans.ivh11.a2b.domain.enemy.EnemyBuilderDirector;
 import nl.avans.ivh11.a2b.domain.util.Media;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.Transient;
 import java.util.ArrayList;
@@ -21,7 +23,7 @@ import java.util.List;
  * StartupServiceImpl
  * makes sure all necessary items are persisted in the database before the game is started.
  */
-@Service
+@Component
 public class StartupServiceImpl implements StartupService {
 
     private MediaService mediaService;
@@ -52,7 +54,7 @@ public class StartupServiceImpl implements StartupService {
         List<Enemy> enemies = new ArrayList<>();
         enemies.add(enemyBuilderDirector.createEnemy("Bandit", mediaService.findByName("Bandit"), "Very strong bandit that lives int the forest.", new SpecialAttack()));
         enemies.add(enemyBuilderDirector.createEnemy("Bat", mediaService.findByName("Bat"), "Nasty bat.", new NormalAttack()));
-        enemies.add(enemyBuilderDirector.createEnemy("Dragon", mediaService.findByName("Bandit"), "Dragon.", new NormalAttack()));
+        enemies.add(enemyBuilderDirector.createEnemy("Dragon", mediaService.findByName("Dragon"), "Dragon.", new NormalAttack()));
         enemies.add(enemyBuilderDirector.createEnemy("Ghost", mediaService.findByName("Ghost"), "Scary Ghost", new NormalAttack()));
         enemies.add(enemyBuilderDirector.createEnemy("Giant", mediaService.findByName("Giant"), "Big robust Giant", new NormalAttack()));
         enemies.add(enemyBuilderDirector.createEnemy("Goblin", mediaService.findByName("Goblin"), "Little but strong Goblin", new SpecialAttack()));

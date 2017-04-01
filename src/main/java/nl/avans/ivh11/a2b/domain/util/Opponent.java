@@ -27,7 +27,7 @@ public abstract class Opponent implements Observable
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "STATS_ID")
-    protected Stats stats;
+    protected Stats stats = new Stats();
 
     @ManyToOne(cascade = CascadeType.MERGE)
     protected Media media;

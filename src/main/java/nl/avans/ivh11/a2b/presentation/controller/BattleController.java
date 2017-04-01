@@ -27,17 +27,21 @@ import java.util.Map;
 @PreAuthorize("isAuthenticated()")
 public class BattleController
 {
-    @Autowired
-    private BattleService battleService;
+    private final BattleService battleService;
 
-    @Autowired
-    private SecurityService securityService;
+    private final SecurityService securityService;
 
-    @Autowired
-    private CharacterService characterService;
+    private final CharacterService characterService;
 
     private Opponent character;
     private Opponent enemy;
+
+    @Autowired
+    public BattleController(BattleService battleService, SecurityService securityService, CharacterService characterService) {
+        this.battleService = battleService;
+        this.securityService = securityService;
+        this.characterService = characterService;
+    }
 
     /**
      * Sets up a battle between a Character and an Enemy
