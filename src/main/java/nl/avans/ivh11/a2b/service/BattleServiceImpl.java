@@ -11,6 +11,7 @@ import nl.avans.ivh11.a2b.domain.enemy.Enemy;
 import nl.avans.ivh11.a2b.domain.usable.Usable;
 import nl.avans.ivh11.a2b.domain.util.CustomRandom;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
+import nl.avans.ivh11.a2b.domain.util.Stats;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -23,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManagerFactory;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 @Service("battleService")
@@ -42,12 +44,6 @@ public class BattleServiceImpl implements BattleService
     private final EntityManagerFactory entityManagerFactory;
 
     private Battle battle;
-    private List<Enemy> possibleEnemies;
-
-    @PostConstruct
-    public void init() {
-        this.possibleEnemies = enemyService.findAll();
-    }
 
     @Autowired
     public BattleServiceImpl(CharacterRepository characterRepo, EnemyRepository enemyRepo, UsableRepository usableRepo, CharacterService characterService, EnemyService enemyService, EntityManagerFactory entityManagerFactory) {
@@ -241,9 +237,9 @@ public class BattleServiceImpl implements BattleService
      * @return an randomly generated Opponent
      */
     private Opponent randomEnemy(Opponent character) {
-        Opponent enemy = this.possibleEnemies.get(CustomRandom.getInstance().randomEnemy(this.possibleEnemies.size()));
+        List<Enemy> enemies = this.enemyService.findAll();
+        Opponent enemy = enemies.get(CustomRandom.getInstance().randomEnemy(enemies.size()));
         enemy.setStats(CustomRandom.getInstance().randomEnemyStats(character));
-
         return enemy;
     }
 

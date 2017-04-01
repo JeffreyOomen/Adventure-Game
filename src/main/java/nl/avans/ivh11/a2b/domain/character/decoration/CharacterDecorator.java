@@ -15,6 +15,7 @@ import nl.avans.ivh11.a2b.domain.util.Stats;
 import nl.avans.ivh11.a2b.domain.util.observer.Observer;
 
 import javax.persistence.*;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -226,6 +227,18 @@ public abstract class CharacterDecorator extends Character
     }
 
     /**
+     * Gets the level and accuracy in a Map based on the current
+     * Attack Style of the Character
+     * @return a Map which contains the level and accuracy of the skill
+     * which belongs to the current Attack Style
+     */
+    @Override
+    public Map<String, Integer> getAttackStyleStats() {
+        return this.character.getAttackStyleStats();
+    }
+
+
+    /**
      * Gets the Stats of the Character
      * @return the Stats of the Character
      */
@@ -301,4 +314,5 @@ public abstract class CharacterDecorator extends Character
     public void notifyObservers(List<String> messages) {
         this.character.notifyObservers(messages);
     }
+
 }

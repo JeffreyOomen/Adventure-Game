@@ -13,7 +13,9 @@ public class CustomRandom {
     private static volatile Random r;
 
     // Private constructor to prevent direct instantiation
-    private CustomRandom() {}
+    private CustomRandom() {
+        r = new Random();
+    }
 
     /**
      * Check if class is already instantiated and create if not
