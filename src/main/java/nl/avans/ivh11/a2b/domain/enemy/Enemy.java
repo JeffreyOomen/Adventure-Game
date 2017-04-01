@@ -92,7 +92,7 @@ public class Enemy extends Opponent
         // 70% change of a potion drop 30% change of equipment drop.
         int determineDropChange = cr.randomBetweenZeroAnd(100);
 
-        if (determineDropChange < 70) {
+        if (50 < 70) {
             usableFactory = new PotionFactory();
             UsableType usableType = getRandomDropUsableType("potion");
             usable = usableFactory.createUsable(usableType);

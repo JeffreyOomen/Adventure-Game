@@ -59,7 +59,12 @@ public class BattleController
 
         uiModel.addAttribute("character", this.character);
         uiModel.addAttribute("inventoryUsables", this.character.getInventory().getUsables().values());
+
+        uiModel.addAttribute("hasOneOrMoreHealPotions", !this.character.getInventory().CheckUsableExists(UsableType.POTION_HEAL));
+        uiModel.addAttribute("hasOneOrMoreOverloadPotions", !this.character.getInventory().CheckUsableExists(UsableType.POTION_OVERLOAD));
         uiModel.addAttribute("enemy", this.enemy);
+
+        battleReport();
 
         return "battle";
     }
@@ -106,8 +111,9 @@ public class BattleController
         return new BattleModel(
                 character.getInventory().getUsables(),
                 character.isAlive(),
-                character.getInventory().CheckUsableExists(UsableType.POTION_HEAL),
                 enemy.isAlive(),
+                character.getInventory().CheckUsableExists(UsableType.POTION_HEAL),
+                character.getInventory().CheckUsableExists(UsableType.POTION_OVERLOAD),
                 character.getStats(),
                 enemy.getStats(),
                 battleReport

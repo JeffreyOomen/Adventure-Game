@@ -21,15 +21,17 @@ public class BattleModel {
     private Boolean isCharacterAlive;
     private Boolean isEnemyAlive;
     private boolean isHealAttackEnabled;
+    private boolean isSpecialAttackEnabled;
     private Stats characterStats;
     private Stats enemyStats;
     private String message;
 
-    public BattleModel(Map<Long, Usable> inventory, Boolean isCharacterAlive, Boolean isEnemyAlive, Boolean isHealAttackEnabled, Stats characterStats, Stats enemyStats, String message) {
+    public BattleModel(Map<Long, Usable> inventory, Boolean isCharacterAlive, Boolean isEnemyAlive, Boolean isHealAttackEnabled, Boolean isSpecialAttackEnabled,Stats characterStats, Stats enemyStats, String message) {
         this.inventory = inventory;
         this.isCharacterAlive = isCharacterAlive;
         this.isEnemyAlive = isEnemyAlive;
         this.isHealAttackEnabled = isHealAttackEnabled;
+        this.isSpecialAttackEnabled = isSpecialAttackEnabled;
         this.characterStats = characterStats;
         this.enemyStats = enemyStats;
         this.message = message;
