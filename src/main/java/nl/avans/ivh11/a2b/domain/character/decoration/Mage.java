@@ -32,21 +32,33 @@ public class Mage extends CharacterDecorator
 
     @Override
     public int getStrengthAccuracy() {
+        if(this.character.getStrengthAccuracy() + STRENGTH_ACCURACY > 100) {
+            return 100;
+        }
         return this.character.getStrengthAccuracy() + STRENGTH_ACCURACY;
     }
 
     @Override
     public int getMagicAccuracy() {
+        if(this.character.getMagicAccuracy() + MAGIC_ACCURACY > 100) {
+            return 100;
+        }
         return this.character.getMagicAccuracy() + MAGIC_ACCURACY;
     }
 
     @Override
     public int getDefenseAccuracy() {
+        if(this.character.getDefenseAccuracy() + DEFENSE_ACCURACY > 100) {
+            return 100;
+        }
         return this.character.getDefenseAccuracy() + DEFENSE_ACCURACY;
     }
 
     @Override
     public int getArcheryAccuracy() {
+        if(this.character.getArcheryAccuracy() + ARCHERY_ACCURACY > 100) {
+            return 100;
+        }
         return this.character.getArcheryAccuracy() + ARCHERY_ACCURACY;
     }
 }

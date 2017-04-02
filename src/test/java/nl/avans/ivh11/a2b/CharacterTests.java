@@ -289,6 +289,10 @@ public class CharacterTests
     @Test
     public void maxStrengthAccuracy() {
         //Arrange
+        /*
+        Current character is a Troll, which gets +10 strengthAccuracy by default.
+        Total should still be 100
+         */
         this.character.getStats().setStrengthAccuracy(110);
 
         //Assert

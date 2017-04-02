@@ -225,7 +225,7 @@ public abstract class Character extends Opponent
             }
         }
 
-        return strengthAccuracy;
+        return strengthAccuracy > 100 ? 100 : strengthAccuracy;
     }
 
     /**
@@ -241,7 +241,7 @@ public abstract class Character extends Opponent
             }
         }
 
-        return magicAccuracy;
+        return magicAccuracy > 100 ? 100 : magicAccuracy;
 
     }
 
@@ -258,7 +258,7 @@ public abstract class Character extends Opponent
             }
         }
 
-        return defenseAccuracy;
+        return defenseAccuracy > 100 ? 100 : defenseAccuracy;
     }
 
     /**
@@ -274,7 +274,7 @@ public abstract class Character extends Opponent
             }
         }
 
-        return archeryAccuracy;
+        return archeryAccuracy > 100 ? 100 : archeryAccuracy;
     }
 
     /**

@@ -25,21 +25,33 @@ public class Elf extends Character
 
     @Override
     public int getStrengthAccuracy() {
+        if(super.getStrengthAccuracy() + STRENGTH_ACCURACY > 100) {
+            return 100;
+        }
         return super.getStrengthAccuracy() + STRENGTH_ACCURACY;
     }
 
     @Override
     public int getMagicAccuracy() {
+        if(super.getMagicAccuracy() + MAGIC_ACCURACY > 100) {
+            return 100;
+        }
         return super.getMagicAccuracy() + MAGIC_ACCURACY;
     }
 
     @Override
     public int getDefenseAccuracy() {
+        if(super.getDefenseAccuracy() + DEFENSE_ACCURACY > 100) {
+            return 100;
+        }
         return super.getDefenseAccuracy() + DEFENSE_ACCURACY;
     }
 
     @Override
     public int getArcheryAccuracy() {
+        if(super.getArcheryAccuracy() + ARCHERY_ACCURACY > 100) {
+            return 100;
+        }
         return super.getArcheryAccuracy() + ARCHERY_ACCURACY;
     }
 }
