@@ -20,7 +20,10 @@ public class Media
 
     private String imageUrl;
 
-    public Media(String url) {
+    private String imageName;
+
+    public Media(String url, String imageName) {
         this.imageUrl = url;
+        this.imageName = imageName;
     }
 }

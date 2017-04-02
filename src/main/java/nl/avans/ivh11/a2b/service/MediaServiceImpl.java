@@ -36,21 +36,21 @@ public class MediaServiceImpl implements MediaService {
         System.out.println("MEDIA SHt CALLED");
         ArrayList<Media> mediaList = new ArrayList<>();
 
-        mediaList.add(new Media("../images/rpg-bandit.png"));
-        mediaList.add(new Media("../images/rpg-bat.png"));
-        mediaList.add(new Media("../images/rpg-dragon.png"));
-        mediaList.add(new Media("../images/rpg-dwarf.png"));
-        mediaList.add(new Media("../images/rpg-elf.png"));
-        mediaList.add(new Media("../images/rpg-ghost.png"));
-        mediaList.add(new Media("../images/rpg-giant.png"));
-        mediaList.add(new Media("../images/rpg-goblin.png"));
-        mediaList.add(new Media("../images/rpg-mummy.png"));
-        mediaList.add(new Media("../images/rpg-potion.png"));
-        mediaList.add(new Media("../images/rpg-spider.png"));
-        mediaList.add(new Media("../images/rpg-sword.png"));
-        mediaList.add(new Media("../images/rpg-troll.png"));
-        mediaList.add(new Media("../images/rpg-warrior.png"));
-        mediaList.add(new Media("../images/rpg-wolf.png"));
+        mediaList.add(new Media("../images/rpg-bandit.png", "bandit"));
+        mediaList.add(new Media("../images/rpg-bat.png", "bat"));
+        mediaList.add(new Media("../images/rpg-dragon.png", "dragon"));
+        mediaList.add(new Media("../images/rpg-dwarf.png", "dwarf"));
+        mediaList.add(new Media("../images/rpg-elf.png", "elf"));
+        mediaList.add(new Media("../images/rpg-ghost.png", "ghost"));
+        mediaList.add(new Media("../images/rpg-giant.png", "giant"));
+        mediaList.add(new Media("../images/rpg-goblin.png", "goblin"));
+        mediaList.add(new Media("../images/rpg-mummy.png", "mummy"));
+        mediaList.add(new Media("../images/rpg-potion.png", "potion"));
+        mediaList.add(new Media("../images/rpg-spider.png", "spider"));
+        mediaList.add(new Media("../images/rpg-sword.png", "sword"));
+        mediaList.add(new Media("../images/rpg-troll.png", "troll"));
+        mediaList.add(new Media("../images/rpg-warrior.png", "warrior"));
+        mediaList.add(new Media("../images/rpg-wolf.png", "wolf"));
 
         for(Media m : mediaList) {
             mediaRepository.save(m);

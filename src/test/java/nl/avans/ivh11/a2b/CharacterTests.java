@@ -241,14 +241,14 @@ public class CharacterTests
         assertEquals(0, this.character.getCurrentHitpoints());
     }
 
-    @Test
-    public void maxAccuracyConstraint() {
-        // Act
-        this.character.getStats().setStrengthAccuracy(300);
-
-        // Assert
-        assertEquals(310, this.character.getStrengthAccuracy());
-    }
+//    @Test
+//    public void maxAccuracyConstraint() {
+//        // Act
+//        this.character.getStats().setStrengthAccuracy(300);
+//
+//        // Assert
+//        assertEquals(310, this.character.getStrengthAccuracy());
+//    }
 
     @Test
     public void normalCharacterState() {
@@ -284,6 +284,15 @@ public class CharacterTests
         assertEquals(11, this.character.getMagic());
         assertEquals(16, this.character.getDefense());
         assertEquals(11, this.character.getArchery());
+    }
+
+    @Test
+    public void maxStrengthAccuracy() {
+        //Arrange
+        this.character.getStats().setStrengthAccuracy(110);
+
+        //Assert
+        assertEquals(100, this.character.getStrengthAccuracy());
     }
 
     @After

@@ -239,4 +239,59 @@ public class Stats
 
         this.combatLevel = totalLevels / AMOUNT_OF_LEVELS;
     }
+
+    /**
+     * Set strengthAccuracy.
+     * Can't be higher than 100%
+     *
+     * @param strengthAccuracy
+     */
+    public void setStrengthAccuracy(int strengthAccuracy) {
+        if(strengthAccuracy > 100) {
+            strengthAccuracy = 100;
+        }
+        this.strengthAccuracy = strengthAccuracy;
+    }
+
+
+    /**
+     * Set magicAccuracy.
+     * Can't be higher than 100%
+     *
+     * @param magicAccuracy
+     */
+    public void setMagicAccuracy(int magicAccuracy) {
+        if(magicAccuracy > 100) {
+            magicAccuracy = 100;
+        }
+        this.magicAccuracy = magicAccuracy;
+    }
+
+
+    /**
+     * Set defenseAccuracy.
+     * Can't be higher than 100%
+     *
+     * @param defenseAccuracy
+     */
+    public void setDefenseAccuracy(int defenseAccuracy) {
+        if(defenseAccuracy > 100) {
+            defenseAccuracy = 100;
+        }
+        this.defenseAccuracy = defenseAccuracy;
+    }
+
+
+    /**
+     * Set archeryAccuracy.
+     * Can't be higher than 100%
+     *
+     * @param archeryAccuracy
+     */
+    public void setArcheryAccuracy(int archeryAccuracy) {
+        if(archeryAccuracy > 100) {
+            archeryAccuracy = 100;
+        }
+        this.archeryAccuracy = archeryAccuracy;
+    }
 }

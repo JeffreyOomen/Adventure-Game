@@ -20,6 +20,8 @@
 
         <img th:src="@{/images/rpg-archery.png}" th:width="20px" /> <span th:text="#{character.archery}"></span> <span th:text="#{character.level}"></span> <span th:text="${character.getStats().getArchery()}"></span><br/>
         <span th:text="#{character.archeryXp}"></span>: <span id="char_achery_xp" th:text="${#numbers.formatDecimal(character.getStats().getArcheryXpLeft(), 0, 'COMMA', 2, 'POINT')}"></span><br/><br/>
+
+        <span id="" th:text="${character.getDescription()}"></span><br/><br/>
     </div>
 </div>
 </body>

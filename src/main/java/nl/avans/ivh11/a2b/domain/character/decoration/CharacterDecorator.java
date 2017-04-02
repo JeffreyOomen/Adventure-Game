@@ -10,6 +10,7 @@ import nl.avans.ivh11.a2b.domain.character.state.WeakenedState;
 import nl.avans.ivh11.a2b.domain.usable.Inventory;
 import nl.avans.ivh11.a2b.domain.usable.UsableType;
 import nl.avans.ivh11.a2b.domain.usable.Equipment;
+import nl.avans.ivh11.a2b.domain.util.Media;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 import nl.avans.ivh11.a2b.domain.util.observer.Observer;
@@ -263,6 +264,14 @@ public abstract class CharacterDecorator extends Character
      */
     public Inventory getInventory() {
         return this.character.getInventory();
+    }
+
+    /**
+     * Get the Media object
+     * @return Media
+     */
+    public Media getMedia() {
+        return this.character.getMedia();
     }
 
     /**

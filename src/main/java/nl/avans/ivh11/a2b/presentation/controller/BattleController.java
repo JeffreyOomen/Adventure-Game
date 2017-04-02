@@ -1,25 +1,17 @@
 package nl.avans.ivh11.a2b.presentation.controller;
 
-import nl.avans.ivh11.a2b.domain.enemy.Enemy;
-import nl.avans.ivh11.a2b.domain.util.CustomRandom;
 import nl.avans.ivh11.a2b.domain.auth.User;
 import nl.avans.ivh11.a2b.presentation.model.BattleModel;
 import nl.avans.ivh11.a2b.service.BattleService;
 import nl.avans.ivh11.a2b.service.CharacterService;
 import nl.avans.ivh11.a2b.service.SecurityService;
-import nl.avans.ivh11.a2b.service.UserService;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
-import java.util.List;
-
 @Controller
-@PreAuthorize("isAuthenticated()")
 public class BattleController
 {
     @Autowired
