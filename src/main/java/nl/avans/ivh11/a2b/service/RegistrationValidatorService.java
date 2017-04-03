@@ -12,7 +12,7 @@ import org.springframework.validation.Validator;
  * Validates the RegisterModel
  */
 @Component
-public class RegistrationValidator implements Validator {
+public class RegistrationValidatorService implements Validator {
 
     @Autowired
     private UserService userService;

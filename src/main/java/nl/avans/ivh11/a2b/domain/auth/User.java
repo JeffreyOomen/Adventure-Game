@@ -24,13 +24,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotEmpty(message = "{NotEmpty}")
-    @Length(min = 4, message = "{Size.registerForm.username}")
-    @Column(unique = true)
     private String username;
 
-    @NotEmpty(message = "{NotEmpty}")
-    @Length(min = 6, message = "{Size.registerForm.password}")
     private String password;
 
     @Transient

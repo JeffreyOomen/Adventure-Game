@@ -5,7 +5,7 @@ import nl.avans.ivh11.a2b.domain.auth.User;
 import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.domain.character.CharacterFactory;
 import nl.avans.ivh11.a2b.presentation.model.RegisterModel;
-import nl.avans.ivh11.a2b.service.RegistrationValidator;
+import nl.avans.ivh11.a2b.service.RegistrationValidatorService;
 import nl.avans.ivh11.a2b.service.SecurityService;
 import nl.avans.ivh11.a2b.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import javax.transaction.Transactional;
 
 /**
  * Authentication Controller
@@ -28,13 +26,10 @@ public class AuthController {
     private UserService userService;
 
     @Autowired
-    private CharacterRepository characterRepository;
-
-    @Autowired
     private SecurityService securityService;
 
     @Autowired
-    private RegistrationValidator registrationValidator;
+    private RegistrationValidatorService registrationValidator;
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String registration(Model model) {
