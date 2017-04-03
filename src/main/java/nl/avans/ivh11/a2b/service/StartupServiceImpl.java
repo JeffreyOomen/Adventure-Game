@@ -1,8 +1,10 @@
 package nl.avans.ivh11.a2b.service;
 
 import nl.avans.ivh11.a2b.datastorage.enemy.EnemyRepository;
+import nl.avans.ivh11.a2b.domain.auth.User;
 import nl.avans.ivh11.a2b.domain.battle.NormalAttack;
 import nl.avans.ivh11.a2b.domain.battle.SpecialAttack;
+import nl.avans.ivh11.a2b.domain.character.CharacterFactory;
 import nl.avans.ivh11.a2b.domain.enemy.Enemy;
 import nl.avans.ivh11.a2b.domain.enemy.EnemyBuilder;
 import nl.avans.ivh11.a2b.domain.enemy.EnemyBuilderDirector;
@@ -28,11 +30,13 @@ public class StartupServiceImpl implements StartupService {
 
     private MediaService mediaService;
     private EnemyRepository enemyRepository;
+    private UserService userService;
 
     @Autowired
-    public StartupServiceImpl(MediaService mediaService, EnemyRepository enemyRepository) {
+    public StartupServiceImpl(MediaService mediaService, EnemyRepository enemyRepository, UserService userService) {
         this.mediaService = mediaService;
         this.enemyRepository = enemyRepository;
+        this.userService = userService;
     }
 
     @Override
@@ -40,10 +44,11 @@ public class StartupServiceImpl implements StartupService {
         // Important order, first all images are needed before initializing enemies
         this.initializeImages();
         this.initializeEnemies();
+        this.initializeDemoUser();
     }
 
     /**
-     *
+     * Initialize enemies
      */
     private void initializeEnemies() {
         // Find media image
@@ -52,14 +57,14 @@ public class StartupServiceImpl implements StartupService {
         EnemyBuilderDirector enemyBuilderDirector = new EnemyBuilderDirector(new EnemyBuilder());
 
         List<Enemy> enemies = new ArrayList<>();
-        enemies.add(enemyBuilderDirector.createEnemy("Bandit", mediaService.findByName("Bandit"), "Very strong bandit that lives int the forest.", new SpecialAttack()));
-        enemies.add(enemyBuilderDirector.createEnemy("Bat", mediaService.findByName("Bat"), "Nasty bat.", new NormalAttack()));
-        enemies.add(enemyBuilderDirector.createEnemy("Dragon", mediaService.findByName("Dragon"), "Dragon.", new NormalAttack()));
-        enemies.add(enemyBuilderDirector.createEnemy("Ghost", mediaService.findByName("Ghost"), "Scary Ghost", new NormalAttack()));
-        enemies.add(enemyBuilderDirector.createEnemy("Giant", mediaService.findByName("Giant"), "Big robust Giant", new NormalAttack()));
-        enemies.add(enemyBuilderDirector.createEnemy("Goblin", mediaService.findByName("Goblin"), "Little but strong Goblin", new SpecialAttack()));
-        enemies.add(enemyBuilderDirector.createEnemy("Mummy", mediaService.findByName("Mummy"), "Mummy from Egypt", new NormalAttack()));
-        enemies.add(enemyBuilderDirector.createEnemy("Spider", mediaService.findByName("Spider"), "Dark spider", new NormalAttack()));
+        enemies.add(enemyBuilderDirector.createEnemy("Bandit", mediaService.findByName("bandit"), "Very strong bandit that lives int the forest.", new SpecialAttack()));
+        enemies.add(enemyBuilderDirector.createEnemy("Bat", mediaService.findByName("bat"), "Nasty bat.", new NormalAttack()));
+        enemies.add(enemyBuilderDirector.createEnemy("Dragon", mediaService.findByName("dragon"), "Dragon.", new NormalAttack()));
+        enemies.add(enemyBuilderDirector.createEnemy("Ghost", mediaService.findByName("ghost"), "Scary Ghost", new NormalAttack()));
+        enemies.add(enemyBuilderDirector.createEnemy("Giant", mediaService.findByName("giant"), "Big robust Giant", new NormalAttack()));
+        enemies.add(enemyBuilderDirector.createEnemy("Goblin", mediaService.findByName("goblin"), "Little but strong Goblin", new SpecialAttack()));
+        enemies.add(enemyBuilderDirector.createEnemy("Mummy", mediaService.findByName("mummy"), "Mummy from Egypt", new NormalAttack()));
+        enemies.add(enemyBuilderDirector.createEnemy("Spider", mediaService.findByName("spider"), "Dark spider", new NormalAttack()));
 
         // Persist all enemies in the database
         for(Enemy e : enemies) {
@@ -101,6 +106,17 @@ public class StartupServiceImpl implements StartupService {
             this.mediaService.save(m);
         }
 
+    }
+
+    /**
+     * Create demo user with username test and password password1
+     */
+    private void initializeDemoUser() {
+        User user = new User();
+        user.setUsername("test");
+        user.setPlainPassword("password1");
+        user.setCharacter(CharacterFactory.createCharacter("Character1", "dwarf", "archer"));
+        this.userService.create(user);
     }
 
 }

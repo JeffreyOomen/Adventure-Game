@@ -26,15 +26,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @PostConstruct
-    private void demoUser() {
-        User user = new User();
-        user.setUsername("test");
-        user.setPlainPassword("password1");
-        user.setCharacter(CharacterFactory.createCharacter("Character1", "dwarf", "archer"));
-        this.create(user);
-    }
-
     /**
      * Persist a new User
      * @param user User
