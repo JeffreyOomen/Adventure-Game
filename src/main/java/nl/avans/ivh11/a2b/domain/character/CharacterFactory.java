@@ -77,7 +77,6 @@ public class CharacterFactory {
                 break;
             case "troll":
                 character = new Troll(name, new Stats(), null);
-                Media media = mediaRepository.findByImageName("troll");
                 character.setMedia(mediaRepository.findByImageName("troll"));
                 break;
             default:
