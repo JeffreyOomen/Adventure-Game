@@ -4,15 +4,21 @@ import nl.avans.ivh11.a2b.domain.util.Media;
 
 public interface MediaService {
 
-    void persistMediaItems();
-
     /**
      * findById
      * find a Media object
      * @param id Long
      * @return Media
      */
-    Media findById(long id);
+    Media findById(Long  id);
+
+    /**
+     * findByName
+     * find a Media object
+     * @param name
+     * @return Media
+     */
+    Media findByName(String name);
 
     /**
      * save

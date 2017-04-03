@@ -49,18 +49,6 @@ public class EnemyBuilder implements Builder {
     }
 
     @Override
-    public Builder setLoot(List<Usable> loot) {
-        this.enemy.setLoot(loot);
-        return this;
-    }
-
-    @Override
-    public Builder setStats(Stats stats) {
-        this.enemy.setStats(stats);
-        return this;
-    }
-
-    @Override
     public Enemy buildEnemy() {
         return this.enemy;
     }

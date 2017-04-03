@@ -10,25 +10,19 @@ public class CustomRandom
 {
     private double min;
     private double max;
-    private static volatile CustomRandom instance = null;
+    private static volatile CustomRandom instance = new CustomRandom();
     private static volatile Random r;
 
     // Private constructor to prevent direct instantiation
-    private CustomRandom() {}
+    private CustomRandom() {
+        r = new Random();
+    }
 
     /**
      * Check if class is already instantiated and create if not
      * @return instance of class CustomRandom
      */
     public static CustomRandom getInstance() {
-        if (instance == null) {
-            synchronized (CustomRandom.class) {
-                if (instance == null) {
-                    r = new Random();
-                    instance = new CustomRandom();
-                }
-            }
-        }
         return instance;
     }
 

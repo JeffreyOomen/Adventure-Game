@@ -1,5 +1,6 @@
 package nl.avans.ivh11.a2b.presentation.controller;
 
+import nl.avans.ivh11.a2b.domain.usable.UsableType;
 import nl.avans.ivh11.a2b.domain.auth.User;
 import nl.avans.ivh11.a2b.presentation.model.BattleModel;
 import nl.avans.ivh11.a2b.service.BattleService;
@@ -14,17 +15,21 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class BattleController
 {
-    @Autowired
-    private BattleService battleService;
+    private final BattleService battleService;
 
-    @Autowired
-    private SecurityService securityService;
+    private final SecurityService securityService;
 
-    @Autowired
-    private CharacterService characterService;
+    private final CharacterService characterService;
 
     private Opponent character;
     private Opponent enemy;
+
+    @Autowired
+    public BattleController(BattleService battleService, SecurityService securityService, CharacterService characterService) {
+        this.battleService = battleService;
+        this.securityService = securityService;
+        this.characterService = characterService;
+    }
 
     /**
      * Sets up a battle between a Character and an Enemy
@@ -42,7 +47,12 @@ public class BattleController
 
         uiModel.addAttribute("character", this.character);
         uiModel.addAttribute("inventoryUsables", this.character.getInventory().getUsables().values());
+
+        uiModel.addAttribute("hasOneOrMoreHealPotions", !this.character.getInventory().CheckUsableExists(UsableType.POTION_HEAL));
+        uiModel.addAttribute("hasOneOrMoreOverloadPotions", !this.character.getInventory().CheckUsableExists(UsableType.POTION_OVERLOAD));
         uiModel.addAttribute("enemy", this.enemy);
+
+        battleReport();
 
         return "battle";
     }
@@ -90,6 +100,8 @@ public class BattleController
                 character.getInventory().getUsables(),
                 character.isAlive(),
                 enemy.isAlive(),
+                character.getInventory().CheckUsableExists(UsableType.POTION_HEAL),
+                character.getInventory().CheckUsableExists(UsableType.POTION_OVERLOAD),
                 character.getStats(),
                 enemy.getStats(),
                 battleReport

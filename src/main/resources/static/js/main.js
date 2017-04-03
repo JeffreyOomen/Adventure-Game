@@ -8,6 +8,7 @@ $(document).ready(function () {
         }
     });
 
+
     // Handle starting a new battle against an enemy
     $("#start_battle").click(function() {
         window.location.href = "/battle";
@@ -24,6 +25,8 @@ $(document).ready(function () {
     $("#special_attack").click(function() {
         $.post("/battle/specialAttack", function(data) {
             battleReport(data);
+            reloadInventoryFragment();
+            disableOrEnableButton('special_attack', data.specialAttackEnabled);
         });
     });
 
@@ -32,8 +35,8 @@ $(document).ready(function () {
         $.post("/battle/heal", function(data) {
             battleReport(data);
 
-            // Get first available heal potion and remove
-            $('.inventory-items .item.POTION_HEAL:first').remove();
+            reloadInventoryFragment();
+            disableOrEnableButton('heal', data.healAttackEnabled);
         });
     });
 
@@ -115,6 +118,14 @@ $(document).ready(function () {
         $('#charCurrentHp').html(data.characterStats.currentHitpoints);
         $('#enemyCurrentHp').html(data.enemyStats.currentHitpoints);
 
+        var healButttonEnabled = data.specialAttackEnabled;
+        var specialAttackButtonEnabled = data.healAttackEnabled;
+
+        console.log(data);
+        console.log(healButttonEnabled);
+
+        // setHealButtonState(healButttonEnabled);
+
         // show battle messages and automatically scroll downwards
         var messageContainer = $('.messages');
         messageContainer.append($('<p "message">' + data.message + '</p>'));
@@ -138,6 +149,26 @@ $(document).ready(function () {
         $('#special_attack').prop('disabled', true);
         $('#heal').prop('disabled', true);
     }
+
+    /**
+     * Disables the action buttons in the battle
+     */
+    function battleEndState() {
+        $('#normal_attack').prop('disabled', true);
+        $('#special_attack').prop('disabled', true);
+        $('#heal').prop('disabled', true);
+    }
+
+    function disableOrEnableButton(buttonIdName, isEnabled)  {
+        console.log('disableOrEnableHealButton');
+
+        if(isEnabled) {
+            $('#' + buttonIdName).prop('disabled', false);
+        } else {
+            $('#' + buttonIdName).prop('disabled', true);
+        }
+    }
+
 
     function reloadInventoryFragment() {
         $('#fragmentInventory').load('/inventoryFragment');

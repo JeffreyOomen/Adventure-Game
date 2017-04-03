@@ -37,4 +37,13 @@ public class Inventory
     public Usable getUsable(Long id) {
         return this.usables.get(id);
     }
+
+    public boolean CheckUsableExists(UsableType usableType) {
+        for(Usable u : this.usables.values()) {
+            if(u.getType() == usableType) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

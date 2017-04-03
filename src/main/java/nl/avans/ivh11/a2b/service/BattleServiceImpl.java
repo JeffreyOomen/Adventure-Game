@@ -7,11 +7,11 @@ import nl.avans.ivh11.a2b.datastorage.enemy.EnemyRepository;
 import nl.avans.ivh11.a2b.datastorage.usable.UsableRepository;
 import nl.avans.ivh11.a2b.domain.battle.*;
 import nl.avans.ivh11.a2b.domain.character.Character;
-import nl.avans.ivh11.a2b.domain.character.state.NormalState;
 import nl.avans.ivh11.a2b.domain.enemy.Enemy;
 import nl.avans.ivh11.a2b.domain.usable.Usable;
 import nl.avans.ivh11.a2b.domain.util.CustomRandom;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
+import nl.avans.ivh11.a2b.domain.util.Stats;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -22,10 +22,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 @Service("battleService")
 @Repository
@@ -39,26 +39,23 @@ public class BattleServiceImpl implements BattleService
     private EnemyRepository enemyRepository;
     private UsableRepository usableRepository;
 
-    @Autowired
-    private CharacterService characterService;
-    @Autowired
-    private OpponentService opponentService;
-    @Autowired
-    private EntityManagerFactory entityManagerFactory;
+    private final CharacterService characterService;
+    private final EnemyService enemyService;
+    private final EntityManagerFactory entityManagerFactory;
 
     private Battle battle;
-    private List<Enemy> possibleEnemies;
-
-    @PostConstruct
-    public void init() {
-        this.possibleEnemies = opponentService.findAllEnemies();
-    }
 
     @Autowired
-    public BattleServiceImpl(CharacterRepository characterRepo, EnemyRepository enemyRepo, UsableRepository usableRepo) {
+    public BattleServiceImpl(CharacterRepository characterRepo, EnemyRepository enemyRepo, UsableRepository usableRepo, CharacterService characterService, EnemyService enemyService, EntityManagerFactory entityManagerFactory) {
         this.characterRepository = characterRepo;
         this.enemyRepository = enemyRepo;
         this.usableRepository = usableRepo;
+
+        this.characterService = characterService;
+        this.enemyService = enemyService;
+        this.entityManagerFactory = entityManagerFactory;
+
+
     }
 
     /**
@@ -197,6 +194,15 @@ public class BattleServiceImpl implements BattleService
         // let the enemy attack
         this.battle.playTurn(new ActionCommand(this.battle.getEnemy(), this.battle.getCharacter()));
 
+        Character character = (Character) this.battle.getCharacter();
+        Random r = new Random();
+        if (r.nextInt(20) == 1) {
+            List<String> messages = this.battle.getMessages();
+            character.setState(character.getWeakenedState());
+            messages.add(this.battle.getEnemy().getName() + " has just set you back to your weakened state");
+            this.battle.setMessages(messages);
+        }
+
         // save the battle state
         this.saveBattleState();
     }
@@ -231,9 +237,9 @@ public class BattleServiceImpl implements BattleService
      * @return an randomly generated Opponent
      */
     private Opponent randomEnemy(Opponent character) {
-        Opponent enemy = this.possibleEnemies.get(CustomRandom.getInstance().randomEnemy(this.possibleEnemies.size()));
+        List<Enemy> enemies = this.enemyService.findAll();
+        Opponent enemy = enemies.get(CustomRandom.getInstance().randomEnemy(enemies.size()));
         enemy.setStats(CustomRandom.getInstance().randomEnemyStats(character));
-
         return enemy;
     }
 

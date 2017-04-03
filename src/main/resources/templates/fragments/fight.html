@@ -17,8 +17,8 @@
             <div class="battler" th:style="'background-image: url(' + ${character.getMedia().getImageUrl()} + ')'" >
             </div>
             <input type="submit" th:value="#{battle.attack}" id="normal_attack"/>
-            <input type="submit" th:value="#{battle.special_attack}" id="special_attack"/>
-            <input type="submit" th:value="#{battle.heal}" id="heal"/>
+            <input type="submit" th:disabled="${hasOneOrMoreOverloadPotions}" th:value="#{battle.special_attack}" id="special_attack"/>
+            <input type="submit" th:disabled="${hasOneOrMoreHealPotions}"  th:value="#{battle.heal}" id="heal"/>
         </div>
     </div>
     <div class="column text-right">
