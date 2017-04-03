@@ -70,15 +70,14 @@ public class CustomRandom {
      * @return a randomly generated number which represents the attacking damage done based on level and accuracy
      */
     private int randomAttackingDamage(int attackingLevel, int attackingAccuracy, int randomNumber) {
-//        int maxAttackingDamage = (int) Math.ceil(attackingLevel * 10);
-//        int midAttackingDamage = (int) Math.ceil(maxAttackingDamage / 2);
-//
-//        if (randomNumber < ((attackingAccuracy / 100) * attackingLevel)) {
-//            return r.nextInt((maxAttackingDamage - midAttackingDamage) + 1) + midAttackingDamage;
-//        } else {
-//            return r.nextInt(midAttackingDamage);
-//        }
-        return 10;
+        int maxAttackingDamage = (int) Math.ceil(attackingLevel * 10);
+        int midAttackingDamage = (int) Math.ceil(maxAttackingDamage / 2);
+
+        if (randomNumber < ((attackingAccuracy / 100) * attackingLevel)) {
+            return r.nextInt((maxAttackingDamage - midAttackingDamage) + 1) + midAttackingDamage;
+        } else {
+            return r.nextInt(midAttackingDamage);
+        }
     }
 
     /**
