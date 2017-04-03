@@ -46,6 +46,9 @@ public class BattleServiceMockTests {
     private Character character;
     private Enemy enemy;
 
+    /**
+     * Setup the battle and service before attack
+     */
     @Before
     public void setup() {
 //        Mocking repositories and service
@@ -72,6 +75,9 @@ public class BattleServiceMockTests {
         enemy = (Enemy) battleService.setupBattle(character);
     }
 
+    /**
+     * Opponents attack eachother till one is dead
+     */
     @Test
     public void AttackTest() {
         enemy.setActionBehavior(new NormalAttack());
@@ -86,6 +92,9 @@ public class BattleServiceMockTests {
         }
     }
 
+    /**
+     * Teardown battle if one of the opponents is dead
+     */
     @After
     public void battleReportTest() {
         battleService.battleReport();
