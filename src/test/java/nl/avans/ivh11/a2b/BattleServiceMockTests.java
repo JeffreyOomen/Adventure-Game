@@ -24,20 +24,19 @@ public class BattleServiceMockTests {
     private BattleService battleService;
     private EnemyService enemyService;
     private CharacterService characterService;
-
     private CharacterRepository characterRepository;
     private EnemyRepository enemyRepository;
     private UsableRepository usableRepository;
-
     private Character character;
     private Enemy enemy;
-
     private Battle battle;
+
     /**
      * Setup service
      */
     @Before
     public void setup() {
+        System.out.println("SETUP CALLED");
 //        Mocking repositories and service
         characterRepository = mock(CharacterRepository.class);
         enemyRepository = mock(EnemyRepository.class);
@@ -46,20 +45,14 @@ public class BattleServiceMockTests {
         characterService = mock(CharacterServiceImpl.class);
 //        Creating battleService
         battleService = new BattleServiceImplMock(characterRepository, enemyRepository, usableRepository, characterService, enemyService);
-    }
 
-    /**
-     * Setup battle before attack
-     */
-    @Before
-    public void setupBattle() {
 //        List of enemies for stub
         List<Enemy> listOfEnemies = new ArrayList<>();
         listOfEnemies.add(new Enemy(new Stats()));
         listOfEnemies.add(new Enemy(new Stats()));
         listOfEnemies.add(new Enemy(new Stats()));
 
-//        Stub for method calling in repository
+//        Stub for method calling repository method
         when(enemyService.findAll()).thenReturn(listOfEnemies);
 
 //        Make new Character
@@ -71,31 +64,42 @@ public class BattleServiceMockTests {
         enemy = (Enemy) battleService.setupBattle(character);
         enemy.setActionBehavior(new NormalAttackMock());
 
-        battle = spy(battleService.getBattle());
+        battle = battleService.getBattle();
     }
 
     /**
-     * Testing a strong character fighting a weak enemy
+     * Test if battle setup went correctly.
+     * Check if character and enemy are 'new'
      */
     @Test
-    public void strongCharacterWeakEnemy() {
+    public void setupBattle() {
+        assertNotNull(battleService.getBattle());
+        assertEquals(character.getNormalState(), character.getNormalState());
+        assertEquals(0, character.getInventory().getUsables().size());
+        assertEquals(0, battle.getMessages().size());
+        assertEquals(enemy.getHitpoints(), enemy.getCurrentHitpoints());
+        assertEquals(character.getHitpoints(), character.getCurrentHitpoints());
+    }
+
+    /**
+     * Testing a strong character fighting a weak enemy.
+     * Show that enemy won't do damage when already killed by character.
+     */
+    @Test
+    public void characterKillsEnemy() {
         character.getStats().setStrength(35);
-        character.getStats().setDefense(8);
-        enemy.getStats().setStrength(4);
+        character.getStats().setDefense(2);
+        enemy.getStats().setStrength(12);
         enemy.getStats().setDefense(3);
 
         int characterDamage = enemy.getStats().getStrength() - character.getStats().getDefense();
         int enemyDamage = character.getStats().getStrength() - enemy.getStats().getDefense();
 
-        if (enemyDamage < 0) {
-            enemyDamage = 0;
-        } else if (enemyDamage > enemy.getCurrentHitpoints()) {
+        if (enemyDamage > enemy.getCurrentHitpoints()) {
             enemyDamage = enemy.getCurrentHitpoints();
         }
-        if (characterDamage < 0) {
+        if (enemy.getHitpoints() - enemyDamage == 0) {
             characterDamage = 0;
-        } else if (characterDamage > character.getCurrentHitpoints()) {
-            characterDamage = character.getCurrentHitpoints();
         }
 
         battleService.attack();
@@ -110,80 +114,12 @@ public class BattleServiceMockTests {
     }
 
     /**
-     * Testing a strong character fighting a strong enemy
+     * Testing a weak character fighting a strong enemy.
+     * Show that character still does damage even though enemy kills him.
+     * Is because character attacks first.
      */
     @Test
-    public void strongCharacterStrongEnemy() {
-        character.getStats().setStrength(8);
-        character.getStats().setDefense(5);
-        enemy.getStats().setStrength(9);
-        enemy.getStats().setDefense(6);
-
-        int characterDamage = enemy.getStats().getStrength() - character.getStats().getDefense();
-        int enemyDamage = character.getStats().getStrength() - enemy.getStats().getDefense();
-
-        if (enemyDamage < 0) {
-            enemyDamage = 0;
-        } else if (enemyDamage > enemy.getCurrentHitpoints()) {
-            enemyDamage = enemy.getCurrentHitpoints();
-        }
-        if (characterDamage < 0) {
-            characterDamage = 0;
-        } else if (characterDamage > character.getCurrentHitpoints()) {
-            characterDamage = character.getCurrentHitpoints();
-        }
-
-        battleService.attack();
-
-        assertEquals(2, battle.getMessages().size());
-        assertEquals(enemy.getHitpoints() - 2, enemy.getCurrentHitpoints());
-        assertTrue(enemy.isAlive());
-        assertEquals(character.getHitpoints() - 4, character.getCurrentHitpoints());
-        assertTrue(character.isAlive());
-        assertEquals(characterDamage, character.getHitpoints() - character.getCurrentHitpoints());
-        assertEquals(enemyDamage, enemy.getHitpoints() - enemy.getCurrentHitpoints());
-    }
-
-    /**
-     * Testing a weak character fighting a weak enemy
-     */
-    @Test
-    public void weakCharacterWeakEnemy() {
-        character.getStats().setStrength(5);
-        character.getStats().setDefense(2);
-        enemy.getStats().setStrength(4);
-        enemy.getStats().setDefense(3);
-
-        int characterDamage = enemy.getStats().getStrength() - character.getStats().getDefense();
-        int enemyDamage = character.getStats().getStrength() - enemy.getStats().getDefense();
-
-        if (enemyDamage < 0) {
-            enemyDamage = 0;
-        } else if (enemyDamage > enemy.getCurrentHitpoints()) {
-            enemyDamage = enemy.getCurrentHitpoints();
-        }
-        if (characterDamage < 0) {
-            characterDamage = 0;
-        } else if (characterDamage > character.getCurrentHitpoints()) {
-            characterDamage = character.getCurrentHitpoints();
-        }
-
-        battleService.attack();
-
-        assertEquals(2, battle.getMessages().size());
-        assertEquals(enemy.getHitpoints() - 2, enemy.getCurrentHitpoints());
-        assertTrue(enemy.isAlive());
-        assertEquals(character.getHitpoints() - 2, character.getCurrentHitpoints());
-        assertTrue(character.isAlive());
-        assertEquals(characterDamage, character.getHitpoints() - character.getCurrentHitpoints());
-        assertEquals(enemyDamage, enemy.getHitpoints() - enemy.getCurrentHitpoints());
-    }
-
-    /**
-     * Testing a weak character fighting a strong enemy
-     */
-    @Test
-    public void weakCharacterStrongEnemy() {
+    public void enemyKillsCharacter() {
         character.getStats().setStrength(5);
         character.getStats().setDefense(2);
         enemy.getStats().setStrength(40);
@@ -192,14 +128,7 @@ public class BattleServiceMockTests {
         int characterDamage = enemy.getStats().getStrength() - character.getStats().getDefense();
         int enemyDamage = character.getStats().getStrength() - enemy.getStats().getDefense();
 
-        if (enemyDamage < 0) {
-            enemyDamage = 0;
-        } else if (enemyDamage > enemy.getCurrentHitpoints()) {
-            enemyDamage = enemy.getCurrentHitpoints();
-        }
-        if (characterDamage < 0) {
-            characterDamage = 0;
-        } else if (characterDamage > character.getCurrentHitpoints()) {
+        if (characterDamage > character.getCurrentHitpoints()) {
             characterDamage = character.getCurrentHitpoints();
         }
 
@@ -215,10 +144,70 @@ public class BattleServiceMockTests {
     }
 
     /**
-     * Teardown battle if one of the opponents is dead
+     * Testing a single attack between opponents.
+     * Showing method works correctly without an opponent dieing.
+     */
+    @Test
+    public void opponentsWontKill() {
+        character.getStats().setStrength(8);
+        character.getStats().setDefense(5);
+        enemy.getStats().setStrength(9);
+        enemy.getStats().setDefense(6);
+
+        int characterDamage = enemy.getStats().getStrength() - character.getStats().getDefense();
+        int enemyDamage = character.getStats().getStrength() - enemy.getStats().getDefense();
+
+        battleService.attack();
+
+        assertEquals(2, battle.getMessages().size());
+        assertEquals(enemy.getHitpoints() - 2, enemy.getCurrentHitpoints());
+        assertTrue(enemy.isAlive());
+        assertEquals(character.getHitpoints() - 4, character.getCurrentHitpoints());
+        assertTrue(character.isAlive());
+        assertEquals(characterDamage, character.getHitpoints() - character.getCurrentHitpoints());
+        assertEquals(enemyDamage, enemy.getHitpoints() - enemy.getCurrentHitpoints());
+    }
+
+    /**
+     * Testing a multiple attacks between opponents.
+     * Show that method works correctly when multiple attacks are
+     * executed after each other.
+     */
+    @Test
+    public void multipleAttacks() {
+        character.getStats().setStrength(5);
+        character.getStats().setDefense(3);
+        enemy.getStats().setStrength(4);
+        enemy.getStats().setDefense(4);
+
+        int characterDamage = enemy.getStats().getStrength() - character.getStats().getDefense();
+        int enemyDamage = character.getStats().getStrength() - enemy.getStats().getDefense();
+
+        battleService.attack();
+        battleService.attack();
+
+        assertEquals(4, battle.getMessages().size());
+        assertEquals(enemy.getHitpoints() - 2, enemy.getCurrentHitpoints());
+        assertTrue(enemy.isAlive());
+        assertEquals(character.getHitpoints() - 2, character.getCurrentHitpoints());
+        assertTrue(character.isAlive());
+        assertEquals(characterDamage * 2, character.getHitpoints() - character.getCurrentHitpoints());
+        assertEquals(enemyDamage * 2, enemy.getHitpoints() - enemy.getCurrentHitpoints());
+    }
+
+    /**
+     * Teardown of test
      */
     @After
     public void teardown() {
-        battleService.battleReport();
+        System.out.println("TEARDOWN CALLED");
+        character = null;
+        enemy = null;
+        battleService = null;
+        enemyService = null;
+        characterService = null;
+        characterRepository = null;
+        enemyRepository = null;
+        usableRepository = null;
     }
 }
