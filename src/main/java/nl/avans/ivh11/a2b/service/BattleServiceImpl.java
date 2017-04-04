@@ -6,6 +6,7 @@ import nl.avans.ivh11.a2b.datastorage.enemy.EnemyRepository;
 import nl.avans.ivh11.a2b.datastorage.usable.UsableRepository;
 import nl.avans.ivh11.a2b.domain.battle.*;
 import nl.avans.ivh11.a2b.domain.character.Character;
+import nl.avans.ivh11.a2b.domain.character.state.WeakenedState;
 import nl.avans.ivh11.a2b.domain.enemy.Enemy;
 import nl.avans.ivh11.a2b.domain.usable.Usable;
 import nl.avans.ivh11.a2b.domain.util.CustomRandom;
@@ -103,9 +104,7 @@ public class BattleServiceImpl implements BattleService
             battleReport += this.handleEnemyDrop();
 
             this.teardownBattle((Character) this.battle.getCharacter());
-        }
-
-        if (!this.battle.getCharacter().isAlive()) {
+        } else if (!this.battle.getCharacter().isAlive()) {
             this.battle.getCharacter().getInventory().getUsables().clear();
         }
 
@@ -191,10 +190,10 @@ public class BattleServiceImpl implements BattleService
 
         Character character = (Character) this.battle.getCharacter();
         Random r = new Random();
-        if (r.nextInt(20) == 1 && this.battle.getCharacter().isAlive() && this.battle.getEnemy().isAlive()) {
+        if (r.nextInt(20) == 1 && !((Character) this.battle.getCharacter()).getCurrentState().equals(WeakenedState.getInstance())) {
             List<String> messages = this.battle.getMessages();
             character.setState(character.getWeakenedState());
-            messages.add("<span class=\"message-warning\">" + this.battle.getEnemy().getName() + " has brought you in the weakened state" + BREAK);
+            messages.add("<span class=\"message-warning\">" + this.battle.getEnemy().getName() + " has brought you in the weakened state");
             this.battle.setMessages(messages);
         }
 

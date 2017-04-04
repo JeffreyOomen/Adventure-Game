@@ -95,7 +95,7 @@ public class CustomRandom
         Map<String, Integer> attackStyleStats = character.getAttackStyleStats();
 
         Stats enemyStats = new Stats();
-        enemyStats.setCombatLevel((randomNumber / 100) * character.getStats().getCombatLevel());
+        enemyStats.setCombatLevel((randomNumber / 100) * character.getStats().getCombatLevel() + 1);
         enemyStats.setHitpoints((int)((randomNumber / 100.0) * character.getHitpoints()));
         enemyStats.setCurrentHitpoints((int)((randomNumber / 100.0) * character.getHitpoints()));
         enemyStats.setStrength((int)((randomNumber / 100.0) * attackStyleStats.get("AttackStyleLevel") + 1));

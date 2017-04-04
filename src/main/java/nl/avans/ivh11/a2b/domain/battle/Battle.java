@@ -3,6 +3,8 @@ package nl.avans.ivh11.a2b.domain.battle;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import nl.avans.ivh11.a2b.domain.character.Character;
+import nl.avans.ivh11.a2b.domain.character.state.NormalState;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
 import nl.avans.ivh11.a2b.domain.util.observer.Observer;
 
@@ -23,6 +25,8 @@ public class Battle implements Observer
 
     public Battle(Opponent character, Opponent enemy) {
         this.character = character;
+        ((Character)this.character).setCurrentState(NormalState.getInstance());
+
         this.enemy = enemy;
         this.messages = new ArrayList<>();
 
