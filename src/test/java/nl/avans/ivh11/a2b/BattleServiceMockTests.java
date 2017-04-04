@@ -8,7 +8,6 @@ import nl.avans.ivh11.a2b.domain.character.Dwarf;
 import nl.avans.ivh11.a2b.domain.character.state.NormalState;
 import nl.avans.ivh11.a2b.domain.enemy.Enemy;
 import nl.avans.ivh11.a2b.domain.usable.UsableType;
-import nl.avans.ivh11.a2b.domain.util.CustomRandom;
 import nl.avans.ivh11.a2b.domain.util.Media;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 import nl.avans.ivh11.a2b.mock.BattleServiceImplMock;
@@ -69,22 +68,14 @@ public class BattleServiceMockTests {
 //        Stub for method calling repository method
         when(enemyService.findAll()).thenReturn(listOfEnemies);
 
-//        Make new Character
-        character = new Dwarf("Jeffrey", new Stats(), new Media());
-        character.setAttackStyle(UsableType.EQUIPMENT_WEAPON_SWORD);
-        character.setState(NormalState.getInstance());
-
 //        Get the returned enemy from the battle that was set up
         enemy = (Enemy) battleService.setupBattle(character);
         enemy.setActionBehavior(new NormalAttackMock());
 
         battle = battleService.getBattle();
         assertNotNull(battleService.getBattle());
-        assertEquals(character.getNormalState(), character.getNormalState());
-        assertEquals(0, character.getInventory().getUsables().size());
         assertEquals(0, battle.getMessages().size());
         assertEquals(enemy.getHitpoints(), enemy.getCurrentHitpoints());
-        assertEquals(character.getHitpoints(), character.getCurrentHitpoints());
     }
 
     /**
