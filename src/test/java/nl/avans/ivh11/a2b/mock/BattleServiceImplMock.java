@@ -127,6 +127,11 @@ public class BattleServiceImplMock implements BattleService {
         this.doAction();
     }
 
+    @Override
+    public boolean hasOngoingBattle() {
+        return false;
+    }
+
     /**
      * Execute a battle action
      */
