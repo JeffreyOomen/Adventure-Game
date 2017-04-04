@@ -40,7 +40,10 @@ public class BattleController
         User user = securityService.findLoggedInUser();
         this.character = user.getCharacter();
 
-        if ((this.enemy == null || !this.enemy.isAlive() || this.character.isAlive()) || !this.battleService.hasOngoingBattle()) {
+//        if (this.enemy == null || !this.enemy.isAlive() || this.character.isAlive()) {
+//            this.enemy = this.battleService.setupBattle(character);
+//        }
+        if (!this.battleService.hasOngoingBattle()) {
             this.enemy = this.battleService.setupBattle(character);
         }
 
@@ -49,7 +52,7 @@ public class BattleController
 
         uiModel.addAttribute("hasOneOrMoreHealPotions", !this.character.getInventory().CheckUsableExists(UsableType.POTION_HEAL));
         uiModel.addAttribute("hasOneOrMoreOverloadPotions", !this.character.getInventory().CheckUsableExists(UsableType.POTION_OVERLOAD));
-        uiModel.addAttribute("enemy", this.enemy);
+        uiModel.addAttribute("enemy", this.battleService.getBattle().getEnemy());
 
         battleReport();
 
@@ -92,18 +95,18 @@ public class BattleController
      * @return an model containing battle information
      */
     private BattleModel battleReport() {
-        String battleReport = this.battleService.battleReport();
+//        String battleReport = this.battleService.battleReport();
 
         // Return view model as JSON
         return new BattleModel(
                 character.getInventory().getUsables(),
                 character.isAlive(),
-                enemy.isAlive(),
+                this.battleService.getBattle().getEnemy().isAlive(),
                 character.getInventory().CheckUsableExists(UsableType.POTION_HEAL),
                 character.getInventory().CheckUsableExists(UsableType.POTION_OVERLOAD),
                 character.getStats(),
-                enemy.getStats(),
-                battleReport
+                this.battleService.getBattle().getEnemy().getStats(),
+                this.battleService.battleReport()
         );
     }
 }

@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 
-@Service("EnemyService")
+@Service("enemyService")
 @Repository
 public class EnemyServiceImpl implements EnemyService {
 
