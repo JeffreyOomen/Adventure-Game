@@ -40,7 +40,7 @@ public class BattleController
         User user = securityService.findLoggedInUser();
         this.character = user.getCharacter();
 
-        if (this.enemy == null || !this.enemy.isAlive() || this.character.isAlive()) {
+        if ((this.enemy == null || !this.enemy.isAlive() || this.character.isAlive()) || !this.battleService.hasOngoingBattle()) {
             this.enemy = this.battleService.setupBattle(character);
         }
 
