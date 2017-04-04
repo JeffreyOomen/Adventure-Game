@@ -18,4 +18,6 @@ public interface BattleService
     void heal();
 
     Battle getBattle();
+
+    boolean hasOngoingBattle();
 }

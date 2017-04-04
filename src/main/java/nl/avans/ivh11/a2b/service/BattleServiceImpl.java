@@ -17,6 +17,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +30,7 @@ import java.util.Map;
 import java.util.Random;
 
 @Service("battleService")
+@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 @Repository
 @Getter
 @Setter
@@ -267,5 +270,9 @@ public class BattleServiceImpl implements BattleService
         } catch (HibernateException e) {
             System.err.println("Could not rollback the session: " + e);
         }
+    }
+
+    public boolean hasOngoingBattle() {
+        return this.battle != null;
     }
 }

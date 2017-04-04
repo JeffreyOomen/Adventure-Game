@@ -4,31 +4,30 @@ import nl.avans.ivh11.a2b.domain.usable.UsableType;
 import nl.avans.ivh11.a2b.domain.auth.User;
 import nl.avans.ivh11.a2b.presentation.model.BattleModel;
 import nl.avans.ivh11.a2b.service.BattleService;
-import nl.avans.ivh11.a2b.service.CharacterService;
 import nl.avans.ivh11.a2b.service.SecurityService;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class BattleController
 {
     private final BattleService battleService;
 
     private final SecurityService securityService;
 
-    private final CharacterService characterService;
-
     private Opponent character;
     private Opponent enemy;
 
     @Autowired
-    public BattleController(BattleService battleService, SecurityService securityService, CharacterService characterService) {
+    public BattleController(BattleService battleService, SecurityService securityService) {
         this.battleService = battleService;
         this.securityService = securityService;
-        this.characterService = characterService;
     }
 
     /**

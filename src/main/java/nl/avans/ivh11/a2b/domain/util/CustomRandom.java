@@ -48,9 +48,9 @@ public class CustomRandom
         int randomNumber = r.nextInt(100);
 
         // Attacker damage done
-        int randomAttackingDamage = this.randomAttackingDamage(attackingLevel, attackingAccuracy, randomNumber);
+        int randomAttackingDamage = this.randomDamage(attackingLevel, attackingAccuracy, randomNumber);
         // Defender damage defended
-        int randomDefendingDamage = this.randomDefendingDamage(defenseLevel, defenseAccuracy, randomNumber);
+        int randomDefendingDamage = this.randomDamage(defenseLevel, defenseAccuracy, randomNumber);
 
         // From the 50 attacking damage, 20 is being defended, therefore resulting in 30 actual damage
         int actualDamage = randomAttackingDamage - randomDefendingDamage;
@@ -62,45 +62,24 @@ public class CustomRandom
      * This works based on the attacking level (determines the max damage which can be done)
      * and with probabilities based on the attacking accuracy (the higher the accuracy, the
      * higher the chances are that the damage done will be closer to the max damage).
-     * @param attackingLevel e.g. strength, magic, or archery level of the attacker
-     * @param attackingAccuracy e.g. strength, magic or archery accuracy of the attacker
-     * @param randomNumber say for example the attacking level is 10, and the accuracy is 60%.
-     * The max damage which can be done is (10 * 1.5) = 15. There is a 60% chance that the damage
-     * will be between 0 - 8 and 40% chance it will be 8 - 15. The randomNumber gives a random
-     * number with which can be determined if the 60% chance will be applied or the 40% chance.
-     * @return a randomly generated number which represents the attacking damage done based on level and accuracy
-     */
-    private int randomAttackingDamage(int attackingLevel, int attackingAccuracy, int randomNumber) {
-        int maxAttackingDamage = (int) Math.ceil(attackingLevel * 10);
-        int midAttackingDamage = (int) Math.ceil(maxAttackingDamage / 2);
-
-        if (randomNumber < ((attackingAccuracy / 100) * attackingLevel)) {
-            return r.nextInt((maxAttackingDamage - midAttackingDamage) + 1) + midAttackingDamage;
-        } else {
-            return r.nextInt(midAttackingDamage);
-        }
-    }
-
-    /**
-     * Generates a random integer representing the damage done by the attacker.
-     * This works based on the attacking level (determines the max damage which can be done)
-     * and with probabilities based on the attacking accuracy (the higher the accuracy, the
-     * higher the chances are that the damage done will be closer to the max damage).
-     * @param defenseLevel defense level of the defender
-     * @param defenseAccuracy defense accuracy of the defender
+     * @param level defense/attack level of the defender
+     * @param accuracy defense/attack accuracy of the defender
      * @param randomNumber say for example the defense level is 10, and the accuracy is 60%.
      * The max damage which can be defended is (10 * 1.2) = 12. There is a 60% chance that the damage defended
      * will be between 0 - 6 and 40% chance it will be 6 - 12. The randomNumber gives a random
      * number with which can be determined if the 60% chance will be applied or the 40% chance.
      * @return a randomly generated number which represents the damage being defended based on level and accuracy
      */
-    private int randomDefendingDamage(int defenseLevel, int defenseAccuracy, int randomNumber) {
-        int maxDefendingDamage = (int) Math.ceil(defenseLevel * 10);
+    private int randomDamage(int level, int accuracy, int randomNumber) {
+        int maxDefendingDamage = (int) Math.ceil(level * 10);
         int midDefendingDamage = (int) Math.ceil(maxDefendingDamage / 2);
 
-        if (randomNumber < ((defenseAccuracy / 100) * defenseLevel)) {
+        if (randomNumber < ((accuracy / 100) * level)) {
             return r.nextInt((maxDefendingDamage - midDefendingDamage) + 1) + midDefendingDamage;
         } else {
+            if(midDefendingDamage <= 0) {
+                return 1;
+            }
             return r.nextInt(midDefendingDamage);
         }
     }
