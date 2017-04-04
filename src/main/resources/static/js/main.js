@@ -59,7 +59,6 @@ $(document).ready(function () {
 
 
         $('#selectedUsableId').val(id); // Set id (used to delete/mount usable)
-        // $('#selectedUsableId').text(id); // Set id (used to delete/mount usable)
         $('#selectedItemName').text(name); // set name
         $('#selectedItemDesc').text(desc); // set desc
 
@@ -122,11 +121,6 @@ $(document).ready(function () {
 
         var healButttonEnabled = data.specialAttackEnabled;
         var specialAttackButtonEnabled = data.healAttackEnabled;
-
-//        console.log(data);
-//        console.log(healButttonEnabled);
-
-        // setHealButtonState(healButttonEnabled);
 
         // show battle messages and automatically scroll downwards
         var messageContainer = $('.messages');
