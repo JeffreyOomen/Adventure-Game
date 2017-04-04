@@ -58,16 +58,16 @@ public class SpecialAttack extends AttackUtil implements ActionBehavior {
                 }
             }
 
+            int damage = this.calculateDamage(attacker, defender, 1.2);
+
+            // add messages to the list to report the player about the actions taking place
+            attackMessages.add(attacker.getName() + " did a special attack on " + defender.getName() + " with " + damage + " damage");
+            defender.takeDamage(damage);
+
+            // add an optional kill message
+            attackMessages = this.addKillMessage(attackMessages, attacker, defender);
         }
-
-        int damage = this.calculateDamage(attacker, defender, 1.2);
-
-        // add messages to the list to report the player about the actions taking place
-        attackMessages.add(attacker.getName() + " did a special attack on " + defender.getName() + " with " + damage + " damage");
-        defender.takeDamage(damage);
-
-        // add an optional kill message
-        attackMessages = this.addKillMessage(attackMessages, attacker, defender);
+        
         return attackMessages;
     }
 }
