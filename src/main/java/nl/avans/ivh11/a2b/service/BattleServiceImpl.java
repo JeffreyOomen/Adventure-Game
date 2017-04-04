@@ -106,6 +106,7 @@ public class BattleServiceImpl implements BattleService
             this.teardownBattle((Character) this.battle.getCharacter());
         } else if (!this.battle.getCharacter().isAlive()) {
             this.battle.getCharacter().getInventory().getUsables().clear();
+            this.teardownBattle((Character) this.battle.getCharacter());
         }
 
         // clear messages to prevent duplicates

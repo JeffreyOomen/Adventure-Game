@@ -1,5 +1,6 @@
 package nl.avans.ivh11.a2b.presentation.controller;
 
+import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.domain.usable.UsableType;
 import nl.avans.ivh11.a2b.domain.auth.User;
 import nl.avans.ivh11.a2b.presentation.model.BattleModel;
@@ -84,6 +85,22 @@ public class BattleController
     public BattleModel heal() {
         this.battleService.heal();
         return this.battleReport();
+    }
+
+    /**
+     * Returns the state fragment view, which is used in the battle view.
+     * When the state changes, the state can be reloaded asynchronous.
+     * @param uiModel the Model in which data can be passed from the model to the view.
+     * @return the state fragment view
+     */
+    @RequestMapping(value= "/battle/stateFragment", method = RequestMethod.GET)
+    public String stateFragment(Model uiModel) {
+        User user = securityService.findLoggedInUser();
+        Character character = user.getCharacter();
+
+        uiModel.addAttribute("character", character);
+
+        return "fragments/state :: state";
     }
 
     /**

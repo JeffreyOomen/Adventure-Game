@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
+<head>
+    ...
+</head>
+<body>
+<span th:fragment="state">
+    <span th:text="${character.getCurrentState().getName()}"></span>
+</span>
+</body>
+</html>

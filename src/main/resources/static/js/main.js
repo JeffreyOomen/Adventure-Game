@@ -18,6 +18,7 @@ $(document).ready(function () {
     $("#normal_attack").click(function() {
         $.post("/battle/normalAttack", function(data) {
             battleReport(data);
+            reloadBattleState();
         });
     });
 
@@ -26,6 +27,7 @@ $(document).ready(function () {
         $.post("/battle/specialAttack", function(data) {
             battleReport(data);
             reloadInventoryFragment();
+            reloadBattleState();
             disableOrEnableButton('special_attack', data.specialAttackEnabled);
         });
     });
@@ -34,8 +36,8 @@ $(document).ready(function () {
     $("#heal").click(function() {
         $.post("/battle/heal", function(data) {
             battleReport(data);
-
             reloadInventoryFragment();
+            reloadBattleState();
             disableOrEnableButton('heal', data.healAttackEnabled);
         });
     });
@@ -121,8 +123,8 @@ $(document).ready(function () {
         var healButttonEnabled = data.specialAttackEnabled;
         var specialAttackButtonEnabled = data.healAttackEnabled;
 
-        console.log(data);
-        console.log(healButttonEnabled);
+//        console.log(data);
+//        console.log(healButttonEnabled);
 
         // setHealButtonState(healButttonEnabled);
 
@@ -134,6 +136,7 @@ $(document).ready(function () {
         if (!data.isCharacterAlive) {
             $('#regenerate').attr('hidden', false);
             battleEndState();
+            reloadInventoryFragment();
         } else if (!data.isEnemyAlive) {
             $('#go_home').attr('hidden', false);
             battleEndState();
@@ -172,5 +175,9 @@ $(document).ready(function () {
 
     function reloadInventoryFragment() {
         $('#fragmentInventory').load('/inventoryFragment');
+    }
+
+    function reloadBattleState() {
+        $('#fragmentState').load('/battle/stateFragment');
     }
 });
