@@ -4,14 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 import nl.avans.ivh11.a2b.domain.battle.ActionBehavior;
 import nl.avans.ivh11.a2b.domain.usable.Inventory;
+import nl.avans.ivh11.a2b.domain.usable.Usable;
 import nl.avans.ivh11.a2b.domain.usable.UsableType;
 import nl.avans.ivh11.a2b.domain.util.observer.Observable;
 import nl.avans.ivh11.a2b.domain.util.observer.Observer;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @MappedSuperclass
 @Getter
@@ -92,6 +91,7 @@ public abstract class Opponent implements Observable
     /**
      * Regenerate the Opponent, this means that the hitpoints will be reset
      * to the maximum.
+     * Inventory will be dropped.
      */
     public void regenerate() {
         this.stats.setCurrentHitpoints(this.stats.getHitpoints());
