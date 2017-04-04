@@ -94,7 +94,6 @@ public abstract class Opponent implements Observable
      * Inventory will be dropped.
      */
     public void regenerate() {
-        this.getInventory().getUsables().clear();
         this.stats.setCurrentHitpoints(this.stats.getHitpoints());
     }
 

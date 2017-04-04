@@ -30,14 +30,11 @@ import java.util.Random;
 public class BattleServiceImplMock implements BattleService
 {
     private static final String BREAK = "<br/><br/>";
-
     private CharacterRepository characterRepository;
     private EnemyRepository enemyRepository;
     private UsableRepository usableRepository;
-
     private final CharacterService characterService;
     private final EnemyService enemyService;
-
     private Battle battle;
 
     @Autowired
@@ -45,11 +42,8 @@ public class BattleServiceImplMock implements BattleService
         this.characterRepository = characterRepo;
         this.enemyRepository = enemyRepo;
         this.usableRepository = usableRepo;
-
         this.characterService = characterService;
         this.enemyService = enemyService;
-
-
     }
 
     /**
@@ -77,7 +71,6 @@ public class BattleServiceImplMock implements BattleService
      */
     private void teardownBattle(Character character) {
         character.setState(character.getNormalState());
-//        this.saveBattleState(); // save current state
         this.battle = null; // clear memory allocation
     }
 
@@ -119,7 +112,7 @@ public class BattleServiceImplMock implements BattleService
      */
     @Override
     public void attack() {
-        this.battle.getCharacter().setActionBehavior(new NormalAttack());
+        this.battle.getCharacter().setActionBehavior(new NormalAttackMock());
         this.doAction();
     }
 
@@ -130,9 +123,9 @@ public class BattleServiceImplMock implements BattleService
     public void specialAttack() {
         this.battle.getCharacter().setActionBehavior(new SpecialAttack());
         this.doAction();
-    }
+     }
 
-    /**
+     /**
      * Executes a battle event with a heal for the Character
      */
     @Override
