@@ -1,34 +1,27 @@
-package nl.avans.ivh11.a2b.service;
+package nl.avans.ivh11.a2b.mock;
 
 import lombok.Getter;
-import lombok.Setter;
 import nl.avans.ivh11.a2b.datastorage.character.CharacterRepository;
 import nl.avans.ivh11.a2b.datastorage.enemy.EnemyRepository;
 import nl.avans.ivh11.a2b.datastorage.usable.UsableRepository;
 import nl.avans.ivh11.a2b.domain.battle.*;
 import nl.avans.ivh11.a2b.domain.character.Character;
 import nl.avans.ivh11.a2b.domain.enemy.Enemy;
-import nl.avans.ivh11.a2b.domain.usable.Usable;
 import nl.avans.ivh11.a2b.domain.util.CustomRandom;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import nl.avans.ivh11.a2b.service.BattleService;
+import nl.avans.ivh11.a2b.service.CharacterService;
+import nl.avans.ivh11.a2b.service.EnemyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManagerFactory;
 import java.util.List;
 import java.util.Random;
 
-@Repository
 @Getter
-@Setter
-public class BattleServiceImplMock implements BattleService
-{
+@Repository
+public class BattleServiceImplMock implements BattleService {
     private static final String BREAK = "<br/><br/>";
     private CharacterRepository characterRepository;
     private EnemyRepository enemyRepository;
@@ -123,9 +116,9 @@ public class BattleServiceImplMock implements BattleService
     public void specialAttack() {
         this.battle.getCharacter().setActionBehavior(new SpecialAttack());
         this.doAction();
-     }
+    }
 
-     /**
+    /**
      * Executes a battle event with a heal for the Character
      */
     @Override

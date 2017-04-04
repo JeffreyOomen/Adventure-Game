@@ -1,5 +1,7 @@
-package nl.avans.ivh11.a2b.domain.battle;
+package nl.avans.ivh11.a2b.mock;
 
+import nl.avans.ivh11.a2b.domain.battle.ActionBehavior;
+import nl.avans.ivh11.a2b.domain.battle.AttackUtil;
 import nl.avans.ivh11.a2b.domain.util.Opponent;
 
 import java.util.ArrayList;
@@ -8,8 +10,7 @@ import java.util.List;
 /**
  * Attack the Opponent with a normal attack
  */
-public class NormalAttackMock extends AttackUtil implements ActionBehavior
-{
+public class NormalAttackMock extends AttackUtil implements ActionBehavior {
     /**
      * Attack the enemy with a normal attack
      * @param attacker the Opponent which attacks the other Opponent

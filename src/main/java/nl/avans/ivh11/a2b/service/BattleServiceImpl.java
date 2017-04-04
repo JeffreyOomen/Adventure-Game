@@ -25,7 +25,6 @@ import java.util.Random;
 @Service("battleService")
 @Repository
 @Getter
-@Setter
 public class BattleServiceImpl implements BattleService
 {
     private static final String BREAK = "<br/><br/>";

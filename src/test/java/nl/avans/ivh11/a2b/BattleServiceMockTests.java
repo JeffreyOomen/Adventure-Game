@@ -8,8 +8,11 @@ import nl.avans.ivh11.a2b.domain.character.Dwarf;
 import nl.avans.ivh11.a2b.domain.character.state.NormalState;
 import nl.avans.ivh11.a2b.domain.enemy.Enemy;
 import nl.avans.ivh11.a2b.domain.usable.UsableType;
+import nl.avans.ivh11.a2b.domain.util.CustomRandom;
 import nl.avans.ivh11.a2b.domain.util.Media;
 import nl.avans.ivh11.a2b.domain.util.Stats;
+import nl.avans.ivh11.a2b.mock.BattleServiceImplMock;
+import nl.avans.ivh11.a2b.mock.NormalAttackMock;
 import nl.avans.ivh11.a2b.service.*;
 import nl.avans.ivh11.a2b.domain.character.Character;
 import org.junit.After;
@@ -46,11 +49,22 @@ public class BattleServiceMockTests {
 //        Creating battleService
         battleService = new BattleServiceImplMock(characterRepository, enemyRepository, usableRepository, characterService, enemyService);
 
-//        List of enemies for stub
+        character = new Dwarf("Jeffrey", new Stats(), new Media());
+        character.setAttackStyle(UsableType.EQUIPMENT_WEAPON_SWORD);
+        character.setState(NormalState.getInstance());
+    }
+
+    /**
+     * Test if battle setup went correctly.
+     * Check if character and enemy are 'new'.
+     */
+    @Test
+    public void setupBattle() {
+        //        List of enemies for stub
         List<Enemy> listOfEnemies = new ArrayList<>();
-        listOfEnemies.add(new Enemy(new Stats()));
-        listOfEnemies.add(new Enemy(new Stats()));
-        listOfEnemies.add(new Enemy(new Stats()));
+        listOfEnemies.add(new Enemy());
+        listOfEnemies.add(new Enemy());
+        listOfEnemies.add(new Enemy());
 
 //        Stub for method calling repository method
         when(enemyService.findAll()).thenReturn(listOfEnemies);
@@ -65,14 +79,6 @@ public class BattleServiceMockTests {
         enemy.setActionBehavior(new NormalAttackMock());
 
         battle = battleService.getBattle();
-    }
-
-    /**
-     * Test if battle setup went correctly.
-     * Check if character and enemy are 'new'
-     */
-    @Test
-    public void setupBattle() {
         assertNotNull(battleService.getBattle());
         assertEquals(character.getNormalState(), character.getNormalState());
         assertEquals(0, character.getInventory().getUsables().size());
@@ -87,6 +93,21 @@ public class BattleServiceMockTests {
      */
     @Test
     public void characterKillsEnemy() {
+//        List of enemies for stub
+        List<Enemy> listOfEnemies = new ArrayList<>();
+        listOfEnemies.add(new Enemy());
+        listOfEnemies.add(new Enemy());
+        listOfEnemies.add(new Enemy());
+
+//        Stub for method calling repository method
+        when(enemyService.findAll()).thenReturn(listOfEnemies);
+
+//        Get the returned enemy from the battle that was set up
+        enemy = (Enemy) battleService.setupBattle(character);
+        enemy.setActionBehavior(new NormalAttackMock());
+
+        battle = battleService.getBattle();
+
         character.getStats().setStrength(35);
         character.getStats().setDefense(2);
         enemy.getStats().setStrength(12);
@@ -120,6 +141,21 @@ public class BattleServiceMockTests {
      */
     @Test
     public void enemyKillsCharacter() {
+//        List of enemies for stub
+        List<Enemy> listOfEnemies = new ArrayList<>();
+        listOfEnemies.add(new Enemy());
+        listOfEnemies.add(new Enemy());
+        listOfEnemies.add(new Enemy());
+
+//        Stub for method calling repository method
+        when(enemyService.findAll()).thenReturn(listOfEnemies);
+
+//        Get the returned enemy from the battle that was set up
+        enemy = (Enemy) battleService.setupBattle(character);
+        enemy.setActionBehavior(new NormalAttackMock());
+
+        battle = battleService.getBattle();
+
         character.getStats().setStrength(5);
         character.getStats().setDefense(2);
         enemy.getStats().setStrength(40);
@@ -149,6 +185,21 @@ public class BattleServiceMockTests {
      */
     @Test
     public void opponentsWontKill() {
+//        List of enemies for stub
+        List<Enemy> listOfEnemies = new ArrayList<>();
+        listOfEnemies.add(new Enemy());
+        listOfEnemies.add(new Enemy());
+        listOfEnemies.add(new Enemy());
+
+//        Stub for method calling repository method
+        when(enemyService.findAll()).thenReturn(listOfEnemies);
+
+//        Get the returned enemy from the battle that was set up
+        enemy = (Enemy) battleService.setupBattle(character);
+        enemy.setActionBehavior(new NormalAttackMock());
+
+        battle = battleService.getBattle();
+
         character.getStats().setStrength(8);
         character.getStats().setDefense(5);
         enemy.getStats().setStrength(9);
@@ -175,6 +226,21 @@ public class BattleServiceMockTests {
      */
     @Test
     public void multipleAttacks() {
+//        List of enemies for stub
+        List<Enemy> listOfEnemies = new ArrayList<>();
+        listOfEnemies.add(new Enemy());
+        listOfEnemies.add(new Enemy());
+        listOfEnemies.add(new Enemy());
+
+//        Stub for method calling repository method
+        when(enemyService.findAll()).thenReturn(listOfEnemies);
+
+//        Get the returned enemy from the battle that was set up
+        enemy = (Enemy) battleService.setupBattle(character);
+        enemy.setActionBehavior(new NormalAttackMock());
+
+        battle = battleService.getBattle();
+
         character.getStats().setStrength(5);
         character.getStats().setDefense(3);
         enemy.getStats().setStrength(4);
