@@ -1,6 +1,7 @@
 package nl.avans.ivh11.a2b.presentation.controller;
 
 import nl.avans.ivh11.a2b.domain.character.Character;
+import nl.avans.ivh11.a2b.domain.character.state.PoweredState;
 import nl.avans.ivh11.a2b.domain.usable.UsableType;
 import nl.avans.ivh11.a2b.domain.auth.User;
 import nl.avans.ivh11.a2b.presentation.model.BattleModel;
@@ -22,7 +23,7 @@ public class BattleController
 
     private final SecurityService securityService;
 
-    private Opponent character;
+    private Character character;
     private Opponent enemy;
 
     @Autowired
@@ -41,9 +42,6 @@ public class BattleController
         User user = securityService.findLoggedInUser();
         this.character = user.getCharacter();
 
-//        if (this.enemy == null || !this.enemy.isAlive() || this.character.isAlive()) {
-//            this.enemy = this.battleService.setupBattle(character);
-//        }
         if (!this.battleService.hasOngoingBattle()) {
             this.enemy = this.battleService.setupBattle(character);
         }
@@ -52,7 +50,7 @@ public class BattleController
         uiModel.addAttribute("inventoryUsables", this.character.getInventory().getUsables().values());
 
         uiModel.addAttribute("hasOneOrMoreHealPotions", !this.character.getInventory().CheckUsableExists(UsableType.POTION_HEAL));
-        uiModel.addAttribute("hasOneOrMoreOverloadPotions", !this.character.getInventory().CheckUsableExists(UsableType.POTION_OVERLOAD));
+        uiModel.addAttribute("isInPoweredState", !this.character.getCurrentState().getName().equals(PoweredState.getInstance().getName()));
         uiModel.addAttribute("enemy", this.battleService.getBattle().getEnemy());
 
         battleReport();
@@ -120,7 +118,7 @@ public class BattleController
                 character.isAlive(),
                 this.battleService.getBattle().getEnemy().isAlive(),
                 character.getInventory().CheckUsableExists(UsableType.POTION_HEAL),
-                character.getInventory().CheckUsableExists(UsableType.POTION_OVERLOAD),
+                character.getCurrentState().getName().equals(PoweredState.getInstance().getName()),
                 character.getStats(),
                 this.battleService.getBattle().getEnemy().getStats(),
                 this.battleService.battleReport()

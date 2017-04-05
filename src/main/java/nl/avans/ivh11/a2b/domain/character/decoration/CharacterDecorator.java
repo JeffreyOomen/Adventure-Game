@@ -297,6 +297,19 @@ public abstract class CharacterDecorator extends Character
     }
 
     /**
+     * Adds the given hitpoints to the current Hitpoints
+     * @param hitPoints int
+     */
+    public void heal(int hitPoints) {
+        int newHitpoints = this.character.getStats().getCurrentHitpoints() + hitPoints;
+        if(newHitpoints <= this.character.getStats().getHitpoints()) {
+            this.character.getStats().setCurrentHitpoints(newHitpoints);
+        } else {
+            this.character.getStats().setCurrentHitpoints(this.character.getStats().getHitpoints());
+        }
+    }
+
+    /**
      * Attach an Observer
      * @param observer
      */
