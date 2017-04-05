@@ -35,7 +35,7 @@ public class HealPotion extends Usable
      */
     @Override
     public void use(Character character) {
-        character.heal(setHealAmount(character.getCurrentHitpoints()));
+        character.heal(setHealAmount(character.getHitpoints() - character.getCurrentHitpoints()));
     }
 
     /**
@@ -45,6 +45,6 @@ public class HealPotion extends Usable
      * @return int
      */
     private int setHealAmount(int maxHp) {
-        return new Random().nextInt(maxHp);
+        return maxHp;
     }
 }
