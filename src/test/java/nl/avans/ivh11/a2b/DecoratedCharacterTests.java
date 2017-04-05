@@ -258,7 +258,7 @@ public class DecoratedCharacterTests
         this.decoratedCharacter.getStats().setStrengthAccuracy(300);
 
         // Assert
-        assertEquals(310, this.decoratedCharacter.getStrengthAccuracy());
+        assertEquals(100, this.decoratedCharacter.getStrengthAccuracy());
     }
 
     @Test
