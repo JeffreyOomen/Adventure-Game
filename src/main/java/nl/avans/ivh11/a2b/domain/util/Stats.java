@@ -61,7 +61,7 @@ public class Stats
     private static final String ARCHERY   = "ARCHERY";
     private static final String HITPOINTS = "HITPOINTS";
 
-    private static final int AMOUNT_OF_LEVELS = 4;
+    private static final int COMBAT_DIVIDER = 2;
 
     @Transient
     List<String> messages; // used to store logging messages
@@ -237,7 +237,7 @@ public class Stats
         totalLevels += this.archery;
         totalLevels += this.magic;
 
-        this.combatLevel = totalLevels / AMOUNT_OF_LEVELS;
+        this.combatLevel = totalLevels / COMBAT_DIVIDER;
     }
 
     /**

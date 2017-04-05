@@ -24,7 +24,7 @@ public abstract class Opponent implements Observable
     @Lob
     protected ActionBehavior actionBehavior;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval=true)
     @JoinColumn(name = "STATS_ID")
     protected Stats stats;
 
