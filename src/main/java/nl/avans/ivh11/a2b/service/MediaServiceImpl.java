@@ -36,6 +36,10 @@ public class MediaServiceImpl implements MediaService {
 
     @Override
     public Media save(Media media) {
+
+//        if(mediaRepository.findByImageName(media.getImageName()) != null && media.getId() != null) {
+//            return media;
+//        }
         return mediaRepository.save(media);
     }
 }
