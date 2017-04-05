@@ -4,13 +4,10 @@ import nl.avans.ivh11.a2b.domain.battle.SpecialAttack;
 import nl.avans.ivh11.a2b.domain.enemy.Enemy;
 import nl.avans.ivh11.a2b.domain.enemy.EnemyBuilder;
 import nl.avans.ivh11.a2b.domain.enemy.EnemyBuilderDirector;
-import nl.avans.ivh11.a2b.domain.usable.Usable;
 import nl.avans.ivh11.a2b.domain.util.Media;
 import nl.avans.ivh11.a2b.domain.util.Stats;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -27,8 +24,8 @@ public class EnemyTests {
         Stats stats = new Stats();
         stats.setHitpoints(100);
         stats.setArchery(999);
-        ArrayList<Usable> lootList = new ArrayList<>();
         enemy = enemyDirector.createEnemy("Bram", new Media("test.png", "test"), "End boss", new SpecialAttack());
+        enemy.setStats(stats);
     }
 
     @Test
