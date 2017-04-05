@@ -6,4 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface EnemyRepository extends CrudRepository<Enemy, Long>
 {
     // Auto-implemented
+    Enemy findByName(String enemyName);
 }

@@ -67,8 +67,10 @@ public class StartupServiceImpl implements StartupService {
         enemies.add(enemyBuilderDirector.createEnemy("Spider", mediaService.findByName("spider"), "Dark spider", new NormalAttack()));
 
         // Persist all enemies in the database
-        for(Enemy e : enemies) {
-            enemyRepository.save(e);
+        for (Enemy e : enemies) {
+            if (enemyRepository.findByName(e.getName()) == null) {
+                enemyRepository.save(e);
+            }
         }
 
     }
@@ -97,13 +99,14 @@ public class StartupServiceImpl implements StartupService {
         mediaList.add(new Media("../images/rpg-troll.png", "troll"));
 
         // Loot
-        // TODO: implementeren i.p.v harcoded
         mediaList.add(new Media("../images/rpg-potion.png", "potion"));
         mediaList.add(new Media("../images/rpg-sword.png", "sword"));
 
         // Save all media items
-        for(Media m : mediaList) {
-            this.mediaService.save(m);
+        for (Media m : mediaList) {
+            if (mediaService.findByName(m.getImageName()) == null) {
+                this.mediaService.save(m);
+            }
         }
 
     }
@@ -113,10 +116,14 @@ public class StartupServiceImpl implements StartupService {
      */
     private void initializeDemoUser() {
         User user = new User();
+
         user.setUsername("test");
         user.setPlainPassword("password1");
         user.setCharacter(CharacterFactory.createCharacter("Character1", "dwarf", "archer"));
-        this.userService.create(user);
+
+        if(userService.findByUsername(user.getUsername()) == null) {
+            this.userService.create(user);
+        }
     }
 
 }
