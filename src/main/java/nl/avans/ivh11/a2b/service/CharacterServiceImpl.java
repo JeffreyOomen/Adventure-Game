@@ -66,6 +66,10 @@ public class CharacterServiceImpl implements CharacterService
         Usable usable = inventory.getUsable(usableId);
         usable.use(character);
 
+        if(usable.getType() == UsableType.POTION_OVERLOAD) {
+            inventory.dropUsable(usable);
+        }
+
         // Update character
         characterRepository.save(character);
     }

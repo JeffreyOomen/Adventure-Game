@@ -49,7 +49,7 @@ public class InventoryController {
     }
 
     /**
-     * Executes a battle event with a special attack for the Character
+     * Delete a usable from the inventory
      */
     @RequestMapping(value = "/inventory", method = RequestMethod.DELETE)
     @ResponseBody
@@ -66,7 +66,7 @@ public class InventoryController {
     }
 
     /**
-     * Executes a battle event with a special attack for the Character
+     * Use a usable from the inventory
      */
     @RequestMapping(value = "/inventory", method = RequestMethod.POST)
     @ResponseBody
