@@ -18,6 +18,7 @@ $(document).ready(function () {
     $("#normal_attack").click(function() {
         $.post("/battle/normalAttack", function(data) {
             battleReport(data);
+            reloadBattleState();
         });
     });
 
@@ -26,6 +27,7 @@ $(document).ready(function () {
         $.post("/battle/specialAttack", function(data) {
             battleReport(data);
             reloadInventoryFragment();
+            reloadBattleState();
             disableOrEnableButton('special_attack', data.specialAttackEnabled);
         });
     });
@@ -34,8 +36,8 @@ $(document).ready(function () {
     $("#heal").click(function() {
         $.post("/battle/heal", function(data) {
             battleReport(data);
-
             reloadInventoryFragment();
+            reloadBattleState();
             disableOrEnableButton('heal', data.healAttackEnabled);
         });
     });
@@ -57,7 +59,6 @@ $(document).ready(function () {
 
 
         $('#selectedUsableId').val(id); // Set id (used to delete/mount usable)
-        // $('#selectedUsableId').text(id); // Set id (used to delete/mount usable)
         $('#selectedItemName').text(name); // set name
         $('#selectedItemDesc').text(desc); // set desc
 
@@ -121,11 +122,6 @@ $(document).ready(function () {
         var healButttonEnabled = data.specialAttackEnabled;
         var specialAttackButtonEnabled = data.healAttackEnabled;
 
-        console.log(data);
-        console.log(healButttonEnabled);
-
-        // setHealButtonState(healButttonEnabled);
-
         // show battle messages and automatically scroll downwards
         var messageContainer = $('.messages');
         messageContainer.append($('<p "message">' + data.message + '</p>'));
@@ -134,6 +130,7 @@ $(document).ready(function () {
         if (!data.isCharacterAlive) {
             $('#regenerate').attr('hidden', false);
             battleEndState();
+            reloadInventoryFragment();
         } else if (!data.isEnemyAlive) {
             $('#go_home').attr('hidden', false);
             battleEndState();
@@ -172,5 +169,9 @@ $(document).ready(function () {
 
     function reloadInventoryFragment() {
         $('#fragmentInventory').load('/inventoryFragment');
+    }
+
+    function reloadBattleState() {
+        $('#fragmentState').load('/battle/stateFragment');
     }
 });

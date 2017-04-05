@@ -12,7 +12,11 @@
                 <span th:text="#{character.level}"></span> <span id="charLvl" th:text="${character.getStats().getCombatLevel()}"></span><br/>
                 <span th:text="#{character.hp}"></span> <span id="charCurrentHp" th:text="${character.getStats().getCurrentHitpoints()}"></span>/<span
                     id="charHp" th:text="${character.getStats().getHitpoints()}"></span><br/>
-                <span th:text="#{character.state}"></span> <span id="charState" th:text="${character.getCurrentState().getName()}"></span>
+                <span th:text="#{character.state}"></span>
+                <span id="fragmentState">
+                    <span th:replace="fragments/state :: state"></span>
+                </span>
+                <!--<span id="charState" th:text="${character.getCurrentState().getName()}"></span>-->
             </div>
             <div class="battler" th:style="'background-image: url(' + ${character.getMedia().getImageUrl()} + ')'" >
             </div>
